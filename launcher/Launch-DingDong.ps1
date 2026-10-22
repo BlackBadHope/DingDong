@@ -13,9 +13,14 @@ try {
     $dotnet=Join-Path $official 'dotnet\dotnet.exe'
     $gate=Join-Path $PSScriptRoot 'bin\Release\net8.0\SteamLicenseGate.dll'
     if(!(Test-Path -LiteralPath $gate -PathType Leaf)) { throw 'Build the own-source SteamLicenseGate helper before launch.' }
-    $proofText=& $dotnet $gate --official-tml $official
+    $proofText=@(& $dotnet $gate --official-tml $official 2>&1)
     if($LASTEXITCODE -ne 0) { throw 'STEAM_LICENSE_UNVERIFIED: start Steam under this Windows user, sign in online, and install licensed Terraria (105600) and tModLoader (1281930). No game was started.' }
-    $proof=$proofText | ConvertFrom-Json
+    # Steam's native SDK may print initialization diagnostics. Consume only our
+    # one tagged result; never display or save the SDK's account diagnostics.
+    $prefix='DINGDONG_LICENSE_RESULT='
+    $records=@($proofText | Where-Object { $_ -is [string] -and $_.StartsWith($prefix,[StringComparison]::Ordinal) })
+    if($records.Count -ne 1) { throw 'Steam verification did not return one authenticated policy result.' }
+    $proof=$records[0].Substring($prefix.Length) | ConvertFrom-Json
     if(!$proof.Verified -or $proof.Code -ne 'STEAM_TERRARIA_ENTITLEMENT_VERIFIED' -or [IO.Path]::GetFullPath($proof.TmlPath).TrimEnd('\') -ne $official) { throw 'Steam ownership verification did not return the expected result.' }
     $engine=Join-Path $runtime 'tModLoader.dll'
     if((Get-FileHash -LiteralPath $engine -Algorithm SHA256 -ErrorAction Stop).Hash -ne '00D560FAA33CE25522E85792CD1B25C8D5BE95787A10AE2B03FA33AC496BDF2E') { throw 'The private runtime does not match the pinned locally reproduced engine.' }

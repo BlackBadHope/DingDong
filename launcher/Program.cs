@@ -17,7 +17,7 @@ internal static class Program
                 throw new ArgumentException("Usage: SteamLicenseGate --official-tml <official Steam tModLoader folder>");
             using var steam = new InstalledSteamSession(args[1]);
             var result = LicenseGate.Check(steam);
-            Console.WriteLine(JsonSerializer.Serialize(result));
+            Console.WriteLine("DINGDONG_LICENSE_RESULT=" + JsonSerializer.Serialize(result));
             return result.Verified ? 0 : 20;
         }
         catch (Exception error)
@@ -65,7 +65,7 @@ internal static class LicenseGate
 // pinned official tML installation. This class is never constructed by SelfTest.
 internal sealed class InstalledSteamSession : ISteamSession
 {
-    private const string ManagedSha = "C292A77537B2CA8083A055442F957B53F330DA522E2472A5AAD8E1B00BDACFFF";
+    private const string ManagedSha = "F9EFA5D01D4606379236411FD884664531F5A1BC0D60141024975929AF91A8D8";
     private const string NativeSha = "E082BF5C9F881C822B1540A76B74F9D15E18019A73EBD206A559595BADCB7F65";
     private const string Library = "Libraries/steamworks.net.anycpu/2025.162.4/";
     private readonly Assembly api;
@@ -77,7 +77,9 @@ internal sealed class InstalledSteamSession : ISteamSession
         if (!OperatingSystem.IsWindows() || !Environment.Is64BitProcess)
             throw new PlatformNotSupportedException("This candidate supports Windows x64 only.");
         selectedTml = Path.GetFullPath(officialTml).TrimEnd(Path.DirectorySeparatorChar);
-        var managed = Path.Combine(selectedTml, Library, "lib/net8.0/Steamworks.NET.dll");
+        // lib/net8.0 contains the compile-time reference assembly in this tML
+        // package. Execute only the pinned Windows runtime implementation.
+        var managed = Path.Combine(selectedTml, Library, "runtimes/win/lib/net8.0/Steamworks.NET.dll");
         var native = Path.Combine(selectedTml, Library, "runtimes/win-x64/native/steam_api64.dll");
         VerifyLocalFile(managed, ManagedSha); VerifyLocalFile(native, NativeSha);
         // This is the real tML API context, not a fabricated ownership response.

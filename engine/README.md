@@ -8,7 +8,7 @@ Build with .NET SDK `9.0.315` and Mono.Cecil `0.11.6` obtained from the official
 
 ```powershell
 dotnet build EnginePatch.csproj -c Release --configfile NuGet.Config
-dotnet bin/Release/net9.0/EnginePatch.dll '<official-tML>/tModLoader.dll' '<private-runtime>/tModLoader.dll'
+dotnet bin/Release/net8.0/EnginePatch.dll '<official-tML>/tModLoader.dll' '<private-runtime>/tModLoader.dll'
 ```
 
 The output path and adjacent `.patch-verification.json` must not exist. The patcher compares all normalized method bodies, metadata and resources with the input, preserves the original MaxStack values and requires the exact output SHA256. A different input, a second matching literal, a changed assembly contract or a nonmatching output fails closed. It never starts the game or modifies the input.

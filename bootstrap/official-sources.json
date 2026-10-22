@@ -1,0 +1,28 @@
+{
+  "format": "dingdong-official-source-hints-v1",
+  "checkedUtc": "2026-10-22T00:00:00Z",
+  "note": "Source IDs only; never override reference hashes or grant redistribution rights.",
+  "sources": [
+    {
+      "name": "OreExcavator",
+      "workshopId": "2565639705",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2565639705",
+      "authorSource": "https://github.com/CrazyContraption/OreExcavator",
+      "evidence": "Author Workshop item and author repository; exact reference package identity remains unverified."
+    },
+    {
+      "name": "StructureHelper",
+      "workshopId": "2790924965",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2790924965",
+      "authorSource": "https://github.com/ScalarVector1/StructureHelper",
+      "evidence": "Author Workshop item links the StructureHelper author repository; exact reference package identity remains unverified."
+    },
+    {
+      "name": "PackWorldgenFix",
+      "workshopId": null,
+      "officialSource": null,
+      "authorSource": null,
+      "evidence": "No exact-name primary public source identified by bounded lookup. Do not substitute a similarly named mod."
+    }
+  ]
+}

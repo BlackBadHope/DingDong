@@ -1,0 +1,4 @@
+output/
+tests/_work/
+tests/test-output.log
+tests/test-results.json
