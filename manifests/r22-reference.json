@@ -1,0 +1,614 @@
+{
+  "format": "dingdong-reference-inventory-v1",
+  "referenceVersion": "0.28.8",
+  "referenceSequence": 22,
+  "publicationStatus": "blocked-game-payload",
+  "steamAppId": 105600,
+  "tModLoaderAppId": 1281930,
+  "note": "References and byte identities only. These entries grant no redistribution rights and are not an automatic installation manifest.",
+  "mods": [
+    {
+      "name": "CalamityModMusic",
+      "file": "2025.12CalamityModMusic.tmod",
+      "sha256": "ca202bc18ae690d5ea7267b42c9ec8162241a19aafc9efdf40eff0a59eada9e5",
+      "bytes": 187897536,
+      "workshopId": "2824688266",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2824688266",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "CalamityMod",
+      "file": "2026.6CalamityMod.tmod",
+      "sha256": "1ec82bf05229f20dbc26b598c40c2b429d329533a8cba5e0c6b554e458ecd79f",
+      "bytes": 120255619,
+      "workshopId": "2824688072",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2824688072",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "AbilityToRead",
+      "file": "AbilityToRead.tmod",
+      "sha256": "14ecadd972e8233ce8a91ce892351cea31f162d1aa96f3cc8badab53a4202c79",
+      "bytes": 12033,
+      "workshopId": "3408499520",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=3408499520",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "AbslbRecipe",
+      "file": "AbslbRecipe.tmod",
+      "sha256": "b43433120b7b4f4a653ac18c984a60ad4a0596984825c0d9aa5f1e70e006702a",
+      "bytes": 61504,
+      "workshopId": "2926676761",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2926676761",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "AlchemistNPCLite",
+      "file": "AlchemistNPCLite.tmod",
+      "sha256": "2af2b21c10410811f9fe8cc8f1efd4a458b4ce07a555f5711bb18ce3309f92f7",
+      "bytes": 411239,
+      "workshopId": "2599842771",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2599842771",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "androLib",
+      "file": "androLib.tmod",
+      "sha256": "1010146e1f304d4e9395e9a969d6f8776d0fc8e9e1a102d2e7932bcc8e634353",
+      "bytes": 795554,
+      "workshopId": "3021285778",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=3021285778",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "AnglerArmorBonus",
+      "file": "AnglerArmorBonus.tmod",
+      "sha256": "ab3a3a10524697a28e32754a3f541d2521dfb306ffc0f1a5c5ec977b7461bd1f",
+      "bytes": 31218,
+      "workshopId": "2855029115",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2855029115",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "AssortedCrazyThings",
+      "file": "AssortedCrazyThings.tmod",
+      "sha256": "3627685350ec43147b35fdd411a93eba0840bcf830a204054bd9e1842bcb1ede",
+      "bytes": 3200341,
+      "workshopId": "2795859323",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2795859323",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "Autofish",
+      "file": "Autofish.tmod",
+      "sha256": "567282ca804d31388b1c83cdd80d16a628af3dbed9facf1ae02cf111d4bf8d22",
+      "bytes": 30224,
+      "workshopId": "2621687273",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2621687273",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "AutoHealMod",
+      "file": "AutoHealMod.tmod",
+      "sha256": "e5f3f652e0866a5f2e7794e1c2cf651e443f27c87bdf131d40e34cc3b580c693",
+      "bytes": 18703,
+      "workshopId": "2811781981",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2811781981",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "AutoTrash",
+      "file": "AutoTrash.tmod",
+      "sha256": "a8009619adc866e8f58f45ee9bac0741a3a5d42a45488055375e5f80fb068c97",
+      "bytes": 70552,
+      "workshopId": "2565540604",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2565540604",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "BetterBossBarPlus",
+      "file": "BetterBossBarPlus.tmod",
+      "sha256": "49a285308031c15293690ded4ead09e39d72820cdab799e1541836660240ff04",
+      "bytes": 2161224,
+      "workshopId": "3018447913",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=3018447913",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "BetterExtractinator",
+      "file": "BetterExtractinator.tmod",
+      "sha256": "12408ccff86822d977f2bad2db6db5b1800612d9e876048a88506738522c0db8",
+      "bytes": 17768,
+      "workshopId": "2773928114",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2773928114",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "BetterMultiplayer",
+      "file": "BetterMultiplayer.tmod",
+      "sha256": "b29bf24dbc4a235c27662c63e4a752636c8123ba0b4806d3e7edc4e7dcd27992",
+      "bytes": 21586,
+      "workshopId": "2634682993",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2634682993",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "BetterZoom",
+      "file": "BetterZoom.tmod",
+      "sha256": "b659cd5958003d4f8128a4557fba5c727fdad16886e57fcbea82a45bc49d7d6d",
+      "bytes": 326925,
+      "workshopId": "2562953970",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2562953970",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "BossChecklist",
+      "file": "BossChecklist.tmod",
+      "sha256": "2fa4bb4240c969b5bb3d8e8354e0ce27e5595c2401e8008f4c6152dbac07b92d",
+      "bytes": 837172,
+      "workshopId": "2669644269",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2669644269",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "CalamityRuTranslate",
+      "file": "CalamityRuTranslate.tmod",
+      "sha256": "5cfee338780bece83c804ded69e213a0e95f1701dc078272efe6d736d163c82f",
+      "bytes": 77726186,
+      "workshopId": "2831360228",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2831360228",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "CalValEX",
+      "file": "CalValEX.tmod",
+      "sha256": "7b7521d33bbe6032f6d26a19e8332e84171b335e6a9fa79f6f14cd43eb2649c6",
+      "bytes": 14646068,
+      "workshopId": "2824688804",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2824688804",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "CheatSheet",
+      "file": "CheatSheet.tmod",
+      "sha256": "c1b3436c2b5eff41942abac954da6bcdf4e603066b0938682184ea937e7fe56b",
+      "bytes": 160344,
+      "workshopId": "2563784437",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2563784437",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "ColoredDamageTypes",
+      "file": "ColoredDamageTypes.tmod",
+      "sha256": "90ed59e757237c2e24b2438072280e03072590564f3e3c4acc5b9835dbdefa4d",
+      "bytes": 130894,
+      "workshopId": "2793782057",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2793782057",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "danmaku",
+      "file": "danmaku.tmod",
+      "sha256": "346d599f52d1e30434a093a3c00f6b87e8e99b308691597f6ae455e4a7a4b1af",
+      "bytes": 40811,
+      "workshopId": "3337452687",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=3337452687",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "DingDongBiomeHomes",
+      "file": "DingDongBiomeHomes.tmod",
+      "sha256": "afc15773fb44cb10ab2a49b34a539e98bb43ffa91e9fb1af61f879b76534c1f3",
+      "bytes": 6730840,
+      "workshopId": null,
+      "officialSource": null,
+      "redistribution": "blocked-private-content"
+    },
+    {
+      "name": "Fargowiltas",
+      "file": "Fargowiltas.tmod",
+      "sha256": "08606f98ecd659923c9dd7dd1988e962a9cb5548f05665a1a15ccb8539656a12",
+      "bytes": 1248380,
+      "workshopId": "2570931073",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2570931073",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "FargowiltasSouls",
+      "file": "FargowiltasSouls.tmod",
+      "sha256": "d30c74544fae2ad4d53adccc0a9d42bfd9124fec96191740b980e77af1fa48ca",
+      "bytes": 75556723,
+      "workshopId": "2815540735",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2815540735",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "FishermanNPC",
+      "file": "FishermanNPC.tmod",
+      "sha256": "0173f501ed9bb23ac52268c42b3fae0cfd366784f09e64422680fa3ffa6d3a6e",
+      "bytes": 136750,
+      "workshopId": "2563751792",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2563751792",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "FishGunsPlus",
+      "file": "FishGunsPlus.tmod",
+      "sha256": "4e7d4e4c8d3724fb2c057a74fd03e0537d81753af00e5c9260472ead54c35d8b",
+      "bytes": 6034930,
+      "workshopId": "2981752535",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2981752535",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "FishinRodZenith",
+      "file": "FishinRodZenith.tmod",
+      "sha256": "fd8b1fb8839ff54a46b7f8647c82c167d2f168273db9fc69945f2a596bd1bd2b",
+      "bytes": 467944,
+      "workshopId": "3067961985",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=3067961985",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "GlobalTrinkets",
+      "file": "GlobalTrinkets.tmod",
+      "sha256": "1183bcc806f500b7495b0509f6bc6553f1f6cadbea8dfda252b81455295c80d9",
+      "bytes": 20488,
+      "workshopId": "2674719917",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2674719917",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "ImproveGame",
+      "file": "ImproveGame.tmod",
+      "sha256": "3b45b80ba870f51aaaf81e6918dc587765318305c50cf1f1caa307a9795fc45b",
+      "bytes": 8586968,
+      "workshopId": "2797518634",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2797518634",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "InfiniteMunitions",
+      "file": "InfiniteMunitions.tmod",
+      "sha256": "f3cddc47eb9cf552586f55932c0190a8cece185d39ad455291ff425c3bd06e28",
+      "bytes": 43101,
+      "workshopId": "2713674858",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2713674858",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "KokoLib",
+      "file": "KokoLib.tmod",
+      "sha256": "30aad8c9ef867230f06ff0a574128feece313c200f2bfbc508cfb4a3ec295638",
+      "bytes": 39747,
+      "workshopId": "2845512631",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2845512631",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "LansHouseBuilder",
+      "file": "LansHouseBuilder.tmod",
+      "sha256": "5fad1852024beddd0280db015c9c710e93d8e49d2fe6fb2eff826c5caa828907",
+      "bytes": 72613,
+      "workshopId": "2826246821",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2826246821",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "LansUILib",
+      "file": "LansUILib.tmod",
+      "sha256": "828da41f81e055f40047f428f2bdb5204cabd67ff1f069477fe2669e6a991e0a",
+      "bytes": 80849,
+      "workshopId": "2838049771",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2838049771",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "LansUncraftItems",
+      "file": "LansUncraftItems.tmod",
+      "sha256": "5ccef223157e30e1c318ec25005e9e33b6a520d499ab119fe308ca66bf8c855c",
+      "bytes": 55511,
+      "workshopId": "2731445586",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2731445586",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "LootBeams",
+      "file": "LootBeams.tmod",
+      "sha256": "b11d1a0d7344ba5d80c5da2932bc149406ddc29eb3bc7012646c1cf6508da61c",
+      "bytes": 65144,
+      "workshopId": "2847872897",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2847872897",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "LootBonus",
+      "file": "LootBonus.tmod",
+      "sha256": "80aadfffe3f6712fe18431badecc0f93d0450290f113470525888df3b8c01f3f",
+      "bytes": 16048,
+      "workshopId": "2803697863",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2803697863",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "Luminance",
+      "file": "Luminance.tmod",
+      "sha256": "47a1ce462a4b407efcb1f043419d58bb750cc60addffcb4e3e442612c0495cad",
+      "bytes": 4640878,
+      "workshopId": "3222493606",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=3222493606",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "MagicStorage",
+      "file": "MagicStorage.tmod",
+      "sha256": "58b382ec0f9845f5430e5f4746642cb938a482dfacb3b62eac79b932fb6b959f",
+      "bytes": 1660730,
+      "workshopId": "2563309347",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2563309347",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "MaxStackExtra",
+      "file": "MaxStackExtra.tmod",
+      "sha256": "c36bb45eae2e49aaa138e01c82b9d4952d52a9c894606ae10e3c6bc97c5036cc",
+      "bytes": 14297,
+      "workshopId": "2562915378",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2562915378",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "miningcracks_take_on_luiafk",
+      "file": "miningcracks_take_on_luiafk.tmod",
+      "sha256": "75f3d83a4f1bb1ed1b66326af86919222311d55dd03d4f13d5b167f74779c056",
+      "bytes": 1051236,
+      "workshopId": "2831752947",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2831752947",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "MoreEndlessAmmo",
+      "file": "MoreEndlessAmmo.tmod",
+      "sha256": "5b3750167c99e2aea191ee48d074a7bafd5842c779a49e425f7dcb4e9a99edb3",
+      "bytes": 83033,
+      "workshopId": "2566353646",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2566353646",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "NoFishingQuests",
+      "file": "NoFishingQuests.tmod",
+      "sha256": "ceafeb36d239ccee0b6af0c9b502651f09bbbca1c123a90163452341e051d713",
+      "bytes": 85214,
+      "workshopId": "2563082541",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2563082541",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "OmniSwing",
+      "file": "OmniSwing.tmod",
+      "sha256": "075cde3c9988d47affa247bf4aabe2fad82f398770a7362780a3712880b251a3",
+      "bytes": 25924,
+      "workshopId": "2614857307",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2614857307",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "OneStopNPCShop",
+      "file": "OneStopNPCShop.tmod",
+      "sha256": "19a99897a196c0a2c3a95b258c8d42acf87c7bfc727fa0e90592f1c8c82ecb43",
+      "bytes": 106276,
+      "workshopId": "2572367426",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2572367426",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "OreExcavator",
+      "file": "OreExcavator.tmod",
+      "sha256": "64d439086be53f53659ae7d4f11db55b3c9966a0b99075c71c8d95b114125489",
+      "bytes": 245666,
+      "workshopId": null,
+      "officialSource": null,
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "PackBuilder",
+      "file": "PackBuilder.tmod",
+      "sha256": "dac8970f56fc770aacae425e749aa4c3715173aa85e39c8bb3380072f2d50ccd",
+      "bytes": 3321017,
+      "workshopId": "3446119263",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=3446119263",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "PackWorldgenFix",
+      "file": "PackWorldgenFix.tmod",
+      "sha256": "a8f3c6b9c7c7402b538763c2fda48b6b4fa25f92d6f197576a975c0f22f9806e",
+      "bytes": 22288,
+      "workshopId": null,
+      "officialSource": null,
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "PlayerSwapper",
+      "file": "PlayerSwapper.tmod",
+      "sha256": "f653c539bb088aa995dc8a3c8e860bcc2460b7af7b51ef49a6c798d0995fca83",
+      "bytes": 29409,
+      "workshopId": "2806899404",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2806899404",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "PrettyRarities",
+      "file": "PrettyRarities.tmod",
+      "sha256": "1606e21d263c37f32e3cd24ad5f36eeafb0db590ab18fd2dd4ec6d741275040e",
+      "bytes": 10785227,
+      "workshopId": "3201195744",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=3201195744",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "RandomLoot",
+      "file": "RandomLoot.tmod",
+      "sha256": "44d5c2c4bd7e25356a9fc46fc0e8e93e95e1f8681d536f70793c17a20e55346e",
+      "bytes": 26727,
+      "workshopId": "2940755468",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2940755468",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "RecipeBrowser",
+      "file": "RecipeBrowser.tmod",
+      "sha256": "efc90e330ae365244ca8f024904351e6a97668ffd4fac7cd5d936d857eb6958b",
+      "bytes": 426146,
+      "workshopId": "2619954303",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2619954303",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "SerousCommonLib",
+      "file": "SerousCommonLib.tmod",
+      "sha256": "3a55aeef1828cc369e8a4d3c087562d815e664c7e88e40cd5fe42c1c073d3a26",
+      "bytes": 87794,
+      "workshopId": "2908170107",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2908170107",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "SeveralfoldProjectiles",
+      "file": "SeveralfoldProjectiles.tmod",
+      "sha256": "f192d3199f31ad994077e7d1f7cc9e3f13cf66fc804d8137a707bede1e15824f",
+      "bytes": 105047,
+      "workshopId": "2817161642",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2817161642",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "SignatureEquipment",
+      "file": "SignatureEquipment.tmod",
+      "sha256": "77fe170bbd687813f07229a42ef24798687faef908a59ca9c30a11584d546025",
+      "bytes": 78308,
+      "workshopId": "2829442749",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2829442749",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "SilkyUIFramework",
+      "file": "SilkyUIFramework.tmod",
+      "sha256": "b116cfdbbd66ec8dad5a9a51ee98df3aa852a0feb2ec8bc25124982657468509",
+      "bytes": 1125798,
+      "workshopId": "3403460014",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=3403460014",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "SOTS",
+      "file": "SOTS.tmod",
+      "sha256": "4642380a29751664afa9122f01a8cf4491232ef9cd7bdb40e15c6d8e4e7c3790",
+      "bytes": 77113254,
+      "workshopId": "2843112914",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2843112914",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "StructureHelper",
+      "file": "StructureHelper.tmod",
+      "sha256": "29ae998124f3bb7ba4d064f74b8bd48962864f211f701b83dcd55ee23c0aa078",
+      "bytes": 125868,
+      "workshopId": null,
+      "officialSource": null,
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "SubworldLibrary",
+      "file": "SubworldLibrary.tmod",
+      "sha256": "d45218bc3381b3fe7b596ea7f42a4d07abd91cfcb661ae581d74601223e9ced1",
+      "bytes": 60266,
+      "workshopId": "2785100219",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2785100219",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "SummonersAssociation",
+      "file": "SummonersAssociation.tmod",
+      "sha256": "b7bcc260d15b4e11245f84b1ba73ecdb97b29f322e445cb3076d6ae13405a525",
+      "bytes": 100055,
+      "workshopId": "2561619075",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2561619075",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "ThoriumMod",
+      "file": "ThoriumMod.tmod",
+      "sha256": "8bfb470598de2c46629a2fbd29981b3a73c2e285d464a02f3681a91483331459",
+      "bytes": 27254161,
+      "workshopId": "2909886416",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2909886416",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "UnlimitedBuffSlots",
+      "file": "UnlimitedBuffSlots.tmod",
+      "sha256": "f7153b76a39c6c815f447c79e3869ecf53d423521f0d070317eb7584b1bcebc8",
+      "bytes": 13445,
+      "workshopId": "2580273153",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2580273153",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "UnuBattleRods",
+      "file": "UnuBattleRods.tmod",
+      "sha256": "974ff76079e1ecb5bd1ae2afd3999744cc5becfcda29ccbde6113406ad2cde23",
+      "bytes": 778663,
+      "workshopId": "2896816354",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2896816354",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "VacuumOreBag",
+      "file": "VacuumOreBag.tmod",
+      "sha256": "8467b8954caaa376c19b0cce1f4e0e0a184bfb49c2a708797559733012ef61ab",
+      "bytes": 51650,
+      "workshopId": "3022671410",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=3022671410",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "WeaponEnchantments",
+      "file": "WeaponEnchantments.tmod",
+      "sha256": "c5814a23b8afa1c8170002051b4d319805cdc0f1814e1c1040020864a44f7340",
+      "bytes": 1754336,
+      "workshopId": "2809886101",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2809886101",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "WeaponOutLite",
+      "file": "WeaponOutLite.tmod",
+      "sha256": "d4a57aaf932af5a13a4271d537d811870958ae110f0da6387fe2a4d36ca3359d",
+      "bytes": 234029,
+      "workshopId": "3455924006",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=3455924006",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "WingSlotExtra",
+      "file": "WingSlotExtra.tmod",
+      "sha256": "d70fe01b38a20b91b45e429abc77cb81864ddcbc50cfd3bd88a9f9aa02231608",
+      "bytes": 253516,
+      "workshopId": "2597324266",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2597324266",
+      "redistribution": "not-reviewed-not-mirrored"
+    },
+    {
+      "name": "WMITF",
+      "file": "WMITF.tmod",
+      "sha256": "fbd1a1560607366a4579091d53a0c81d551a0b94f44c67c5e3e5ffbdc37e53c0",
+      "bytes": 38009,
+      "workshopId": "2563851005",
+      "officialSource": "https://steamcommunity.com/sharedfiles/filedetails/?id=2563851005",
+      "redistribution": "not-reviewed-not-mirrored"
+    }
+  ]
+}

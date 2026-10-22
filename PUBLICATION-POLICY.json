@@ -1,0 +1,10 @@
+{
+  "format": "dingdong-publication-policy-v1",
+  "gamePayloadStatus": "separate-public-candidate-acceptance-pending",
+  "defaultDecision": "deny",
+  "allowedCategories": ["original-tooling-source", "original-tooling-binary", "original-mod-source", "reviewed-original-mod-binary", "original-generated-art", "reviewed-Structify-MIT-structure", "original-documentation", "reference-metadata", "applicable-license-notice", "synthetic-test-fixture"],
+  "prohibitedCategories": ["Terraria-game-binaries", "Terraria-content", "full-patched-game-assembly", "third-party-tmod-mirrors", "private-workshop-structures", "unverified-graphics-audio-fonts", "decompiled-provider-source", "save-data", "credentials", "release-private-keys"],
+  "installationRequiresOfficialSteamTerraria": true,
+  "steamEntitlementIsNotRedistributionPermission": true,
+  "sourceAvailabilityIsNotPlayableReleaseAcceptance": true
+}

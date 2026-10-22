@@ -1,0 +1,7 @@
+bin/
+obj/
+.packages/
+.dotnet-home/
+.work/
+*.dll
+*.pdb

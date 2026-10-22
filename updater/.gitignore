@@ -1,0 +1,7 @@
+Downloads/
+Backups/
+Bootstrap/
+installation.json
+installed.json
+.updater.lock
+*.part

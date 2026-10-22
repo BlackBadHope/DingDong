@@ -1,0 +1,18 @@
+DingDong Original Contributions — Personal Use 1.0
+Identifier: LicenseRef-DingDong-Personal-Use-1.0
+
+The project owner permits downloading, installing and running the original
+DingDong contributions published in this repository for personal use with a
+legitimate Steam entitlement to Terraria and the official tModLoader.
+
+No permission to redistribute Terraria, Steam components, third-party mods,
+translations, music or other third-party content is granted by this notice.
+Those works retain their own terms and must be obtained from their authorised
+sources. Separately identified third-party files retain their own licences.
+
+No general open-source licence, right to sublicense, or permission to publish
+modified copies of the original DingDong contributions is granted here. Other
+rights and applicable statutory exceptions are reserved.
+
+These original contributions are provided as is, without a warranty of fitness
+or uninterrupted operation, to the extent permitted by applicable law.

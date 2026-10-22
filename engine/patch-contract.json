@@ -1,0 +1,17 @@
+{
+  "format": "dingdong-local-engine-patch-v1",
+  "tModLoaderVersion": "1.4.4.9+2026.08.3.0",
+  "upstreamCommit": "c9545cf27d56c456321e1896274c02adf67d0140",
+  "inputSha256": "FCC6A9624B12191BE4A15D714A3675440911FEB8C1D374642AB1FD686F0DA0A5",
+  "outputSha256": "00D560FAA33CE25522E85792CD1B25C8D5BE95787A10AE2B03FA33AC496BDF2E",
+  "method": "System.Void Terraria.Main::OnSubmitServerPassword()",
+  "instructionIndex": 88,
+  "oldLiteral": "tModLoader.dll -server ",
+  "newLiteral": "tModLoader.dll -server -steamworkshopfolder \"DingDongWorkshop\" ",
+  "semanticChanges": 1,
+  "monoCecilVersion": "0.11.6",
+  "sdkVersion": "9.0.315",
+  "baseDllRedistributed": false,
+  "terrariaAssetsRedistributed": false,
+  "policy": "Obtain the pinned official runtime through Steam locally. Apply this own-source patch only to a separate private output. Any different input or output hash is unsupported."
+}
