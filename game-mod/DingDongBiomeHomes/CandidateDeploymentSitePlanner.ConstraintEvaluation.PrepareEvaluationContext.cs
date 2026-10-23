@@ -1,0 +1,28 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace DingDongBiomeHomes;
+/// <summary>
+/// Candidate-envelope search shared by the independent 3F preview gate and
+/// normal world generation. Independent planning intentionally ignores other
+/// DingDong scenes. Simultaneous planning broad-phases with every accepted
+/// protected footprint, keeps each primary authored residence focus visually
+/// separate, resolves sparse-envelope overlaps against the exact mutation
+/// masks, and rejects persistent-object collisions before any tile mutation.
+/// </summary>
+public static partial class CandidateDeploymentSitePlanner
+{
+	private static List<CandidateDeploymentSite> PrepareEvaluationContext(IReadOnlyDictionary<string, RankedLayoutCandidate> assigned)
+	{
+		List<CandidateDeploymentSite> planned = new(assigned.Count);
+		foreach (RankedLayoutCandidate existing in assigned.Values)
+			planned.Add(existing.Site);
+		return planned;
+	}
+}

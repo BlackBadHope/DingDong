@@ -1,0 +1,5 @@
+using System;
+using System.Collections.Generic;
+
+namespace DingDongBiomeHomes;
+public sealed record ConstraintSolverStats<TVariable>(int NodesVisited, int Evaluations, int SelectionEvaluations, int ForwardEvaluations, long PairChecks, long PairLookups, int PairEvaluations, int ForwardPairValuesRemoved, int ForwardAggregateValuesRemoved, int ArcQueuePops, int ArcRevisions, long ArcPairChecks, long ArcPairLookups, int ArcPairEvaluations, int ArcValuesRemoved, int ArcWipeouts, int Backtracks, int DeadDomains, int CompleteAssignments, int RejectedCompleteAssignments, int MaxAssigned, int ValueOrderings, int ConstraintWeightUpdates, int MaxConstraintWeight, long ElapsedMilliseconds, bool BudgetExhausted, bool TimeBudgetExhausted, bool AggregateBudgetExhausted, bool PairBudgetExhausted, bool ArcBudgetExhausted, bool ArcWipeout, TVariable BlockedVariable, TVariable ArcBlockedVariable, TVariable ArcWitnessVariable, IReadOnlyList<TVariable> DeepestPath, IReadOnlyDictionary<TVariable, int> ArcValuesRemovedByVariable, IReadOnlyDictionary<TVariable, int> DeadDomainsByVariable);

@@ -1,0 +1,870 @@
+Items: {
+	FishingSilverSprat: {
+		DisplayName: Silver sprat
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Coastal shoals; hook depth 0–40 tiles
+			Surface layer of the world
+			'''
+	}
+
+	FishingSandDab: {
+		DisplayName: Sand dab
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Coastal shoals; hook depth 4–48 tiles
+			Surface layer of the world
+			'''
+	}
+
+	FishingCoralMullet: {
+		DisplayName: Coral mullet
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Coastal shoals; hook depth 8–80 tiles
+			'''
+	}
+
+	FishingTideBream: {
+		DisplayName: Tide bream
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Coastal shoals; hook depth 12–80 tiles
+			After defeating the Eater of Worlds or Brain of Cthulhu
+			'''
+	}
+
+	FishingRainWhiting: {
+		DisplayName: Rain whiting
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Coastal shoals; hook depth 8–96 tiles
+			After defeating the Eater of Worlds or Brain of Cthulhu
+			Caught during rain
+			'''
+	}
+
+	FishingMoonSardine: {
+		DisplayName: Moon sardine
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Coastal shoals; hook depth 8–96 tiles
+			After defeating Skeletron
+			Caught at night
+			'''
+	}
+
+	FishingShoalRunner: {
+		DisplayName: Shoal runner
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Coastal shoals; hook depth 8–80 tiles
+			Surface layer of the world
+			During: Shoal Run
+			'''
+	}
+
+	FishingTidalGoby: {
+		DisplayName: Tidal goby
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Coastal shoals; hook depth 16–128 tiles
+			After defeating the Eater of Worlds or Brain of Cthulhu
+			During: Tidal Wash
+			'''
+	}
+
+	FishingBlueSkipjack: {
+		DisplayName: Blue skipjack
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Open ocean; hook depth 20–160 tiles
+			Surface layer of the world
+			'''
+	}
+
+	FishingGlassMackerel: {
+		DisplayName: Glass mackerel
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Open ocean; hook depth 30–200 tiles
+			Surface layer of the world
+			After defeating the Eater of Worlds or Brain of Cthulhu
+			'''
+	}
+
+	FishingSailfinHerring: {
+		DisplayName: Sailfin herring
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Open ocean; hook depth 40–240 tiles
+			After defeating the Eater of Worlds or Brain of Cthulhu
+			'''
+	}
+
+	FishingStormAlbacore: {
+		DisplayName: Storm albacore
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Open ocean; hook depth 40–256 tiles
+			After defeating Skeletron
+			Caught during rain
+			'''
+	}
+
+	FishingMidnightMarlin: {
+		DisplayName: Midnight marlin
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Open ocean; hook depth 60–320 tiles
+			In Hardmode
+			Caught at night
+			'''
+	}
+
+	FishingRoyalMahi: {
+		DisplayName: Royal mahi
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Open ocean; hook depth 80–320 tiles
+			After defeating a mechanical boss
+			'''
+	}
+
+	FishingFrenzyTuna: {
+		DisplayName: Frenzy tuna
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Open ocean; hook depth 20–256 tiles
+			After defeating the Eater of Worlds or Brain of Cthulhu
+			During: Feeding Frenzy
+			'''
+	}
+
+	FishingDriftSwordfish: {
+		DisplayName: Drift swordfish
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Open ocean; hook depth 40–320 tiles
+			In Hardmode
+			During: Storm Drift
+			'''
+	}
+
+	FishingLanternCod: {
+		DisplayName: Lantern cod
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Deep ocean; hook depth 80–512 tiles
+			After defeating Skeletron
+			'''
+	}
+
+	FishingPressureHake: {
+		DisplayName: Pressure hake
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Deep ocean; hook depth 100–640 tiles
+			After defeating Skeletron
+			'''
+	}
+
+	FishingCobaltHalibut: {
+		DisplayName: Cobalt halibut
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Deep ocean; hook depth 120–800 tiles
+			In Hardmode
+			'''
+	}
+
+	FishingMidnightAngler: {
+		DisplayName: Midnight angler
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Deep ocean; hook depth 160–900 tiles
+			In Hardmode
+			Caught at night
+			'''
+	}
+
+	FishingTempestHaddock: {
+		DisplayName: Tempest haddock
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Deep ocean; hook depth 120–700 tiles
+			After defeating a mechanical boss
+			Caught during rain
+			'''
+	}
+
+	FishingStarfinCoelacanth: {
+		DisplayName: Starfin coelacanth
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Deep ocean; hook depth 200–1000 tiles
+			After defeating Plantera
+			'''
+	}
+
+	FishingBloomJellyfish: {
+		DisplayName: Bloom jellyfish
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Deep ocean; hook depth 80–640 tiles
+			After defeating Skeletron
+			During: Lantern Bloom
+			'''
+	}
+
+	FishingSurgeSturgeon: {
+		DisplayName: Surge sturgeon
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Deep ocean; hook depth 160–1000 tiles
+			After defeating a mechanical boss
+			During: Pressure Surge
+			'''
+	}
+
+	FishingBlindChimaera: {
+		DisplayName: Blind chimaera
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Abyss; hook depth 160–4096 tiles
+			In Hardmode
+			'''
+	}
+
+	FishingVoidLanternfish: {
+		DisplayName: Void lanternfish
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Abyss; hook depth 240–4096 tiles
+			In Hardmode
+			Caught at night
+			'''
+	}
+
+	FishingBasaltEel: {
+		DisplayName: Basalt eel
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Abyss; hook depth 320–4096 tiles
+			After defeating a mechanical boss
+			'''
+	}
+
+	FishingObsidianGrenadier: {
+		DisplayName: Obsidian grenadier
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Abyss; hook depth 400–4096 tiles
+			After defeating a mechanical boss
+			'''
+	}
+
+	FishingAncientSleeper: {
+		DisplayName: Ancient sleeper
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Abyss; hook depth 512–4096 tiles
+			After defeating Plantera
+			'''
+	}
+
+	FishingEclipseLeviathan: {
+		DisplayName: Eclipse leviathan
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Abyss; hook depth 512–4096 tiles
+			After defeating the Moon Lord
+			Caught at night
+			'''
+	}
+
+	FishingCurrentFangfish: {
+		DisplayName: Black-current fangfish
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Abyss; hook depth 240–4096 tiles
+			After defeating a mechanical boss
+			During: Black Current
+			'''
+	}
+
+	FishingWakeOarfish: {
+		DisplayName: Wake oarfish
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Abyss; hook depth 512–4096 tiles
+			After defeating Plantera
+			During: Leviathan Wake
+			'''
+	}
+
+	FishingLimestoneCarp: {
+		DisplayName: Limestone carp
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Cave lakes; hook depth 8–160 tiles
+			Underground layer of the world
+			'''
+	}
+
+	FishingAmethystLoach: {
+		DisplayName: Amethyst loach
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Cave lakes; hook depth 12–200 tiles
+			Underground layer of the world
+			'''
+	}
+
+	FishingCavePerch: {
+		DisplayName: Cave perch
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Cave lakes; hook depth 20–240 tiles
+			Cavern layer of the world
+			After defeating the Eater of Worlds or Brain of Cthulhu
+			'''
+	}
+
+	FishingSilverBlindfish: {
+		DisplayName: Silver blindfish
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Cave lakes; hook depth 30–320 tiles
+			Cavern layer of the world
+			After defeating the Eater of Worlds or Brain of Cthulhu
+			'''
+	}
+
+	FishingRainstoneEel: {
+		DisplayName: Rainstone eel
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Cave lakes; hook depth 40–400 tiles
+			Underground layer of the world
+			After defeating Skeletron
+			Caught during rain
+			'''
+	}
+
+	FishingMoonstoneKoi: {
+		DisplayName: Moonstone koi
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Cave lakes; hook depth 64–512 tiles
+			Cavern layer of the world
+			In Hardmode
+			Caught at night
+			'''
+	}
+
+	FishingCrystalFry: {
+		DisplayName: Crystal fry
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Cave lakes; hook depth 20–320 tiles
+			Underground layer of the world
+			After defeating the Eater of Worlds or Brain of Cthulhu
+			During: Crystal Hatch
+			'''
+	}
+
+	FishingMineralSturgeon: {
+		DisplayName: Mineral sturgeon
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Cave lakes; hook depth 80–768 tiles
+			Cavern layer of the world
+			After defeating a mechanical boss
+			During: Mineral Bloom
+			'''
+	}
+
+	FishingSiltDace: {
+		DisplayName: Silt dace
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Underground rivers; hook depth 4–80 tiles
+			Underground layer of the world
+			'''
+	}
+
+	FishingCopperBarbel: {
+		DisplayName: Copper barbel
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Underground rivers; hook depth 8–160 tiles
+			Underground layer of the world
+			'''
+	}
+
+	FishingCurrentTrout: {
+		DisplayName: Current trout
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Underground rivers; hook depth 12–240 tiles
+			Underground layer of the world
+			'''
+	}
+
+	FishingAmberPike: {
+		DisplayName: Amber pike
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Underground rivers; hook depth 20–320 tiles
+			Cavern layer of the world
+			After defeating the Eater of Worlds or Brain of Cthulhu
+			'''
+	}
+
+	FishingFloodCatfish: {
+		DisplayName: Flood catfish
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Underground rivers; hook depth 30–400 tiles
+			Cavern layer of the world
+			After defeating Skeletron
+			Caught during rain
+			'''
+	}
+
+	FishingNocturnalLamprey: {
+		DisplayName: Nocturnal lamprey
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Underground rivers; hook depth 40–512 tiles
+			Cavern layer of the world
+			In Hardmode
+			Caught at night
+			'''
+	}
+
+	FishingFloodRunner: {
+		DisplayName: Flood runner
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Underground rivers; hook depth 16–320 tiles
+			Underground layer of the world
+			After defeating the Eater of Worlds or Brain of Cthulhu
+			During: Flash Flood
+			'''
+	}
+
+	FishingSiltfinGar: {
+		DisplayName: Siltfin gar
+		Tooltip:
+			'''
+			A fresh catch for expedition cooking
+			Underground rivers; hook depth 64–640 tiles
+			Cavern layer of the world
+			After defeating a mechanical boss
+			During: Silt Run
+			'''
+	}
+
+	FishingSalvageFragment: {
+		DisplayName: Salvage fragment
+		Tooltip: Used for fishing rigs and expedition instruments
+	}
+
+	FishingTidePearl: {
+		DisplayName: Tide pearl
+		Tooltip: Used for shoal rigs and fishing tonic
+	}
+
+	FishingCoralFiber: {
+		DisplayName: Coral fiber
+		Tooltip: Used for fishing line and shoal cooking
+	}
+
+	FishingOceanGlass: {
+		DisplayName: Ocean glass
+		Tooltip: Used for deep rigs and sonar tonic
+	}
+
+	FishingStormScale: {
+		DisplayName: Storm scale
+		Tooltip: Used for ocean rigs and treasure tonic
+	}
+
+	FishingPressureCrystal: {
+		DisplayName: Pressure crystal
+		Tooltip: Used for pressure rigs and diving equipment
+	}
+
+	FishingLanternOil: {
+		DisplayName: Lantern oil
+		Tooltip: Used for a diving lantern and sonar tonic
+	}
+
+	FishingAbyssalSteel: {
+		DisplayName: Abyssal steel
+		Tooltip: Used for abyss rigs and diving equipment
+	}
+
+	FishingVoidPearl: {
+		DisplayName: Void pearl
+		Tooltip: Used for the deepest rig and treasure tonic
+	}
+
+	FishingCaveSalt: {
+		DisplayName: Cave salt
+		Tooltip: Used in expedition meals and cave-sight tonic
+	}
+
+	FishingRiverAmber: {
+		DisplayName: River amber
+		Tooltip: Used for sounding instruments and river tonic
+	}
+
+	FishingSiltEssence: {
+		DisplayName: Silt essence
+		Tooltip: Used for strong fishing line and river tonic
+	}
+
+	FishingShoalCache: {
+		DisplayName: Shoal salvage cache
+		Tooltip: Right-click to recover useful materials, coins and supplies
+	}
+
+	FishingOceanCache: {
+		DisplayName: Ocean salvage cache
+		Tooltip: Right-click to recover useful materials, coins and supplies
+	}
+
+	FishingDeepCache: {
+		DisplayName: Deepwater salvage cache
+		Tooltip: Right-click to recover useful materials, coins and supplies
+	}
+
+	FishingAbyssCache: {
+		DisplayName: Abyss salvage cache
+		Tooltip: Right-click to recover useful materials, coins and supplies
+	}
+
+	FishingLakeCache: {
+		DisplayName: Cave-lake salvage cache
+		Tooltip: Right-click to recover useful materials, coins and supplies
+	}
+
+	FishingRiverCache: {
+		DisplayName: River salvage cache
+		Tooltip: Right-click to recover useful materials, coins and supplies
+	}
+
+	FishingRigSurface: {
+		DisplayName: Surface float
+		Tooltip:
+			'''
+			Right-click in your inventory to select this reusable rig
+			Hook depth: up to 0 tiles
+			+0 fishing power
+			'''
+	}
+
+	FishingRigShoal: {
+		DisplayName: Shoal float
+		Tooltip:
+			'''
+			Right-click in your inventory to select this reusable rig
+			Hook depth: up to 8 tiles
+			+1 fishing power
+			'''
+	}
+
+	FishingRigShelf: {
+		DisplayName: Shelf float
+		Tooltip:
+			'''
+			Right-click in your inventory to select this reusable rig
+			Hook depth: up to 20 tiles
+			+2 fishing power
+			'''
+	}
+
+	FishingRigOpenWater: {
+		DisplayName: Open-water float
+		Tooltip:
+			'''
+			Right-click in your inventory to select this reusable rig
+			Hook depth: up to 40 tiles
+			+3 fishing power
+			After defeating the Eater of Worlds or Brain of Cthulhu
+			'''
+	}
+
+	FishingRigDeep: {
+		DisplayName: Deepwater float
+		Tooltip:
+			'''
+			Right-click in your inventory to select this reusable rig
+			Hook depth: up to 80 tiles
+			+4 fishing power
+			After defeating Skeletron
+			'''
+	}
+
+	FishingRigTrench: {
+		DisplayName: Trench float
+		Tooltip:
+			'''
+			Right-click in your inventory to select this reusable rig
+			Hook depth: up to 160 tiles
+			+5 fishing power
+			In Hardmode
+			'''
+	}
+
+	FishingRigAbyss: {
+		DisplayName: Abyss float
+		Tooltip:
+			'''
+			Right-click in your inventory to select this reusable rig
+			Hook depth: up to 320 tiles
+			+6 fishing power
+			After defeating a mechanical boss
+			'''
+	}
+
+	FishingRigHadal: {
+		DisplayName: Hadal float
+		Tooltip:
+			'''
+			Right-click in your inventory to select this reusable rig
+			Hook depth: up to 512 tiles
+			+8 fishing power
+			After defeating Plantera
+			'''
+	}
+
+	FishingShoalSkewer: {
+		DisplayName: Shoal skewer
+		Tooltip:
+			'''
+			Medium improvements to all stats for 12 minutes
+			+15 fishing power for 8 minutes
+			'''
+	}
+
+	FishingTideChowder: {
+		DisplayName: Tide chowder
+		Tooltip:
+			'''
+			Medium improvements to all stats for 12 minutes
+			Walk on water for 8 minutes
+			'''
+	}
+
+	FishingOceanCeviche: {
+		DisplayName: Ocean ceviche
+		Tooltip:
+			'''
+			Medium improvements to all stats for 12 minutes
+			See what is biting for 8 minutes
+			'''
+	}
+
+	FishingMarinersPlatter: {
+		DisplayName: Mariner's platter
+		Tooltip:
+			'''
+			Medium improvements to all stats for 12 minutes
+			Increased chance of fishing up crates for 8 minutes
+			'''
+	}
+
+	FishingLanternBroth: {
+		DisplayName: Lantern broth
+		Tooltip:
+			'''
+			Medium improvements to all stats for 12 minutes
+			Improved night vision for 8 minutes
+			'''
+	}
+
+	FishingDeepwaterPie: {
+		DisplayName: Deepwater pie
+		Tooltip:
+			'''
+			Medium improvements to all stats for 12 minutes
+			Breathe water for 8 minutes
+			'''
+	}
+
+	FishingAbyssalHotpot: {
+		DisplayName: Abyssal hotpot
+		Tooltip:
+			'''
+			Medium improvements to all stats for 12 minutes
+			Immunity to lava for 8 minutes
+			'''
+	}
+
+	FishingBlackwaterRoast: {
+		DisplayName: Blackwater roast
+		Tooltip:
+			'''
+			Medium improvements to all stats for 12 minutes
+			+8 defense for 8 minutes
+			'''
+	}
+
+	FishingCrystalFillet: {
+		DisplayName: Crystal fillet
+		Tooltip:
+			'''
+			Medium improvements to all stats for 12 minutes
+			Nearby treasure is highlighted for 8 minutes
+			'''
+	}
+
+	FishingCavefishStew: {
+		DisplayName: Cavefish stew
+		Tooltip:
+			'''
+			Medium improvements to all stats for 12 minutes
+			Nearby hazards are highlighted for 8 minutes
+			'''
+	}
+
+	FishingRiverFishcakes: {
+		DisplayName: River fishcakes
+		Tooltip:
+			'''
+			Medium improvements to all stats for 12 minutes
+			+25% movement speed for 8 minutes
+			'''
+	}
+
+	FishingAmberBouillabaisse: {
+		DisplayName: Amber bouillabaisse
+		Tooltip:
+			'''
+			Medium improvements to all stats for 12 minutes
+			Increased life regeneration for 8 minutes
+			'''
+	}
+
+	FishingShoalTonic: {
+		DisplayName: Shoal tonic
+		Tooltip: +15 fishing power for 8 minutes
+	}
+
+	FishingOceanBreathTonic: {
+		DisplayName: Ocean-breath tonic
+		Tooltip: Breathe water for 8 minutes
+	}
+
+	FishingDeepEchoTonic: {
+		DisplayName: Deep-echo tonic
+		Tooltip: See what is biting for 8 minutes
+	}
+
+	FishingTreasureCurrentTonic: {
+		DisplayName: Treasure-current tonic
+		Tooltip: Increased chance of fishing up crates for 5 minutes
+	}
+
+	FishingCaveSightTonic: {
+		DisplayName: Cave-sight tonic
+		Tooltip: Nearby treasure is highlighted for 8 minutes
+	}
+
+	FishingRiverStrideTonic: {
+		DisplayName: River-stride tonic
+		Tooltip: Walk on water for 8 minutes
+	}
+
+	FishingDepthCompass: {
+		DisplayName: Depth compass
+		Tooltip: Shows depth while carried
+	}
+
+	FishingSoundingLine: {
+		DisplayName: Sounding line
+		Tooltip:
+			'''
+			+10 fishing power
+			Prevents fishing line from breaking
+			'''
+	}
+
+	FishingDivingLantern: {
+		DisplayName: Diving lantern
+		Tooltip:
+			'''
+			Greatly extends underwater breathing
+			Lights the water around you
+			'''
+	}
+}
+
+Groups: {
+	fish_for_shoal_skewer: Catch for shoal skewer
+	fish_for_tide_chowder: Catch for tide chowder
+	fish_for_ocean_ceviche: Catch for ocean ceviche
+	fish_for_mariners_platter: Catch for mariner's platter
+	fish_for_lantern_broth: Catch for lantern broth
+	fish_for_deepwater_pie: Catch for deepwater pie
+	fish_for_abyssal_hotpot: Catch for abyssal hotpot
+	fish_for_blackwater_roast: Catch for blackwater roast
+	fish_for_crystal_fillet: Catch for crystal fillet
+	fish_for_cavefish_stew: Catch for cavefish stew
+	fish_for_river_fishcakes: Catch for river fishcakes
+	fish_for_amber_bouillabaisse: Catch for amber bouillabaisse
+}
+
+Enemies: {
+}

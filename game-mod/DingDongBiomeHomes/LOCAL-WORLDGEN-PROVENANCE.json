@@ -1,0 +1,25 @@
+{
+  "format": "dingdong-local-worldgen-source-v1",
+  "origin": "original embedded local project source; reviewed own guards, no provider bodies",
+  "inputPackageSha256": "a8f3c6b9c7c7402b538763c2fda48b6b4fa25f92d6f197576a975c0f22f9806e",
+  "transforms": [
+    "project namespace",
+    "former Mod to ModSystem",
+    "logger access via Mod"
+  ],
+  "publicPresetMustExclude": "PackWorldgenFix",
+  "files": [
+    {
+      "originalFile": "PackWorldgenFix.cs",
+      "originalSha256": "ab31eca0331dfc9500c693fdd536571c4aeab602bf510b55eb338598dfbd8fab",
+      "path": "Compatibility/LocalWorldgenGuards.cs",
+      "sha256": "c5d7322773537e829ebe31501c5b2f5951ed981581235bb714793ee69c10db65"
+    },
+    {
+      "originalFile": "AbyssWorldgenGuard.cs",
+      "originalSha256": "1f1e69a699a0afa062e12f6ef02daa6c0f23b437220ca782abd1f93b0a7f3973",
+      "path": "Compatibility/LocalAbyssWorldgenGuard.cs",
+      "sha256": "7edad60b0a7421149f5a4a6209762afaaff1971a9c891671639f6350a42c0d74"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType><TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable>
+    <NuGetAudit>false</NuGetAudit>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(OfficialTmlPath)' != ''">
+    <Reference Include="Microsoft.CodeAnalysis"><HintPath>$(OfficialTmlPath)/Libraries/microsoft.codeanalysis.common/4.12.0/lib/net8.0/Microsoft.CodeAnalysis.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Microsoft.CodeAnalysis.CSharp"><HintPath>$(OfficialTmlPath)/Libraries/microsoft.codeanalysis.csharp/4.12.0/lib/net8.0/Microsoft.CodeAnalysis.CSharp.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Basic.Reference.Assemblies.Net80"><HintPath>$(Net80ReferencePath)</HintPath><Private>false</Private></Reference>
+  </ItemGroup>
+  <ItemGroup Condition="'$(OfficialTmlPath)' == ''">
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.12.0" ExcludeAssets="runtime" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.12.0" ExcludeAssets="runtime" />
+    <PackageReference Include="Basic.Reference.Assemblies.Net80" Version="1.5.0" ExcludeAssets="runtime" />
+  </ItemGroup>
+</Project>

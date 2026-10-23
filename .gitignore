@@ -36,4 +36,8 @@ steamclient*.dll
 installation.json
 installed.json
 .updater.lock
+bootstrap/test-results*.json
+bootstrap/tests/test-results*.json
+bootstrap/tests/*.log
+Downloads-*/
 

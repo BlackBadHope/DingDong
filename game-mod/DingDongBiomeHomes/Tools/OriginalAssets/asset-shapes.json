@@ -1,0 +1,948 @@
+{
+  "format": "dingdong-original-asset-shapes-v1",
+  "purpose": "Paths and canvas dimensions only; no source pixels",
+  "assets": [
+    {
+      "path": "Assets/AccessoryEnchanting/EchoProjectile.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Assets/AccessoryEnchanting/Enchant_Arcana.rawimg",
+      "format": 1,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "path": "Assets/AccessoryEnchanting/Enchant_Ballistics.rawimg",
+      "format": 1,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "path": "Assets/AccessoryEnchanting/Enchant_Bastion.rawimg",
+      "format": 1,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "path": "Assets/AccessoryEnchanting/Enchant_Command.rawimg",
+      "format": 1,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "path": "Assets/AccessoryEnchanting/Enchant_Echo.rawimg",
+      "format": 1,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "path": "Assets/AccessoryEnchanting/Enchant_Fortune.rawimg",
+      "format": 1,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "path": "Assets/AccessoryEnchanting/Enchant_Menace.rawimg",
+      "format": 1,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "path": "Assets/AccessoryEnchanting/Enchant_Precision.rawimg",
+      "format": 1,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "path": "Assets/AccessoryEnchanting/Enchant_Rhythm.rawimg",
+      "format": 1,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "path": "Assets/AccessoryEnchanting/Enchant_SecondWind.rawimg",
+      "format": 1,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "path": "Assets/AccessoryEnchanting/Enchant_Spellweave.rawimg",
+      "format": 1,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "path": "Assets/AccessoryEnchanting/Enchant_Vanguard.rawimg",
+      "format": 1,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "path": "Assets/AccessoryEnchanting/Enchant_Velocity.rawimg",
+      "format": 1,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "path": "Assets/AccessoryEnchanting/Enchant_Vitality.rawimg",
+      "format": 1,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "path": "Assets/AccessoryEnchanting/GoblinFusionPanel.rawimg",
+      "format": 1,
+      "width": 520,
+      "height": 270
+    },
+    {
+      "path": "Assets/Ui/JournalCard.rawimg",
+      "format": 1,
+      "width": 512,
+      "height": 309
+    },
+    {
+      "path": "Assets/Ui/JournalCardReady.rawimg",
+      "format": 1,
+      "width": 512,
+      "height": 309
+    },
+    {
+      "path": "Assets/Ui/JournalClose.rawimg",
+      "format": 1,
+      "width": 192,
+      "height": 189
+    },
+    {
+      "path": "Assets/Ui/JournalPanel.rawimg",
+      "format": 1,
+      "width": 491,
+      "height": 512
+    },
+    {
+      "path": "Assets/Ui/JournalTab.rawimg",
+      "format": 1,
+      "width": 512,
+      "height": 170
+    },
+    {
+      "path": "Assets/Ui/JournalTabSelected.rawimg",
+      "format": 1,
+      "width": 512,
+      "height": 170
+    },
+    {
+      "path": "Climate/Buffs/AmazonPressureBuff.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Climate/Buffs/ForestComfortBuff.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Climate/Buffs/HeatstrokeBuff.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Climate/Buffs/HypothermiaBuff.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/AiArsenal/AtticStarScepter.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/AiArsenal/BriarThresholdWhip.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/AiArsenal/CandlewickWand.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/AiArsenal/CinderChimneyCleaver.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/AiArsenal/CinderlockCarbine.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/AiArsenal/FurnaceChain.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/AiArsenal/GildedGableGlaive.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/AiArsenal/GildedWindowRepeater.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/AiArsenal/HallowedHearthbrand.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/AiArsenal/HallowedRooftopRepeater.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/AiArsenal/HearthflameTome.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/AiArsenal/NebulaThresholdGrimoire.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/AiArsenal/PorchlightBlade.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/AiArsenal/PrismaticBanisterLash.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/AiArsenal/SanctumLanternStaff.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/AiArsenal/ShinglewoodShortbow.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/AiArsenal/SolarHomesteadGreatblade.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/AiArsenal/StardustWelcomeCord.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/AiArsenal/TwinebellLash.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/AiArsenal/VortexEavestrike.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/MobRelics/MobRelicResonanceProjectile.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/MobRelics/Generated/MobRelic_83094BC28C7E215D_0.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/MobRelics/Generated/MobRelic_83094BC28C7E215D_1.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/MobRelics/Generated/MobRelic_83094BC28C7E215D_2.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/MobRelics/Generated/MobRelic_83094BC28C7E215D_3.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/MobRelics/Generated/MobRelic_83094BC28C7E215D_4.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/MobRelics/Generated/MobRelic_9BA20D261B5D0FF3_0.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/MobRelics/Generated/MobRelic_9BA20D261B5D0FF3_1.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/MobRelics/Generated/MobRelic_9BA20D261B5D0FF3_2.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/MobRelics/Generated/MobRelic_9BA20D261B5D0FF3_3.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/MobRelics/Generated/MobRelic_9BA20D261B5D0FF3_4.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/MobRelics/Generated/MobRelic_B567F6138312325F_0.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/MobRelics/Generated/MobRelic_B567F6138312325F_1.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/MobRelics/Generated/MobRelic_B567F6138312325F_2.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/MobRelics/Generated/MobRelic_B567F6138312325F_3.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/MobRelics/Generated/MobRelic_B567F6138312325F_4.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/MobRelics/Generated/MobRelic_CEBD35FEF6D09FB1_0.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/MobRelics/Generated/MobRelic_CEBD35FEF6D09FB1_1.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/MobRelics/Generated/MobRelic_CEBD35FEF6D09FB1_2.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/MobRelics/Generated/MobRelic_CEBD35FEF6D09FB1_3.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/MobRelics/Generated/MobRelic_CEBD35FEF6D09FB1_4.rawimg",
+      "format": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_BurrowBell_Body_Body.rawimg",
+      "format": 1,
+      "width": 360,
+      "height": 224
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_BurrowBell_Body.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_BurrowBell_Head_Head.rawimg",
+      "format": 1,
+      "width": 40,
+      "height": 1118
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_BurrowBell_Head.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_BurrowBell_Legs_Legs.rawimg",
+      "format": 1,
+      "width": 40,
+      "height": 1120
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_BurrowBell_Legs.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_CinderBellfounder_Body_Body.rawimg",
+      "format": 1,
+      "width": 360,
+      "height": 224
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_CinderBellfounder_Body.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_CinderBellfounder_Head_Head.rawimg",
+      "format": 1,
+      "width": 40,
+      "height": 1118
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_CinderBellfounder_Head.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_CinderBellfounder_Legs_Legs.rawimg",
+      "format": 1,
+      "width": 40,
+      "height": 1120
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_CinderBellfounder_Legs.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_DungeonCartographer_Body_Body.rawimg",
+      "format": 1,
+      "width": 360,
+      "height": 224
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_DungeonCartographer_Body.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_DungeonCartographer_Head_Head.rawimg",
+      "format": 1,
+      "width": 40,
+      "height": 1118
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_DungeonCartographer_Head.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_DungeonCartographer_Legs_Legs.rawimg",
+      "format": 1,
+      "width": 40,
+      "height": 1120
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_DungeonCartographer_Legs.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_EventHorizonMason_Body_Body.rawimg",
+      "format": 1,
+      "width": 360,
+      "height": 224
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_EventHorizonMason_Body.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_EventHorizonMason_Head_Head.rawimg",
+      "format": 1,
+      "width": 40,
+      "height": 1118
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_EventHorizonMason_Head.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_EventHorizonMason_Legs_Legs.rawimg",
+      "format": 1,
+      "width": 40,
+      "height": 1120
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_EventHorizonMason_Legs.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_FrostRelay_Body_Body.rawimg",
+      "format": 1,
+      "width": 360,
+      "height": 224
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_FrostRelay_Body.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_FrostRelay_Head_Head.rawimg",
+      "format": 1,
+      "width": 40,
+      "height": 1118
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_FrostRelay_Head.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_FrostRelay_Legs_Legs.rawimg",
+      "format": 1,
+      "width": 40,
+      "height": 1120
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_FrostRelay_Legs.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_HiveCantor_Body_Body.rawimg",
+      "format": 1,
+      "width": 360,
+      "height": 224
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_HiveCantor_Body.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_HiveCantor_Head_Head.rawimg",
+      "format": 1,
+      "width": 40,
+      "height": 1118
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_HiveCantor_Head.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_HiveCantor_Legs_Legs.rawimg",
+      "format": 1,
+      "width": 40,
+      "height": 1120
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_HiveCantor_Legs.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_LegendaryBellArchitect_Body_Body.rawimg",
+      "format": 1,
+      "width": 360,
+      "height": 224
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_LegendaryBellArchitect_Body.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_LegendaryBellArchitect_Head_Head.rawimg",
+      "format": 1,
+      "width": 40,
+      "height": 1118
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_LegendaryBellArchitect_Head.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_LegendaryBellArchitect_Legs_Legs.rawimg",
+      "format": 1,
+      "width": 40,
+      "height": 1120
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_LegendaryBellArchitect_Legs.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_LunarCartel_Body_Body.rawimg",
+      "format": 1,
+      "width": 360,
+      "height": 224
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_LunarCartel_Body.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_LunarCartel_Head_Head.rawimg",
+      "format": 1,
+      "width": 40,
+      "height": 1118
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_LunarCartel_Head.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_LunarCartel_Legs_Legs.rawimg",
+      "format": 1,
+      "width": 40,
+      "height": 1120
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_LunarCartel_Legs.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_MimicBroker_Body_Body.rawimg",
+      "format": 1,
+      "width": 360,
+      "height": 224
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_MimicBroker_Body.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_MimicBroker_Head_Head.rawimg",
+      "format": 1,
+      "width": 40,
+      "height": 1118
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_MimicBroker_Head.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_MimicBroker_Legs_Legs.rawimg",
+      "format": 1,
+      "width": 40,
+      "height": 1120
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_MimicBroker_Legs.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_MoonlordThreshold_Body_Body.rawimg",
+      "format": 1,
+      "width": 360,
+      "height": 224
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_MoonlordThreshold_Body.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_MoonlordThreshold_Head_Head.rawimg",
+      "format": 1,
+      "width": 40,
+      "height": 1118
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_MoonlordThreshold_Head.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_MoonlordThreshold_Legs_Legs.rawimg",
+      "format": 1,
+      "width": 40,
+      "height": 1120
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_MoonlordThreshold_Legs.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_PrismGlasswright_Body_Body.rawimg",
+      "format": 1,
+      "width": 360,
+      "height": 224
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_PrismGlasswright_Body.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_PrismGlasswright_Head_Head.rawimg",
+      "format": 1,
+      "width": 40,
+      "height": 1118
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_PrismGlasswright_Head.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_PrismGlasswright_Legs_Legs.rawimg",
+      "format": 1,
+      "width": 40,
+      "height": 1120
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_PrismGlasswright_Legs.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_RootclockGardener_Body_Body.rawimg",
+      "format": 1,
+      "width": 360,
+      "height": 224
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_RootclockGardener_Body.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_RootclockGardener_Head_Head.rawimg",
+      "format": 1,
+      "width": 40,
+      "height": 1118
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_RootclockGardener_Head.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_RootclockGardener_Legs_Legs.rawimg",
+      "format": 1,
+      "width": 40,
+      "height": 1120
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_RootclockGardener_Legs.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_StormConductor_Body_Body.rawimg",
+      "format": 1,
+      "width": 360,
+      "height": 224
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_StormConductor_Body.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_StormConductor_Head_Head.rawimg",
+      "format": 1,
+      "width": 40,
+      "height": 1118
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_StormConductor_Head.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_StormConductor_Legs_Legs.rawimg",
+      "format": 1,
+      "width": 40,
+      "height": 1120
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_StormConductor_Legs.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_TempleParadox_Body_Body.rawimg",
+      "format": 1,
+      "width": 360,
+      "height": 224
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_TempleParadox_Body.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_TempleParadox_Head_Head.rawimg",
+      "format": 1,
+      "width": 40,
+      "height": 1118
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_TempleParadox_Head.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_TempleParadox_Legs_Legs.rawimg",
+      "format": 1,
+      "width": 40,
+      "height": 1120
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_TempleParadox_Legs.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_ThresholdForager_Body_Body.rawimg",
+      "format": 1,
+      "width": 360,
+      "height": 224
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_ThresholdForager_Body.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_ThresholdForager_Head_Head.rawimg",
+      "format": 1,
+      "width": 40,
+      "height": 1118
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_ThresholdForager_Head.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_ThresholdForager_Legs_Legs.rawimg",
+      "format": 1,
+      "width": 40,
+      "height": 1120
+    },
+    {
+      "path": "Items/SynergyArmor/Generated/SynergyArmor_ThresholdForager_Legs.rawimg",
+      "format": 1,
+      "width": 32,
+      "height": 32
+    }
+  ]
+}

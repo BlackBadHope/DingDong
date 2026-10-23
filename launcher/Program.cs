@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.Loader;
 using System.Security.Cryptography;
 using System.Text.Json;
+using System.Linq.Expressions;
 
 namespace DingDong.SteamLicense;
 
@@ -13,11 +14,12 @@ internal static class Program
         try
         {
             if (args.SequenceEqual(new[] { "--self-test" })) return SelfTest.Run();
-            if (args.Length != 2 || args[0] != "--official-tml")
+            if (args.Length is not (2 or 4) || args[0] != "--official-tml" || (args.Length == 4 && args[2] != "--download-workshop"))
                 throw new ArgumentException("Usage: SteamLicenseGate --official-tml <official Steam tModLoader folder>");
             using var steam = new InstalledSteamSession(args[1]);
             var result = LicenseGate.Check(steam);
             Console.WriteLine("DINGDONG_LICENSE_RESULT=" + JsonSerializer.Serialize(result));
+            if (result.Verified && args.Length == 4) steam.DownloadWorkshop(args[3]);
             return result.Verified ? 0 : 20;
         }
         catch (Exception error)
@@ -137,6 +139,55 @@ internal sealed class InstalledSteamSession : ISteamSession
         if (appId == LicenseGate.Tml && !string.Equals(directory, selectedTml, StringComparison.OrdinalIgnoreCase))
             throw new InvalidOperationException("The selected tML folder differs from the active Steam installation.");
         return directory;
+    }
+    internal void DownloadWorkshop(string identifiers)
+    {
+        var ids = identifiers.Split(',').Select(value => ulong.TryParse(value, out var id) && id > 0
+            ? id : throw new ArgumentException("Invalid Workshop ID.")).Distinct().ToArray();
+        if (ids.Length is < 1 or > 128) throw new ArgumentException("Workshop request exceeds its bounded item limit.");
+        var deadline = DateTime.UtcNow.AddMinutes(15);
+        foreach (var id in ids)
+        {
+            var item = Activator.CreateInstance(api.GetType("Steamworks.PublishedFileId_t", true)!, new object[] { id })!;
+            bool completed = false; int downloadResult = 0;
+            using var callback = CreateDownloadCallback(value =>
+            {
+                var type = value.GetType();
+                object published = type.GetField("m_nPublishedFileId")!.GetValue(value)!;
+                ulong actual = (ulong)published.GetType().GetField("m_PublishedFileId")!.GetValue(published)!;
+                object app = type.GetField("m_unAppID")!.GetValue(value)!;
+                uint appId = app is uint number ? number : (uint)app.GetType().GetField("m_AppId")!.GetValue(app)!;
+                if (actual == id && appId == LicenseGate.Tml)
+                { downloadResult = Convert.ToInt32(type.GetField("m_eResult")!.GetValue(value)); completed = true; }
+            });
+            if (!(bool)Call("SteamUGC", "DownloadItem", item, true))
+                throw new IOException("Steam rejected Workshop download " + id + ". Open its official Workshop page and retry after Steam finishes.");
+            Console.WriteLine("DINGDONG_WORKSHOP_DOWNLOAD=" + id);
+            // DownloadItem is asynchronous. Pump callbacks and wait until installed,
+            // with neither an update nor a download pending. Package hashes are
+            // verified separately; Steam state alone is never installation proof.
+            bool ready = false;
+            while (DateTime.UtcNow < deadline)
+            {
+                api.GetType("Steamworks.SteamAPI", true)!.GetMethod("RunCallbacks", Type.EmptyTypes)!.Invoke(null, null);
+                uint state = Convert.ToUInt32(Call("SteamUGC", "GetItemState", item));
+                if (completed && downloadResult != 1) throw new IOException("Official Steam Workshop download failed for " + id + " (result " + downloadResult + ").");
+                if (completed && (state & 4) != 0 && (state & (8 | 16 | 32)) == 0) { ready = true; break; }
+                Thread.Sleep(250);
+            }
+            if (!ready) throw new TimeoutException("Steam Workshop download deadline reached. Retry to reuse completed downloads.");
+        }
+        Console.WriteLine("DINGDONG_WORKSHOP_RESULT=" + JsonSerializer.Serialize(new { requested = ids, completed = true }));
+    }
+    private IDisposable CreateDownloadCallback(Action<object> receive)
+    {
+        var resultType = api.GetType("Steamworks.DownloadItemResult_t", true)!;
+        var callbackType = api.GetType("Steamworks.Callback`1", true)!.MakeGenericType(resultType);
+        var create = callbackType.GetMethod("Create", BindingFlags.Public | BindingFlags.Static)!;
+        var parameter = Expression.Parameter(resultType, "result");
+        var invoke = Expression.Call(Expression.Constant(receive), typeof(Action<object>).GetMethod("Invoke")!, Expression.Convert(parameter, typeof(object)));
+        var dispatch = Expression.Lambda(create.GetParameters()[0].ParameterType, invoke, parameter).Compile();
+        return (IDisposable)create.Invoke(null, new object[] { dispatch })!;
     }
     public void Dispose()
     {

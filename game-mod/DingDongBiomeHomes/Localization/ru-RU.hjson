@@ -1,0 +1,22 @@
+Mods: {
+	DingDongBiomeHomes: {
+		Fishing: {
+			Enemies: {
+				ShoalSnapper.DisplayName: Мелководный кусач
+				TideBell.DisplayName: Приливный колокол
+				ReefCharger.DisplayName: Рифовый таранщик
+				StormSquid.DisplayName: Штормовой кальмар
+				LanternMaw.DisplayName: Фонарная пасть
+				PressureEel.DisplayName: Глубинный угорь
+				BlackwaterStalker.DisplayName: Сталкер чёрных вод
+				WakeCarapace.DisplayName: Панцирник следа
+				CrystalUrchin.DisplayName: Кристальный морской ёж
+				BlindLakeHunter.DisplayName: Слепой озёрный охотник
+				RiverJetfish.DisplayName: Речная рыба-стрела
+				SiltCrawler.DisplayName: Иловый ползун
+			}
+		}
+
+		InfoDisplays.FishingDepthDisplay.DisplayName: Глубина рыбалки
+	}
+}

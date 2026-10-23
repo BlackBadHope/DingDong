@@ -1,0 +1,1587 @@
+AutoUncraft: {
+	SlotHint: Auto-uncraft: left-click an item to toggle its rule (item stays on cursor). Right-click: dismantle one batch.
+	CannotUncraft: No basic dismantling recipe is available.
+	Enabled: Auto-uncraft ON ({0} rules)
+	Disabled: Auto-uncraft OFF ({0} rules)
+	ShowList: Show and edit auto-uncraft rules
+	Preview: "{0} {1} returns up to: {2}"
+	RatioHint: The configured Lans return ratio and random rounding apply.
+	Title: Auto-uncraft ({0} rules)
+	EditHint: Add via the slot; click a listed item to remove it.
+	SafetyHint: Only listed items; favorites are protected. Full inventory pauses processing.
+	RemoveHint: Click to remove this rule.
+}
+
+Uncraft: {
+	BasicOnly: Only the basic recipe for this exact item can be dismantled.
+	NoBasicRecipe: This item has no basic dismantling recipe. Crafting-group item exchanges are disabled.
+}
+
+ResidenceDiscovery: {
+	Discovered: NPC home discovered: {0}. This NPC is now visible on your map in this world.
+	QuestTarget: Quest target for {0}: {1}
+}
+
+WorldCreation: {
+	LoadMemoryDenied:
+		'''
+		The world could not start because Windows has insufficient memory available.
+
+		{0}
+
+		Close unused applications and try again. This refusal does not mean that the world is corrupt. Your world and its backups have not been changed.
+		'''
+	Name: World x10
+	Description: Continental world — 28,000 x 7,200 tiles, exactly ten Large-world areas. Requires 64-bit tModLoader and sufficient free RAM and Windows commit headroom. Memory is checked before creation.
+	MemoryDenied:
+		'''
+		World x10 was not started. Your world settings are preserved.
+
+		{0}
+
+		Free RAM and available Windows commit are different limits. Close unused applications or review Windows paging-file settings, then try again, or select a smaller world. Ding Dong has not changed your paging file or closed any applications.
+		'''
+}
+
+Items: {
+	ResidenceFlagItem: {
+		DisplayName: NPC Home Flag
+		Tooltip:
+			'''
+			Place it inside a complete vacant NPC house and right-click to claim the home
+			After earning a resident's trust, choose “I'll lead you to a new home” in dialogue
+			The resident must physically follow you there; their home point changes only on arrival
+			'''
+	}
+
+	ClassicResidentCache: {
+		DisplayName: Classic Resident Cache
+		Tooltip: Right-click to open a useful supply bundle earned from a resident quest.
+	}
+
+	ExpertResidentCache: {
+		DisplayName: Expert Resident Cache
+		Tooltip: Right-click to open an improved supply bundle.
+	}
+
+	MasterResidentCache: {
+		DisplayName: Master Resident Cache
+		Tooltip: Right-click to open a high-tier supply bundle.
+	}
+
+	LegendaryResidentCache: {
+		DisplayName: Legendary Resident Cache
+		Tooltip: Right-click to open the most valuable resident supply bundle.
+	}
+
+	PorchlightBlade: {
+		DisplayName: Porchlight Blade
+		Tooltip: A lantern-guided oak blade made for the first night.
+	}
+
+	GildedGableGlaive: {
+		DisplayName: Gilded Gable Glaive
+		Tooltip: A balanced noble blade framed like a shining townhouse roof.
+	}
+
+	CinderChimneyCleaver: {
+		DisplayName: Cinder Chimney Cleaver
+		Tooltip: Ember vents pulse through its blackened hellstone edge.
+	}
+
+	HallowedHearthbrand: {
+		DisplayName: Hallowed Hearthbrand
+		Tooltip: Stained glass turns every swing into a flash of sanctuary light.
+	}
+
+	SolarHomesteadGreatblade: {
+		DisplayName: Solar Homestead Greatblade
+		Tooltip: A roof of solar shingles reforged into one colossal edge.
+	}
+
+	ShinglewoodShortbow: {
+		DisplayName: Shinglewood Shortbow
+		Tooltip: Layered cedar limbs keep this early bow steady and light.
+	}
+
+	GildedWindowRepeater: {
+		DisplayName: Gilded Window Repeater
+		Tooltip: A sapphire window sights each arrow along the same bright line.
+	}
+
+	CinderlockCarbine: {
+		DisplayName: Cinderlock Carbine
+		Tooltip: Its chimney muzzle vents heat between rapid bullet shots.
+	}
+
+	HallowedRooftopRepeater: {
+		DisplayName: Hallowed Rooftop Repeater
+		Tooltip: Winged eaves guide arrows through a stained-glass mechanism.
+	}
+
+	VortexEavestrike: {
+		DisplayName: Vortex Eavestrike
+		Tooltip: A swept alien roofline stabilizes its relentless bullet stream.
+	}
+
+	CandlewickWand: {
+		DisplayName: Candlewick Wand
+		Tooltip: A blue porch flame kindles a careful opening spell.
+	}
+
+	AtticStarScepter: {
+		DisplayName: Attic Star Scepter
+		Tooltip: An attic window focuses starlight into violet bolts.
+	}
+
+	HearthflameTome: {
+		DisplayName: Hearthflame Tome
+		Tooltip: Its pages open into a furnace arch of guided fire.
+	}
+
+	SanctumLanternStaff: {
+		DisplayName: Sanctum Lantern Staff
+		Tooltip: A hallowed lantern scatters a storm of crystalline light.
+	}
+
+	NebulaThresholdGrimoire: {
+		DisplayName: Nebula Threshold Grimoire
+		Tooltip: Open the cosmic doorway and let the nebula answer.
+	}
+
+	TwinebellLash: {
+		DisplayName: Twinebell Lash
+		Tooltip: A humble braided whip whose bell calls minions to attention.
+	}
+
+	BriarThresholdWhip: {
+		DisplayName: Briar Threshold Whip
+		Tooltip: Thorny living cord guards every doorway it crosses.
+	}
+
+	FurnaceChain: {
+		DisplayName: Furnace Chain
+		Tooltip: Each black-iron link carries a spark from the underworld forge.
+	}
+
+	PrismaticBanisterLash: {
+		DisplayName: Prismatic Banister Lash
+		Tooltip: Stained-glass links crack like a radiant palace railing.
+	}
+
+	StardustWelcomeCord: {
+		DisplayName: Stardust Welcome Cord
+		Tooltip: Silver keys and woven stardust welcome the final procession.
+	}
+
+	MobRelic_B567F6138312325F_0: {
+		DisplayName: Briarbound Splinter of Crabulon
+		Tooltip: Ordinary random drop. Unique to Crabulon from CalamityMod. Identity: CalamityMod/Crabulon
+		FunctionalTooltip: ""
+	}
+
+	MobRelic_B567F6138312325F_1: {
+		DisplayName: Starfallen Trinket of Crabulon
+		Tooltip: Ordinary random drop. Unique to Crabulon from CalamityMod. Identity: CalamityMod/Crabulon
+		FunctionalTooltip: ""
+	}
+
+	MobRelic_B567F6138312325F_2: {
+		DisplayName: Stormworn Seal of Crabulon
+		Tooltip: Expert difficulty or higher. Unique to Crabulon from CalamityMod. Identity: CalamityMod/Crabulon
+		FunctionalTooltip: ""
+	}
+
+	MobRelic_B567F6138312325F_3: {
+		DisplayName: Deepwood Votive of Crabulon
+		Tooltip: Master difficulty or higher. Unique to Crabulon from CalamityMod. Identity: CalamityMod/Crabulon
+		FunctionalTooltip: ""
+	}
+
+	MobRelic_B567F6138312325F_4: {
+		DisplayName: Rainworn Chronicle of Crabulon
+		Tooltip: Legendary world only. Unique to Crabulon from CalamityMod. Identity: CalamityMod/Crabulon
+		FunctionalTooltip: ""
+	}
+
+	MobRelic_83094BC28C7E215D_0: {
+		DisplayName: Hollow Fragment of Glowmoth
+		Tooltip: Ordinary random drop. Unique to Glowmoth from SOTS. Identity: SOTS/Glowmoth
+		FunctionalTooltip: ""
+	}
+
+	MobRelic_83094BC28C7E215D_1: {
+		DisplayName: Hollow Trinket of Glowmoth
+		Tooltip: Ordinary random drop. Unique to Glowmoth from SOTS. Identity: SOTS/Glowmoth
+		FunctionalTooltip: ""
+	}
+
+	MobRelic_83094BC28C7E215D_2: {
+		DisplayName: Pale Seal of Glowmoth
+		Tooltip: Expert difficulty or higher. Unique to Glowmoth from SOTS. Identity: SOTS/Glowmoth
+		FunctionalTooltip: ""
+	}
+
+	MobRelic_83094BC28C7E215D_3: {
+		DisplayName: Echoing Icon of Glowmoth
+		Tooltip: Master difficulty or higher. Unique to Glowmoth from SOTS. Identity: SOTS/Glowmoth
+		FunctionalTooltip: ""
+	}
+
+	MobRelic_83094BC28C7E215D_4: {
+		DisplayName: Lantern Myth of Glowmoth
+		Tooltip: Legendary world only. Unique to Glowmoth from SOTS. Identity: SOTS/Glowmoth
+		FunctionalTooltip: ""
+	}
+
+	MobRelic_CEBD35FEF6D09FB1_0: {
+		DisplayName: Hearthbound Splinter of Eye of Cthulhu
+		Tooltip: Ordinary random drop. Unique to Eye of Cthulhu from Terraria. Identity: Terraria/EyeofCthulhu
+		FunctionalTooltip: ""
+	}
+
+	MobRelic_CEBD35FEF6D09FB1_1: {
+		DisplayName: Rainworn Curio of Eye of Cthulhu
+		Tooltip: Ordinary random drop. Unique to Eye of Cthulhu from Terraria. Identity: Terraria/EyeofCthulhu
+		FunctionalTooltip: ""
+	}
+
+	MobRelic_CEBD35FEF6D09FB1_2: {
+		DisplayName: Silent Insignia of Eye of Cthulhu
+		Tooltip: Expert difficulty or higher. Unique to Eye of Cthulhu from Terraria. Identity: Terraria/EyeofCthulhu
+		FunctionalTooltip: ""
+	}
+
+	MobRelic_CEBD35FEF6D09FB1_3: {
+		DisplayName: Moonworn Relic of Eye of Cthulhu
+		Tooltip: Master difficulty or higher. Unique to Eye of Cthulhu from Terraria. Identity: Terraria/EyeofCthulhu
+		FunctionalTooltip: ""
+	}
+
+	MobRelic_CEBD35FEF6D09FB1_4: {
+		DisplayName: Silent Chronicle of Eye of Cthulhu
+		Tooltip: Legendary world only. Unique to Eye of Cthulhu from Terraria. Identity: Terraria/EyeofCthulhu
+		FunctionalTooltip: ""
+	}
+
+	MobRelic_9BA20D261B5D0FF3_0: {
+		DisplayName: Nightglass Fragment of The Grand Thunder Bird
+		Tooltip: Ordinary random drop. Unique to The Grand Thunder Bird from ThoriumMod. Identity: ThoriumMod/TheGrandThunderBird
+		FunctionalTooltip: ""
+	}
+
+	MobRelic_9BA20D261B5D0FF3_1: {
+		DisplayName: Gilded Token of The Grand Thunder Bird
+		Tooltip: Ordinary random drop. Unique to The Grand Thunder Bird from ThoriumMod. Identity: ThoriumMod/TheGrandThunderBird
+		FunctionalTooltip: ""
+	}
+
+	MobRelic_9BA20D261B5D0FF3_2: {
+		DisplayName: Echoing Brand of The Grand Thunder Bird
+		Tooltip: Expert difficulty or higher. Unique to The Grand Thunder Bird from ThoriumMod. Identity: ThoriumMod/TheGrandThunderBird
+		FunctionalTooltip: ""
+	}
+
+	MobRelic_9BA20D261B5D0FF3_3: {
+		DisplayName: Iridescent Core of The Grand Thunder Bird
+		Tooltip: Master difficulty or higher. Unique to The Grand Thunder Bird from ThoriumMod. Identity: ThoriumMod/TheGrandThunderBird
+		FunctionalTooltip: ""
+	}
+
+	MobRelic_9BA20D261B5D0FF3_4: {
+		DisplayName: Deepwood Myth of The Grand Thunder Bird
+		Tooltip: Legendary world only. Unique to The Grand Thunder Bird from ThoriumMod. Identity: ThoriumMod/TheGrandThunderBird
+		FunctionalTooltip: ""
+	}
+
+	SynergyArmor_ThresholdForager_Head: {
+		DisplayName: Threshold Forager Cap
+		Tooltip: ""
+	}
+
+	SynergyArmor_ThresholdForager_Body: {
+		DisplayName: Threshold Forager Coat
+		Tooltip: ""
+	}
+
+	SynergyArmor_ThresholdForager_Legs: {
+		DisplayName: Threshold Forager Treads
+		Tooltip: ""
+	}
+
+	SynergyArmor_PrismGlasswright_Head: {
+		DisplayName: Prism Glasswright Visor
+		Tooltip: ""
+	}
+
+	SynergyArmor_PrismGlasswright_Body: {
+		DisplayName: Prism Glasswright Cuirass
+		Tooltip: ""
+	}
+
+	SynergyArmor_PrismGlasswright_Legs: {
+		DisplayName: Prism Glasswright Sandals
+		Tooltip: ""
+	}
+
+	SynergyArmor_BurrowBell_Head: {
+		DisplayName: Buried Bell Helm
+		Tooltip: ""
+	}
+
+	SynergyArmor_BurrowBell_Body: {
+		DisplayName: Buried Bell Harness
+		Tooltip: ""
+	}
+
+	SynergyArmor_BurrowBell_Legs: {
+		DisplayName: Buried Bell Greaves
+		Tooltip: ""
+	}
+
+	SynergyArmor_HiveCantor_Head: {
+		DisplayName: Hive Cantor Mask
+		Tooltip: ""
+	}
+
+	SynergyArmor_HiveCantor_Body: {
+		DisplayName: Hive Cantor Chorus
+		Tooltip: ""
+	}
+
+	SynergyArmor_HiveCantor_Legs: {
+		DisplayName: Hive Cantor Legwraps
+		Tooltip: ""
+	}
+
+	SynergyArmor_DungeonCartographer_Head: {
+		DisplayName: Dungeon Cartographer Surveyor
+		Tooltip: ""
+	}
+
+	SynergyArmor_DungeonCartographer_Body: {
+		DisplayName: Dungeon Cartographer Mapcoat
+		Tooltip: ""
+	}
+
+	SynergyArmor_DungeonCartographer_Legs: {
+		DisplayName: Dungeon Cartographer Pathfinders
+		Tooltip: ""
+	}
+
+	SynergyArmor_CinderBellfounder_Head: {
+		DisplayName: Cinder Bellfounder Cowl
+		Tooltip: ""
+	}
+
+	SynergyArmor_CinderBellfounder_Body: {
+		DisplayName: Cinder Bellfounder Foundry
+		Tooltip: ""
+	}
+
+	SynergyArmor_CinderBellfounder_Legs: {
+		DisplayName: Cinder Bellfounder Sabatons
+		Tooltip: ""
+	}
+
+	SynergyArmor_StormConductor_Head: {
+		DisplayName: Storm Conductor Coil
+		Tooltip: ""
+	}
+
+	SynergyArmor_StormConductor_Body: {
+		DisplayName: Storm Conductor Jacket
+		Tooltip: ""
+	}
+
+	SynergyArmor_StormConductor_Legs: {
+		DisplayName: Storm Conductor Grounders
+		Tooltip: ""
+	}
+
+	SynergyArmor_MimicBroker_Head: {
+		DisplayName: Mimic Broker Monocle
+		Tooltip: ""
+	}
+
+	SynergyArmor_MimicBroker_Body: {
+		DisplayName: Mimic Broker Ledgercoat
+		Tooltip: ""
+	}
+
+	SynergyArmor_MimicBroker_Legs: {
+		DisplayName: Mimic Broker Quicksteps
+		Tooltip: ""
+	}
+
+	SynergyArmor_FrostRelay_Head: {
+		DisplayName: Frostbound Relay Receiver
+		Tooltip: ""
+	}
+
+	SynergyArmor_FrostRelay_Body: {
+		DisplayName: Frostbound Relay Relay
+		Tooltip: ""
+	}
+
+	SynergyArmor_FrostRelay_Legs: {
+		DisplayName: Frostbound Relay Runners
+		Tooltip: ""
+	}
+
+	SynergyArmor_RootclockGardener_Head: {
+		DisplayName: Rootclock Gardener Bloom
+		Tooltip: ""
+	}
+
+	SynergyArmor_RootclockGardener_Body: {
+		DisplayName: Rootclock Gardener Greenhouse
+		Tooltip: ""
+	}
+
+	SynergyArmor_RootclockGardener_Legs: {
+		DisplayName: Rootclock Gardener Rootwalkers
+		Tooltip: ""
+	}
+
+	SynergyArmor_TempleParadox_Head: {
+		DisplayName: Temple Paradox Dial
+		Tooltip: ""
+	}
+
+	SynergyArmor_TempleParadox_Body: {
+		DisplayName: Temple Paradox Epoch
+		Tooltip: ""
+	}
+
+	SynergyArmor_TempleParadox_Legs: {
+		DisplayName: Temple Paradox Steps
+		Tooltip: ""
+	}
+
+	SynergyArmor_EventHorizonMason_Head: {
+		DisplayName: Event Horizon Mason Lens
+		Tooltip: ""
+	}
+
+	SynergyArmor_EventHorizonMason_Body: {
+		DisplayName: Event Horizon Mason Mantle
+		Tooltip: ""
+	}
+
+	SynergyArmor_EventHorizonMason_Legs: {
+		DisplayName: Event Horizon Mason Gravboots
+		Tooltip: ""
+	}
+
+	SynergyArmor_LunarCartel_Head: {
+		DisplayName: Lunar Cartel Seal
+		Tooltip: ""
+	}
+
+	SynergyArmor_LunarCartel_Body: {
+		DisplayName: Lunar Cartel Consortium
+		Tooltip: ""
+	}
+
+	SynergyArmor_LunarCartel_Legs: {
+		DisplayName: Lunar Cartel Commissions
+		Tooltip: ""
+	}
+
+	SynergyArmor_MoonlordThreshold_Head: {
+		DisplayName: Moonlord Threshold Crown
+		Tooltip: ""
+	}
+
+	SynergyArmor_MoonlordThreshold_Body: {
+		DisplayName: Moonlord Threshold Boundary
+		Tooltip: ""
+	}
+
+	SynergyArmor_MoonlordThreshold_Legs: {
+		DisplayName: Moonlord Threshold Crossing
+		Tooltip: ""
+	}
+
+	SynergyArmor_LegendaryBellArchitect_Head: {
+		DisplayName: Legendary Bell Architect Belfry
+		Tooltip: ""
+	}
+
+	SynergyArmor_LegendaryBellArchitect_Body: {
+		DisplayName: Legendary Bell Architect Cathedral
+		Tooltip: ""
+	}
+
+	SynergyArmor_LegendaryBellArchitect_Legs: {
+		DisplayName: Legendary Bell Architect Pilgrimage
+		Tooltip: ""
+	}
+}
+
+MobRelics: {
+	ClassicCondition: Classic world only
+	ExactExpertCondition: Expert world only (not Master)
+	ExactMasterCondition: Master world only (not Legendary)
+	LegendaryCondition: Legendary world (Master Mode and For the Worthy)
+
+	Mechanics: {
+		UniqueDrop: "{0}. Unique drop of {1} from {2}."
+
+		Availability: {
+			CommonTrace: Ordinary random drop
+			CommonCurio: Ordinary random drop
+			ExpertSeal: Expert world pool only
+			MasterRelic: Master world pool only
+			LegendaryMyth: Legendary world only
+		}
+
+		Effect: {
+			CommonTrace: Equippable hunter relic: +{0} all damage and +{1}% critical strike chance.
+			CommonCurio: Equippable pathfinder relic: +{0} movement speed, +{1} attack speed, and -{2} mana cost.
+			ExpertSeal: Equippable guardian relic: +{0} defense, +{1} damage reduction, and +{2} life regeneration.
+			MasterRelic: Equippable echo relic: +{0} all damage; resonance has {1} base chance to launch a {2} echo for {3} of the triggering hit.
+			LegendaryMyth: Equippable myth: +{0} all damage, +{1} movement speed, +{2} maximum life, and +{3} maximum mana; empowers echo and ward reactions.
+		}
+
+		Synergy: Synergy: equip 2/3/4/all 5 relics of {0} for Link, Echo, Ward, and Convergence. Equip relics from 3+ different {1} enemies for Provider Harmony.
+
+		Aspect: {
+			Cinder: cinder
+			Frost: frost
+			Storm: storm
+			Venom: venom
+			Radiant: radiant
+			Umbral: umbral
+			Tidal: tidal
+			Verdant: verdant
+		}
+	}
+
+	RuntimeItems: {
+		MobRelic_B567F6138312325F_0.Tooltip: ""
+		MobRelic_B567F6138312325F_1.Tooltip: ""
+		MobRelic_B567F6138312325F_2.Tooltip: ""
+		MobRelic_B567F6138312325F_3.Tooltip: ""
+		MobRelic_B567F6138312325F_4.Tooltip: ""
+		MobRelic_83094BC28C7E215D_0.Tooltip: ""
+		MobRelic_83094BC28C7E215D_1.Tooltip: ""
+		MobRelic_83094BC28C7E215D_2.Tooltip: ""
+		MobRelic_83094BC28C7E215D_3.Tooltip: ""
+		MobRelic_83094BC28C7E215D_4.Tooltip: ""
+		MobRelic_CEBD35FEF6D09FB1_0.Tooltip: ""
+		MobRelic_CEBD35FEF6D09FB1_1.Tooltip: ""
+		MobRelic_CEBD35FEF6D09FB1_2.Tooltip: ""
+		MobRelic_CEBD35FEF6D09FB1_3.Tooltip: ""
+		MobRelic_CEBD35FEF6D09FB1_4.Tooltip: ""
+		MobRelic_9BA20D261B5D0FF3_0.Tooltip: ""
+		MobRelic_9BA20D261B5D0FF3_1.Tooltip: ""
+		MobRelic_9BA20D261B5D0FF3_2.Tooltip: ""
+		MobRelic_9BA20D261B5D0FF3_3.Tooltip: ""
+		MobRelic_9BA20D261B5D0FF3_4.Tooltip: ""
+	}
+
+	SourceNames: {
+		CEBD35FEF6D09FB1: Eye of Cthulhu
+		B567F6138312325F: Crabulon
+		83094BC28C7E215D: Glowmoth
+		9BA20D261B5D0FF3: The Grand Thunder Bird
+	}
+}
+
+ResidenceFlag: {
+	MapEntry: NPC home flag
+	IdentityPending: Your player identity is still syncing with the server. Try again in a second.
+	Missing: This home flag no longer exists.
+	TooFar: Move closer to claim this flag.
+	AlreadyAssigned: This flag is already assigned to another resident.
+	OwnedByAnother: Another player has claimed this flag.
+	InvalidHouse: Place the flag inside a complete, suitable NPC house.
+	HouseOccupied: This house is already occupied or reserved.
+	Claimed: Home claimed.
+	InvalidOrOccupied: The destination home is no longer suitable or is occupied.
+	NoResidentReady: Lead a trusted resident to world spawn before selecting a home.
+	OutsideSpawnRadius: The home must be within {0} blocks of the resident's remembered world spawn.
+	HomeSelected: Suitable home selected. Lead the resident there on foot.
+	VanillaHousingLocked: This resident cannot use vanilla housing yet. Earn full trust and lead them on foot through the DingDong settlement flow.
+	VanillaHousingOutsideRadius: This resident remembers world spawn and refuses homes farther than {0} blocks away.
+}
+
+NpcDialogue: {
+	GoblinReforgeButton: Reforge + fusion
+	GoblinFusionButton: Upgrade + fusion
+	GoblinFusionHint: Open “Upgrade + fusion”. Put the accessory you want to keep in the Target slot. Put the reforged accessory whose imprint you want to transfer in the Donor slot. Upgrade affects only Target. Fusion transfers the Donor imprint into one unlocked Target slot and permanently consumes the Donor; the original Reforge button still works normally.
+	HomeGoodsButton: Home goods
+	QuestButtonHint: DingDong actions appear as separate dialogue bubbles below the original NPC buttons and never replace them.
+}
+
+AccessoryEnchanting: {
+	Tooltips: {
+		Upgrade: Upgrade level: +{0}/{1} | enchantment slots: {2}/{3}
+		Imprint: Transferable imprint: {0} — {1}
+		Fused: Fused enchantments: {0}
+	}
+
+	Enchantments: {
+		Bastion: {
+			Name: Bastion
+			Effect: +3 defense
+		}
+
+		Menace: {
+			Name: Menace
+			Effect: +3% damage
+		}
+
+		Precision: {
+			Name: Precision
+			Effect: +3% critical strike chance
+		}
+
+		Velocity: {
+			Name: Velocity
+			Effect: +4% movement speed
+		}
+
+		Rhythm: {
+			Name: Rhythm
+			Effect: +3% attack speed
+		}
+
+		Vitality: {
+			Name: Vitality
+			Effect: +20 maximum life
+		}
+
+		Arcana: {
+			Name: Arcana
+			Effect: +20 maximum mana and 3% reduced mana cost (reduction caps at 30%)
+		}
+
+		Vanguard: {
+			Name: Vanguard
+			Effect: +5% melee damage
+		}
+
+		Ballistics: {
+			Name: Ballistics
+			Effect: +5% ranged damage
+		}
+
+		Spellweave: {
+			Name: Spellweave
+			Effect: +5% magic damage
+		}
+
+		Command: {
+			Name: Command
+			Effect: +5% summon damage
+		}
+
+		Fortune: {
+			Name: Fortune
+			Effect: +0.12 luck (caps at +0.60)
+		}
+
+		Echo: {
+			Name: Echo
+			Effect: Every fifth hit echoes 20% of its damage, +5% per extra Echo (caps at 40%)
+		}
+
+		SecondWind: {
+			Name: Second Wind
+			Effect: Taking damage triggers 4+ seconds of bonus defense and life regeneration
+		}
+	}
+}
+
+Quests: {
+	RequestSent: Checking quest state with the server…
+	IdentityPending: Your quest identity is still synchronizing with the server. Try again in a second.
+	InvalidResident: This resident or their authored home is currently unavailable.
+	ButtonAccept: Quest {0}/{1}
+	ButtonAcceptContinued: New quest #{0}
+	ButtonTurnIn: Turn in quest
+	ButtonSurvey: Survey: {0}
+	ButtonPatrol: Patrol {0}/{1}: {2}
+	ButtonSupplies: Supplies {0}/{1}
+	ButtonDefense: Defense {0}/{1}
+	ButtonBoss: Boss: {0}
+	ButtonBiome: Purge {0}/{1}
+	ButtonBanner: Banner: {0}
+	ButtonProgression: Advance {0}
+	ButtonInvite: Invite to follow (100% trust)
+	ButtonFollowing: Following you
+	ButtonAwaitingHome: Waiting at world spawn
+	ButtonArrived: Living in the new home
+	ButtonBusy: Following another player
+	FinishBeforeEscort: Finish the active quest first, then choose the relocation bubble.
+	TrustNeeded: Relocation requires trust: {0}/{1}.
+	SurveyAccepted: “Inspect my original {0} home; your target is {1}.”
+	SurveyHint: Visit this resident's authored home and reach “{0}”.
+	MapTargetMarked: The quest area is shown as a small gold ring on the map; the pulsing red cross marks the current objective.
+	SurveyReady: The original home has been found. Return to {0}, talk to them, and press “Turn in quest”. Their marker is now shown on the map.
+	PatrolAccepted: “Check the perimeter of my {0} home: {1} points. Start toward {2}.”
+	PatrolMissing: Route: {0}/{1}. Next direction: {2}.
+	PatrolStep: Route point marked: {0}/{1}. Next: {2}.
+	PatrolReady: The perimeter is secure. Return to {0}, talk to them, and press “Turn in quest”. Their marker is now shown on the map.
+	SuppliesAccepted: “Bring {0} × {1} for the household.”
+	SuppliesMissing: Your inventory must contain {1} × {0}.
+	DefenseAccepted: “Defeat {0} hostile creatures within {1} blocks of my original home.”
+	DefenseMissing: Home defense: {0}/{1}.
+	DefenseReady: The home is safe. Return to {0}, talk to them, and press “Turn in quest”. Their marker is now shown on the map.
+	BossAccepted: World contract: defeat {0}.
+	BiomeAccepted: Defeat {0} hostile creatures in the {1} biome.
+	BannerAccepted: Banner collection: bring “{0}” from “{1}”. One banner is consumed on turn-in.
+	ProgressionAccepted: Progression contract: defeat a new world boss or complete a registered milestone from {0}.
+	RewardPromised: Promised reward: {0}. World difficulty and current progression are already included.
+	RewardGranted: Reward received: {0} + {1} × {2} + themed bonus: {3} × {4}.
+	ThemedBonus: random resident-themed bonus
+	RewardStreak: Completion milestone {0}: an additional resident cache was added.
+	ObjectiveMissing: Objective not complete: {0}
+	ObjectiveReady: The quest is ready. Return to {0}, talk to them, and press “Turn in quest”. Their marker is now shown on the map.
+	JournalProgress: "{0}: progress {1}/{2}."
+	QuestComplete: Trust: {0}/{1}. Talk again for the next quest.
+	QuestCompleteInfinite: Quest #{0} complete. The rotation continues; this resident already has another assignment.
+	TrustReady: Trust earned: {0}/{1} (100%). Quests continue indefinitely; choose the relocation bubble to invite the resident.
+	AlreadyMoved: This resident already lives in the selected new home.
+	AlreadyFollowing: The resident is already following you. Complete the current walking leg.
+	Busy: This resident is currently following another player.
+	AnotherEscortActive: Finish your current resident escort before inviting another resident.
+	EscortStarted: Escort started. The resident walks on foot; stay within 100 blocks and lead them to world spawn.
+	SpawnReached: World spawn reached and remembered. Choose a suitable flagged home within {0} blocks; the resident will then walk there.
+	AwaitingHome: This resident reached world spawn and is waiting for you to select a suitable flagged home nearby.
+	Arrived: Escort complete. The resident's home point is now bound to this house.
+
+	Difficulty: {
+		Classic: Classic
+		Expert: Expert
+		Master: Master
+		Legendary: Legendary
+	}
+
+	Objectives: {
+		Survey: Inspect the authored home: {0}.
+		Patrol: Patrol {0}/{1}; next point: {2}.
+		Supplies: Supplies {0}/{1}: {2}.
+		Defense: Defend the resident's home: {0}/{1} enemies.
+		Boss: Defeat “{0}”: {1}/{2}.
+		Biome: Purge the {0} biome: {1}/{2} enemies while you are inside it.
+		Banner: Bring “{0}” from “{1}”: {2}/1. One banner is consumed on turn-in.
+		Progression: Advance {0}: {1}/{2}. Any new boss from that mod and registered milestones count.
+	}
+
+	Journal: {
+		Title: Resident quest journal
+		Subtitle: Accept quests from any resident and complete them in any order. The icon identifies the exact item, creature, or objective category.
+		Summary: Active: {0} • ready: {1} • completed: {2} • residents helped: {3}
+		EntryBody:
+			'''
+			{0}
+			State: {1}
+			Reward: {2} • accepted on {3}
+			Resident trust: {4}
+			'''
+		Trust: "{0}% ({1}/{2} quests)"
+		Ready: READY — return to this resident
+		InProgress: in progress
+		EmptyTitle: No active resident quests
+		EmptyBody: Talk to any available resident and choose the DingDong quest bubble below the original NPC buttons. Quests can be accepted from every resident independently.
+		CommandDescription: Open the resident quest journal.
+		MapHint: Map: small gold quest ring, pulsing red objective marker.
+		ReturnToResident: Return to {0}. Talk to this resident and press “Turn in quest”; the map marker now points to them.
+		TrustProgress: Trust: {0}% ({1}/{2}). Complete {3} more quests for this specific resident to unlock relocation.
+		TrustUnlocked: Trust: 100% ({0}/{1}). Relocation unlocked: talk to the resident, press “Invite to follow”, lead them on foot to world spawn, then select suitable housing within {2} blocks. Their housing banner is now visible.
+		ResidentFollowing: Trust: 100% ({0}/{1}). The resident is following you: lead them on foot to world spawn and do not get too far ahead.
+		ResidentAwaitingHome: Trust: 100% ({0}/{1}). The resident reached world spawn. Select suitable flagged housing within {2} blocks of the remembered spawn.
+		ResidentSettled: Trust: 100% ({0}/{1}). This resident is settled; their housing can only be changed within {2} blocks of the remembered world spawn.
+	}
+
+	SurveyTargets: {
+		Center: central hall
+		WestWing: west wing
+		EastWing: east wing
+		UpperFloor: upper floor
+		GroundFloor: ground floor
+		UpperWest: upper west side
+		UpperEast: upper east side
+		Entrance: entrance
+	}
+
+	PatrolDirections: {
+		North: north
+		NorthEast: northeast
+		East: east
+		SouthEast: southeast
+		South: south
+		SouthWest: southwest
+		West: west
+		NorthWest: northwest
+	}
+}
+
+Hub: {
+	Title: DingDong Hub
+	Tagline: Residents · quests · field guide
+	Close: Close
+	ScrollHint: Mouse wheel to scroll
+	Reward: Reward
+	Subtitle: Quests • combat • custom homes • help
+	Footer: J — toggle the hub • mouse wheel — scroll • hover over an icon to see its name
+
+	Tabs: {
+		Quests: Quests
+		Combat: Combat
+		Residences: Residents' homes
+		Help: Help
+	}
+
+	Quests.SummaryTitle: Journal overview
+	Combat.Title: Combat: {0}
+
+	Residences: {
+		Title: Custom resident homes
+		Subtitle: Only homes discovered by this character appear here. Unexplored locations and their residents stay hidden.
+		SummaryTitle: World overview
+		Summary: Discovered: {0}/{1} • built: {2} • habitable: {3} • rooms: {4}
+		EmptyTitle: No homes discovered yet
+		EmptyBody: Explore the world. Approaching a custom home reveals a notification and its resident's map marker.
+		EntryBody:
+			'''
+			Biome: {0} • home #{1}
+			Building center: {2}, {3} tiles
+			'''
+	}
+
+	Biomes: {
+		Forest: Forest
+		Snow: Snow
+		Desert: Desert
+		Jungle: Jungle
+		Ocean: Ocean
+		Underground: Underground
+		Hallow: The Hallow
+		Mushroom: Mushroom biome
+		Underworld: The Underworld
+	}
+
+	Help: {
+		Title: Modpack guide
+		Subtitle: DingDong's core systems and the modpack's default controls in one place.
+		ControlsTitle: Basic controls
+		ControlsBody:
+			'''
+			J — DingDong Hub and quest journal
+			Mouse1 — attack; Ore Excavator with a suitable tool
+			N — quick mana (moved from J to avoid a conflict)
+			F6 — LuiAFK effects; F7 — LuiAFK effect settings
+			'''
+		ModulesTitle: Inside the hub
+		ModulesBody: The journal lists active resident quests with target and reward icons. The combat guide covers weapon types, the last hit, resistances and difficulty. The homes tab keeps your character's discovered residences.
+		ServerTitle: Server authority
+		ServerBody: The server validates quest progress, rewards, trust, combat and relocation. This menu displays synchronized data; it cannot complete objectives on its own.
+	}
+}
+
+Teleporter.CreatureTooltip: A wired pair teleports ordinary NPCs and critters; bosses, segmented creatures and oversized creatures cannot pass through.
+
+Damage: {
+	WeaponAffinity: DingDong type: {0} • element: {1}
+	WeaponBehavior: Attack pattern: {0} (a description, not a hidden effect)
+	WeaponGuide: "[{0}] DingDong hub • enemy trait effects are limited to ×0.80–×1.30"
+	WeaponDisabled: DingDong damage is disabled by the server • [{0}] opens the hub
+	BestiaryLocked: Traits are locked. Obtain ‘{0}’; this character will retain the knowledge. [{1}] opens the hub.
+	BestiaryKnowledge:
+		'''
+		Archetype: {0}
+		Weaknesses: {1}
+		Resistances: {2}
+		[{3}] opens the combat tab in the DingDong hub.
+		'''
+	WeaknessHit: Weakness: {0} ×{1}
+	ResistanceHit: Resistance: {0} ×{1}
+	None: none
+
+	Guide: {
+		CommandDescription: Open the DingDong damage guide.
+
+		Common: {
+			Enabled: enabled
+			Disabled: disabled
+			Unbound: unbound
+			Weakness: weakness
+			Resistance: resistance
+			Neutral: neutral
+			Yes: yes
+			No: no
+			None: none
+		}
+
+		Navigation: {
+			Previous: < Back
+			Next: Next >
+			Page: "{0} / {1}"
+		}
+
+		Axes: {
+			Delivery: delivery method
+			Element: element
+			Behavior: attack pattern
+			Acquisition: origin
+			Segment: body part
+			Phase: combat phase
+		}
+
+		Coverage: {
+			Explicit: explicit profile
+			Inherited: inherited from the parent attack
+			Adapter: automatically classified mod content
+			Fallback: automatically classified Terraria content
+			Unknown: unknown
+		}
+
+		Archetypes: {
+			Slime: gelatinous
+			Organic: organic
+			Armored: armored
+			Undead: undead
+			Plant: plant
+			Aquatic: aquatic
+			Spectral: spectral
+			Mechanical: mechanical
+			Unknown: special
+		}
+
+		Difficulty: {
+			Classic: Classic
+			Expert: Expert
+			Master: Master
+			Legendary: Legendary (Master + For the worthy)
+			Journey: Journey
+			ForTheWorthy: For the worthy seed is active
+			StandardSeed: For the worthy seed is not active
+			NoCustomMode: no custom difficulty is active
+			NoExtraToggles: no additional modes
+			CompatibilityUnavailable: mode status is unavailable
+			WorldNotLoaded: adapter loaded
+			WorldNotLoadedDetail: World-dependent status will be read after the world finishes loading.
+			CalamityDetail: Active flags: {0}. Reported difficulty scale: ×{1}; display only.
+			CalamityDetailNoScale: Active flags: {0}.
+			FargoDetail: Eternity vanilla behavior layer: {0}.
+			Enabled: enabled
+			Disabled: disabled
+		}
+
+		Pages: {
+			Overview: {
+				Title: Damage guide
+				Subtitle: Weapon types, enemy traits, hit feedback and difficulty in one place.
+				StatusTitle: Current status
+				StatusBody: Server-authoritative DingDong damage layer: {0}. The server applies the same rules to every player.
+				FormulaTitle: What affects a hit
+				FormulaBody: Terraria and difficulty mods calculate base damage and defense. DingDong applies matching enemy traits and limits its multiplier to ×0.80–×1.30.
+				ActiveTitle: Axes currently affecting damage
+				ActiveBody: The loaded enemy profiles currently contain non-neutral rules for: {0}. Other displayed axes remain descriptive unless an enemy profile explicitly assigns them a rule.
+				FeedbackTitle: Reading combat feedback
+				FeedbackBody: Orange ‘Weakness’ means at least ×1.075. Blue ‘Resistance’ means at most ×0.925. Hits between these thresholds are neutral and do not add combat text.
+				NoHiddenTitle: No hidden combo or invincibility-frame removal
+				NoHiddenBody: Fast attacks do not secretly increase damage, remove invincibility frames or trigger an undocumented combo. The guide and last-hit page show every DingDong multiplier that actually contributed.
+				RulesTitle: The main rule
+				RulesBody: Active axes: {0}. Neutral hits do not clutter the screen. DingDong does not remove invincibility frames, create hidden combos or change NPC health outside the server's damage calculation.
+			}
+
+			CurrentWeapon: {
+				Title: Current weapon
+				Subtitle: Your held weapon is analyzed by the same classifier used in combat.
+				EmptyTitle: No damaging weapon selected
+				EmptyBody: Close the guide, hold a weapon and reopen it. Item tooltips always show delivery method, element and attack pattern.
+				ReadTitle: Quick reading order
+				ReadBody: Delivery method and element can match an enemy profile. Attack pattern and origin remain visible so future profile rules will not introduce hidden behavior.
+				IdentityBody:
+					'''
+					Delivery: {0}
+					Element: {1}
+					'''
+				PatternTitle: Attack pattern
+				PatternBody: "{0}. This describes the attack's behavior; it does not grant a bonus or debuff by itself."
+				OriginTitle: Origin
+				OriginBody: "{0}. Origin is metadata and only affects damage when an enemy profile explicitly defines a matching rule."
+				CoverageTitle: Classification source
+				CoverageBody: "{0}. Modded weapons are recognized without a hard dependency on their content mod's assembly."
+				ExpectTitle: Expected range
+				ExpectBody: See the Bestiary for studied enemies. DingDong's contribution to a hit is always between ×0.80 and ×1.30.
+			}
+
+			LastHit: {
+				Title: Last hit breakdown
+				Subtitle: A local record of the last item or projectile hit evaluated by DingDong.
+				EmptyTitle: No hits recorded yet
+				EmptyBody: Hit a hostile creature with an item or projectile, then reopen this page. Neutral hits are recorded even when no combat text appears.
+				FeedbackTitle: What this page explains
+				FeedbackBody: It distinguishes a missing effect from a genuinely neutral ×1.00 result and shows which factor changed the hit.
+				ResultBody:
+					'''
+					Result: {0}
+					Final DingDong multiplier: ×{1}
+					Strongest matching tag: {2}
+					'''
+				BreakdownTitle: Exact DingDong breakdown
+				BreakdownBody: Delivery ×{0} • element ×{1} • pattern ×{2} • origin ×{3} • segment ×{4} • phase ×{5}
+				ClampTitle: Limits
+				ClampBody: Raw result: ×{0}. Applied: ×{1}. Limited: {2}.
+				AgeTitle: Record age
+				AgeBody: Recorded {0} game ticks ago. This is local UI data; the server independently verifies the combat multiplier.
+			}
+
+			EnemyKnowledge: {
+				Title: Enemy knowledge
+				Subtitle: Traits are unlocked by banners and displayed in the Bestiary, alongside the rest of your creature knowledge.
+				UnlockTitle: How to unlock
+				UnlockBody: Obtain this enemy's banner. Having the item in your inventory teaches the current character its traits without an extra menu action.
+				ReadTitle: What the Bestiary shows
+				ReadBody: Archetype, weaknesses, resistances and their exact multipliers. An absent tag means a neutral ×1.00, rather than unknown behavior.
+				ThresholdTitle: Which traits are listed
+				ThresholdBody: Weaknesses start at ×1.075; resistances are ×0.925 or below. Smaller differences remain neutral to keep the system readable.
+				CharacterTitle: Multiplayer and saves
+				CharacterBody: Banner knowledge is saved per character. Both players learn it independently, while the server remains authoritative over actual damage.
+			}
+
+			Delivery: {
+				Title: Delivery types
+				Subtitle: Delivery describes how damage reaches its target and may match the target's weakness or resistance.
+				MeleeTitle: Contact and throwing
+				MeleeBody: "{0}: direct weapon or body contact. {1}: thrown weapons. {2}: rogue attacks supplied by content mods."
+				RangedTitle: Projectiles
+				RangedBody: "{0} and {1} follow their ammunition family. {2} covers ordinary magic projectiles; {3}, continuous beams; {4}, explosions."
+				SummonTitle: Summons
+				SummonBody: "{0}: the minion touches the target directly. {1}: a minion's projectile. {2}: attacks by stationary summons."
+				WorldTitle: World hazards and damage over time
+				WorldBody: "{0}: traps. {1}: debuffs and negative life regeneration. {2}: hazards belonging to the world."
+				RuleTitle: Mixed attacks
+				RuleBody: An item and its projectile may display several delivery types. An actual projectile hit is evaluated using that projectile's inherited lineage.
+			}
+
+			Elements: {
+				Title: Elements
+				Subtitle: An element is a matching tag, not a promise of a status effect.
+				NaturalTitle: Physical elements
+				NaturalBody: "{0}. These come from stable content identifiers and explicit DingDong metadata."
+				MysticTitle: Mystic and modded elements
+				MysticBody: "{0}. Mod element is an adapter label for content mods whose elements fall outside DingDong's own list."
+				RuleTitle: What an element does
+				RuleBody: It looks up the enemy's multiplier for that tag. For example, frost ×1.10 on a slime gives a 10% trait bonus before DingDong's final limits.
+				NoDebuffTitle: Elements and status effects
+				NoDebuffBody: Fire does not ignite, frost does not freeze, and lightning does not create a chain by itself. Such effects must come from the weapon or another mod.
+			}
+
+			Patterns: {
+				Title: Patterns and effects
+				Subtitle: Pattern tags describe behavior. A description only becomes a damage modifier when a profile explicitly defines one.
+				BasicTitle: Timing patterns
+				BasicBody: "{0}. These distinguish single hits, burst animations, sustained damage and the ability to hit repeatedly."
+				ShapeTitle: Attack geometry
+				ShapeBody: "{0}. These describe piercing, areas, chains and delays when the projectile actually has those properties."
+				CurrentTitle: Current balance rule
+				CurrentBody: No loaded enemy currently has a non-neutral pattern or rapid-hit combo multiplier. Tags are shown for clarity and future explicit profiles; they grant no hidden power.
+				IFramesTitle: Invincibility frames
+				IFramesBody: DingDong does not remove Terraria's or other mods' invincibility frames. Weapons that bypass or change them do so through their own implementation.
+			}
+
+			Difficulty: {
+				Title: Difficulty stack
+				Subtitle: Shows the Terraria world difficulty and supported mod modes without applying them twice.
+				WorldTitle: Terraria world
+				WorldBody:
+					'''
+					Mode: {0}
+					Seed context: {1}
+					'''
+				DingDongTitle: DingDong trait layer
+				DingDongBody: State: {0}. Its own final result stays between ×0.80 and ×1.30 in Classic, Legendary and supported mod difficulties.
+				ModsTitle: Difficulty mods
+				NoModsBody: No supported external difficulty adapters are loaded. The Terraria world mode is still shown above.
+				ModBody:
+					'''
+					Mode: {0}
+					{1}
+					'''
+				StackTitle: No duplicate scaling
+				StackBody: Terraria, Calamity, Fargo and other mods own their damage, defense and AI hooks. DingDong reads the mode for this page, then applies its separately explained trait result exactly once.
+				LegendaryTitle: Legendary and mod combinations
+				LegendaryBody: Legendary means Master mode with the For the Worthy seed. When Calamity's Revengeance/Death or Fargo's Eternity/Masochist is also active, each layer remains visible here instead of being collapsed into one misleading number.
+			}
+		}
+	}
+
+	Tags: {
+		KineticContact: contact
+		Arrow: arrows
+		Bullet: bullets
+		Thrown: throwing
+		Rogue: rogue
+		MagicProjectile: magic projectile
+		Beam: beam
+		Explosion: explosion
+		MinionContact: minion contact
+		MinionProjectile: minion projectile
+		Sentry: sentry
+		Trap: trap
+		DamageOverTime: damage over time
+		Environment: environment
+		Neutral: neutral
+		Fire: fire
+		Frost: frost
+		Lightning: lightning
+		Water: water
+		Earth: earth
+		Poison: poison
+		Holy: holy
+		Shadow: shadow
+		Astral: astral
+		Void: void
+		Gel: gel
+		Nature: nature
+		ModElement: mod element
+		Single: single hit
+		Burst: burst
+		Sustained: sustained
+		Piercing: piercing
+		Area: area
+		Chain: chain
+		Delayed: delayed
+		RapidMultihit: rapid multihit
+		Crafted: crafted
+		CreatureDrop: creature drop
+		BossDrop: boss drop
+		BiomeChest: biome chest
+		Worldgen: world generation
+		Quest: quest reward
+		Shop: shop
+		Event: event
+		Fishing: fishing
+		Transmutation: transmutation
+		UnspecifiedAcquisition: acquisition not recorded yet
+		UnknownAcquisition: unknown acquisition
+		Gelatinous: gelatinous
+		Unknown: unknown
+	}
+}
+
+Configs: {
+	DingDongServerConfig: {
+		DisplayName: Server world generation
+
+		EnableContinentalWorlds: {
+			Label: Continental world ×10
+			Tooltip: Every newly created Large world has exactly ten times the area, expanded Sahara, Arctic and Amazon regions, giant trees and a scaled dungeon. Requires 64-bit tModLoader, substantial memory and a reload.
+		}
+
+		GenerateAuthoredSettlements: {
+			Label: Generate custom biome settlements
+			Tooltip: Applies to new worlds and requires a reload.
+		}
+
+		HousesPerDistrict: {
+			Label: Houses per district
+			Tooltip: Keeps districts compact. The verified value is 3.
+		}
+
+		GenerateRoads: {
+			Label: Generate district roads
+			Tooltip: Connects houses within each custom district.
+		}
+
+		GenerateCivicHubs: {
+			Label: Generate biome civic centers
+			Tooltip: Adds one protected complex with a market, tavern, workshop and pylon site to each inhabited biome.
+		}
+
+		EnableDamageSystem: {
+			Label: Enable damage system
+			Tooltip: Enables deterministic rules for delivery, elements, attack behavior, origins, segments, phases and damage over time.
+		}
+
+		StrictMultiplayerDamageValidation: {
+			Label: Strict server damage validation
+			Tooltip: The server rejects player hits without a matching verified DingDong intent and resynchronizes the target's state.
+		}
+
+		EnableNpcQuestsAndEscort: {
+			Label: Resident quests and escorting
+			Tooltip: Enables individual trust, residence flags, server-controlled escorting and recovery from stuck paths without hidden teleportation.
+		}
+
+		RequiredResidentQuests: {
+			Label: Quests required for relocation
+			Tooltip: Trust threshold from 1 to 20. Reaching it does not end the resident's unlimited personal quest rotation across loaded content.
+		}
+
+		EnableFiveTileBaseJump: {
+			Label: Half-height base jump
+			Tooltip: Replaces only Terraria's base jump contribution with a measured 50% apex; accessory and mod bonuses remain additive.
+		}
+
+		EnableNightPressure: {
+			Label: Night pressure
+			Tooltip: At night, surface spawn pressure is 3x, underground pressure is 1.5x, and hostile NPC contact/projectile damage is 1.5x.
+		}
+
+		EnableCreatureTeleporters: {
+			Label: Teleport NPCs and creatures
+			Tooltip: Allows wired vanilla teleporters to transport eligible creatures, excluding bosses.
+		}
+
+		MaximumTeleportedCreatureWidthTiles: {
+			Label: Maximum creature width in tiles
+			Tooltip: Wider creatures cannot teleport. Default: 6 tiles.
+		}
+
+		MaximumTeleportedCreatureHeightTiles: {
+			Label: Maximum creature height in tiles
+			Tooltip: Taller creatures cannot teleport. Default: 6 tiles.
+		}
+	}
+
+	RandomTileBudgetConfig: {
+		DisplayName: Random Tile Budget Config
+
+		AutoNormalizeExpandedWorldGrowth: {
+			Label: Auto Normalize Expanded World Growth
+			Tooltip: ""
+		}
+	}
+}
+
+Keybinds: {
+	OpenDamageGuide.DisplayName: Open DingDong journal
+	OpenQuestJournal.DisplayName: Open quest journal directly (optional)
+}
+
+Projectiles: {
+	MobRelicResonanceProjectile.DisplayName: Mob Relic Resonance Projectile
+	AccessoryEchoProjectile.DisplayName: Accessory Echo Projectile
+	SynergyArmorPulseProjectile.DisplayName: Synergy Armor Pulse Projectile
+	FishingSpineProjectile.DisplayName: Fishing Spine Projectile
+}
+
+SynergyArmor: {
+	Labels: {
+		Acquisition: Acquisition: {0}
+		Synergy: Relic synergy: {0}
+	}
+
+	Pieces: {
+		Head: +{0}% damage and +{1}% critical strike chance
+		Body: +{0}% damage reduction and +{1} life regeneration
+		Legs: +{0}% movement speed
+	}
+
+	Sets: {
+		ThresholdForager: {
+			Name: Threshold Forager
+
+			Pieces: {
+				Head: Cap
+				Body: Coat
+				Legs: Treads
+			}
+
+			Bonus: Movement stores up to 120 threshold charge; the next hit spends it to plant a healing briar echo.
+			Synergy: Verdant relics charge the threshold 50% faster and raise the set's life regeneration.
+			Acquisition: Crafted from wood, gel and fallen stars at a work bench.
+		}
+
+		PrismGlasswright: {
+			Name: Prism Glasswright
+
+			Pieces: {
+				Head: Visor
+				Body: Cuirass
+				Legs: Sandals
+			}
+
+			Bonus: Critical hits cut prism facets; the third facet releases a three-way refracted strike.
+			Synergy: Radiant relics strengthen the set's critical-strike focus.
+			Acquisition: Crafted from cactus, glass and lenses at a furnace.
+		}
+
+		BurrowBell: {
+			Name: Buried Bell
+
+			Pieces: {
+				Head: Helm
+				Body: Harness
+				Legs: Greaves
+			}
+
+			Bonus: Stand still to wind the buried bell; your next hit spends the charge on a defensive ground pulse.
+			Synergy: A Tidal relic lets the bell keep winding while you move through water.
+			Acquisition: Crafted from desert fossils, antlion mandibles and amber at an anvil.
+		}
+
+		HiveCantor: {
+			Name: Hive Cantor
+
+			Pieces: {
+				Head: Mask
+				Body: Chorus
+				Legs: Legwraps
+			}
+
+			Bonus: Four consecutive hits on one enemy complete a chorus and release a homing swarm.
+			Synergy: Venom or Verdant relics double the set's summon-damage bonus.
+			Acquisition: Crafted after Queen Bee from bee wax, jungle spores, stingers and a Crabulon Curio.
+		}
+
+		DungeonCartographer: {
+			Name: Dungeon Cartographer
+
+			Pieces: {
+				Head: Surveyor
+				Body: Mapcoat
+				Legs: Pathfinders
+			}
+
+			Bonus: Alternating damage classes draws a route; completing it folds the map into a piercing strike.
+			Synergy: Relics from three different providers reveal a shortcut and increase attack speed.
+			Acquisition: Crafted after Skeletron from bones, cobwebs, a golden key and a Glowmoth Trace.
+		}
+
+		CinderBellfounder: {
+			Name: Cinder Bellfounder
+
+			Pieces: {
+				Head: Cowl
+				Body: Foundry
+				Legs: Sabatons
+			}
+
+			Bonus: Taking damage rings a furnace bell that retaliates in proportion to the wound.
+			Synergy: Cinder relics increase damage and shorten the interval between retaliations.
+			Acquisition: Crafted in the Underworld from hellstone, obsidian, fireblossom and a Grand Thunder Bird Curio.
+		}
+
+		StormConductor: {
+			Name: Storm Conductor
+
+			Pieces: {
+				Head: Coil
+				Body: Jacket
+				Legs: Grounders
+			}
+
+			Bonus: Movement stores static charge; a full conductor makes the next hit chain through nearby enemies.
+			Synergy: A Storm relic makes vertical movement charge the conductor as efficiently as running.
+			Acquisition: Crafted in early Hardmode from cobalt, souls of flight and wire.
+		}
+
+		MimicBroker: {
+			Name: Mimic Broker
+
+			Pieces: {
+				Head: Monocle
+				Body: Ledgercoat
+				Legs: Quicksteps
+			}
+
+			Bonus: Normal hits accrue interest; a critical hit liquidates it into bonus damage, life and mana.
+			Synergy: Two Curio relics improve the broker's luck and credit ceiling.
+			Acquisition: Crafted after the mechanical bosses from hallowed bars, souls of light and night, and an Eye of Cthulhu Curio.
+		}
+
+		FrostRelay: {
+			Name: Frostbound Relay
+
+			Pieces: {
+				Head: Receiver
+				Body: Relay
+				Legs: Runners
+			}
+
+			Bonus: Successive hits schedule a delayed replay of the previous impact on the same target.
+			Synergy: Frost relics lengthen the relay's memory and strengthen its replay.
+			Acquisition: Crafted from adamantite, frost cores and souls of flight at a mythril anvil.
+		}
+
+		RootclockGardener: {
+			Name: Rootclock Gardener
+
+			Pieces: {
+				Head: Bloom
+				Body: Greenhouse
+				Legs: Rootwalkers
+			}
+
+			Bonus: Damage planted in one enemy grows for three seconds, then blooms as stored damage and healing.
+			Synergy: Verdant or Tidal relics double the set's regeneration while the crop matures.
+			Acquisition: Crafted after Plantera from chlorophyte, life fruit, jungle spores and a Crabulon Curio.
+		}
+
+		TempleParadox: {
+			Name: Temple Paradox
+
+			Pieces: {
+				Head: Dial
+				Body: Epoch
+				Legs: Steps
+			}
+
+			Bonus: Part of each wound becomes time debt; survive the interval to refund it and retaliate.
+			Synergy: Radiant and Umbral relics together double the set's damage reduction.
+			Acquisition: Crafted after Golem from beetle husks, chlorophyte, power cells and a Glowmoth Curio.
+		}
+
+		EventHorizonMason: {
+			Name: Event Horizon Mason
+
+			Pieces: {
+				Head: Lens
+				Body: Mantle
+				Legs: Gravboots
+			}
+
+			Bonus: Hits add mass to the target; critical mass pulls nearby enemies inward and collapses into an area strike.
+			Synergy: An Umbral relic raises the set's damage bonus from 10% to 16%.
+			Acquisition: Crafted after Plantera from ectoplasm, shroomite and souls of fright.
+		}
+
+		LunarCartel: {
+			Name: Lunar Cartel
+
+			Pieces: {
+				Head: Seal
+				Body: Consortium
+				Legs: Commissions
+			}
+
+			Bonus: Land melee, ranged, magic and summon hits to earn a 10-second commission: +15% damage and four 28% echoes.
+			Synergy: Relics from four different mods extend the commission from 10 to 15 seconds.
+			Acquisition: Crafted from all four celestial fragments and a Grand Thunder Bird Curio.
+		}
+
+		MoonlordThreshold: {
+			Name: Moon Lord Threshold
+
+			Pieces: {
+				Head: Crown
+				Body: Boundary
+				Legs: Crossing
+			}
+
+			Bonus: With Relic Echo active, every third hit creates two delayed 22% echoes; Threshold Ward reflects 80% of one wound per second.
+			Synergy: Full Convergence grants +18% damage, creates three 32% echoes and raises reflection to 120%.
+			Acquisition: Crafted after Moon Lord from luminite, all four fragments and an Eye of Cthulhu Curio.
+		}
+
+		LegendaryBellArchitect: {
+			Name: Legendary Bell Architect
+
+			Pieces: {
+				Head: Belfry
+				Body: Cathedral
+				Legs: Pilgrimage
+			}
+
+			Bonus: Every five seconds the set cycles Offense, Shelter and Passage, changing its combat role instead of stacking all bonuses.
+			Synergy: Three relic providers plus Full Convergence activate all phases; the bell strike triggers every third hit for 125% damage.
+			Acquisition: Legendary-world apex craft using heavy luminite, every fragment and a Glowmoth Myth for each piece.
+		}
+	}
+
+	RuntimeItems: {
+		SynergyArmor_ThresholdForager_Head.Tooltip: ""
+		SynergyArmor_ThresholdForager_Body.Tooltip: ""
+		SynergyArmor_ThresholdForager_Legs.Tooltip: ""
+		SynergyArmor_PrismGlasswright_Head.Tooltip: ""
+		SynergyArmor_PrismGlasswright_Body.Tooltip: ""
+		SynergyArmor_PrismGlasswright_Legs.Tooltip: ""
+		SynergyArmor_BurrowBell_Head.Tooltip: ""
+		SynergyArmor_BurrowBell_Body.Tooltip: ""
+		SynergyArmor_BurrowBell_Legs.Tooltip: ""
+		SynergyArmor_HiveCantor_Head.Tooltip: ""
+		SynergyArmor_HiveCantor_Body.Tooltip: ""
+		SynergyArmor_HiveCantor_Legs.Tooltip: ""
+		SynergyArmor_DungeonCartographer_Head.Tooltip: ""
+		SynergyArmor_DungeonCartographer_Body.Tooltip: ""
+		SynergyArmor_DungeonCartographer_Legs.Tooltip: ""
+		SynergyArmor_CinderBellfounder_Head.Tooltip: ""
+		SynergyArmor_CinderBellfounder_Body.Tooltip: ""
+		SynergyArmor_CinderBellfounder_Legs.Tooltip: ""
+		SynergyArmor_StormConductor_Head.Tooltip: ""
+		SynergyArmor_StormConductor_Body.Tooltip: ""
+		SynergyArmor_StormConductor_Legs.Tooltip: ""
+		SynergyArmor_MimicBroker_Head.Tooltip: ""
+		SynergyArmor_MimicBroker_Body.Tooltip: ""
+		SynergyArmor_MimicBroker_Legs.Tooltip: ""
+		SynergyArmor_FrostRelay_Head.Tooltip: ""
+		SynergyArmor_FrostRelay_Body.Tooltip: ""
+		SynergyArmor_FrostRelay_Legs.Tooltip: ""
+		SynergyArmor_RootclockGardener_Head.Tooltip: ""
+		SynergyArmor_RootclockGardener_Body.Tooltip: ""
+		SynergyArmor_RootclockGardener_Legs.Tooltip: ""
+		SynergyArmor_TempleParadox_Head.Tooltip: ""
+		SynergyArmor_TempleParadox_Body.Tooltip: ""
+		SynergyArmor_TempleParadox_Legs.Tooltip: ""
+		SynergyArmor_EventHorizonMason_Head.Tooltip: ""
+		SynergyArmor_EventHorizonMason_Body.Tooltip: ""
+		SynergyArmor_EventHorizonMason_Legs.Tooltip: ""
+		SynergyArmor_LunarCartel_Head.Tooltip: ""
+		SynergyArmor_LunarCartel_Body.Tooltip: ""
+		SynergyArmor_LunarCartel_Legs.Tooltip: ""
+		SynergyArmor_MoonlordThreshold_Head.Tooltip: ""
+		SynergyArmor_MoonlordThreshold_Body.Tooltip: ""
+		SynergyArmor_MoonlordThreshold_Legs.Tooltip: ""
+		SynergyArmor_LegendaryBellArchitect_Head.Tooltip: ""
+		SynergyArmor_LegendaryBellArchitect_Body.Tooltip: ""
+		SynergyArmor_LegendaryBellArchitect_Legs.Tooltip: ""
+	}
+
+	LiveTooltipV3: {
+		SynergyArmor_ThresholdForager_Head: ""
+		SynergyArmor_ThresholdForager_Body: ""
+		SynergyArmor_ThresholdForager_Legs: ""
+		SynergyArmor_PrismGlasswright_Head: ""
+		SynergyArmor_PrismGlasswright_Body: ""
+		SynergyArmor_PrismGlasswright_Legs: ""
+		SynergyArmor_BurrowBell_Head: ""
+		SynergyArmor_BurrowBell_Body: ""
+		SynergyArmor_BurrowBell_Legs: ""
+		SynergyArmor_HiveCantor_Head: ""
+		SynergyArmor_HiveCantor_Body: ""
+		SynergyArmor_HiveCantor_Legs: ""
+		SynergyArmor_DungeonCartographer_Head: ""
+		SynergyArmor_DungeonCartographer_Body: ""
+		SynergyArmor_DungeonCartographer_Legs: ""
+		SynergyArmor_CinderBellfounder_Head: ""
+		SynergyArmor_CinderBellfounder_Body: ""
+		SynergyArmor_CinderBellfounder_Legs: ""
+		SynergyArmor_StormConductor_Head: ""
+		SynergyArmor_StormConductor_Body: ""
+		SynergyArmor_StormConductor_Legs: ""
+		SynergyArmor_MimicBroker_Head: ""
+		SynergyArmor_MimicBroker_Body: ""
+		SynergyArmor_MimicBroker_Legs: ""
+		SynergyArmor_FrostRelay_Head: ""
+		SynergyArmor_FrostRelay_Body: ""
+		SynergyArmor_FrostRelay_Legs: ""
+		SynergyArmor_RootclockGardener_Head: ""
+		SynergyArmor_RootclockGardener_Body: ""
+		SynergyArmor_RootclockGardener_Legs: ""
+		SynergyArmor_TempleParadox_Head: ""
+		SynergyArmor_TempleParadox_Body: ""
+		SynergyArmor_TempleParadox_Legs: ""
+		SynergyArmor_EventHorizonMason_Head: ""
+		SynergyArmor_EventHorizonMason_Body: ""
+		SynergyArmor_EventHorizonMason_Legs: ""
+		SynergyArmor_LunarCartel_Head: ""
+		SynergyArmor_LunarCartel_Body: ""
+		SynergyArmor_LunarCartel_Legs: ""
+		SynergyArmor_MoonlordThreshold_Head: ""
+		SynergyArmor_MoonlordThreshold_Body: ""
+		SynergyArmor_MoonlordThreshold_Legs: ""
+		SynergyArmor_LegendaryBellArchitect_Head: ""
+		SynergyArmor_LegendaryBellArchitect_Body: ""
+		SynergyArmor_LegendaryBellArchitect_Legs: ""
+	}
+}

@@ -1,0 +1,22 @@
+Mods: {
+	DingDongBiomeHomes: {
+		Fishing: {
+			Enemies: {
+				ShoalSnapper.DisplayName: Shoal Snapper
+				TideBell.DisplayName: Tide Bell
+				ReefCharger.DisplayName: Reef Charger
+				StormSquid.DisplayName: Storm Squid
+				LanternMaw.DisplayName: Lantern Maw
+				PressureEel.DisplayName: Pressure Eel
+				BlackwaterStalker.DisplayName: Blackwater Stalker
+				WakeCarapace.DisplayName: Wake Carapace
+				CrystalUrchin.DisplayName: Crystal Urchin
+				BlindLakeHunter.DisplayName: Blind Lake Hunter
+				RiverJetfish.DisplayName: River Jetfish
+				SiltCrawler.DisplayName: Silt Crawler
+			}
+		}
+
+		InfoDisplays.FishingDepthDisplay.DisplayName: Fishing depth
+	}
+}

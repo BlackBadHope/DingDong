@@ -1,4 +1,4 @@
-# Public GitHub updater candidate
+# Compatible GitHub updater v5
 
 This updater downloads only public assets from `BlackBadHope/DingDong` GitHub
 Releases. It never uses credentials or a fallback server. `Update-DingDong.cmd`
@@ -11,11 +11,13 @@ Run the CMD entry point, or use:
 .\DingDong-Update.ps1 -DownloadOnly -Owner BlackBadHope -Repository DingDong
 ```
 
-No playable public game pack is currently approved. The tool release
-`v0.1.0-bootstrap` may carry a signed `pending` feed containing `blockedReason`.
-That feed is verified and displayed without reading payload metadata, resolving
-an installation, or changing game/profile files. Source availability does not
-mean that a playable game release has been published.
+The current public installer uses signed `install.json` and installs the complete
+public preset into a separate directory. This v5 updater remains compatible:
+its signed `latest.json` installs only the tooling migration into `Bootstrap/Tools`.
+Then run `Bootstrap/Tools/Install-DingDong.cmd` for the full public installation.
+It does not alter the old FTP installation or import its saves automatically.
+The old `v0.1.0-bootstrap` pending feed is historical and remains supported by the
+parser; a pending feed never installs a payload.
 
 ## Publisher contract
 

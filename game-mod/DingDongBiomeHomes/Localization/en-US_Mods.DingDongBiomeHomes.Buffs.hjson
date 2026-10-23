@@ -1,0 +1,19 @@
+HeatstrokeBuff: {
+	DisplayName: Heatstroke
+	Description: Continental heat drains life, slows attacks and running, and makes incoming damage 5% stronger. Water and Obsidian Skin cool heat exposure.
+}
+
+HypothermiaBuff: {
+	DisplayName: Hypothermia
+	Description: Arctic exposure drains life and heavily slows running, jumping and mining. Warmth, cold resistance and campfires reduce exposure; being wet makes it worse.
+}
+
+AmazonPressureBuff: {
+	DisplayName: Amazon Pressure
+	Description: Saturated jungle air slows movement and weakens damage, knockback and mana efficiency. A nearby campfire dries the air and lowers exposure.
+}
+
+ForestComfortBuff: {
+	DisplayName: Familiar Forest
+	Description: Pure forest air clears hostile climate exposure and slightly improves regeneration, movement and mining.
+}
