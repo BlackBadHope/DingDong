@@ -38,7 +38,8 @@ public sealed class AutoUncraftUI : ModSystem
  private static bool Draw() {
   if (!Main.playerInventory || Main.gameMenu || PlayerInput.IgnoreMouseInterface || !UncraftRecipeCompatibility.Installed) { showList = false; return true; }
   SpriteBatch batch = Main.spriteBatch;
-  int width = (int)(Main.screenWidth / Main.UIScale), height = (int)(Main.screenHeight / Main.UIScale);
+  // GameInterfaceLayer has already applied PlayerInput.SetZoom_UI to these values.
+  int width = Main.screenWidth, height = Main.screenHeight;
   Rectangle slot = SlotBounds(width, height, Main.instance.invBottom, (Main.LocalPlayer.chest != -1 && !Main.recBigList) || Main.npcShop > 0, autoX?.Invoke() ?? 8, autoY?.Invoke() ?? 5);
   AutoUncraftPlayer player = Main.LocalPlayer.GetModPlayer<AutoUncraftPlayer>();
   DrawAutomation(batch, player, slot, false);
@@ -136,7 +137,7 @@ public sealed class AutoUncraftUI : ModSystem
   batch.Draw(TextureAssets.MagicPixel.Value, inner, new Color(34, 49, 82));
  }
  private static bool Hovered(Rectangle box) {
-  if (!box.Contains((new Vector2(Main.mouseX, Main.mouseY) / Main.UIScale).ToPoint())) return false;
+  if (!box.Contains(new Point(Main.mouseX, Main.mouseY))) return false;
   Main.LocalPlayer.mouseInterface = true; Main.LocalPlayer.cursorItemIconEnabled = false; return true;
  }
  private static bool LeftClick() { if (!Main.mouseLeft || !Main.mouseLeftRelease) return false; Main.mouseLeftRelease = false; return true; }
