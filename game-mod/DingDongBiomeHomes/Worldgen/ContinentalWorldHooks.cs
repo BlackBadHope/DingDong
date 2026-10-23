@@ -17,6 +17,7 @@ internal static partial class ContinentalWorldHooks
 		On_WorldGen.playWorldCallBack += PlayWorldCallback;
 		On_WorldGen.UpdateMapTile += UpdateMapTile;
 		Terraria.IO.On_WorldFile.LoadHeader += LoadHeader;
+		IL_WorldGen.serverLoadWorldCallBack += GuardServerMemoryFailure;
 		On_MessageBuffer.GetData += GetData;
 		installed = true;
 	}
@@ -30,6 +31,7 @@ internal static partial class ContinentalWorldHooks
 		On_WorldGen.playWorldCallBack -= PlayWorldCallback;
 		On_WorldGen.UpdateMapTile -= UpdateMapTile;
 		Terraria.IO.On_WorldFile.LoadHeader -= LoadHeader;
+		IL_WorldGen.serverLoadWorldCallBack -= GuardServerMemoryFailure;
 		On_MessageBuffer.GetData -= GetData;
 		UninstallWorldCreationMenu();
 		ContinentalWorldCapacity.Reset();

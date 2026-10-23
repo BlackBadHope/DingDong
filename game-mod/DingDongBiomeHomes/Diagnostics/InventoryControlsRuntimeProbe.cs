@@ -27,11 +27,18 @@ internal static class InventoryControlsRuntimeProbe
    Require(done > 0 && done <= 8 && chair.stack < 10 && player.inventory.Any(i => i.type == ItemID.Wood), "Bounded native auto-uncraft returns wood");
    state.Enabled = false; int count = chair.stack; state.ProcessSlice();
    Require(chair.stack == count, "Paused auto-uncraft preserves its inventory");
-   TagCompound saved = new(); state.SaveData(saved); AutoUncraftPlayer loaded = new(); loaded.LoadData(saved);
+   state.Input[0] = new Item(ItemID.WoodenChair, 3);
+   TagCompound saved = new(); state.SaveData(saved); AutoUncraftPlayer loaded = new Player().GetModPlayer<AutoUncraftPlayer>(); loaded.LoadData(saved);
    Require(!loaded.Enabled && loaded.Filters.Count == 1 && loaded.Filters[0].type == ItemID.WoodenChair, "Rules and enabled state survive player serialization");
+   Require(loaded.Input[0].type == ItemID.WoodenChair && loaded.Input[0].stack == 3, "Actual input stack survives player serialization");
+   state.Enabled = true; state.ProcessSlice();
+   Require(state.Input[0].stack < 3 && player.inventory.Any(i => i.type == ItemID.Wood), "Queued input is dismantled using the basic native recipe");
+   state.Enabled = false;
    for (int i = 0; i < 50; i++) player.inventory[i] = new Item(ItemID.GoldBar, 9999);
    player.inventory[0] = new Item(ItemID.WoodenChair, 2);
    Require(!UncraftRecipeCompatibility.TryBatch(player.inventory[0], out _) && player.inventory[0].stack == 2 && player.inventory.Skip(1).Take(49).All(i => i.type == ItemID.GoldBar && i.stack == 9999), "Full inventory preserves both input and outputs");
+   state.Input[0] = new Item(ItemID.WoodenChair, 2); state.Enabled = true; state.ProcessSlice();
+   Require(state.Input[0].stack == 2, "Full inventory preserves the real queued input");
    const BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
    Mod improve = ModLoader.GetMod("ImproveGame");
    foreach (string name in new[] { "InventoryTrashGUI", "GarbageListGUI" }) {

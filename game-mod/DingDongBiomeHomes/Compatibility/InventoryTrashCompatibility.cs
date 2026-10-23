@@ -37,12 +37,17 @@ public sealed class InventoryTrashCompatibility : ModSystem
      }));
    }
   Type auto = R19CompatibilitySystem.Provider("AutoTrash", "0.8.1.1", "AutoTrash.AutoTrashPlayer");
+  Type frontend = auto.Assembly.GetType("AutoTrash.AutoTrashGlobalItem", true);
+  hooks.Add(new ILHook(R19CompatibilitySystem.Method(frontend, "DrawUpdateAutoTrash"), il => { Clear(il); new ILCursor(il).Emit(OpCodes.Ret); }));
   hooks.Add(new ILHook(R19CompatibilitySystem.Method(auto, "ShouldItemBeTrashed"), il => {
    var c = new ILCursor(il); Instruction original = il.Body.Instructions[0];
    c.Emit(OpCodes.Ldarg_1); c.EmitDelegate<Func<Item, bool>>(item => Main.LocalPlayer.GetModPlayer<AutoUncraftPlayer>().Eligible(item));
    c.Emit(OpCodes.Brfalse, original); c.Emit(OpCodes.Ldc_I4_0); c.Emit(OpCodes.Ret);
   }));
  }
+ public override void PostSetupContent() {
+  if (!Main.dedServ) AutoTrashSlot.Bind(ModLoader.GetMod("AutoTrash").Code.GetType("AutoTrash.AutoTrashPlayer", true));
+ }
  private static void Clear(ILContext il) { il.Body.Instructions.Clear(); il.Body.Variables.Clear(); il.Body.ExceptionHandlers.Clear(); }
- public override void Unload() { for (int i = hooks.Count - 1; i >= 0; i--) hooks[i].Dispose(); hooks.Clear(); }
+ public override void Unload() { for (int i = hooks.Count - 1; i >= 0; i--) hooks[i].Dispose(); hooks.Clear(); AutoTrashSlot.Unload(); }
 }

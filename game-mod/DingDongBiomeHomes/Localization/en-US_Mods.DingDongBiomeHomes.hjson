@@ -1,5 +1,12 @@
 AutoUncraft: {
-	SlotHint: Auto-uncraft: left-click an item to toggle its rule (item stays on cursor). Right-click: dismantle one batch.
+	SlotHint: Auto-uncraft: place an item to add its rule. Left-click to put or take the stack; right-click to take one. The switch pauses processing.
+	TrashSlotHint: Auto Trash: place an item to add its rule. Click an empty cursor to recover the last stack and remove that rule. The switch controls automatic pickup disposal.
+	FavoriteHint: Favorited items are protected. Remove the favorite mark before placing this item.
+	TrashEnabled: Auto Trash ON ({0} rules)
+	TrashDisabled: Auto Trash OFF ({0} rules)
+	TrashShowList: Show and edit Auto Trash rules
+	TrashTitle: Auto Trash ({0} rules)
+	TrashSafetyHint: Listed pickups only. The last discarded stack can be recovered from the slot.
 	CannotUncraft: No basic dismantling recipe is available.
 	Enabled: Auto-uncraft ON ({0} rules)
 	Disabled: Auto-uncraft OFF ({0} rules)
