@@ -55,3 +55,6 @@ try {
     [IO.File]::WriteAllText((Join-Path $PSScriptRoot 'test-results.json'),([ordered]@{utc=[DateTime]::UtcNow.ToString('o');resolverSha256=(Get-FileHash -LiteralPath (Join-Path $PSScriptRoot '..\Resolve-OfficialDependencies.ps1') -Algorithm SHA256).Hash;network='NOT_RUN';SteamLaunch='NOT_RUN';results=@($results.ToArray())}|ConvertTo-Json -Depth 10),$utf8)
 }
 Write-Host ('Completed '+$results.Count+' offline checks.')
+# The negative CLI fixture intentionally exits 2. Do not leak that native exit
+# code into the GitHub Actions PowerShell wrapper after all assertions passed.
+exit 0
