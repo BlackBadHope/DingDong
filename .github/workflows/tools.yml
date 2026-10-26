@@ -33,3 +33,11 @@ jobs:
         run: ./bootstrap/tests/Test-OfficialResolver.ps1
       - name: Compatible GitHub updater
         run: ./tests/updater/Test-GitHubUpdater.ps1
+      - name: Legacy launcher host signatures
+        run: |
+          $signed = Join-Path $env:ProgramFiles 'PowerShell\7\pwsh.exe'
+          $test = Join-Path $PWD 'ops\legacy-ftp\Test-LaunchHostSignature.ps1'
+          & "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -ExecutionPolicy Bypass -File $test -SignedPowerShell $signed -TestRoot (Join-Path $env:RUNNER_TEMP 'DingDong-HostSig-WinPS') -Output (Join-Path $env:RUNNER_TEMP 'DingDong-HostSig-WinPS.json')
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          & $signed -NoProfile -File $test -SignedPowerShell $signed -TestRoot (Join-Path $env:RUNNER_TEMP 'DingDong-HostSig-Core') -Output (Join-Path $env:RUNNER_TEMP 'DingDong-HostSig-Core.json')
+          exit $LASTEXITCODE
