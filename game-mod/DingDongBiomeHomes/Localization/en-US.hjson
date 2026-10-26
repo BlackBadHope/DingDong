@@ -18,5 +18,32 @@ Mods: {
 		}
 
 		InfoDisplays.FishingDepthDisplay.DisplayName: Fishing depth
+
+		Biomes: {
+			BreathwardGrottoBiome: {
+				DisplayName: Breathward Grotto Biome
+				TownNPCDialogueName: the Breathward Grotto Biome
+			}
+
+			IslandSeaBiome: {
+				DisplayName: Island Sea Biome
+				TownNPCDialogueName: the Island Sea Biome
+			}
+		}
+
+		NPCs: {
+			BrinePuffer.DisplayName: Brine Puffer
+			CoralPincher.DisplayName: Coral Pincher
+			GlassfinDarter.DisplayName: Glassfin Darter
+			GlasswingSkimmer.DisplayName: Glasswing Skimmer
+			HadalMaw.DisplayName: Hadal Maw
+			LanternJelly.DisplayName: Lantern Jelly
+			PelagicTitan.DisplayName: Pelagic Titan
+			RibbonSkate.DisplayName: Ribbon Skate
+			SailfinHunter.DisplayName: Sailfin Hunter
+			SaltbackCustodian.DisplayName: Saltback Custodian
+			SiltRibbon.DisplayName: Silt Ribbon
+			VentNautilus.DisplayName: Vent Nautilus
+		}
 	}
 }

@@ -1,0 +1,170 @@
+{
+  "format": "dingdong-original-ocean-art-v1",
+  "version": "0.29.6",
+  "assets": [
+    {
+      "path": "game-mod/DingDongBiomeHomes/OceanExpeditions/Assets/BrinePuffer.png",
+      "sha256": "175f0cb7c43b66ac35bc6eeb1c466513f7c50cfbb56437b32474bea4c7afb1e1",
+      "bytes": 18758,
+      "category": "original-generated-art",
+      "generator": "OpenAI built-in ImageGen",
+      "sourceArtifact": "exec-b447729b-52cd-440a-81bb-0615f1c147e0.png",
+      "processing": "Alpha crop and nearest-neighbor resampling; canonical pose or purpose-made rig part. Runtime animation is in original C# source."
+    },
+    {
+      "path": "game-mod/DingDongBiomeHomes/OceanExpeditions/Assets/CoralPincher.png",
+      "sha256": "b1ee308e89fc8a25d07ab15764c3bc57676d4196ce015b33124f1d4ab90ef327",
+      "bytes": 2039,
+      "category": "original-generated-art",
+      "generator": "OpenAI built-in ImageGen",
+      "sourceArtifact": "exec-e95f436f-efe6-4276-8808-e7ada5c7daf3.png",
+      "processing": "Alpha crop and nearest-neighbor resampling; canonical pose or purpose-made rig part. Runtime animation is in original C# source."
+    },
+    {
+      "path": "game-mod/DingDongBiomeHomes/OceanExpeditions/Assets/CoralPincherClaw.png",
+      "sha256": "a82c7cbe5036938f1be3dae3f27390e6a5148fed524342332ae1490204c477e0",
+      "bytes": 641,
+      "category": "original-generated-art",
+      "generator": "OpenAI built-in ImageGen",
+      "sourceArtifact": "exec-95a32b06-a93f-4f1b-a7d1-dc0daafde74f.png",
+      "processing": "Alpha crop and nearest-neighbor resampling; canonical pose or purpose-made rig part. Runtime animation is in original C# source."
+    },
+    {
+      "path": "game-mod/DingDongBiomeHomes/OceanExpeditions/Assets/CoralPincherLeg.png",
+      "sha256": "81e9f4a395256befba742c9c9a38560f7332a7eb4a1177a8b588183a8bd93980",
+      "bytes": 377,
+      "category": "original-generated-art",
+      "generator": "OpenAI built-in ImageGen",
+      "sourceArtifact": "exec-47a6e548-7fa6-4852-ba98-dcc571913220.png",
+      "processing": "Alpha crop and nearest-neighbor resampling; canonical pose or purpose-made rig part. Runtime animation is in original C# source."
+    },
+    {
+      "path": "game-mod/DingDongBiomeHomes/OceanExpeditions/Assets/CoralPincherTorso.png",
+      "sha256": "b1ee308e89fc8a25d07ab15764c3bc57676d4196ce015b33124f1d4ab90ef327",
+      "bytes": 2039,
+      "category": "original-generated-art",
+      "generator": "OpenAI built-in ImageGen",
+      "sourceArtifact": "exec-e95f436f-efe6-4276-8808-e7ada5c7daf3.png",
+      "processing": "Alpha crop and nearest-neighbor resampling; canonical pose or purpose-made rig part. Runtime animation is in original C# source."
+    },
+    {
+      "path": "game-mod/DingDongBiomeHomes/OceanExpeditions/Assets/GlassfinDarter.png",
+      "sha256": "475bd7cadfb06f83f116a5c9819d1e3847bc2bc32966e707b2fb03f2ed09d4a9",
+      "bytes": 1114,
+      "category": "original-generated-art",
+      "generator": "OpenAI built-in ImageGen",
+      "sourceArtifact": "exec-ce27541e-860c-43f9-b75f-8bf4978fe106.png",
+      "processing": "Alpha crop and nearest-neighbor resampling; canonical pose or purpose-made rig part. Runtime animation is in original C# source."
+    },
+    {
+      "path": "game-mod/DingDongBiomeHomes/OceanExpeditions/Assets/GlasswingSkimmer.png",
+      "sha256": "93dfa252bc48a40846a5c9fff8ab448afbbc03b0805bbc08fbc7cbbf58460333",
+      "bytes": 8485,
+      "category": "original-generated-art",
+      "generator": "OpenAI built-in ImageGen",
+      "sourceArtifact": "exec-61fc7beb-f7ba-4e40-83ee-d28f77085725.png",
+      "processing": "Alpha crop and nearest-neighbor resampling; canonical pose or purpose-made rig part. Runtime animation is in original C# source."
+    },
+    {
+      "path": "game-mod/DingDongBiomeHomes/OceanExpeditions/Assets/HadalMaw.png",
+      "sha256": "36694cb71aac73141eed8c084cc235234801e982148dc0b9e8fd540c209e6064",
+      "bytes": 24749,
+      "category": "original-generated-art",
+      "generator": "OpenAI built-in ImageGen",
+      "sourceArtifact": "exec-92db1012-3ad3-475b-821b-83ee1ff54af5.png",
+      "processing": "Alpha crop and nearest-neighbor resampling; canonical pose or purpose-made rig part. Runtime animation is in original C# source."
+    },
+    {
+      "path": "game-mod/DingDongBiomeHomes/OceanExpeditions/Assets/LanternJelly.png",
+      "sha256": "a16ce2b0f7a8993d310c2e90c652b95d2dfe35df5364ff1d11491b8063f01229",
+      "bytes": 21597,
+      "category": "original-generated-art",
+      "generator": "OpenAI built-in ImageGen",
+      "sourceArtifact": "exec-33adf867-7617-4c81-b3d0-1c6eec5a529c.png",
+      "processing": "Alpha crop and nearest-neighbor resampling; canonical pose or purpose-made rig part. Runtime animation is in original C# source."
+    },
+    {
+      "path": "game-mod/DingDongBiomeHomes/OceanExpeditions/Assets/PelagicTitan.png",
+      "sha256": "368760855bec7d4ea566a05b67b9aa81ebde4a16777f8aff948444206797230e",
+      "bytes": 19059,
+      "category": "original-generated-art",
+      "generator": "OpenAI built-in ImageGen",
+      "sourceArtifact": "exec-083e5790-2a52-4729-bed5-66da9a3dede0.png",
+      "processing": "Alpha crop and nearest-neighbor resampling; canonical pose or purpose-made rig part. Runtime animation is in original C# source."
+    },
+    {
+      "path": "game-mod/DingDongBiomeHomes/OceanExpeditions/Assets/RibbonSkate.png",
+      "sha256": "669eea7a1f965d65eca67279593ae9777da322ee3d5277876b234c09e49aa741",
+      "bytes": 14369,
+      "category": "original-generated-art",
+      "generator": "OpenAI built-in ImageGen",
+      "sourceArtifact": "exec-a85361b8-3400-452c-aa52-9478a2bf41e0.png",
+      "processing": "Alpha crop and nearest-neighbor resampling; canonical pose or purpose-made rig part. Runtime animation is in original C# source."
+    },
+    {
+      "path": "game-mod/DingDongBiomeHomes/OceanExpeditions/Assets/SailfinHunter.png",
+      "sha256": "e2a010de8e66d123133b0ec4e25132bd73d76fe1613e9caeaaae6542b5f39000",
+      "bytes": 11052,
+      "category": "original-generated-art",
+      "generator": "OpenAI built-in ImageGen",
+      "sourceArtifact": "exec-d52f9887-855c-4455-9da9-fd16309a0599.png",
+      "processing": "Alpha crop and nearest-neighbor resampling; canonical pose or purpose-made rig part. Runtime animation is in original C# source."
+    },
+    {
+      "path": "game-mod/DingDongBiomeHomes/OceanExpeditions/Assets/SaltbackCustodian.png",
+      "sha256": "4e733a144cd6f55f24c2de7631ea20b33726bd88458630d7554d2011d87a7253",
+      "bytes": 1910,
+      "category": "original-generated-art",
+      "generator": "OpenAI built-in ImageGen",
+      "sourceArtifact": "exec-80f9b7f1-9b6d-4f57-8b03-d76d5f0f843e.png",
+      "processing": "Alpha crop and nearest-neighbor resampling; canonical pose or purpose-made rig part. Runtime animation is in original C# source."
+    },
+    {
+      "path": "game-mod/DingDongBiomeHomes/OceanExpeditions/Assets/SaltbackCustodianClaw.png",
+      "sha256": "e7000aebc909f28d0259c3cefcd0c65575059153e7b9f35fcd2fd1da92584312",
+      "bytes": 571,
+      "category": "original-generated-art",
+      "generator": "OpenAI built-in ImageGen",
+      "sourceArtifact": "exec-cce234cd-b25f-4208-924f-c50c901cd8b3.png",
+      "processing": "Alpha crop and nearest-neighbor resampling; canonical pose or purpose-made rig part. Runtime animation is in original C# source."
+    },
+    {
+      "path": "game-mod/DingDongBiomeHomes/OceanExpeditions/Assets/SaltbackCustodianLeg.png",
+      "sha256": "1fdc674d8a524eaa5c122bd8cb062fbebe7f5574cb9d1675327f98d2d96b5af3",
+      "bytes": 321,
+      "category": "original-generated-art",
+      "generator": "OpenAI built-in ImageGen",
+      "sourceArtifact": "exec-ab64f50a-8231-4214-a852-73c1df4ecf6d.png",
+      "processing": "Alpha crop and nearest-neighbor resampling; canonical pose or purpose-made rig part. Runtime animation is in original C# source."
+    },
+    {
+      "path": "game-mod/DingDongBiomeHomes/OceanExpeditions/Assets/SaltbackCustodianTorso.png",
+      "sha256": "4e733a144cd6f55f24c2de7631ea20b33726bd88458630d7554d2011d87a7253",
+      "bytes": 1910,
+      "category": "original-generated-art",
+      "generator": "OpenAI built-in ImageGen",
+      "sourceArtifact": "exec-80f9b7f1-9b6d-4f57-8b03-d76d5f0f843e.png",
+      "processing": "Alpha crop and nearest-neighbor resampling; canonical pose or purpose-made rig part. Runtime animation is in original C# source."
+    },
+    {
+      "path": "game-mod/DingDongBiomeHomes/OceanExpeditions/Assets/SiltRibbon.png",
+      "sha256": "f5dfd1d1f4f816a82b6133cd34ae0bea6257f27002ddeb94ea8aa0a5b361f90f",
+      "bytes": 27321,
+      "category": "original-generated-art",
+      "generator": "OpenAI built-in ImageGen",
+      "sourceArtifact": "exec-3ddaef23-697d-440e-8df1-0e6fa6c8d247.png",
+      "processing": "Alpha crop and nearest-neighbor resampling; canonical pose or purpose-made rig part. Runtime animation is in original C# source."
+    },
+    {
+      "path": "game-mod/DingDongBiomeHomes/OceanExpeditions/Assets/VentNautilus.png",
+      "sha256": "a833bea14efaee1d05b306ad3af1a5eaa0a6c118d01206ca4544139d860d7ecc",
+      "bytes": 30965,
+      "category": "original-generated-art",
+      "generator": "OpenAI built-in ImageGen",
+      "sourceArtifact": "exec-53e55dba-2154-4917-bc21-7ffe1e68347c.png",
+      "processing": "Alpha crop and nearest-neighbor resampling; canonical pose or purpose-made rig part. Runtime animation is in original C# source."
+    }
+  ],
+  "sourcePromptRecord": "Original generation/edit calls are recorded in the authoring conversation; this file is an asset mapping, not a verbatim prompt transcript.",
+  "excluded": "Rejected full crab and fish motion sheets; no external game image files included."
+}

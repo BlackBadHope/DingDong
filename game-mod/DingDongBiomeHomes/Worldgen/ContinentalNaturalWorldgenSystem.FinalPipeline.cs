@@ -29,6 +29,7 @@ public sealed partial class ContinentalNaturalWorldgenSystem
 		// objects. Arm against the final list after all providers and filtering.
 		original(tasks, ref weight);
 		Fishing.Worldgen.FishingWaterWorldSystem.Attach(tasks, ref weight);
+		OceanExpeditions.OceanExpeditionWorldSystem.Attach(tasks, ref weight);
 		BiomeHomeWorldgenSystem.FinalizeResidencePass(Mod, tasks);
 		AttachFinalNativePipeline(tasks, ref weight);
 	}

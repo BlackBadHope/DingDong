@@ -12,11 +12,12 @@ using Microsoft.Xna.Framework;
 namespace DingDongBiomeHomes.Worldgen;
 
 // Reserve the future Sanctuary before vanilla writes houses or their chests.
-// Exact66 admission pins PackWorldgenFix, whose Calamity override is 3*W/8.
+// Public edition installs the original 3*W/8 override in its owned guard.
 internal static class NativeSanctuaryNativeAdmission
 {
 	private static bool Active => NativeSanctuaryPlacementSystem.FreshGeneration &&
-		ModLoader.HasMod("PackWorldgenFix") && ModLoader.HasMod("CalamityMod") && ModLoader.HasMod("SOTS");
+		Compatibility.LegacyPack.LocalWorldgenGuards.SanctuaryShiftInstalled &&
+		ModLoader.HasMod("CalamityMod") && ModLoader.HasMod("SOTS");
 	private static int Anchor => Main.maxTilesX * 3 / 8;
 
 	internal static bool PermitChest(int x, int y)

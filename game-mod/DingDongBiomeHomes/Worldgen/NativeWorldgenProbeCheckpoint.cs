@@ -9,6 +9,7 @@ namespace DingDongBiomeHomes.Worldgen;
 
 internal static class NativeWorldgenProbeCheckpoint
 {
+	internal static bool Saving { get; private set; }
 	internal static void Save(Mod mod)
 	{
 		string path = Main.ActiveWorldFileData?.Path;
@@ -21,6 +22,7 @@ internal static class NativeWorldgenProbeCheckpoint
 			// Normal metadata is created after GenerateWorld returns. This fixture
 			// snapshot is earlier; the native header writer requires this object.
 			Main.WorldFileMetadata ??= FileMetadata.FromCurrentSettings(FileType.World);
+			Saving = true;
 			WorldFile.SaveWorld();
 			string target = Path.ChangeExtension(path,"pre-homes.wld");
 			File.Copy(path,target,false);
@@ -31,6 +33,6 @@ internal static class NativeWorldgenProbeCheckpoint
 			mod.Logger.Info($"DINGDONG_HEIGHT_WORLDGEN_CHECKPOINT|stage=before-residences|completeGeneration=False|path={target}");
 		}
 		catch (Exception error) { mod.Logger.Warn("DINGDONG_HEIGHT_WORLDGEN_CHECKPOINT|status=UNAVAILABLE|worldgenContinues=True",error); }
-		finally { Main.WorldFileMetadata = before; }
+		finally { Saving = false; Main.WorldFileMetadata = before; }
 	}
 }

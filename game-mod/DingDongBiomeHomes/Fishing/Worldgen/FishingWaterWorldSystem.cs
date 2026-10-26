@@ -79,6 +79,13 @@ public sealed partial class FishingWaterWorldSystem : ModSystem
 		regions.Add(new(regions.Count, new Rectangle(left ? 1 : Main.maxTilesX - width, top, width - 1, bottom - top),
 			top, FishingRegionShape.Abyss, FishingHabitat.Abyss, 0));
 	}
+	internal static void RecordExpeditionOcean(global::DingDongBiomeHomes.OceanExpeditions.OceanExpeditionLayout plan)
+	{
+		regions.RemoveAll(r => r.Shape == FishingRegionShape.Ocean && (r.Bounds.Center.X < Main.maxTilesX / 2) == plan.Left);
+		int id = regions.Count == 0 ? 0 : regions.Max(r => r.Id) + 1;
+		regions.Add(new(id, new Rectangle(plan.Left ? 20 : Main.maxTilesX - plan.Width, plan.SeaLevel,
+			plan.Width - 20, plan.Depth + 1), plan.SeaLevel, FishingRegionShape.Ocean, FishingHabitat.OpenOcean, plan.Seed) { OceanProfileDepth = plan.Depth });
+	}
 
 	private static void ShapeOceans()
 	{
@@ -201,7 +208,7 @@ public sealed partial class FishingWaterWorldSystem : ModSystem
 		foreach (var r in tag.GetList<TagCompound>("FishingWaterRegions").Take(256))
 			AddValidated(new(r.GetInt("id"), new Rectangle(r.GetInt("x"), r.GetInt("y"), r.GetInt("w"), r.GetInt("h")),
 				r.GetInt("water"), (FishingRegionShape)r.GetInt("shape"), (FishingHabitat)r.GetInt("habitat"), r.GetInt("seed")) {
-					OceanProfileDepth = Math.Clamp(r.GetInt("oceanProfileDepth"), 0, Main.maxTilesY / 4) });
+					OceanProfileDepth = Math.Clamp(r.GetInt("oceanProfileDepth"), 0, Main.maxTilesY) });
 	}
 	private static void AddValidated(FishingWaterRegion r)
 	{

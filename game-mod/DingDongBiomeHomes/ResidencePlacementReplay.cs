@@ -19,6 +19,14 @@ internal static class ResidencePlacementReplay
 			throw new InvalidOperationException("Residence replay requires a dedicated diagnostic world copy.");
 		if (SettlementWorldState.StructuresBuilt != 0)
 			throw new InvalidOperationException("Refusing duplicate residence placement.");
+		if (OceanExpeditions.OceanExpeditionWorldSystem.Layout is { } ocean)
+		{
+			string directory = Path.Combine(Main.SavePath, "DingDongDiagnostics", "ResidenceReplay");
+			Directory.CreateDirectory(directory);
+			Terraria.Map.MapHelper.Initialize();
+			Worldgen.NativeTerrainRaster.ExportRegion(Path.Combine(directory, "ocean-surface-before.bmp"),
+				new(ocean.Left ? 0 : Main.maxTilesX - ocean.Width, Math.Max(0, ocean.SeaLevel - 500), ocean.Width, 900), 2);
+		}
 		bool previous = WorldGen.gen;
 		try
 		{

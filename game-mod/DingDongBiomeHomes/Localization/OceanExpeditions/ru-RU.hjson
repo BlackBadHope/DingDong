@@ -1,0 +1,175 @@
+Mods: {
+	DingDongBiomeHomes: {
+		NPCs: {
+			PelagicTitan.DisplayName: Пелагический титан
+			HadalMaw.DisplayName: Глубинная пасть
+			CoralPincher.DisplayName: Коралловый клешнехват
+			GlassfinDarter.DisplayName: Стеклопёрый стремчак
+			RibbonSkate.DisplayName: Ленточный скат
+			LanternJelly.DisplayName: Медуза-фонарь
+			BrinePuffer.DisplayName: Соляной иглобрюх
+			SiltRibbon.DisplayName: Илистый лентозуб
+			SailfinHunter.DisplayName: Парусный охотник
+			VentNautilus.DisplayName: Гейзерный наутилус
+			SaltbackCustodian.DisplayName: Соляной страж
+			GlasswingSkimmer.DisplayName: Стеклокрыл
+		}
+
+		Items: {
+			SeaEssence: {
+				DisplayName: Морская эссенция
+				Tooltip: Общий материал обитателей островного моря
+			}
+
+			PelagicScale: {
+				DisplayName: Пелагическая чешуя
+				Tooltip: Чешуя Пелагических титанов; материал для снаряжения
+			}
+
+			HadalLens: {
+				DisplayName: Глубинная линза
+				Tooltip: Линза Глубинной пасти; материал для оберега давления
+			}
+
+			GrottoGeode: {
+				DisplayName: Геода гротов
+				Tooltip: Из тайников и с обитателей Гротов дыхания
+			}
+
+			CoralClaw: {
+				DisplayName: Коралловая клешня
+				Tooltip: Клешня кораллового клешнехвата; материал для рифовых ласт
+			}
+
+			GlassFin: {
+				DisplayName: Стеклянный плавник
+				Tooltip: Плавник стеклопёрого стремчака; материал для парусного лука
+			}
+
+			RibbonGill: {
+				DisplayName: Ленточная жабра
+				Tooltip: Жабра ленточного ската; материал для пелагической сбруи
+			}
+
+			LuminousGel: {
+				DisplayName: Светящийся гель
+				Tooltip: Гель медузы-фонаря; материал для фонаря гротов
+			}
+
+			BrineBladder: {
+				DisplayName: Соляной пузырь
+				Tooltip: Пузырь соляного иглобрюха; материал для пелагической сбруи
+			}
+
+			SiltWhisker: {
+				DisplayName: Илистый ус
+				Tooltip: Ус илистого лентозуба; материал для эхолотного кулона
+			}
+
+			Sailbone: {
+				DisplayName: Парусная кость
+				Tooltip: Кость парусного охотника; материал для парусного лука
+			}
+
+			VentCore: {
+				DisplayName: Гейзерное ядро
+				Tooltip: Ядро гейзерного наутилуса в сложном режиме; материал для оберега давления
+			}
+
+			SaltCrystal: {
+				DisplayName: Соляной кристалл
+				Tooltip: Кристалл соляного стража; материал для рифовых ласт
+			}
+
+			GlassWing: {
+				DisplayName: Стеклянное крыло
+				Tooltip: Крыло стеклокрыла; материал для фонаря гротов
+			}
+
+			IslandNavigator: {
+				DisplayName: Островной навигатор
+				Tooltip:
+					'''
+					Показывает координаты и глубину
+					Повышает скорость передвижения под водой на 10%
+					'''
+			}
+
+			PelagicHarness: {
+				DisplayName: Пелагическая сбруя
+				Tooltip:
+					'''
+					Увеличивает запас дыхания на 240
+					Позволяет плавать и свободно двигаться под водой
+					'''
+			}
+
+			GrottoLantern: {
+				DisplayName: Фонарь гротов
+				Tooltip:
+					'''
+					Освещает окружающую воду
+					В Гротах дыхания: ночное зрение и ускоренное восстановление здоровья
+					'''
+			}
+
+			PressureWard: {
+				DisplayName: Оберег давления
+				Tooltip: Под водой: снижение урона на 6% и увеличение урона на 8%
+			}
+
+			Tidebreaker: {
+				DisplayName: Приливолом
+				Tooltip: Метает копьё, пробивающее до трёх целей
+			}
+
+			ReefwalkerBoots: {
+				DisplayName: Рифовые ласты
+				Tooltip:
+					'''
+					Позволяют плавать
+					Повышают скорость передвижения под водой на 15%
+					'''
+			}
+
+			SoundingPendant: {
+				DisplayName: Эхолотный кулон
+				Tooltip:
+					'''
+					Показывает глубину
+					Подсвечивает сокровища, пока вы под водой
+					'''
+			}
+
+			SailboneBow: {
+				DisplayName: Парусный лук
+				Tooltip: Быстрый лук из трофеев обитателей открытого моря
+			}
+
+			OceanGiantBanner: {
+				DisplayName: Знамя исполинов островного моря
+				Tooltip: Даёт ближайшим игрокам преимущество против двух морских исполинов
+			}
+
+			GrottoBanner: {
+				DisplayName: Знамя Гротов дыхания
+				Tooltip: Даёт ближайшим игрокам преимущество против обитателей Гротов дыхания
+			}
+
+			ReefFaunaBanner: {
+				DisplayName: Знамя фауны островного моря
+				Tooltip: Даёт ближайшим игрокам преимущество против восьми видов морской фауны
+			}
+		}
+
+		Biomes: {
+			IslandSeaBiome.DisplayName: Островное море
+			BreathwardGrottoBiome.DisplayName: Гроты дыхания
+		}
+
+		OceanExpeditions: {
+			PelagicTitanLore: Исполин островного моря. Его светящиеся гребни предупреждают ныряльщика перед рывком.
+			HadalMawLore: Глубинный хищник патрулирует огромные водные проходы над адом.
+		}
+	}
+}

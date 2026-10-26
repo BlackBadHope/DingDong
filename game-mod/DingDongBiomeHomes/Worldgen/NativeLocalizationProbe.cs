@@ -32,13 +32,15 @@ internal static class NativeLocalizationProbe
 			bool signature = russian.TryGetValue("Mods.SignatureEquipment.Configs.SignatureEquipmentServerConfig.Headers.Mode",out string mode) && mode == "Режим";
 			bool calamity = russian.Any(p => p.Key.StartsWith("Mods.CalamityMod.Items.") && Cyr(p.Value));
 			bool thorium = russian.Any(p => p.Key.StartsWith("Mods.ThoriumMod.Items.") && Cyr(p.Value));
+			string[] oceanNames = { "PelagicTitan", "HadalMaw", "CoralPincher", "GlassfinDarter", "RibbonSkate", "LanternJelly", "BrinePuffer", "SiltRibbon", "SailfinHunter", "VentNautilus", "SaltbackCustodian", "GlasswingSkimmer" };
+			bool ocean = oceanNames.All(name => russian.TryGetValue("Mods.DingDongBiomeHomes.NPCs." + name + ".DisplayName", out string value) && Cyr(value));
 			bool translatorCultureRestored = !Terraria.ModLoader.ModLoader.HasMod("CalamityRuTranslate") ||
 				(english.TryGetValue("Mods.CalamityRuTranslate.Configs.TRuConfig.DisplayName", out string enConfig) && enConfig == "Configuration" &&
 				russian.TryGetValue("Mods.CalamityRuTranslate.Configs.TRuConfig.DisplayName", out string ruConfig) && ruConfig == "Конфигурация");
-			if(!signature || !calamity || !thorium || englishCyrillic.Length != 0 || !translatorCultureRestored)
-				throw new InvalidOperationException("Actual language switch or authored localization override failed.");
+			if(!signature || !calamity || !thorium || !ocean || englishCyrillic.Length != 0 || !translatorCultureRestored)
+				throw new InvalidOperationException($"Actual language switch or authored localization override failed: signature={signature}; calamity={calamity}; thorium={thorium}; ocean={ocean}; translator={translatorCultureRestored}; englishCyrillic={string.Join(',',englishCyrillic.Take(12))}; mode={mode}.");
 			return new { verdict = "PASS", englishKeys = english.Count, russianKeys = russian.Count,
-				signatureOverride = signature, calamityRussianLoaded = calamity, thoriumRussianLoaded = thorium,
+				signatureOverride = signature, calamityRussianLoaded = calamity, thoriumRussianLoaded = thorium, oceanNamesRussianLoaded = ocean,
 				translatorCultureRestored,
 				englishCyrillicKeys = englishCyrillic, latinOnlyRussianKeys = latinOnly,
 				latinOnlyRussianValues = latinOnlyValues, englishRawKeys, russianRawKeys, unresolvedReferences,

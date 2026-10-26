@@ -12,10 +12,12 @@ namespace DingDongBiomeHomes.Compatibility.LegacyPack
 	public class LocalWorldgenGuards : ModSystem
 	{
 		private static LocalWorldgenGuards _instance;
+		internal static bool SanctuaryShiftInstalled { get; private set; }
 
 		public override void Load()
 		{
 			_instance = this;
+			SanctuaryShiftInstalled = false;
 
 			if (ModLoader.TryGetMod("CalamityMod", out Mod calamity))
 			{
@@ -53,7 +55,10 @@ namespace DingDongBiomeHomes.Compatibility.LegacyPack
 				Type sanctuary = sots.Code.GetType("SOTS.WorldgenHelpers.SanctuaryWorldgenHelper");
 				MethodInfo spawn = sanctuary?.GetMethod("DetermineSpawnLocation", BindingFlags.Public | BindingFlags.Static);
 				if (spawn != null && ModLoader.HasMod("CalamityMod"))
+				{
 					MonoModHooks.Add(spawn, ShiftSanctuaryOffHellLab);
+					SanctuaryShiftInstalled = true;
+				}
 			}
 		}
 
@@ -71,6 +76,7 @@ namespace DingDongBiomeHomes.Compatibility.LegacyPack
 		public override void Unload()
 		{
 			_instance = null;
+			SanctuaryShiftInstalled = false;
 		}
 
 		// Calamity chooses its temple Y before entering its remix-world branch. In

@@ -1,0 +1,175 @@
+Mods: {
+	DingDongBiomeHomes: {
+		NPCs: {
+			PelagicTitan.DisplayName: Pelagic Titan
+			HadalMaw.DisplayName: Hadal Maw
+			CoralPincher.DisplayName: Coral Pincher
+			GlassfinDarter.DisplayName: Glassfin Darter
+			RibbonSkate.DisplayName: Ribbon Skate
+			LanternJelly.DisplayName: Lantern Jelly
+			BrinePuffer.DisplayName: Brine Puffer
+			SiltRibbon.DisplayName: Silt Ribbon
+			SailfinHunter.DisplayName: Sailfin Hunter
+			VentNautilus.DisplayName: Vent Nautilus
+			SaltbackCustodian.DisplayName: Saltback Custodian
+			GlasswingSkimmer.DisplayName: Glasswing Skimmer
+		}
+
+		Items: {
+			SeaEssence: {
+				DisplayName: Sea Essence
+				Tooltip: A common material from the creatures of the island sea
+			}
+
+			PelagicScale: {
+				DisplayName: Pelagic Scale
+				Tooltip: From Pelagic Titans; used for expedition gear
+			}
+
+			HadalLens: {
+				DisplayName: Hadal Lens
+				Tooltip: From Hadal Maws; used for the Pressure Ward
+			}
+
+			GrottoGeode: {
+				DisplayName: Grotto Geode
+				Tooltip: From Breathward Grotto creatures and caches
+			}
+
+			CoralClaw: {
+				DisplayName: Coral Claw
+				Tooltip: From Coral Pinchers; used for Reefwalker Boots
+			}
+
+			GlassFin: {
+				DisplayName: Glass Fin
+				Tooltip: From Glassfin Darters; used for the Sailbone Bow
+			}
+
+			RibbonGill: {
+				DisplayName: Ribbon Gill
+				Tooltip: From Ribbon Skates; used for the Pelagic Harness
+			}
+
+			LuminousGel: {
+				DisplayName: Luminous Gel
+				Tooltip: From Lantern Jellies; used for the Grotto Lantern
+			}
+
+			BrineBladder: {
+				DisplayName: Brine Bladder
+				Tooltip: From Brine Puffers; used for the Pelagic Harness
+			}
+
+			SiltWhisker: {
+				DisplayName: Silt Whisker
+				Tooltip: From Silt Ribbons; used for the Sounding Pendant
+			}
+
+			Sailbone: {
+				DisplayName: Sailbone
+				Tooltip: From Sailfin Hunters; used for the Sailbone Bow
+			}
+
+			VentCore: {
+				DisplayName: Vent Core
+				Tooltip: From Vent Nautiluses in Hardmode; used for the Pressure Ward
+			}
+
+			SaltCrystal: {
+				DisplayName: Salt Crystal
+				Tooltip: From Saltback Custodians; used for Reefwalker Boots
+			}
+
+			GlassWing: {
+				DisplayName: Glass Wing
+				Tooltip: From Glasswing Skimmers; used for the Grotto Lantern
+			}
+
+			IslandNavigator: {
+				DisplayName: Island Navigator
+				Tooltip:
+					'''
+					Displays position and depth
+					10% increased movement speed while submerged
+					'''
+			}
+
+			PelagicHarness: {
+				DisplayName: Pelagic Harness
+				Tooltip:
+					'''
+					Extends breath by 240
+					Allows swimming and unrestricted movement underwater
+					'''
+			}
+
+			GrottoLantern: {
+				DisplayName: Grotto Lantern
+				Tooltip:
+					'''
+					Lights the surrounding water
+					In Breathward Grottos: night vision and faster health regeneration
+					'''
+			}
+
+			PressureWard: {
+				DisplayName: Pressure Ward
+				Tooltip: While submerged: 6% damage reduction and 8% increased damage
+			}
+
+			Tidebreaker: {
+				DisplayName: Tidebreaker
+				Tooltip: Launches a lance that pierces up to three targets
+			}
+
+			ReefwalkerBoots: {
+				DisplayName: Reefwalker Boots
+				Tooltip:
+					'''
+					Allows swimming
+					15% increased movement speed while submerged
+					'''
+			}
+
+			SoundingPendant: {
+				DisplayName: Sounding Pendant
+				Tooltip:
+					'''
+					Displays depth
+					Highlights treasure while submerged
+					'''
+			}
+
+			SailboneBow: {
+				DisplayName: Sailbone Bow
+				Tooltip: A swift bow crafted from the creatures of the open sea
+			}
+
+			OceanGiantBanner: {
+				DisplayName: Island Sea Giants Banner
+				Tooltip: Nearby players gain a bonus against the two sea giants
+			}
+
+			GrottoBanner: {
+				DisplayName: Breathward Grotto Banner
+				Tooltip: Nearby players gain a bonus against Breathward Grotto creatures
+			}
+
+			ReefFaunaBanner: {
+				DisplayName: Island Sea Fauna Banner
+				Tooltip: Nearby players gain a bonus against the eight smaller sea species
+			}
+		}
+
+		Biomes: {
+			IslandSeaBiome.DisplayName: Island Sea
+			BreathwardGrottoBiome.DisplayName: Breathward Grottos
+		}
+
+		OceanExpeditions: {
+			PelagicTitanLore: A giant of the open island sea. Its glowing ridges warn divers before a charge.
+			HadalMawLore: A deep ocean predator that patrols vast channels above the Underworld.
+		}
+	}
+}

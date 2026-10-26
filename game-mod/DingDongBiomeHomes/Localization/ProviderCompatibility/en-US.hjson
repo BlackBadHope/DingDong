@@ -1,0 +1,17 @@
+// Original DingDong wording for gaps observed in the public provider profile.
+Mods: {
+ AlchemistNPCLite: {
+  Items: {
+   MageCombination.Tooltip: "Applies Magic Power, Mana Regeneration, Clairvoyance, Wrath and Rage."
+   OceanTeleporterPotion.Tooltip:
+    '''
+    Travels to coral at either ocean edge.
+    Use the left or right mouse button to choose the destination.
+    Requires coral at the destination.
+    '''
+  }
+  EntryO36: "Some rare boss drops are not inside treasure bags. The Mutant can help you obtain them."
+ }
+ CheatSheet.SpawnRate.SpawnRateMultiplier: "Spawn rate multiplier: 1x"
+ SignatureEquipment.Configs.SignatureEquipmentServerConfig.Headers.Mode: Mode
+}

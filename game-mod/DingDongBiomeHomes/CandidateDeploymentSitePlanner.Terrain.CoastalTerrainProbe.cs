@@ -41,6 +41,18 @@ public static partial class CandidateDeploymentSitePlanner
 	// Real hills stay mostly solid between the contact and the global surface.
 	private static bool HasDeepMainlandSupport(int x, int surfaceY)
 	{
+		// The expedition's recorded coastal islands are intended settlement
+		// ground. They have a real solid keel but open water beneath it, unlike
+		// mainland. Natural-floor, clearance and local-support checks still run
+		// in TryFindSurfaceFloor; unrelated floating sky islands remain excluded.
+		var ocean = OceanExpeditions.OceanExpeditionWorldSystem.Layout;
+		if (ocean != null)
+		{
+			var island = ocean.IslandSpan(ocean.Edge(x));
+			if (island.Top != int.MaxValue && surfaceY >= island.Top &&
+				surfaceY <= island.Top + 4 && island.Bottom - surfaceY >= 52)
+				return true;
+		}
 		int worldSurface = (int)Main.worldSurface;
 		if (surfaceY >= worldSurface - 24)
 			return true;

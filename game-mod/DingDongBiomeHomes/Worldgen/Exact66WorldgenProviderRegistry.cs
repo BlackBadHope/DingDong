@@ -12,8 +12,8 @@ internal static class Exact66WorldgenProviderRegistry
 			"CursedCoffinArena", Exact66WorldgenPassClass.Natural),
 		new("MagicStorage", "0.7.0.11", "06175f1a-32f6-4ff9-922a-8805e8cd9c60",
 			"MagicStorage: Automaton Pass", Exact66WorldgenPassClass.Support),
-		new("PackWorldgenFix", "0.2.1", "180ddeb0-7a32-4608-8b45-b9627de18cd5",
-			string.Empty, Exact66WorldgenPassClass.OrderingOnly),
+		// Public edition integrates the original ordering/bounds guards in
+		// Compatibility.LegacyPack.LocalWorldgenGuards; no external package.
 		new("SOTS", "0.25.1.9", "14c19a4a-afb8-49fb-ab76-cd75dff954ac",
 			"SOTS: GemStructures", Exact66WorldgenPassClass.Natural),
 		new("ThoriumMod", "1.7.2.8", "c3026632-3918-4387-be6d-aa5539117e51",

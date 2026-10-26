@@ -27,6 +27,10 @@ public sealed partial class ContinentalSaveBudgetSystem : ModSystem
 
 	public override void SaveWorldData(TagCompound tag)
 	{
+		// This explicit disposable snapshot is taken before authored residences.
+		// It is labelled incomplete and must not consume the final-save receipt.
+		if (NativeWorldgenProbeCheckpoint.Saving)
+			return;
 		if (!worldgenSavePending)
 			return;
 		if (Compiler.Runtime.WorldCompilerActivation.IsActive)

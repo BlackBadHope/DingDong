@@ -13,6 +13,7 @@ internal sealed class ResidencePoolReplayHints
 {
     private readonly Dictionary<string, HashSet<int>> columns = new();
     private readonly Dictionary<string, HashSet<Rectangle>> areas = new();
+    private readonly HashSet<string> unrestricted = new(StringComparer.Ordinal);
 
     public static ResidencePoolReplayHints Load()
     {
@@ -27,6 +28,14 @@ internal sealed class ResidencePoolReplayHints
             root.GetProperty("seed").GetInt32() != Main.ActiveWorldFileData.Seed)
             throw new InvalidOperationException("Pool hint seed/dimensions do not match the loaded fixture.");
         ResidencePoolReplayHints hints = new();
+        if (root.TryGetProperty("unrestrictedNpcs", out JsonElement unrestricted))
+            foreach (JsonElement npc in unrestricted.EnumerateArray())
+            {
+                string name = npc.GetString();
+                if (string.IsNullOrEmpty(name) || !System.Linq.Enumerable.Any(AuthoredCandidateDeploymentManifest.All, p => p.NpcKey == name))
+                    throw new InvalidDataException("Unknown unrestricted diagnostic NPC.");
+                hints.unrestricted.Add(name);
+            }
         foreach (JsonProperty pool in root.GetProperty("pools").EnumerateObject())
         {
             HashSet<int> xs = new();
@@ -45,6 +54,6 @@ internal sealed class ResidencePoolReplayHints
         return hints;
     }
 
-    public bool ContainsColumn(string npc, int x) => columns.TryGetValue(npc, out var set) && set.Contains(x);
-    public bool ContainsArea(string npc, Rectangle area) => areas.TryGetValue(npc, out var set) && set.Contains(area);
+    public bool ContainsColumn(string npc, int x) => unrestricted.Contains(npc) || columns.TryGetValue(npc, out var set) && set.Contains(x);
+    public bool ContainsArea(string npc, Rectangle area) => unrestricted.Contains(npc) || areas.TryGetValue(npc, out var set) && set.Contains(area);
 }
