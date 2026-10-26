@@ -49,7 +49,7 @@ function Assert-DDRespawnMigrationGameClosed {
     # Host & Play may start a child server while the client is running.
     $processes = @(Get-CimInstance Win32_Process -Filter "Name='dotnet.exe' OR Name='tModLoader.exe'" -ErrorAction Stop)
     if (@($processes | Where-Object { $_.CommandLine -match '(?i)(?:^|[\\/\s"''])tModLoader(?:\.dll|\.exe)(?:\s|"|$)' }).Count) {
-        throw 'Close tModLoader before the one-time RC7 respawn configuration migration. No game process was stopped.'
+        throw 'Close tModLoader before the one-time RC8 respawn configuration migration. No game process was stopped.'
     }
 }
 
@@ -59,7 +59,7 @@ function Invoke-DDReleaseFinalization([string]$ProfilePath) {
     $merge = Join-Path $script:DDReleaseLaunchRoot 'Set-BetterMultiplayerRespawnPolicy.ps1'
     $external = Join-Path $script:DDReleaseLaunchRoot 'Bootstrap-OfficialDependencies.ps1'
     foreach ($required in @($patch, $merge, $external)) {
-        if (!(Test-Path -LiteralPath $required -PathType Leaf)) { throw 'RC7 launch finalization is incomplete. Close the game and run the current FTP updater again.' }
+        if (!(Test-Path -LiteralPath $required -PathType Leaf)) { throw 'RC8 launch finalization is incomplete. Close the game and run the current FTP updater again.' }
     }
     # The signed overlay contains this own patch/helper, never a mirrored
     # third-party package. The patch must verify the exact base/target bytes.
@@ -74,7 +74,7 @@ function Invoke-DDReleaseFinalization([string]$ProfilePath) {
     }
     $configPath = Join-Path $profile 'ModConfigs\BetterMultiplayer_BMConfig.json'
     $config = Get-Content -LiteralPath $configPath -Raw | ConvertFrom-Json
-    if ($config.NoBossFightRespawn -ne $false) { throw 'RC7 respawn policy readback failed. The game was not started.' }
+    if ($config.NoBossFightRespawn -ne $false) { throw 'RC8 respawn policy readback failed. The game was not started.' }
 
     # Keep the checked official-Steam route. Do not replace it with the old
     # R22 verifier which claimed that the translation was bundled.
@@ -82,7 +82,7 @@ function Invoke-DDReleaseFinalization([string]$ProfilePath) {
     $env:DINGDONG_TRANSLATION_STATUS='UNKNOWN'
     & $external -ProfilePath $profile | Out-Host
     if ($LASTEXITCODE -ne 0) { throw 'The official Steam dependency bootstrap did not complete. The game was not started.' }
-    Write-Host "DINGDONG_RC7_LAUNCH_FINALIZATION|ownedPatch=PASS|respawnPolicy=PASS|translation=$env:DINGDONG_TRANSLATION_STATUS|runtimeAcceptance=NOT_RUN"
+    Write-Host "DINGDONG_RC8_LAUNCH_FINALIZATION|ownedPatch=PASS|respawnPolicy=PASS|translation=$env:DINGDONG_TRANSLATION_STATUS|runtimeAcceptance=NOT_RUN"
 }
 
 if ($MyInvocation.InvocationName -ne '.') {

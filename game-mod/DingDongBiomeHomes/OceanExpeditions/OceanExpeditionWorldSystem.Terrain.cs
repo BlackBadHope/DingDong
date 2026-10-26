@@ -80,6 +80,7 @@ public sealed partial class OceanExpeditionWorldSystem
         }
         var rooms = p.Grottos.ToArray(); p.Grottos.Clear();
         int grottoCandidates=0,blockedGrottos=0;
+        var deferredRooms = new List<OceanGrotto>();
         foreach (var room in rooms)
         {
             // Small bounded alternatives keep the requested content when one
@@ -107,7 +108,14 @@ public sealed partial class OceanExpeditionWorldSystem
             }
             if(placed)break;
             }
+            if (!placed) deferredRooms.Add(room);
         }
+        // A provider can occupy the entire narrow cliff strip. Keep its
+        // reservations intact and search the surrounding sea for sealed reefs.
+        int adaptiveGrottos = 0;
+        foreach (var room in deferredRooms)
+            if (TryPlaceAdaptiveGrotto(p, admission, room, rooms.Length, ref grottoCandidates, ref blockedGrottos))
+                adaptiveGrottos++;
         var landmarks = p.Landmarks.ToArray(); p.Landmarks.Clear();
         foreach (var mark in landmarks)
         {
@@ -135,9 +143,9 @@ public sealed partial class OceanExpeditionWorldSystem
             if(admission.Allows(new Rectangle(x-3,y-6,7,8))) WorldGen.PlaceTile(x,y-1,TileID.Coral,mute:true);
         }
         ModContent.GetInstance<OceanExpeditionWorldSystem>().Mod.Logger.Info(
-            $"DINGDONG_OPEN_OCEAN|version=1|side={(p.Left ? "left" : "right")}|width={p.Width}|sea={p.SeaLevel}|bottom={p.Bottom}|underworldGap={p.Clearance}|waterCells={carved}|retainedCells={retained}|islands={p.Islands.Count}|airGrottos={p.Grottos.Count}|landmarks={p.Landmarks.Count}|grottoCandidates={grottoCandidates}|blockedGrottos={blockedGrottos}|abyssModified=False");
+            $"DINGDONG_OPEN_OCEAN|version=1|side={(p.Left ? "left" : "right")}|width={p.Width}|sea={p.SeaLevel}|bottom={p.Bottom}|underworldGap={p.Clearance}|waterCells={carved}|retainedCells={retained}|islands={p.Islands.Count}|airGrottos={p.Grottos.Count}|landmarks={p.Landmarks.Count}|grottoCandidates={grottoCandidates}|blockedGrottos={blockedGrottos}|adaptiveGrottos={adaptiveGrottos}|layoutSeed={p.Seed}|abyssModified=False");
         if(carved<(carved+retained)*.60||p.Grottos.Count<2)
-            throw new InvalidOperationException($"Open ocean did not meet content coverage: water={carved}, retained={retained}, airGrottos={p.Grottos.Count}. Generation must be retried after resolving provider terrain conflicts.");
+            throw new InvalidOperationException($"Open ocean has insufficient unprotected space: water={carved}, retained={retained}, airGrottos={p.Grottos.Count}, candidates={grottoCandidates}, blocked={blockedGrottos}, layoutSeed={p.Seed}. Protected provider structures were preserved.");
     }
     private static void CarveGrotto(OceanExpeditionLayout p, Rectangle b)
     {

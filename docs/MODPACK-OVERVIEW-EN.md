@@ -31,10 +31,10 @@ progression restrictions on weapons such as Water Bolt.
 
 ## The ordinary ocean becomes an expedition
 
-Version 0.29.6 adds Ocean Expeditions to newly generated continental worlds.
+Version 0.29.6 introduced Ocean Expeditions to newly generated continental worlds.
 The ordinary ocean opposite Calamity's Abyss becomes a wide, deep basin with
 islands, large swimming spaces, underwater landmarks, finite caches and dry air
-grottoes near the continental cliff. It reaches the lower caverns while retaining
+grottoes near the continental cliff or inside sealed seaward reefs. It reaches the lower caverns while retaining
 separation from Hell.
 
 Twelve new creatures cover several sizes and movement styles: two rare giants,
@@ -118,3 +118,5 @@ not regenerate an old world: Ocean Expeditions needs a new continental world.
 Large maps and a full modpack can require substantial memory, especially when
 hosting and playing on the same computer. Memory admission failures are handled
 separately from evidence of save corruption.
+
+Version 0.29.8 expands grotto placement when protected foreign terrain occupies the cliff. The same protection and minimum-content checks remain in place.

@@ -2,8 +2,8 @@
   "format": "dingdong-public-owned-mod-v1",
   "mod": {
     "name": "DingDongBiomeHomes",
-    "bytes": 3142993,
-    "sha256": "67ed7a446a5f7e3c0e5a974f8c8ebbfda4bd6dd18c260b5555e0dd32f449fbee",
-    "version": "0.29.6"
+    "bytes": 3148089,
+    "sha256": "a558cadc9263bad09d8740fe5bf82dbeb58d55593b7c331a0fdfd39b9b1afdd2",
+    "version": "0.29.8"
   }
 }

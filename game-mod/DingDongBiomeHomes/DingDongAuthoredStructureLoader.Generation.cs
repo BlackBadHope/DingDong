@@ -32,6 +32,8 @@ public static partial class DingDongAuthoredStructureLoader
 		PreflightNativeContainer(preset, origin);
 		using var containers = AuthoredNativeContainerTransaction.Begin();
 		ClearIntersectedFallenLogs(mod, writePlan, data.Width, data.Height, origin);
+		ClearIntersectedRubble(mod, writePlan, data.Width, data.Height, origin);
+		ClearIntersectedDoors(mod, writePlan, data.Width, data.Height, origin);
 		for (int x = 0; x < data.Width; x++)
 		{
 			for (int y = 0; y < data.Height; y++)

@@ -1,0 +1,29 @@
+{
+  "status": "PASS",
+  "baseline": true,
+  "checks": [
+    "True: released narrow search reproduces content-coverage refusal",
+    "False: released narrow search reproduces content-coverage refusal"
+  ],
+  "cases": [
+    {
+      "left": true,
+      "grottos": 1,
+      "requested": 3,
+      "chests": 8,
+      "refusal": "Open ocean did not meet content coverage: water=1270259, retained=481090, airGrottos=1. Generation must be retried after resolving provider terrain conflicts."
+    },
+    {
+      "left": false,
+      "grottos": 1,
+      "requested": 3,
+      "chests": 7,
+      "refusal": "Open ocean did not meet content coverage: water=1246381, retained=506376, airGrottos=1. Generation must be retried after resolving provider terrain conflicts."
+    }
+  ],
+  "error": null,
+  "userSavesWritten": false,
+  "exitCode": 0,
+  "seconds": 64.5,
+  "artifactSha256": "85fc06ec06ce6ae6b1b7d8ff5c8c1a2699345824d5b240bc84d92c2dddaf4255"
+}

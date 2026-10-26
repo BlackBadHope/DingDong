@@ -1,0 +1,9 @@
+# Native crowded-cliff regression
+
+The fixture runs inside a disposable tModLoader dedicated process after recipe registration, with the complete dependency pack loaded. It allocates an 8400 × 2400 tilemap, protects nearly the entire continental cliff except one gap, and exercises the production ocean pass on both mirrored coasts. Its opt-in output path must be inside a `Fix-R38` directory. It is excluded from production mod builds.
+
+Set `DINGDONG_R38_GROTTO_PROBE` to the result JSON path in the isolated fixture profile. A fixture build includes this source under the mod's Diagnostics directory. No normal profile, world or player is needed. Set `DINGDONG_R38_BASELINE=1` only when compiling the fixture with the released R36 placement code: both cases reproduce the one-grotto coverage refusal.
+
+With R38 production code, the 32 checks cover three accepted grottoes on each coast, unchanged complete foreign tile/wall reservations and an important object, finite caches, mirrored bubble entrances, real native liquid updates, and dry traversable interiors afterward. The regression also verifies that the seaward fallback was actually used. A separate full continental generation and saved-world inspection cover integration; this small fixture alone does not establish all-seed or multiplayer acceptance.
+
+The separate `DoorRegressionProbe.cs` uses a 600 × 600 native tile fixture and `DINGDONG_R38_DOOR_REGRESSION`. Its 25 checks reproduce native deletion beneath a partial old door and a partial old large-rubble decoration. They verify atomic clearance before importing, closed/open doors in both directions, nearby untouched doors, preserved walls/wires, and retained newly pasted doors and wood. No general tile-deletion hook is installed. It contains no third-party structure payload.

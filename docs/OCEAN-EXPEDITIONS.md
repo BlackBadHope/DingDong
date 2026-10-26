@@ -1,4 +1,4 @@
-# Ocean Expeditions — 0.29.6
+# Ocean Expeditions — 0.29.8
 
 Ocean Expeditions expands the ordinary ocean on the side opposite Calamity's
 Abyss. It is generated as part of a **new continental world**, rather than being
@@ -10,7 +10,7 @@ terrain and do not activate the new ocean encounter zones.
 In a 28,000 × 7,200 world, the ocean occupies a 4,666-tile coastal region. A short
 continental shelf drops into broad open water and lower cavern depths close to
 the Underworld. Seven islands interrupt the surface. Deep water provides room
-for large creatures, while the continental cliff contains separate dry grottoes.
+for large creatures, while dry grottoes occupy the continental cliff or sealed reefs away from it.
 The basin's bottom retains a protective margin above Hell.
 
 Three of the islands reserve their ground for coastal NPC residences. Exploration
@@ -30,7 +30,7 @@ use walk-through liquid-blocking bubble entrances, allowing players to move
 between the flooded ocean and dry interiors. Grottoes have their own encounter
 zone and two inhabitants. The generator requires at least two accepted grottoes
 and a minimum open-water share; it rejects generation if the ocean cannot meet
-those conditions.
+those conditions. In 0.29.8, a blocked cliff candidate triggers a deterministic search through the surrounding sea, first near the requested depth and then through the remaining depth bands. The same full protection envelope applies to every candidate. Seaward grottoes have their own enclosing stone shell; the minimum of two accepted grottoes is unchanged.
 
 ## Twelve new creatures
 

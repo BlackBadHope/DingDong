@@ -31,7 +31,7 @@ internal static class HardLootProfileGate
 
 	internal static void AssertExact(Mod owner)
 	{
-		bool compatibleOwnerVersion = owner.Version == new Version(0, 29, 6);
+		bool compatibleOwnerVersion = owner.Version == new Version(0, 29, 8);
 		if (owner.Name != OwnerName || !compatibleOwnerVersion)
 			throw new InvalidOperationException(
 				$"Hard-loot owner identity changed: {owner.Name} {owner.Version}; expected {OwnerName} " +

@@ -1,0 +1,59 @@
+{
+  "status": "PASS",
+  "baseline": false,
+  "checks": [
+    "True: all requested grottoes placed despite protected cliff",
+    "True: important object retained",
+    "True: complete foreign protected tile and wall rectangle retained",
+    "True: complete foreign protected tile and wall rectangle retained",
+    "True: accepted grotto is dry and traversable",
+    "True: mirrored bubble airlock exists",
+    "True: finite cache was placed inside grotto",
+    "True: accepted grotto is dry and traversable",
+    "True: mirrored bubble airlock exists",
+    "True: finite cache was placed inside grotto",
+    "True: accepted grotto is dry and traversable",
+    "True: mirrored bubble airlock exists",
+    "True: finite cache was placed inside grotto",
+    "True: native water-update queue exercised",
+    "True: all grottoes remain dry after native water update",
+    "True: fallback actually used a seaward reef",
+    "False: all requested grottoes placed despite protected cliff",
+    "False: important object retained",
+    "False: complete foreign protected tile and wall rectangle retained",
+    "False: complete foreign protected tile and wall rectangle retained",
+    "False: accepted grotto is dry and traversable",
+    "False: mirrored bubble airlock exists",
+    "False: finite cache was placed inside grotto",
+    "False: accepted grotto is dry and traversable",
+    "False: mirrored bubble airlock exists",
+    "False: finite cache was placed inside grotto",
+    "False: accepted grotto is dry and traversable",
+    "False: mirrored bubble airlock exists",
+    "False: finite cache was placed inside grotto",
+    "False: native water-update queue exercised",
+    "False: all grottoes remain dry after native water update",
+    "False: fallback actually used a seaward reef"
+  ],
+  "cases": [
+    {
+      "left": true,
+      "grottos": 3,
+      "requested": 3,
+      "chests": 10,
+      "refusal": null
+    },
+    {
+      "left": false,
+      "grottos": 3,
+      "requested": 3,
+      "chests": 9,
+      "refusal": null
+    }
+  ],
+  "error": null,
+  "userSavesWritten": false,
+  "exitCode": 0,
+  "seconds": 73.31,
+  "artifactSha256": "f9fc4affc9cde884ec446e441fef65628c5da9d5da2c505ceca879d0da5ffdab"
+}
