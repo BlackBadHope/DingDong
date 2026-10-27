@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -38,6 +39,10 @@ public sealed class ResidenceQuestMapLayer : ModMapLayer
 			return;
 		}
 
+		// Several residents often point at the same authored home or city. Stacked
+		// rings there became one unreadable blot, so nearby targets share a marker
+		// and the hover text lists every objective behind it.
+		var groups = new List<TargetGroup>();
 		foreach ((string npcKey, ResidentQuestProgress progress) in
 			player.GetModPlayer<NpcQuestPlayer>().CurrentActiveRecords())
 		{
@@ -47,15 +52,36 @@ public sealed class ResidenceQuestMapLayer : ModMapLayer
 				continue;
 			}
 
-			bool hovered = DrawDottedRing(ref context, target, radiusTiles, SearchColor);
-			hovered |= DrawTargetCross(ref context, target, radiusTiles);
-			if (hovered)
+			string label = Language.GetTextValue(
+				"Mods.DingDongBiomeHomes.ResidenceDiscovery.QuestTarget",
+				NpcQuestSystem.ResidentName(npcKey), objective);
+			TargetGroup group = null;
+			foreach (TargetGroup candidate in groups)
 			{
-				text = Language.GetTextValue(
-					"Mods.DingDongBiomeHomes.ResidenceDiscovery.QuestTarget",
-					NpcQuestSystem.ResidentName(npcKey), objective);
+				int dx = candidate.Target.X - target.X, dy = candidate.Target.Y - target.Y;
+				if (dx * dx + dy * dy <= MergeDistanceTiles * MergeDistanceTiles) { group = candidate; break; }
 			}
+			if (group == null) groups.Add(group = new TargetGroup(target));
+			group.RadiusTiles = Math.Max(group.RadiusTiles, radiusTiles);
+			group.Labels.Add(label);
 		}
+
+		foreach (TargetGroup group in groups)
+		{
+			bool hovered = DrawDottedRing(ref context, group.Target, group.RadiusTiles, SearchColor);
+			hovered |= DrawTargetCross(ref context, group.Target, group.RadiusTiles);
+			if (hovered) text = string.Join("\n", group.Labels);
+		}
+	}
+
+	private const int MergeDistanceTiles = 40;
+
+	private sealed class TargetGroup
+	{
+		internal TargetGroup(Point target) { Target = target; }
+		internal Point Target { get; }
+		internal int RadiusTiles { get; set; }
+		internal List<string> Labels { get; } = new();
 	}
 
 	internal static Rectangle ApproximateTargetArea(

@@ -69,6 +69,8 @@ public sealed class OceanExpeditionLayout
         }
     }
 
+    public static int WidthFor(int worldWidth) => Math.Clamp(worldWidth / 6, 200, worldWidth / 5);
+
     // A sea that reads as deep on the map without walling off the whole
     // underground: 14% of the world height, never below the Underworld envelope.
     internal static int BasinDepth(int worldHeight, int available) =>

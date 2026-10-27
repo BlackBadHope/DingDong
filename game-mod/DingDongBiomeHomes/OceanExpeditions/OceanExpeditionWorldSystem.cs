@@ -48,11 +48,37 @@ public sealed partial class OceanExpeditionWorldSystem : ModSystem
         var old = FishingWaterWorldSystem.Regions.FirstOrDefault(r => r.Shape == FishingRegionShape.Ocean && (r.Bounds.Center.X < Main.maxTilesX / 2) == left);
         int water = old.Bounds.Width > 0 ? old.WaterY : FindSea(left);
         if (water < 100) throw new InvalidOperationException("Ordinary ocean waterline unavailable.");
-        var plan = new OceanExpeditionLayout(Main.maxTilesX, Main.maxTilesY, left, water, NativeUnderworldSystem.Layer, WorldGen.genRand.Next());
+        // The recorded waterline predates later terrain passes. A basin filled above
+        // the inland rim spills over it when the world first settles, leaving the
+        // islets hanging above the real surface; hold the sea at the rim instead.
+        int rim = InlandRim(left, OceanExpeditionLayout.WidthFor(Main.maxTilesX));
+        int sea = Math.Clamp(Math.Max(water, rim), water, water + 160);
+        ModContent.GetInstance<OceanExpeditionWorldSystem>().Mod.Logger.Info($"DINGDONG_OPEN_OCEAN_LEVEL|recordedWaterline={water}|inlandRim={rim}|sea={sea}");
+        var plan = new OceanExpeditionLayout(Main.maxTilesX, Main.maxTilesY, left, sea, NativeUnderworldSystem.Layer, WorldGen.genRand.Next());
         Apply(plan);
         Layout = plan;
         FishingWaterWorldSystem.RecordExpeditionOcean(plan);
         NativeCoastalBiomeSystem.CaptureGeneratedBounds();
+    }
+    // Highest row the water may reach without escaping over the land just inland
+    // of the basin: the ground of the lowest rim columns, ignoring isolated
+    // crevices (90th percentile over the sampled band).
+    private static int InlandRim(bool left, int width)
+    {
+        var grounds = new List<int>();
+        for (int edge = width - 8; edge < width + 160; edge++)
+        {
+            int x = left ? edge : Main.maxTilesX - 1 - edge;
+            if (x < 20 || x >= Main.maxTilesX - 20) continue;
+            for (int y = 100; y < Main.maxTilesY - 300; y++)
+            {
+                Tile tile = Main.tile[x, y];
+                if (tile.HasTile && Main.tileSolid[tile.TileType] && !Main.tileSolidTop[tile.TileType]) { grounds.Add(y); break; }
+            }
+        }
+        if (grounds.Count == 0) return 0;
+        grounds.Sort();
+        return grounds[Math.Min(grounds.Count - 1, grounds.Count * 9 / 10)];
     }
     private static int FindSea(bool left)
     {

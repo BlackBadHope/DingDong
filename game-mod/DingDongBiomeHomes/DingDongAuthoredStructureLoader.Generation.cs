@@ -34,6 +34,8 @@ public static partial class DingDongAuthoredStructureLoader
 		ClearIntersectedFallenLogs(mod, writePlan, data.Width, data.Height, origin);
 		ClearIntersectedRubble(mod, writePlan, data.Width, data.Height, origin);
 		ClearIntersectedDoors(mod, writePlan, data.Width, data.Height, origin);
+		bool blend = BlendsWithHost(profile);
+		int repainted = 0;
 		for (int x = 0; x < data.Width; x++)
 		{
 			for (int y = 0; y < data.Height; y++)
@@ -48,10 +50,22 @@ public static partial class DingDongAuthoredStructureLoader
 					SetEntry(tile, ReadEntry<LiquidData>(data.Liquids, index));
 					SetEntry(tile, ReadEntry<TileWallBrightnessInvisibilityData>(data.BrightnessAndInvisibility, index));
 					SetEntry(tile, ReadEntry<TileWallWireStateData>(data.WireState, index));
+					if (blend && tile.HasTile && IsNaturalTerrainTile(tile.TileType))
+					{
+						ushort host = HostNaturalTile(tile.TileType, profile.TargetBiome);
+						if (host != tile.TileType) { tile.TileType = host; repainted++; }
+					}
 				}
 
 				if (writePlan.WriteWalls[index])
+				{
 					SetEntry(tile, wallType);
+					if (blend && tile.WallType != WallID.None && IsNaturalBackgroundWall(tile.WallType))
+					{
+						ushort host = HostNaturalWall(tile.WallType, profile.TargetBiome);
+						if (host != tile.WallType) { tile.WallType = host; repainted++; }
+					}
+				}
 				if (tile.HasTile && tile.TileType >= TileLoader.TileCount)
 				{
 					throw new InvalidDataException($"Authored preset '{preset.Id}' has active tile ID {tile.TileType} outside the loaded tile range at {x},{y}.");
@@ -63,6 +77,9 @@ public static partial class DingDongAuthoredStructureLoader
 				}
 			}
 		}
+		int backfilled = BackfillsSupport(profile) ? BackfillSurfaceSupport(data, writePlan, origin) : 0;
+		int quenched = QuenchesLava(profile) ? QuenchAmbientLava(data, writePlan, origin, profile) : 0;
+		if (blend) mod.Logger.Info($"DINGDONG_SCENE_HOST_BLEND|preset={preset.Id}|origin={origin.X},{origin.Y}|target={profile.TargetBiome}|repainted={repainted}|backfilled={backfilled}|quenchedLava={quenched}");
 		Rectangle frameBounds = writePlan.MutationBounds;
 		frameBounds.Offset(origin);
 		RegisterNativeContainer(preset, origin);

@@ -56,6 +56,7 @@ public sealed partial class OceanExpeditionWorldSystem
             return true;
         }
     }
+    private const int FloorSealDepth = 160;
     internal static void Apply(OceanExpeditionLayout p)
     {
         Admission admission = new(p);
@@ -76,6 +77,22 @@ public sealed partial class OceanExpeditionWorldSystem
                         y < floor + 4 ? TileID.Sand : TileID.Stone;
                 }
                 else if (y >= p.SeaLevel) { t.LiquidType = LiquidID.Water; t.LiquidAmount = 255; carved++; }
+            }
+        }
+        // The basin floor now sits in the cavern layer. Natural caves right under
+        // the floor band drain the sea when the world settles, so plug them with
+        // stone down to the first solid run; provider reservations stay untouched.
+        long sealedCells = 0;
+        for (int edge = 20; edge < p.Width; edge++)
+        {
+            int x = p.X(edge), start = p.Floor(edge) + 24, solidRun = 0;
+            for (int y = start; y < start + FloorSealDepth && y < Main.maxTilesY - 200; y++)
+            {
+                if (!admission.Allows(x, y)) { solidRun = 0; continue; }
+                Tile t = Main.tile[x, y];
+                if (t.HasTile && Main.tileSolid[t.TileType]) { if (++solidRun >= 16) break; continue; }
+                solidRun = 0;
+                t.ClearEverything(); t.HasTile = true; t.TileType = TileID.Stone; sealedCells++;
             }
         }
         var rooms = p.Grottos.ToArray(); p.Grottos.Clear();
@@ -154,7 +171,7 @@ public sealed partial class OceanExpeditionWorldSystem
             if(admission.Allows(new Rectangle(x-3,y-6,7,8))) WorldGen.PlaceTile(x,y-1,TileID.Coral,mute:true);
         }
         ModContent.GetInstance<OceanExpeditionWorldSystem>().Mod.Logger.Info(
-            $"DINGDONG_OPEN_OCEAN|version=1|side={(p.Left ? "left" : "right")}|width={p.Width}|sea={p.SeaLevel}|bottom={p.Bottom}|underworldGap={p.Clearance}|waterCells={carved}|retainedCells={retained}|islands={p.Islands.Count}|airGrottos={p.Grottos.Count}|landmarks={p.Landmarks.Count}|grottoCandidates={grottoCandidates}|blockedGrottos={blockedGrottos}|adaptiveGrottos={adaptiveGrottos}|layoutSeed={p.Seed}|islandLayout={p.IslandLayout}|abyssModified=False");
+            $"DINGDONG_OPEN_OCEAN|version=1|side={(p.Left ? "left" : "right")}|width={p.Width}|sea={p.SeaLevel}|bottom={p.Bottom}|underworldGap={p.Clearance}|waterCells={carved}|retainedCells={retained}|islands={p.Islands.Count}|airGrottos={p.Grottos.Count}|landmarks={p.Landmarks.Count}|grottoCandidates={grottoCandidates}|blockedGrottos={blockedGrottos}|adaptiveGrottos={adaptiveGrottos}|layoutSeed={p.Seed}|islandLayout={p.IslandLayout}|floorSealedCells={sealedCells}|abyssModified=False");
         // A single grotto still gives the sea its breathing stop; the basin is
         // already carved here, so a missing second grotto is not worth a failed world.
         if(carved<(carved+retained)*.60||p.Grottos.Count<1)

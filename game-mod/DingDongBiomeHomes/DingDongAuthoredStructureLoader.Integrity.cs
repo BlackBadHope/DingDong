@@ -22,7 +22,10 @@ public static partial class DingDongAuthoredStructureLoader
 		for (int i = 0; i < data.Width * data.Height; i++)
 		{
 			SourceCell source = ReadSourceCell(data, i);
-			bool construction = source.HasTile && !IsNaturalTerrainTile(source.TileType);
+			// Mowed lawn reverts to dirt like any grass once burnt or covered; it is
+			// scenery, not masonry, so its loss must not fail the whole world.
+			bool construction = source.HasTile && !IsNaturalTerrainTile(source.TileType) &&
+				source.TileType is not (Terraria.ID.TileID.GolfGrass or Terraria.ID.TileID.GolfGrassHallowed);
 			bool houseWall = source.WallType != 0 && source.WallType < Main.wallHouse.Length && Main.wallHouse[source.WallType];
 			int x = origin.X + i / data.Height, y = origin.Y + i % data.Height;
 			Tile actual = Main.tile[x, y];
