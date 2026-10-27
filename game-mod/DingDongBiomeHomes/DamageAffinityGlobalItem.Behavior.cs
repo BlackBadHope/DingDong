@@ -62,6 +62,10 @@ public sealed partial class DamageAffinityGlobalItem
 	{
 		if (item.type == ItemID.SlimeStaff)
 			return (DamageTags.CreatureDrop, DamageTags.Gel);
+		// The four-blade capstone is explicitly shadow so its rebalance rides the
+		// elemental on-hit system instead of relying on lexical inference.
+		if (item.type == ItemID.NightsEdge)
+			return (DamageTags.Crafted, DamageTags.Shadow);
 		if (item.type == ItemID.BabyBirdStaff)
 			return (DamageTags.Worldgen, DamageTags.Nature);
 		return (DamageTags.UnspecifiedAcquisition, DamageRuntimeClassifier.InferElement(DamageRuntimeClassifier.StableItemIdentity(item)));
