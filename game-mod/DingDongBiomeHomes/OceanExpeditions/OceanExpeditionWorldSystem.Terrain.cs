@@ -59,6 +59,13 @@ public sealed partial class OceanExpeditionWorldSystem
     private const int FloorSealDepth = 160;
     // Admission maps cover edges up to Width+32; the dam must stay inside them.
     private const int DamWidth = 32;
+    // SOTS places its Amber vault where at least eight water cells sit over a sand
+    // run of at least fourteen rows within 51..400 tiles of the coast. Before the
+    // reservation shell that anchor was found in a preserved piece of vanilla sea
+    // floor; now the shelf near the shore carries a sandbank deep enough on its own.
+    private const int AmberBankEdgeFrom = 40, AmberBankEdgeTo = 420, AmberBankDepth = 40;
+    private static int FloorSandDepth(int edge) =>
+        edge >= AmberBankEdgeFrom && edge <= AmberBankEdgeTo ? AmberBankDepth : 4;
     internal static void Apply(OceanExpeditionLayout p)
     {
         Admission admission = new(p);
@@ -76,7 +83,7 @@ public sealed partial class OceanExpeditionWorldSystem
                 {
                     t.HasTile = true;
                     t.TileType = island ? IsletMaterial(p, column, y) :
-                        y < floor + 4 ? TileID.Sand : TileID.Stone;
+                        y < floor + FloorSandDepth(edge) ? TileID.Sand : TileID.Stone;
                 }
                 else if (y >= p.SeaLevel) { t.LiquidType = LiquidID.Water; t.LiquidAmount = 255; carved++; }
             }

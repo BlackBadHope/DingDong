@@ -49,10 +49,14 @@ public static partial class DingDongAuthoredStructureLoader
 	// drains them into neighbouring homes and burns furniture and lawns. Ambient lava
 	// inside the write envelope becomes water, and lava arriving from outside then
 	// meets it as obsidian instead of entering the rooms.
+	private const int QuenchApronTiles = 12;
 	private static int QuenchAmbientLava(StructureData data, StructureWritePlan plan, Point origin, AuthoredDeploymentProfile profile)
 	{
 		Rectangle asset = new(origin.X, origin.Y, data.Width, data.Height);
 		Rectangle envelope = Worldgen.ResidenceWriteSafety.Bounds(profile.ProtectedFootprint(asset), profile.ProtectedPadding);
+		// RC12 still saw lava in 16 scenes: pools just outside the envelope flow in when
+		// the world settles. Quench an apron around it too (ambient liquid only).
+		envelope.Inflate(QuenchApronTiles, QuenchApronTiles);
 		envelope = Rectangle.Intersect(envelope, new Rectangle(1, 1, Main.maxTilesX - 2, Main.maxTilesY - 2));
 		int quenched = 0;
 		for (int x = envelope.Left; x < envelope.Right; x++)
