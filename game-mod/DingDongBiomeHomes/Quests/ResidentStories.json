@@ -2142,7 +2142,7 @@
     "Days": 2,
     "Reward": "DiamondRing",
     "RewardCount": 1,
-    "Coins": 26000,
+    "Coins": 25000,
     "Count": 1,
     "Target": ""
    }
@@ -2501,7 +2501,7 @@
     "Days": 2,
     "Reward": "LucyTheAxe",
     "RewardCount": 1,
-    "Coins": 26000,
+    "Coins": 25000,
     "Count": 1,
     "Target": ""
    }
@@ -2645,7 +2645,7 @@
     "Days": 3,
     "Reward": "TopHat",
     "RewardCount": 1,
-    "Coins": 30000,
+    "Coins": 25000,
     "Count": 1,
     "Target": ""
    }
@@ -3829,7 +3829,7 @@
     "Count": 1,
     "Reward": "GoldCoin",
     "RewardCount": 1,
-    "Coins": 0
+    "Coins": 8000
    },
    {
     "TitleRu": "Час у прилавка",
@@ -3848,7 +3848,7 @@
     "Days": 2,
     "Reward": "GoldenBugNet",
     "RewardCount": 1,
-    "Coins": 26000,
+    "Coins": 25000,
     "Count": 1,
     "Target": ""
    }
@@ -4136,7 +4136,7 @@
     "Days": 2,
     "Reward": "SlimeStaff",
     "RewardCount": 1,
-    "Coins": 26000,
+    "Coins": 25000,
     "Count": 1,
     "Target": ""
    }
