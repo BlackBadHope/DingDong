@@ -62,17 +62,17 @@ public sealed partial class OceanExpeditionWorldSystem
         long carved = 0, retained = 0;
         for (int edge = 20; edge < p.Width; edge++)
         {
-            int x = p.X(edge), floor = p.Floor(edge); var islandSpan=p.IslandSpan(edge);
+            int x = p.X(edge), floor = p.Floor(edge); var column=p.IslandColumn(edge);
             for (int y = p.SeaLevel - 64; y < floor + 24; y++)
             {
                 if (!admission.Allows(x, y)) { retained++; continue; }
                 Tile t = Main.tile[x, y];
                 t.ClearEverything();
-                bool island = y>=islandSpan.Top&&y<=islandSpan.Bottom;
+                bool island = y>=column.Top&&y<=column.Bottom;
                 if (island || y >= floor)
                 {
                     t.HasTile = true;
-                    t.TileType = island ? (y <= p.SeaLevel + 5 ? TileID.Sand : TileID.HardenedSand) :
+                    t.TileType = island ? IsletMaterial(p, column, y) :
                         y < floor + 4 ? TileID.Sand : TileID.Stone;
                 }
                 else if (y >= p.SeaLevel) { t.LiquidType = LiquidID.Water; t.LiquidAmount = 255; carved++; }
@@ -136,6 +136,17 @@ public sealed partial class OceanExpeditionWorldSystem
                 if (y > 80 && y < p.SeaLevel && admission.Allows(new Rectangle(x-18,y-70,37,74)))
                     WorldGen.GrowPalmTree(x,y);
             }
+            // Harbour islets stay open for the shore residences; the others get a
+            // wooded crown so they read as land rather than a bare sand bar.
+            if (island.Harbor || p.IslandLayout < 2) continue;
+            foreach (double offset in new[] { -.42, -.2, .05, .3 })
+            {
+                int edge = island.Edge + (int)(offset * island.Radius);
+                int x = p.X(edge), y = p.IslandFloor(edge);
+                if (y > 80 && y < p.SeaLevel - 4 && Main.tile[x, y].TileType == TileID.Grass &&
+                    admission.Allows(new Rectangle(x-12,y-42,25,44)))
+                    WorldGen.GrowTree(x, y - 1);
+            }
         }
         for(int edge=60;edge<p.Width-32;edge+=37)
         {
@@ -143,9 +154,23 @@ public sealed partial class OceanExpeditionWorldSystem
             if(admission.Allows(new Rectangle(x-3,y-6,7,8))) WorldGen.PlaceTile(x,y-1,TileID.Coral,mute:true);
         }
         ModContent.GetInstance<OceanExpeditionWorldSystem>().Mod.Logger.Info(
-            $"DINGDONG_OPEN_OCEAN|version=1|side={(p.Left ? "left" : "right")}|width={p.Width}|sea={p.SeaLevel}|bottom={p.Bottom}|underworldGap={p.Clearance}|waterCells={carved}|retainedCells={retained}|islands={p.Islands.Count}|airGrottos={p.Grottos.Count}|landmarks={p.Landmarks.Count}|grottoCandidates={grottoCandidates}|blockedGrottos={blockedGrottos}|adaptiveGrottos={adaptiveGrottos}|layoutSeed={p.Seed}|abyssModified=False");
-        if(carved<(carved+retained)*.60||p.Grottos.Count<2)
+            $"DINGDONG_OPEN_OCEAN|version=1|side={(p.Left ? "left" : "right")}|width={p.Width}|sea={p.SeaLevel}|bottom={p.Bottom}|underworldGap={p.Clearance}|waterCells={carved}|retainedCells={retained}|islands={p.Islands.Count}|airGrottos={p.Grottos.Count}|landmarks={p.Landmarks.Count}|grottoCandidates={grottoCandidates}|blockedGrottos={blockedGrottos}|adaptiveGrottos={adaptiveGrottos}|layoutSeed={p.Seed}|islandLayout={p.IslandLayout}|abyssModified=False");
+        // A single grotto still gives the sea its breathing stop; the basin is
+        // already carved here, so a missing second grotto is not worth a failed world.
+        if(carved<(carved+retained)*.60||p.Grottos.Count<1)
             throw new InvalidOperationException($"Open ocean has insufficient unprotected space: water={carved}, retained={retained}, airGrottos={p.Grottos.Count}, candidates={grottoCandidates}, blocked={blockedGrottos}, layoutSeed={p.Seed}. Protected provider structures were preserved.");
+    }
+    private static ushort IsletMaterial(OceanExpeditionLayout p, OceanIsletColumn column, int y)
+    {
+        if (p.IslandLayout < 2)
+            return y <= p.SeaLevel + 5 ? TileID.Sand : TileID.HardenedSand;
+        // Beaches on the outer shore and on every harbour islet keep palm and
+        // residence ground; the inner crown of a plain islet is soil under grass.
+        bool beach = column.Harbor || column.Shore >= .58 || column.Top >= p.SeaLevel - 3;
+        if (!beach && y < p.SeaLevel - 3)
+            return y == column.Top ? TileID.Grass : TileID.Dirt;
+        if (y <= p.SeaLevel + 5) return TileID.Sand;
+        return y <= p.SeaLevel + 40 ? TileID.HardenedSand : TileID.Stone;
     }
     private static void CarveGrotto(OceanExpeditionLayout p, Rectangle b)
     {

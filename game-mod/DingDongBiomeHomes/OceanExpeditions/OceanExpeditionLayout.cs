@@ -8,12 +8,17 @@ public enum OceanExpeditionZone : byte { None, Shelf, OpenSea, DeepSea, HadalSea
 public readonly record struct OceanIslet(int Edge, int Radius, int Crown, int Keel, bool Harbor = false);
 public readonly record struct OceanGrotto(Rectangle Bounds);
 public readonly record struct OceanLandmark(Point Floor, int Kind);
+// Shore is the normalized distance from the islet centre: 0 at the centre, 1 at the waterline.
+public readonly record struct OceanIsletColumn(int Top, int Bottom, double Shore, bool Harbor);
 
 // The sea is a volume measured against the Underworld, never a multiplied
 // vanilla puddle. All positions are deterministic and mirrored around the coast.
 public sealed class OceanExpeditionLayout
 {
     public const int Version = 1;
+    // Layout 2: the basin stops at a fraction of the world height instead of the
+    // Underworld ceiling, and islets are fewer, irregularly spaced and vegetated.
+    public const int CurrentIslandLayout = 2;
     public int WorldWidth { get; }
     public int WorldHeight { get; }
     public bool Left { get; }
@@ -21,6 +26,7 @@ public sealed class OceanExpeditionLayout
     public int SeaLevel { get; }
     public int Bottom { get; }
     public int Seed { get; }
+    public int IslandLayout { get; }
     public int Depth => Bottom - SeaLevel;
     public int Clearance => 100;
     public List<OceanIslet> Islands { get; } = new();
@@ -28,30 +34,20 @@ public sealed class OceanExpeditionLayout
     public List<OceanLandmark> Landmarks { get; } = new();
     public Rectangle Bounds => new(Left ? 20 : WorldWidth - Width, SeaLevel - 64, Width - 20, Depth + 96);
 
-    public OceanExpeditionLayout(int worldWidth, int worldHeight, bool left, int seaLevel, int underworld, int seed)
+    public OceanExpeditionLayout(int worldWidth, int worldHeight, bool left, int seaLevel, int underworld, int seed,
+        int bottom = -1, int islandLayout = CurrentIslandLayout)
     {
         if (worldWidth is < 1200 or > 32000 || worldHeight is < 600 or > 12000 || seaLevel < 100 ||
             seaLevel >= worldHeight - 360 || underworld > worldHeight - 80 || underworld - seaLevel < 360)
             throw new ArgumentOutOfRangeException(nameof(worldWidth), "Ocean needs a complete surface-to-Underworld envelope.");
         WorldWidth = worldWidth; WorldHeight = worldHeight; Left = left;
         Width = Math.Clamp(worldWidth / 6, 200, worldWidth / 5);
-        SeaLevel = seaLevel; Bottom = Math.Min(worldHeight - 160, underworld - Clearance); Seed = seed;
+        SeaLevel = seaLevel; Seed = seed; IslandLayout = islandLayout;
+        int ceiling = Math.Min(worldHeight - 160, underworld - Clearance);
+        Bottom = bottom >= 0 ? Math.Min(bottom, ceiling) : SeaLevel + BasinDepth(worldHeight, ceiling - seaLevel);
         if (Depth < 260) throw new ArgumentOutOfRangeException(nameof(underworld));
         Random random = new(seed);
-        int count = Math.Clamp(Width / 650, 3, 7);
-        for (int i = 0; i < count; i++)
-        {
-            int edge = (int)(Width * (.13 + .60 * i / Math.Max(1, count - 1)));
-            int radius = Math.Clamp(Width / (count * 13), 24, 90) + random.Next(0, 12);
-            // Three coastal settlement sites share the six shore residences.
-            // Their shallow keels leave the deep swimming volume open; their
-            // surface footprint still leaves at least 72% of the sea exposed.
-            bool harbor = count >= 5 ? i is 0 or 2 or 4 : i == count / 2;
-            if(harbor)radius=Math.Max(radius,Math.Clamp(Width/30,60,124));
-            int crown=random.Next(12,29);
-            int keel=harbor?random.Next(85,125):random.Next(90,180)+(i%2)*Depth/20;
-            Islands.Add(new(edge,radius,crown,keel,harbor));
-        }
+        if (islandLayout >= 2) PlanIslands(random); else PlanLegacyIslands(random);
         int grottos = Math.Clamp(Depth / 850, 3, 6);
         for (int i = 0; i < grottos; i++)
         {
@@ -70,6 +66,45 @@ public sealed class OceanExpeditionLayout
             int edge = (int)(Width * (.12 + .60 * ((i * 3) % 8) / 7d));
             int y = i < 4 ? SeaLevel + (int)(Depth * (.22 + i * .16)) : Floor(edge) - 8;
             Landmarks.Add(new(new(X(edge), y), i % 3 + 1));
+        }
+    }
+
+    // A sea that reads as deep on the map without walling off the whole
+    // underground: 14% of the world height, never below the Underworld envelope.
+    internal static int BasinDepth(int worldHeight, int available) =>
+        Math.Min(available, Math.Max(360, worldHeight * 14 / 100));
+
+    private void PlanLegacyIslands(Random random)
+    {
+        int count = Math.Clamp(Width / 650, 3, 7);
+        for (int i = 0; i < count; i++)
+        {
+            int edge = (int)(Width * (.13 + .60 * i / Math.Max(1, count - 1)));
+            int radius = Math.Clamp(Width / (count * 13), 24, 90) + random.Next(0, 12);
+            bool harbor = count >= 5 ? i is 0 or 2 or 4 : i == count / 2;
+            if(harbor)radius=Math.Max(radius,Math.Clamp(Width/30,60,124));
+            int crown=random.Next(12,29);
+            int keel=harbor?random.Next(85,125):random.Next(90,180)+(i%2)*Depth/20;
+            Islands.Add(new(edge,radius,crown,keel,harbor));
+        }
+    }
+
+    private void PlanIslands(Random random)
+    {
+        int count = Math.Clamp(Width / 900, 3, 5);
+        int pitch = (int)(Width * .60 / Math.Max(1, count - 1));
+        for (int i = 0; i < count; i++)
+        {
+            // Three coastal settlement sites share the six shore residences.
+            // Their shallow keels leave the deep swimming volume open; their
+            // surface footprint still leaves at least 72% of the sea exposed.
+            bool harbor = count >= 5 ? i is 0 or 2 or 4 : i == count / 2;
+            int edge = (int)(Width * (.13 + .60 * i / Math.Max(1, count - 1))) + random.Next(-pitch / 4, pitch / 4 + 1);
+            int radius = Math.Clamp(Width / (count * 11), 28, 96) + random.Next(0, 24);
+            if(harbor)radius=Math.Max(radius,Math.Clamp(Width/30,60,124));
+            int crown = random.Next(16, 42);
+            int keel = harbor ? random.Next(85, 125) : random.Next(90, 170) + (i % 2) * Depth / 20;
+            Islands.Add(new(edge, radius, crown, keel, harbor));
         }
     }
     public int X(int edge) => Left ? edge : WorldWidth - 1 - edge;
@@ -91,34 +126,31 @@ public sealed class OceanExpeditionLayout
     }
     public (int Top,int Bottom) IslandSpan(int edge)
     {
+        var column = IslandColumn(edge);
+        return (column.Top, column.Bottom);
+    }
+    public OceanIsletColumn IslandColumn(int edge)
+    {
         foreach (var i in Islands)
         {
             double d = Math.Abs(edge-i.Edge)/(double)i.Radius;
             if (d>=1)continue;
-            return (SeaLevel-(int)(i.Crown*Math.Pow(1-d*d,.65)),SeaLevel+(int)(i.Keel*Math.Pow(1-d*d,.55)));
+            int top = SeaLevel - (int)(i.Crown * Math.Pow(1 - d * d, .65));
+            if (IslandLayout >= 2)
+                top += (int)Math.Round(Math.Sin(edge * .23 + (Seed & 63)) * 1.5 + Math.Sin(edge * .071 + i.Edge) * 2.5);
+            return new(top, SeaLevel + (int)(i.Keel * Math.Pow(1 - d * d, .55)), d, i.Harbor);
         }
-        return (int.MaxValue,int.MinValue);
+        return new(int.MaxValue, int.MinValue, 1, false);
     }
     public int IslandFloor(int edge)
     {
-        foreach (var i in Islands)
-        {
-            double d = Math.Abs(edge - i.Edge) / (double)i.Radius;
-            if (d < 1) return SeaLevel - (int)(i.Crown * Math.Pow(1 - d * d, .65));
-        }
-        return int.MaxValue;
+        var column = IslandColumn(edge);
+        return column.Top <= column.Bottom ? column.Top : int.MaxValue;
     }
     public bool IslandSolid(int edge, int y)
     {
-        foreach (var i in Islands)
-        {
-            double d = Math.Abs(edge - i.Edge) / (double)i.Radius;
-            if (d >= 1) continue;
-            int top = SeaLevel - (int)(i.Crown * Math.Pow(1 - d * d, .65));
-            int bottom = SeaLevel + (int)(i.Keel * Math.Pow(1 - d * d, .55));
-            if (y >= top && y <= bottom) return true;
-        }
-        return false;
+        var column = IslandColumn(edge);
+        return y >= column.Top && y <= column.Bottom;
     }
     public OceanExpeditionZone Zone(int x, int y)
     {

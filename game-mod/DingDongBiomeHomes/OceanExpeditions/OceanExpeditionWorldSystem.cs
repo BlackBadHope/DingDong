@@ -77,13 +77,19 @@ public sealed partial class OceanExpeditionWorldSystem : ModSystem
     {
         ["version"] = OceanExpeditionLayout.Version, ["left"] = p.Left, ["sea"] = p.SeaLevel,
         ["underworld"] = p.Bottom + p.Clearance, ["seed"] = p.Seed,
+        ["bottom"] = p.Bottom, ["islandLayout"] = p.IslandLayout,
         ["grottos"] = p.Grottos.Select(g => new TagCompound { ["x"] = g.Bounds.X, ["y"] = g.Bounds.Y, ["w"] = g.Bounds.Width, ["h"] = g.Bounds.Height }).ToList(),
         ["landmarks"] = p.Landmarks.Select(g => new TagCompound { ["x"] = g.Floor.X, ["y"] = g.Floor.Y, ["kind"] = g.Kind }).ToList()
     };
     private static OceanExpeditionLayout Decode(TagCompound tag)
     {
         if (tag.GetInt("version") != OceanExpeditionLayout.Version) throw new InvalidDataException("Unknown open ocean layout version.");
-        var p = new OceanExpeditionLayout(Main.maxTilesX, Main.maxTilesY, tag.GetBool("left"), tag.GetInt("sea"), tag.GetInt("underworld"), tag.GetInt("seed"));
+        // Worlds saved before the shallower basin carry only "underworld": their
+        // bottom was the Underworld envelope and their islets used the legacy plan.
+        int underworld = tag.GetInt("underworld");
+        int bottom = tag.ContainsKey("bottom") ? tag.GetInt("bottom") : underworld - 100;
+        int islandLayout = tag.ContainsKey("islandLayout") ? tag.GetInt("islandLayout") : 1;
+        var p = new OceanExpeditionLayout(Main.maxTilesX, Main.maxTilesY, tag.GetBool("left"), tag.GetInt("sea"), underworld, tag.GetInt("seed"), bottom, islandLayout);
         var rooms = tag.GetList<TagCompound>("grottos"); var sites = tag.GetList<TagCompound>("landmarks");
         if (rooms.Count > 8 || sites.Count > 32) throw new InvalidDataException("Open ocean POI count exceeds bounds.");
         p.Grottos.Clear(); p.Landmarks.Clear();
