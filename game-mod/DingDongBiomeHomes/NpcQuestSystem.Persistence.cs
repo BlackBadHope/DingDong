@@ -19,10 +19,13 @@ internal static partial class NpcQuestSystem
 	{
 		return definition.Kind switch
 		{
-			ResidentQuestKind.DeliverSupplies => CountInventory(player, definition.ItemType) >= definition.Goal,
-			ResidentQuestKind.BannerCollection => CountInventory(player, definition.ItemType) > 0,
+			ResidentQuestKind.DeliverSupplies or ResidentQuestKind.Expedition => QuestInventoryCount(player,definition,progress) >= definition.Goal,
+			ResidentQuestKind.BannerCollection => QuestInventoryCount(player,definition,progress) > 0,
 			ResidentQuestKind.ModProgression when definition.TargetKey.StartsWith("milestone:", StringComparison.Ordinal) => progress.Progress >= definition.Goal || QuestContentRegistry.IsExternalMilestoneComplete(definition.TargetKey),
 			_ => progress.Progress >= definition.Goal
 		};
 	}
+    internal static int QuestInventoryCount(Player viewer, ResidentQuestDefinition definition, ResidentQuestProgress progress) =>
+        progress.IsAssignedTo(viewer.GetModPlayer<NpcQuestPlayer>().PersistentId) ? CountQuestSupplies(viewer,definition) : progress.Progress;
+
 }

@@ -31,6 +31,22 @@ internal static partial class NpcQuestNetwork
 		packet.Send();
 	}
 
+	internal static void RequestQuestChoice(int npcIndex, int choice)
+	{
+		if (Main.netMode == NetmodeID.SinglePlayer)
+		{
+			NpcQuestSystem.HandleChoice(Main.LocalPlayer, npcIndex, choice);
+			return;
+		}
+
+		if (Main.netMode != NetmodeID.MultiplayerClient)
+			return;
+		ModPacket packet = DingDongBiomeHomes.Instance.GetPacket();
+		packet.Write((byte)DingDongPacketKind.QuestChoiceRequest);
+		packet.Write((short)npcIndex); packet.Write((byte)Math.Clamp(choice, 0, 255));
+		packet.Send();
+	}
+
 	internal static void RequestFlagClaim(int tileX, int tileY)
 	{
 		if (Main.netMode == NetmodeID.SinglePlayer)

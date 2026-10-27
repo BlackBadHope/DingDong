@@ -103,10 +103,11 @@ internal sealed class NativePoiDensitySystem : ModSystem
 	{
 		// Retain the provider's draw and explicit None/WorldArea overrides.
 		int native = range.GetRandom(random);
+		bool horizontal = kind == "long-tracks";
 		int target = NativePoiDensityPolicy.UndergroundCount(native, Main.maxTilesY,
-			Active, range.ScaleWith == WorldGenRange.ScalingMode.WorldWidth);
+			Active, range.ScaleWith == WorldGenRange.ScalingMode.WorldWidth, horizontal);
 		if (Active) NativePoiDensityReceipt.Record(kind, native, target,
-			range.ScaleWith.ToString());
+			horizontal ? "WorldWidth-horizontal" : range.ScaleWith.ToString());
 		return target;
 	}
 }

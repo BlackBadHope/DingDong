@@ -57,6 +57,8 @@ public sealed partial class OceanExpeditionWorldSystem
         }
     }
     private const int FloorSealDepth = 160;
+    // Admission maps cover edges up to Width+32; the dam must stay inside them.
+    private const int DamWidth = 32;
     internal static void Apply(OceanExpeditionLayout p)
     {
         Admission admission = new(p);
@@ -93,6 +95,47 @@ public sealed partial class OceanExpeditionWorldSystem
                 if (t.HasTile && Main.tileSolid[t.TileType]) { if (++solidRun >= 16) break; continue; }
                 solidRun = 0;
                 t.ClearEverything(); t.HasTile = true; t.TileType = TileID.Stone; sealedCells++;
+            }
+        }
+        // Settling drained the basin to a constant level far below the sea: a
+        // side spill into caves at the carve boundary, not a bounded pocket. Plug
+        // every open cell in a dam band on both sides: the untouched map-edge
+        // columns and the inland columns just past the shelf, from the surface
+        // down to the basin floor. Provider reservations stay untouched.
+        long damCells = 0;
+        for (int edge = 1; edge < p.Width + DamWidth; edge++)
+        {
+            if (edge >= 20 && edge < p.Width) continue;
+            int x = p.X(edge);
+            if (x < 1 || x >= Main.maxTilesX - 1) continue;
+            for (int y = p.SeaLevel - 8; y < p.Bottom + 24 && y < Main.maxTilesY - 200; y++)
+            {
+                if (!admission.Allows(x, y)) continue;
+                Tile t = Main.tile[x, y];
+                if (t.HasTile && Main.tileSolid[t.TileType]) continue;
+                t.ClearEverything(); t.HasTile = true; t.TileType = TileID.Stone; damCells++;
+            }
+        }
+        // RC14 showed the dam alone changes nothing: the water never reached the
+        // inland columns, the map edge or the caves under the floor, yet the sea
+        // settled to the same level every cycle. The only openings the dam and the
+        // floor seal leave are provider reservations, whose own passages drain the
+        // basin into the cavern network. Liquid moves four-directionally, so one
+        // owned stone cell against every reserved cell makes the basin watertight
+        // without touching a single reserved tile.
+        long shellCells = 0;
+        for (int edge = 1; edge < p.Width + DamWidth; edge++)
+        {
+            int x = p.X(edge);
+            if (x < 2 || x >= Main.maxTilesX - 2) continue;
+            int bottom = edge >= 20 && edge < p.Width ? p.Floor(edge) + 24 : p.Bottom + 24;
+            for (int y = p.SeaLevel - 8; y < bottom && y < Main.maxTilesY - 200; y++)
+            {
+                if (!admission.Allows(x, y)) continue;
+                Tile t = Main.tile[x, y];
+                if (t.HasTile && Main.tileSolid[t.TileType]) continue;
+                if (admission.Allows(x - 1, y) && admission.Allows(x + 1, y) && admission.Allows(x, y - 1) && admission.Allows(x, y + 1)) continue;
+                t.ClearEverything(); t.HasTile = true; t.TileType = TileID.Stone; shellCells++;
             }
         }
         var rooms = p.Grottos.ToArray(); p.Grottos.Clear();
@@ -170,8 +213,10 @@ public sealed partial class OceanExpeditionWorldSystem
             int x=p.X(edge),y=p.Floor(edge);
             if(admission.Allows(new Rectangle(x-3,y-6,7,8))) WorldGen.PlaceTile(x,y-1,TileID.Coral,mute:true);
         }
-        ModContent.GetInstance<OceanExpeditionWorldSystem>().Mod.Logger.Info(
-            $"DINGDONG_OPEN_OCEAN|version=1|side={(p.Left ? "left" : "right")}|width={p.Width}|sea={p.SeaLevel}|bottom={p.Bottom}|underworldGap={p.Clearance}|waterCells={carved}|retainedCells={retained}|islands={p.Islands.Count}|airGrottos={p.Grottos.Count}|landmarks={p.Landmarks.Count}|grottoCandidates={grottoCandidates}|blockedGrottos={blockedGrottos}|adaptiveGrottos={adaptiveGrottos}|layoutSeed={p.Seed}|islandLayout={p.IslandLayout}|floorSealedCells={sealedCells}|abyssModified=False");
+        Mod owner = ModContent.GetInstance<OceanExpeditionWorldSystem>().Mod;
+        string settlement = SettleAndRefill(p, admission, owner);
+        owner.Logger.Info(
+            $"DINGDONG_OPEN_OCEAN|version=1|side={(p.Left ? "left" : "right")}|width={p.Width}|sea={p.SeaLevel}|bottom={p.Bottom}|underworldGap={p.Clearance}|waterCells={carved}|retainedCells={retained}|islands={p.Islands.Count}|airGrottos={p.Grottos.Count}|landmarks={p.Landmarks.Count}|grottoCandidates={grottoCandidates}|blockedGrottos={blockedGrottos}|adaptiveGrottos={adaptiveGrottos}|layoutSeed={p.Seed}|islandLayout={p.IslandLayout}|floorSealedCells={sealedCells}|damCells={damCells}|shellCells={shellCells}|{settlement}|abyssModified=False");
         // A single grotto still gives the sea its breathing stop; the basin is
         // already carved here, so a missing second grotto is not worth a failed world.
         if(carved<(carved+retained)*.60||p.Grottos.Count<1)
@@ -189,6 +234,128 @@ public sealed partial class OceanExpeditionWorldSystem
         if (y <= p.SeaLevel + 5) return TileID.Sand;
         return y <= p.SeaLevel + 40 ? TileID.HardenedSand : TileID.Stone;
     }
+    // The pass runs after the last vanilla settlement, so the first settle happens
+    // on world load and drains the basin into whatever it leaks into, leaving the
+    // islets above the real surface. Settle here with native physics, top the
+    // basin back up to its level and repeat until the refill becomes small.
+    private const int SettleCycles = 3;
+    private const int SettleSecondsPerCycle = 120;
+    private static string SettleAndRefill(OceanExpeditionLayout p, Admission admission, Mod owner)
+    {
+        var report = new System.Text.StringBuilder("settleCycles=");
+        int cycles = 0; long refilledTotal = 0; int surface = -1;
+        for (int cycle = 1; cycle <= SettleCycles; cycle++)
+        {
+            cycles = cycle;
+            var clock = System.Diagnostics.Stopwatch.StartNew();
+            Liquid.QuickWater(3);
+            WorldGen.WaterCheck();
+            bool previousQuick = Liquid.quickSettle;
+            Liquid.quickSettle = true;
+            try
+            {
+                while (Liquid.numLiquid + LiquidBuffer.numLiquidBuffer > 0 && clock.Elapsed.TotalSeconds < SettleSecondsPerCycle)
+                    Liquid.UpdateLiquid();
+            }
+            finally { Liquid.quickSettle = previousQuick; }
+            WorldGen.WaterCheck();
+            surface = MeasureSurface(p);
+            long inland = CountWater(p, p.Width, p.Width + 160, p.SeaLevel - 40, p.Bottom + 60);
+            long mapEdge = CountWater(p, 0, 20, p.SeaLevel - 40, p.Bottom + 60);
+            long below = CountWaterBelowFloor(p);
+            long reserved = CountReservedWater(p, admission);
+            long refilled = Refill(p, admission);
+            refilledTotal += refilled;
+            owner.Logger.Info($"DINGDONG_OPEN_OCEAN_SETTLE|cycle={cycle}|seconds={clock.Elapsed.TotalSeconds:F0}|surfaceBeforeRefill={surface}|target={p.SeaLevel}|refilledCells={refilled}|inlandWater={inland}|mapEdgeWater={mapEdge}|belowFloorWater={below}|reservedWater={reserved}|activeLiquid={Liquid.numLiquid}|buffered={LiquidBuffer.numLiquidBuffer}");
+            if (refilled < 4000) break;
+        }
+        return report.Append(cycles).Append("|lastSurface=").Append(surface).Append("|refilledCells=").Append(refilledTotal).ToString();
+    }
+
+    // Median first-water row over the open middle of the basin.
+    private static int MeasureSurface(OceanExpeditionLayout p)
+    {
+        var rows = new List<int>();
+        for (int i = 0; i < 9; i++)
+        {
+            int edge = (int)(p.Width * (.22 + .05 * i));
+            if (p.IslandColumn(edge).Top <= p.SeaLevel + 200) continue;
+            int x = p.X(edge);
+            for (int y = Math.Max(1, p.SeaLevel - 120); y < p.Floor(edge); y++)
+                if (Main.tile[x, y].LiquidAmount > 0 || Main.tile[x, y].HasTile) { rows.Add(y); break; }
+        }
+        if (rows.Count == 0) return -1;
+        rows.Sort();
+        return rows[rows.Count / 2];
+    }
+
+    // Where the sea goes when it settles: water outside the basin on the inland
+    // side, in the untouched map-edge columns, or under the basin floor band.
+    private static long CountWater(OceanExpeditionLayout p, int edgeFrom, int edgeTo, int yFrom, int yTo)
+    {
+        long count = 0;
+        for (int edge = edgeFrom; edge < edgeTo; edge++)
+        {
+            int x = p.X(edge);
+            if (x < 1 || x >= Main.maxTilesX - 1) continue;
+            for (int y = Math.Max(1, yFrom); y < Math.Min(Main.maxTilesY - 1, yTo); y++)
+                if (Main.tile[x, y].LiquidAmount > 0 && Main.tile[x, y].LiquidType == LiquidID.Water) count++;
+        }
+        return count;
+    }
+
+    // Water that ended up inside provider reservations within the basin volume
+    // (sampled every fourth column): the only cells the shell cannot own.
+    private static long CountReservedWater(OceanExpeditionLayout p, Admission admission)
+    {
+        long count = 0;
+        for (int edge = 20; edge < p.Width; edge += 4)
+        {
+            int x = p.X(edge);
+            for (int y = Math.Max(1, p.SeaLevel - 64); y < Math.Min(Main.maxTilesY - 1, p.Floor(edge) + 24); y++)
+                if (!admission.Allows(x, y) && Main.tile[x, y].LiquidAmount > 0 && Main.tile[x, y].LiquidType == LiquidID.Water) count += 4;
+        }
+        return count;
+    }
+
+    private static long CountWaterBelowFloor(OceanExpeditionLayout p)
+    {
+        long count = 0;
+        for (int edge = 20; edge < p.Width; edge += 4)
+        {
+            int x = p.X(edge), start = p.Floor(edge) + 24;
+            for (int y = start; y < Math.Min(Main.maxTilesY - 1, start + 400); y++)
+                if (Main.tile[x, y].LiquidAmount > 0 && Main.tile[x, y].LiquidType == LiquidID.Water) count += 4;
+        }
+        return count;
+    }
+
+    private static long Refill(OceanExpeditionLayout p, Admission admission)
+    {
+        long refilled = 0;
+        for (int edge = 20; edge < p.Width; edge++)
+        {
+            int x = p.X(edge), floor = p.Floor(edge);
+            var column = p.IslandColumn(edge);
+            for (int y = p.SeaLevel; y < floor; y++)
+            {
+                if (!admission.Allows(x, y)) continue;
+                if (y >= column.Top && y <= column.Bottom) continue;
+                Tile t = Main.tile[x, y];
+                if (t.HasTile && Main.tileSolid[t.TileType]) continue;
+                if (t.LiquidAmount == 255 && t.LiquidType == LiquidID.Water) continue;
+                if (t.LiquidAmount > 0 && t.LiquidType != LiquidID.Water) continue;
+                bool grotto = false;
+                foreach (var room in p.Grottos)
+                    if (OceanExpeditionLayout.InsideEllipse(room.Bounds, x, y)) { grotto = true; break; }
+                if (grotto) continue;
+                t.LiquidType = LiquidID.Water; t.LiquidAmount = 255;
+                refilled++;
+            }
+        }
+        return refilled;
+    }
+
     private static void CarveGrotto(OceanExpeditionLayout p, Rectangle b)
     {
         // An irregular-looking stone reef contains a dry ellipse. Native bubble

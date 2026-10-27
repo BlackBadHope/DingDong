@@ -1,0 +1,34 @@
+{
+  "Assigned": "This task is assigned to {0}.",
+  "StoryComplete": "This resident’s story is complete.",
+  "RewardGranted": "Reward received: {0}",
+  "StoryAccepted": "Task accepted: {0}",
+  "Deliver": "Bring {0}: {1}/{2}",
+  "Hunt": "Defeat {0}: {1}/{2}",
+  "Visit": "Explore {0}: {1}/{2} seconds",
+  "Observe": "Watch {0} up close without harming it: {1}/{2} seconds",
+  "Gather": "Place {0} near this resident: {1}/{2}",
+  "Trial": "Defeat {0} while free of {3}: {1}/{2}",
+  "Delayed": "Wait for the outcome: day {0} of {1}",
+  "Expedition": "Bring {0} obtained {3}: {1}/{2}",
+  "Choose": "Make your choice in the book while standing at this resident.",
+  "Chosen": "Your answer: “{0}”. Return to the resident to finish.",
+  "EncounterPending": "Find or rescue this resident and fulfil their residence arrival condition first.",
+  "Tiles": {
+    "Torch": "torches",
+    "Planter": "planter boxes",
+    "TreeSapling": "tree saplings"
+  },
+  "Sources": {
+    "worldgen": "from world caches and ruins",
+    "fishing": "by fishing",
+    "crafted": "by your own crafting",
+    "creature_drop": "from creatures",
+    "boss_drop": "from bosses",
+    "biome_chest": "from biome chests",
+    "quest": "as a quest reward",
+    "shop": "from a shop",
+    "event": "during an event",
+    "transmutation": "by transmutation"
+  }
+}

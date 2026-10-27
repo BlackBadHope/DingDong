@@ -13,5 +13,15 @@ internal enum ResidentQuestKind : byte
 	BossHunt,
 	BiomePurge,
 	BannerCollection,
-	ModProgression
+	ModProgression,
+	CreatureHunt,
+	VisitBiome,
+	// First Word Was authored forms (QUEST-FORMS.md). Appended only: the byte
+	// value is persisted in the world ledger and the quest snapshot.
+	Observe,
+	GatherEnv,
+	Trial,
+	DialogueChoice,
+	Delayed,
+	Expedition
 }

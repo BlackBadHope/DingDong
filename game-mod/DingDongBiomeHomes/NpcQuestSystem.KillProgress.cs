@@ -24,6 +24,7 @@ internal static partial class NpcQuestSystem
 		bool newlyDefeatedBoss = defeatedNpc.boss && !QuestWorldProgressSystem.WasBossDefeated(contentKey);
 		foreach ((string npcKey, ResidentQuestProgress progress)in questPlayer.CurrentActiveRecords())
 		{
+			if (!progress.IsAssignedTo(questPlayer.PersistentId)) continue;
 			if (!NpcTownManifest.TryGet(npcKey, out NpcTownIdentity identity))
 				continue;
 			ResidentQuestDefinition definition = progress.Definition(identity);
@@ -39,6 +40,13 @@ internal static partial class NpcQuestSystem
 						matched = defenseArea.Contains(defeatedNpc.Center.ToTileCoordinates());
 					}
 
+					break;
+				case ResidentQuestKind.CreatureHunt:
+                        matched = string.Equals(contentKey, definition.TargetKey, StringComparison.Ordinal);
+                        break;
+				case ResidentQuestKind.Trial:
+					// A kill counts only while the forbidden state is absent (QUEST-FORMS "Trial").
+					matched = string.Equals(contentKey, definition.TargetKey, StringComparison.Ordinal) && !TrialStateViolated(player, definition);
 					break;
 				case ResidentQuestKind.BossHunt:
 					matched = defeatedNpc.boss && string.Equals(contentKey, definition.TargetKey, StringComparison.Ordinal);

@@ -21,6 +21,7 @@ internal static partial class NpcQuestSystem
 		bool changed = false;
 		foreach ((string npcKey, ResidentQuestProgress progress)in questPlayer.CurrentActiveRecords())
 		{
+			if (!progress.IsAssignedTo(questPlayer.PersistentId)) continue;
 			if (!NpcTownManifest.TryGet(npcKey, out NpcTownIdentity identity))
 				continue;
 			if (RepairUnavailableProgression(player, npcKey, identity, progress))
@@ -41,6 +42,22 @@ internal static partial class NpcQuestSystem
 				progress.Progress = definition.Kind == ResidentQuestKind.SurveyOrigin ? definition.Goal : Math.Min(definition.Goal, progress.Progress + 1);
 				record = true;
 				Notify(player, progress.Progress >= definition.Goal ? definition.Kind == ResidentQuestKind.SurveyOrigin ? "Mods.DingDongBiomeHomes.Quests.SurveyReady" : "Mods.DingDongBiomeHomes.Quests.PatrolReady" : "Mods.DingDongBiomeHomes.Quests.JournalProgress", ResidentName(npcKey), progress.Progress, definition.Goal);
+			}
+			else if (definition.Kind is ResidentQuestKind.DeliverSupplies or ResidentQuestKind.Expedition)
+			{
+				int count = Math.Min(definition.Goal, CountQuestSupplies(player, definition));
+				if (count != progress.Progress) { progress.Progress = count; record = true; }
+			}
+			else if (definition.Kind == ResidentQuestKind.VisitBiome && progress.Progress < definition.Goal && QuestContentRegistry.PlayerInBiome(player, definition.TargetKey))
+            { progress.Progress = Math.Min(definition.Goal, progress.Progress + 15); record = true; }
+			else if (definition.Kind == ResidentQuestKind.Observe && progress.Progress < definition.Goal && ObservedTargetNearby(player, definition))
+			{ progress.Progress = Math.Min(definition.Goal, progress.Progress + 15); record = true; }
+			else if (definition.Kind == ResidentQuestKind.Delayed && progress.Progress < definition.Goal)
+			{ progress.Progress = Math.Min(definition.Goal, progress.Progress + 15); record = progress.Progress >= definition.Goal || progress.Progress % 900 == 0; }
+			else if (definition.Kind == ResidentQuestKind.GatherEnv && progress.Progress < definition.Goal)
+			{
+				int count = Math.Min(definition.Goal, CountGatheredTiles(player, npcKey, definition));
+				if (count != progress.Progress) { progress.Progress = count; record = true; if (count >= definition.Goal) Notify(player, "Mods.DingDongBiomeHomes.Quests.ObjectiveReady", ResidentName(npcKey)); }
 			}
 			else if (definition.Kind == ResidentQuestKind.BannerCollection)
 			{

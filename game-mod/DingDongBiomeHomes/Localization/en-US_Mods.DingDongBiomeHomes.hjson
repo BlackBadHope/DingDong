@@ -51,6 +51,17 @@ WorldCreation: {
 }
 
 Items: {
+	SpiritWardTotemItem: {
+		DisplayName: Spirit Ward Totem
+		Tooltip:
+			'''
+			Place it on the floor of your home
+			Wraiths, ghosts, reapers and other enemies that pass through walls
+			no longer spawn around a player within one screen of the totem
+			Enemies that respect walls are unaffected
+			'''
+	}
+
 	ResidenceFlagItem: {
 		DisplayName: NPC Home Flag
 		Tooltip:
@@ -720,6 +731,10 @@ MobRelics: {
 		83094BC28C7E215D: Glowmoth
 		9BA20D261B5D0FF3: The Grand Thunder Bird
 	}
+}
+
+SpiritWard: {
+	MapEntry: Spirit ward totem
 }
 
 ResidenceFlag: {

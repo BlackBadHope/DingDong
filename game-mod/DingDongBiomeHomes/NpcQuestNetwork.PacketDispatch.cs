@@ -21,10 +21,21 @@ internal static partial class NpcQuestNetwork
 		{
 			switch (kind)
 			{
-				case DingDongPacketKind.QuestInteractRequest when Main.netMode == NetmodeID.Server:
-					ReadQuestInteractPayload(reader, out short npcIndex, out bool requestEscort);
-					if (ValidPlayer(whoAmI))
-						NpcQuestSystem.HandleInteraction(Main.player[whoAmI], npcIndex, requestEscort);
+				case DingDongPacketKind.ResidentEncounterSnapshot when Main.netMode == NetmodeID.MultiplayerClient:
+                    if(reader.ReadByte()!=1)throw new InvalidDataException("Unsupported resident encounter protocol");
+                    ModContent.GetInstance<ResidentEncounterSystem>().NetReceive(reader);break;
+                case DingDongPacketKind.ResidentEncounterTalk when Main.netMode == NetmodeID.Server:
+                    int encounterNpc=reader.ReadInt16();if(ValidPlayer(whoAmI))ResidentEncounterSystem.Talk(Main.player[whoAmI],encounterNpc);break;
+                case DingDongPacketKind.QuestInteractRequest when Main.netMode == NetmodeID.Server:
+					ReadQuestInteractPayload(reader, out short npcIndex, out bool requestEscort, out int expectedQuest, out int expectedCompleted);
+					if (ValidPlayer(whoAmI)) {
+						if (MatchesSharedInteraction(Main.player[whoAmI], npcIndex, expectedQuest, expectedCompleted)) NpcQuestSystem.HandleInteraction(Main.player[whoAmI], npcIndex, requestEscort);
+						else SendQuestSnapshot(Main.player[whoAmI],whoAmI);
+					}
+					break;
+				case DingDongPacketKind.QuestChoiceRequest when Main.netMode == NetmodeID.Server:
+					short choiceNpc = reader.ReadInt16(); byte choice = reader.ReadByte();
+					if (ValidPlayer(whoAmI)) NpcQuestSystem.HandleChoice(Main.player[whoAmI], choiceNpc, choice);
 					break;
 				case DingDongPacketKind.FlagClaimRequest when Main.netMode == NetmodeID.Server:
 					ReadFlagClaimPayload(reader, out short tileX, out short tileY);

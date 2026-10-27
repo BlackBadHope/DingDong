@@ -36,8 +36,14 @@ internal static partial class NpcQuestSystem
 			return;
 		}
 
-		NpcQuestPlayer questPlayer = player.GetModPlayer<NpcQuestPlayer>();
+		if(!ResidentEncounterSystem.CanOfferQuests(npcKey)) { Notify(player,"Mods.DingDongBiomeHomes.SharedQuests.EncounterPending"); return; }
+        NpcQuestPlayer questPlayer = player.GetModPlayer<NpcQuestPlayer>();
 		ResidentQuestProgress progress = questPlayer.Get(npcKey);
+		if (progress.Active && !progress.IsAssignedTo(questPlayer.PersistentId))
+		{
+			Notify(player, "Mods.DingDongBiomeHomes.SharedQuests.Assigned", progress.AssignedName);
+			return;
+		}
 		if (RepairUnavailableProgression(player, npcKey, identity, progress))
 		{
 			NpcQuestWorldLedger.Record(player, npcKey, progress);
@@ -87,14 +93,18 @@ internal static partial class NpcQuestSystem
 
 		if (!progress.Active)
 		{
+            if (PersonalResidentQuestCatalog.Complete(npcKey, progress.Completed))
+            { Notify(player, "Mods.DingDongBiomeHomes.SharedQuests.StoryComplete"); return; }
 			ResidentQuestDefinition selected = ResidentQuestCatalog.SelectAvailable(questPlayer.PersistentId, identity, progress.Completed, allowResidenceObjectives: hasResidence);
 			ResidentQuestDefinition scaled = QuestRewardBalance.Scale(selected, out int rewardCopper, out int difficultyRank);
 			progress.Begin(scaled, rewardCopper, difficultyRank);
+			progress.AssignedTo = questPlayer.PersistentId;
+			progress.AssignedName = player.name.Length <= 60 ? player.name : player.name[..60];
 			NpcQuestWorldLedger.Record(player, npcKey, progress);
 			NotifyQuestAccepted(player, scaled, identity);
 			if (UsesResidenceMap(scaled.Kind))
 				Notify(player, "Mods.DingDongBiomeHomes.Quests.MapTargetMarked");
-			Notify(player, "Mods.DingDongBiomeHomes.Quests.RewardPromised", QuestRewardBalance.FormatBundle(rewardCopper, difficultyRank));
+			Notify(player, "Mods.DingDongBiomeHomes.Quests.RewardPromised", QuestRewardBalance.FormatBundle(scaled, rewardCopper, difficultyRank));
 			NpcQuestNetwork.SendQuestSnapshot(player, player.whoAmI);
 			return;
 		}
@@ -119,13 +129,13 @@ internal static partial class NpcQuestSystem
 
 				break;
 			case ResidentQuestKind.DeliverSupplies:
-				if (CountInventory(player, definition.ItemType) < definition.Goal)
+				if (CountQuestSupplies(player, definition) < definition.Goal)
 				{
 					Notify(player, "Mods.DingDongBiomeHomes.Quests.SuppliesMissing", Lang.GetItemNameValue(definition.ItemType), definition.Goal);
 					return;
 				}
 
-				ConsumeInventory(player, definition.ItemType, definition.Goal);
+				ConsumeQuestSupplies(player, definition);
 				break;
 			case ResidentQuestKind.DefendOrigin:
 				if (progress.Progress < definition.Goal)
@@ -135,10 +145,26 @@ internal static partial class NpcQuestSystem
 				}
 
 				break;
+			case ResidentQuestKind.Expedition:
+				if (CountQuestSupplies(player, definition) < definition.Goal)
+				{
+					Notify(player, "Mods.DingDongBiomeHomes.Quests.ObjectiveMissing", ObjectiveText(player, definition, progress));
+					return;
+				}
+
+				ConsumeQuestSupplies(player, definition);
+				break;
+			case ResidentQuestKind.CreatureHunt:
+            case ResidentQuestKind.VisitBiome:
 			case ResidentQuestKind.BossHunt:
 			case ResidentQuestKind.BiomePurge:
 			case ResidentQuestKind.BannerCollection:
 			case ResidentQuestKind.ModProgression:
+			case ResidentQuestKind.Observe:
+			case ResidentQuestKind.GatherEnv:
+			case ResidentQuestKind.Trial:
+			case ResidentQuestKind.DialogueChoice:
+			case ResidentQuestKind.Delayed:
 				if (!IsReady(player, definition, progress))
 				{
 					Notify(player, "Mods.DingDongBiomeHomes.Quests.ObjectiveMissing", ObjectiveText(player, definition, progress));

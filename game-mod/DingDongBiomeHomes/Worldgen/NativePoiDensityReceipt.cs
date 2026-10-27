@@ -24,7 +24,7 @@ internal static class NativePoiDensityReceipt
 		double expected = scaling switch {
 			"WorldWidth" or "WorldWidth+Depth" =>
 				native * Math.Max(1d, Main.maxTilesY / 2400d),
-			"WorldArea" or "None" => native,
+			"WorldArea" or "None" or "WorldWidth-horizontal" => native,
 			"WorldWidthSurface" => Math.Max(native,
 				Math.Ceiling(3d * Main.maxTilesX / 8400d)),
 			_ => double.NaN
