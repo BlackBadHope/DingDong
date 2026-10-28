@@ -90,8 +90,11 @@ public sealed partial class BiomeHomeWorldgenSystem
 		// Owner item 6: metro coast to coast and a hellevator beside the sanctuary,
 		// carved around every reserved structure; the foreign guard below repairs
 		// anything a provider did not register.
+		// S12 28.10: attribute foreign-structure changes to residences vs transit (read-only).
+		foreignGuard?.Census(Mod, "after-residences");
 		progress.Message = "DingDong residence transit: metro and hellevator";
 		Worldgen.ResidenceTransitBuilder.Build(Mod);
+		foreignGuard?.Census(Mod, "after-transit");
 		foreignGuard?.RepairAndValidate(Mod);
 		Worldgen.NativePyramidProtection.Validate(Mod, "authored-residences");
 		Mod.Logger.Info($"DINGDONG_WORLDGEN_END|verdict=PASS|mode=technical-candidate-admission|simultaneousLayout=True|structures={structuresPlaced}/61|uniquePresets={uniquePresets.Count}/61|housing={housingValid}/61|rooms={roomsDiscovered}|relocatedChests={relocatedChests}|unresolvedPersistentObjectOverlaps=0|visualApproved={NpcAuthoredPresetManifest.Count}/61|distributionAccepted=True|playerVisualApproved=False|masterMode={Main.masterMode}|getGoodWorld={Main.getGoodWorld}");

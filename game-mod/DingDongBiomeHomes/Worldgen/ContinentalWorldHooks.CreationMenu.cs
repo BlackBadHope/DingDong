@@ -23,6 +23,7 @@ internal static partial class ContinentalWorldHooks
 
 	private static void InstallWorldCreationMenu()
 	{
+		InstallSeedLock();
 		if (!Main.dedServ)
 		{
 			Terraria.GameContent.UI.States.On_UIWorldCreation.ctor += CreateWorldCreationMenu;
@@ -32,6 +33,7 @@ internal static partial class ContinentalWorldHooks
 
 	private static void UninstallWorldCreationMenu()
 	{
+		UninstallSeedLock();
 		if (!Main.dedServ)
 		{
 			Terraria.GameContent.UI.States.On_UIWorldCreation.ctor -= CreateWorldCreationMenu;
@@ -46,6 +48,7 @@ internal static partial class ContinentalWorldHooks
 	{
 		orig(self);
 		ClearWorldCreationRequest();
+		LockSeedRow(self);
 		if (IsEnabled())
 			ReplaceSizeButtonsWithPresets(self);
 	}
@@ -119,7 +122,7 @@ internal static partial class ContinentalWorldHooks
 	{
 		string text = Language.GetTextValue(preset.LocKey + ".Description");
 		const string NewLine = "\n";
-		if (recommended)
+		if (recommended && ContinentalWorldDimensions.Available.Count > 1)
 			text += NewLine + Language.GetTextValue($"{MenuKey}.PresetRecommended");
 		if (physical is long bytes && !ContinentalWorldDimensions.FitsPhysical(preset, bytes))
 			text += NewLine + Language.GetTextValue($"{MenuKey}.PresetAboveRam", preset.RamTierGb,

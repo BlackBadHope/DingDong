@@ -61,13 +61,35 @@ WorldCreation: {
 		}
 
 		ram32: {
-			Name: "32 GB — World x10"
-			Description: Continental world — 28,000 x 7,200 tiles, exactly ten Large-world areas. Requires 64-bit tModLoader and sufficient free RAM and Windows commit headroom. Memory is checked before creation. Estimated need about 14-16 GB for the whole PC in single player (estimate); Host & Play (server and client on one PC) needs a 32 GB PC.
+			Name: "Ding Dong Continent"
+			Description: A vast continent — ten times the area of a Large world. Room for all 61 residences, the deep ocean and the Abyss.
 		}
 	}
 
+	// 28.10: the seed is fixed to For the Worthy (owner decision).
+	SeedLocked: {
+		Name: "Seed: ForTheWorthy"
+		Description: Every Ding Dong world is born with the For the Worthy secret seed: stronger foes and harsher rules. The landscape is still different every time.
+	}
+
+	// 28.10: "First Word" backdrop of the world-generation screen.
+	Backdrop: {
+		Title: The First Word
+		Subtitle: The world is being spoken…
+		Line0: In the beginning was a word. It was short — and the world was small.
+		Line1: The world changes because it wants to become better. But who decides what better means?
+		Line2: The Gardeners say: better means tended.
+		Line3: The Tidecallers say: better means larger.
+		Line4: The Archivists say: better means remembered.
+		Line5: Sixty-one residences wait for those they were built for. No one admits to building them.
+		Line6: The deep ocean opposite the Abyss is what the world has yet to say.
+		Line7: You are the one the world never finished writing. That is why it listens to you.
+		Line8: Every word has an end. What has been spoken hardens.
+		Line9: The world is ten times larger than it was. And it has edges.
+	}
+
 	PresetRecommended: Recommended for your PC.
-	PresetAboveRam: Warning: this preset is meant for {0} GB of RAM and this PC has {1} GiB. It stays available, but creation may be refused by the memory check or run slowly with the page file.
+	PresetAboveRam: This PC has {1} GiB of RAM; the continent was built for {0} GB. Creation may take longer — close other programs first.
 	PresetResidencesUnproven: Preview: placement of all 61 residences is not yet proven on this size.
 	MemoryDenied:
 		'''

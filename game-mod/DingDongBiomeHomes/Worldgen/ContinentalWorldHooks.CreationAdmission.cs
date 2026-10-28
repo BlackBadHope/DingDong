@@ -25,6 +25,7 @@ internal static partial class ContinentalWorldHooks
 			}
 			OptionSizeField.SetValue(self, Enum.ToObject(OptionSizeField.FieldType, 2));
 		}
+		ForceSeedText(self);
 		orig(self);
 	}
 }

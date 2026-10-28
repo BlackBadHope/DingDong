@@ -116,24 +116,21 @@ internal sealed class ForeignStructureIntegrityGuard : IDisposable
 		// Native tile framing may cascade into a provider's protected area even
 		// after the authored write envelope was admitted. Restore only the exact
 		// five planes captured immediately before our own placement batch.
+		// S12 28.10: a cell whose only difference is its sprite frame (a neighbour was
+		// re-framed) is restored without counting toward the limit: putting back the exact
+		// captured frame cannot damage the provider's structure. Real content changes
+		// (tile, wall, liquid, paint, slope, wires) still reject the world above the limit.
 		var repairs = new Dictionary<(int X, int Y), AuthoredTileSnapshot>();
+		int contentRepairs = 0;
 		try
 		{
-			foreach (var entry in snapshots)
-			{
-				Rectangle area = entry.Area;
-				for (int x = 0; x < area.Width; x++)
-				for (int y = 0; y < area.Height; y++)
-					CollectRepair(repairs, area.X + x, area.Y + y, entry.Cells[x * area.Height + y]);
-			}
-			if (spill != null)
-			{
-				var reader = new SpillReader(spill);
-				foreach (Rectangle area in spilledAreas)
-				for (int x = 0; x < area.Width; x++)
-				for (int y = 0; y < area.Height; y++)
-					CollectRepair(repairs, area.X + x, area.Y + y, reader.Next());
-			}
+			ForEachCell((x, y, expected) => CollectRepair(repairs, ref contentRepairs, x, y, expected));
+		}
+		catch (InvalidOperationException) when (contentRepairs > MaxRepairCells)
+		{
+			Census(mod, "rejected");
+			Dispose();
+			throw;
 		}
 		catch
 		{
@@ -149,17 +146,92 @@ internal sealed class ForeignStructureIntegrityGuard : IDisposable
 				throw new InvalidOperationException($"Foreign protected structure repair failed at {repair.Key.X},{repair.Key.Y}; generation rejected.");
 			}
 		if (repairs.Count > 0)
-			mod.Logger.Warn($"DINGDONG_FOREIGN_INTEGRITY|verdict=REPAIRED|cells={repairs.Count}|limit={MaxRepairCells}|planes=5");
+			mod.Logger.Warn($"DINGDONG_FOREIGN_INTEGRITY|verdict=REPAIRED|cells={repairs.Count}|contentCells={contentRepairs}|frameOnlyCells={repairs.Count - contentRepairs}|limit={MaxRepairCells}|planes=5");
 		Validate(mod);
 	}
 
-	private static void CollectRepair(Dictionary<(int X, int Y), AuthoredTileSnapshot> repairs,
+	private static void CollectRepair(Dictionary<(int X, int Y), AuthoredTileSnapshot> repairs, ref int contentRepairs,
 		int worldX, int worldY, AuthoredTileSnapshot expected)
 	{
-		if (expected == AuthoredTileSnapshot.Read(Main.tile[worldX, worldY])) return;
-		repairs.TryAdd((worldX, worldY), expected);
-		if (repairs.Count > MaxRepairCells)
+		AuthoredTileSnapshot current = AuthoredTileSnapshot.Read(Main.tile[worldX, worldY]);
+		if (expected == current) return;
+		if (!repairs.TryAdd((worldX, worldY), expected) || FrameOnly(expected, current)) return;
+		if (++contentRepairs > MaxRepairCells)
 			throw new InvalidOperationException($"Foreign protected structure changed in more than {MaxRepairCells} cells; generation rejected without repair.");
+	}
+
+	// S12 28.10: true when two snapshots differ only in tile/wall sprite framing.
+	private static bool FrameOnly(in AuthoredTileSnapshot expected, in AuthoredTileSnapshot current)
+	{
+		if (!expected.TileType.Equals(current.TileType) || !expected.WallType.Equals(current.WallType) ||
+			!expected.Liquid.Equals(current.Liquid) || !expected.Brightness.Equals(current.Brightness))
+			return false;
+		TileWallWireStateData state = expected.State;
+		TileWallWireStateData now = current.State;
+		state.TileFrameX = now.TileFrameX;
+		state.TileFrameY = now.TileFrameY;
+		state.TileFrameNumber = now.TileFrameNumber;
+		state.WallFrameX = now.WallFrameX;
+		state.WallFrameY = now.WallFrameY;
+		state.WallFrameNumber = now.WallFrameNumber;
+		return state.Equals(now);
+	}
+
+	private void ForEachCell(Action<int, int, AuthoredTileSnapshot> visit)
+	{
+		foreach (var entry in snapshots)
+		{
+			Rectangle area = entry.Area;
+			for (int x = 0; x < area.Width; x++)
+			for (int y = 0; y < area.Height; y++)
+				visit(area.X + x, area.Y + y, entry.Cells[x * area.Height + y]);
+		}
+		if (spill != null)
+		{
+			var reader = new SpillReader(spill);
+			foreach (Rectangle area in spilledAreas)
+			for (int x = 0; x < area.Width; x++)
+			for (int y = 0; y < area.Height; y++)
+				visit(area.X + x, area.Y + y, reader.Next());
+		}
+	}
+
+	// S12 28.10: read-only census of what changed inside foreign protected regions since the
+	// capture: totals per plane and the regions with the most changed cells. Never repairs.
+	internal void Census(Mod mod, string stage)
+	{
+		if (spill == null && snapshots.Count == 0) return;
+		long changed = 0, frameOnly = 0, tile = 0, wall = 0, liquid = 0, brightness = 0, state = 0;
+		var perRegion = new Dictionary<Rectangle, (int Count, int MinX, int MinY, int MaxX, int MaxY, string Example)>();
+		var areaOf = new List<Rectangle>();
+		foreach (var entry in snapshots) areaOf.Add(entry.Area);
+		areaOf.AddRange(spilledAreas);
+		int areaIndex = 0, cellInArea = 0;
+		ForEachCell((x, y, expected) =>
+		{
+			Rectangle area = areaOf[areaIndex];
+			if (++cellInArea == area.Width * area.Height) { areaIndex++; cellInArea = 0; }
+			AuthoredTileSnapshot current = AuthoredTileSnapshot.Read(Main.tile[x, y]);
+			if (expected == current) return;
+			changed++;
+			if (FrameOnly(expected, current)) { frameOnly++; return; }
+			if (!expected.TileType.Equals(current.TileType)) tile++;
+			if (!expected.WallType.Equals(current.WallType)) wall++;
+			if (!expected.Liquid.Equals(current.Liquid)) liquid++;
+			if (!expected.Brightness.Equals(current.Brightness)) brightness++;
+			if (!expected.State.Equals(current.State)) state++;
+			perRegion.TryGetValue(area, out var row);
+			string example = row.Example ?? $"{x}:{y}:type{expected.TileType.Type}->{current.TileType.Type}:wall{expected.WallType.Type}->{current.WallType.Type}" +
+				$":active{expected.State.HasTile}->{current.State.HasTile}:liquid{expected.Liquid.Amount}->{current.Liquid.Amount}";
+			perRegion[area] = row.Count == 0
+				? (1, x, y, x, y, example)
+				: (row.Count + 1, Math.Min(row.MinX, x), Math.Min(row.MinY, y), Math.Max(row.MaxX, x), Math.Max(row.MaxY, y), example);
+		});
+		mod.Logger.Info($"DINGDONG_FOREIGN_CENSUS|stage={stage}|changed={changed}|frameOnly={frameOnly}|content={changed - frameOnly}" +
+			$"|tileType={tile}|wall={wall}|liquid={liquid}|brightness={brightness}|stateNonFrame={state}|regionsTouched={perRegion.Count}");
+		foreach (var row in perRegion.OrderByDescending(r => r.Value.Count).Take(12))
+			mod.Logger.Info($"DINGDONG_FOREIGN_CENSUS_REGION|stage={stage}|region={row.Key.X},{row.Key.Y},{row.Key.Width},{row.Key.Height}" +
+				$"|content={row.Value.Count}|changedBox={row.Value.MinX},{row.Value.MinY}..{row.Value.MaxX},{row.Value.MaxY}|example={row.Value.Example}");
 	}
 
 	public void Dispose()
