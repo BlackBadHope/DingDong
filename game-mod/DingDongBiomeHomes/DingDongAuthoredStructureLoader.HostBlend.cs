@@ -157,6 +157,8 @@ public static partial class DingDongAuthoredStructureLoader
 		{
 			Tile tile = Main.tile[x, y];
 			if (tile.LiquidAmount == 0 || tile.LiquidType != LiquidID.Lava) continue;
+			// S13 28.10: the apron reaches past the admitted envelope; other mods' structures keep their lava.
+			if (Worldgen.ForeignRegionIndex.IsForeign(x, y)) continue;
 			int sx = x - origin.X, sy = y - origin.Y;
 			if (sx >= 0 && sy >= 0 && sx < data.Width && sy < data.Height && plan.WriteTiles[sx * data.Height + sy] &&
 				(drop == null || !drop.Tiles[sx * data.Height + sy]))
@@ -204,6 +206,9 @@ public static partial class DingDongAuthoredStructureLoader
 				if (worldY >= floorLimit) break;
 				Tile tile = Main.tile[worldX, worldY];
 				if (tile.HasTile || tile.LiquidAmount > 0) break;
+				// S13 28.10: support can grow ~36 rows past the admitted envelope; never into
+				// another mod's protected structure (the owner's x10 world was rejected for it).
+				if (Worldgen.ForeignRegionIndex.IsForeign(worldX, worldY)) break;
 				tile.HasTile = true;
 				tile.TileType = SupportMaterial(surface, depth);
 				filled++;
@@ -211,7 +216,20 @@ public static partial class DingDongAuthoredStructureLoader
 				top = Math.Min(top, worldY); bottom = Math.Max(bottom, worldY);
 			}
 		}
-		if (filled > 0) WorldGen.RangeFrame(Math.Max(1, left - 1), Math.Max(1, top - 1), Math.Min(Main.maxTilesX - 2, right + 1), Math.Min(Main.maxTilesY - 2, bottom + 1));
+		if (filled > 0) FrameOutsideForeign(Math.Max(1, left - 1), Math.Max(1, top - 1), Math.Min(Main.maxTilesX - 2, right + 1), Math.Min(Main.maxTilesY - 2, bottom + 1));
 		return filled;
+	}
+
+	// S13 28.10: RangeFrame (same start-1..end+1 span) without touching cells of other mods'
+	// protected structures.
+	private static void FrameOutsideForeign(int left, int top, int right, int bottom)
+	{
+		for (int x = Math.Max(1, left - 1); x <= Math.Min(Main.maxTilesX - 2, right + 1); x++)
+		for (int y = Math.Max(1, top - 1); y <= Math.Min(Main.maxTilesY - 2, bottom + 1); y++)
+		{
+			if (Worldgen.ForeignRegionIndex.IsForeign(x, y)) continue;
+			WorldGen.TileFrame(x, y);
+			Framing.WallFrame(x, y);
+		}
 	}
 }

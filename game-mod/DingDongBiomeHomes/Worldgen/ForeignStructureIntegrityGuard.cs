@@ -57,6 +57,7 @@ internal sealed class ForeignStructureIntegrityGuard : IDisposable
 			areas.Add(area);
 			cells += checked(area.Width * area.Height);
 		}
+		ForeignRegionIndex.Current = new ForeignRegionIndex(areas);
 		long exactBytes = checked(cells * Unsafe.SizeOf<AuthoredTileSnapshot>());
 		bool economical = SpillCodec.Supported &&
 			RamOptMemoryMode.ForStage(mod, "foreign-integrity-capture", exactBytes);
@@ -164,7 +165,7 @@ internal sealed class ForeignStructureIntegrityGuard : IDisposable
 	private static bool FrameOnly(in AuthoredTileSnapshot expected, in AuthoredTileSnapshot current)
 	{
 		if (!expected.TileType.Equals(current.TileType) || !expected.WallType.Equals(current.WallType) ||
-			!expected.Liquid.Equals(current.Liquid) || !expected.Brightness.Equals(current.Brightness))
+			!SameLiquid(expected.Liquid, current.Liquid) || !expected.Brightness.Equals(current.Brightness))
 			return false;
 		TileWallWireStateData state = expected.State;
 		TileWallWireStateData now = current.State;
@@ -176,6 +177,11 @@ internal sealed class ForeignStructureIntegrityGuard : IDisposable
 		state.WallFrameNumber = now.WallFrameNumber;
 		return state.Equals(now);
 	}
+
+	// S13 28.10: native framing calls Liquid.AddWater, which only toggles the CheckingLiquid /
+	// SkipLiquid bookkeeping bits; the liquid itself (amount and type) is what must not change.
+	private static bool SameLiquid(LiquidData expected, LiquidData current) =>
+		expected.Amount == current.Amount && expected.LiquidType == current.LiquidType;
 
 	private void ForEachCell(Action<int, int, AuthoredTileSnapshot> visit)
 	{
@@ -207,17 +213,18 @@ internal sealed class ForeignStructureIntegrityGuard : IDisposable
 		foreach (var entry in snapshots) areaOf.Add(entry.Area);
 		areaOf.AddRange(spilledAreas);
 		int areaIndex = 0, cellInArea = 0;
+		var seen = new HashSet<(int, int)>(); // overlapping rectangles visit a cell more than once
 		ForEachCell((x, y, expected) =>
 		{
 			Rectangle area = areaOf[areaIndex];
 			if (++cellInArea == area.Width * area.Height) { areaIndex++; cellInArea = 0; }
 			AuthoredTileSnapshot current = AuthoredTileSnapshot.Read(Main.tile[x, y]);
-			if (expected == current) return;
+			if (expected == current || !seen.Add((x, y))) return;
 			changed++;
 			if (FrameOnly(expected, current)) { frameOnly++; return; }
 			if (!expected.TileType.Equals(current.TileType)) tile++;
 			if (!expected.WallType.Equals(current.WallType)) wall++;
-			if (!expected.Liquid.Equals(current.Liquid)) liquid++;
+			if (!SameLiquid(expected.Liquid, current.Liquid)) liquid++;
 			if (!expected.Brightness.Equals(current.Brightness)) brightness++;
 			if (!expected.State.Equals(current.State)) state++;
 			perRegion.TryGetValue(area, out var row);
@@ -238,6 +245,7 @@ internal sealed class ForeignStructureIntegrityGuard : IDisposable
 	{
 		spill?.Dispose();
 		spill = null;
+		ForeignRegionIndex.Current = null;
 	}
 
 	// RamOpt 28.10: stream the five planes of every region to a temporary file.
@@ -361,5 +369,38 @@ internal sealed class ForeignStructureIntegrityGuard : IDisposable
 				Unsafe.ReadUnaligned<TileWallBrightnessInvisibilityData>(ref Unsafe.Add(ref start, 6)),
 				Unsafe.ReadUnaligned<TileWallWireStateData>(ref Unsafe.Add(ref start, 7)));
 		}
+	}
+}
+
+// S13 28.10: the foreign protected rectangles captured by the guard (other mods' and vanilla
+// structures, not our own residences), queryable per cell while residences are placed, so the
+// writers that reach past the admitted envelope (support backfill, lava quench, their framing)
+// can step around them. Bucketed by 64x64 tiles; null outside the placement window.
+internal sealed class ForeignRegionIndex
+{
+	private const int Shift = 6;
+	private readonly Dictionary<int, List<Rectangle>> buckets = new();
+	internal static ForeignRegionIndex Current { get; set; }
+
+	internal ForeignRegionIndex(IEnumerable<Rectangle> areas)
+	{
+		foreach (Rectangle area in areas)
+			for (int bx = area.Left >> Shift; bx <= (area.Right - 1) >> Shift; bx++)
+			for (int by = area.Top >> Shift; by <= (area.Bottom - 1) >> Shift; by++)
+			{
+				int key = bx * 65536 + by;
+				if (!buckets.TryGetValue(key, out List<Rectangle> list)) buckets[key] = list = new List<Rectangle>();
+				list.Add(area);
+			}
+	}
+
+	internal static bool IsForeign(int x, int y) => Current?.Contains(x, y) == true;
+
+	private bool Contains(int x, int y)
+	{
+		if (!buckets.TryGetValue((x >> Shift) * 65536 + (y >> Shift), out List<Rectangle> list)) return false;
+		foreach (Rectangle area in list)
+			if (x >= area.Left && x < area.Right && y >= area.Top && y < area.Bottom) return true;
+		return false;
 	}
 }
