@@ -17,6 +17,10 @@ public sealed partial class SpawnSanctuaryWorldgenSystem
 		generatedSanctuary = null;
 	}
 
+	// Residence transit (ResidenceTransitBuilder) places the hellevator beside the sanctuary.
+	internal (Rectangle SafeArea, int SpawnX, int FloorY)? PlannedSanctuary =>
+		generatedSanctuary == null ? null : (generatedSanctuary.SafeArea, generatedSanctuary.SpawnX, generatedSanctuary.FloorY);
+
 	public override void ModifyWorldGenTasks(List<GenPass> tasks,
 		ref double totalWeight)
 	{

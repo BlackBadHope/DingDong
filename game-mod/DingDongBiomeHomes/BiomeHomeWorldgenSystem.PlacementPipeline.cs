@@ -86,6 +86,11 @@ public sealed partial class BiomeHomeWorldgenSystem
 		relocatedChests = ApplyRelocationsAndPlaceResidences(progress, sites,
 			relocationPlans, relocatedChests, out int structuresPlaced,
 			out int housingValid, out int roomsDiscovered, out HashSet<string> uniquePresets);
+		// Owner item 6: metro coast to coast and a hellevator beside the sanctuary,
+		// carved around every reserved structure; the foreign guard below repairs
+		// anything a provider did not register.
+		progress.Message = "DingDong residence transit: metro and hellevator";
+		Worldgen.ResidenceTransitBuilder.Build(Mod);
 		foreignGuard?.RepairAndValidate(Mod);
 		Worldgen.NativePyramidProtection.Validate(Mod, "authored-residences");
 		Mod.Logger.Info($"DINGDONG_WORLDGEN_END|verdict=PASS|mode=technical-candidate-admission|simultaneousLayout=True|structures={structuresPlaced}/61|uniquePresets={uniquePresets.Count}/61|housing={housingValid}/61|rooms={roomsDiscovered}|relocatedChests={relocatedChests}|unresolvedPersistentObjectOverlaps=0|visualApproved={NpcAuthoredPresetManifest.Count}/61|distributionAccepted=True|playerVisualApproved=False|masterMode={Main.masterMode}|getGoodWorld={Main.getGoodWorld}");

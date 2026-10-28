@@ -16,9 +16,27 @@ public static partial class CandidateDeploymentSitePlanner
 				CollectSaltCandidates(profile, layoutSalt, unique, ref lastReason);
 
 			List<RankedLayoutCandidate> ordered = new(unique.Values);
+			KeepPreferredBiomeWhenAvailable(profile, ordered);
 			SortPoolCandidates(ordered);
 			pruned = PruneSpatialBuckets(profile, ordered);
 			return pruned.Count > 0;
+		}
+
+		// Owner acceptance item 6 (residences strictly in their biomes): a reviewed
+		// secondary biome stays a fallback. While the world offers any admitted site in
+		// the deployment biome, sites matched through AllowedBiomes[1..] leave the pool,
+		// so the global solver cannot trade a snow castle onto a purity meadow for
+		// spacing. With no site in the deployment biome the secondary pool stays whole.
+		private void KeepPreferredBiomeWhenAvailable(AuthoredDeploymentProfile profile, List<RankedLayoutCandidate> ordered)
+		{
+			HomeBiome target = profile.TargetBiome;
+			int preferred = 0, secondary = 0;
+			foreach (RankedLayoutCandidate candidate in ordered)
+				if (candidate.Site.Biome == target) preferred++; else secondary++;
+			if (preferred == 0 || secondary == 0)
+				return;
+			ordered.RemoveAll(candidate => candidate.Site.Biome != target);
+			mod.Logger.Info($"DINGDONG_PLANNER_STRICT_BIOME|npc={profile.NpcKey}|target={target}|kept={preferred}|droppedSecondary={secondary}");
 		}
 
 		private static void SortPoolCandidates(List<RankedLayoutCandidate> ordered) =>

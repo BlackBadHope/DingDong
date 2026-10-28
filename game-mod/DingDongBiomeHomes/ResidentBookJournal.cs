@@ -51,7 +51,7 @@ internal sealed class ResidentBookJournal : UIElement
         foreach(var npc in NpcTownManifest.All.OrderBy(n=>NpcQuestSystem.ResidentName(n.NpcKey),StringComparer.CurrentCulture))
         {
             var p=Get(npc.NpcKey);string key=npc.NpcKey;if(key==selected)selectedIndex=index;index++;
-            var row=new BookResidentRow(NpcQuestSystem.ResidentName(key),ResidentTrustPolicy.Percent(p,npc),NpcResidentRegistry.TryGetType(key,out int t)?t:0,key==selected,p.Active,ResidentEncounterSystem.IsPending(key));
+            var row=new BookResidentRow(NpcQuestSystem.ResidentName(key),ResidentTrustPolicy.Percent(p,npc),NpcResidentRegistry.TryGetType(key,out int t)?t:0,key==selected,p.Active,ResidentEncounterSystem.IsPending(key),ResidentStoryRoles.IsMain(key));
             row.OnLeftClick+=(_,_)=>SelectResident(key);
             residents.Add(row);
         }
@@ -70,6 +70,8 @@ internal sealed class ResidentBookJournal : UIElement
         var p=Get(selected);int percent=ResidentTrustPolicy.Percent(p,npc);
         var heading=new BookResidentHeader(selected,percent,NpcResidentRegistry.TryGetType(selected,out int type)?type:0,ResidentQuote(selected));
         detail.Add(heading);
+        // Owner item 11: main storyline residents are drawn per world (ResidentStoryRoles) and marked.
+        AddText(ResidentStoryRoles.IsMain(selected)?L("★ Сюжетная линия","★ Main storyline"):L("Побочная линия","Side story"),.84f,!ResidentStoryRoles.IsMain(selected));
         bool pending=ResidentEncounterSystem.IsPending(selected);
         if(pending)AddText(EncounterHint(selected),.80f,true);
         bool complete=PersonalResidentQuestCatalog.Complete(selected,p.Completed);
@@ -204,15 +206,21 @@ internal sealed class BookResidentRow : UIElement
 {
     internal const float RowHeight=98;
     private readonly bool selected;
-    internal BookResidentRow(string name,int reputation,int npcType,bool selected,bool active,bool pending)
+    internal BookResidentRow(string name,int reputation,int npcType,bool selected,bool active,bool pending,bool mainStory=false)
     {
         this.selected=selected;Width.Set(0,1);Height.Set(RowHeight,0);SetPadding(7);
         var icon=new QuestTargetIcon(0,npcType,82,true);icon.Width.Set(66,0);icon.Height.Set(76,0);Append(icon);
-        var title=new BookText(name,1.04f,ResidentBookJournal.Ink);title.Left.Set(76,0);title.Width.Set(-76,1);Append(title);
+        var title=new BookText(name,1.04f,ResidentBookJournal.Ink);title.Left.Set(76,0);title.Width.Set(mainStory?-108:-76,1);Append(title);
         bool ru=Language.ActiveCulture.CultureInfo.TwoLetterISOLanguageName=="ru";
+        if(mainStory)
+        {
+            // Main storyline marker (owner item 11): a fallen star in the row's corner.
+            var star=new QuestTargetIcon(ItemID.FallenStar,0,26);star.Left.Set(-30,1);star.Top.Set(2,0);star.Width.Set(28,0);star.Height.Set(28,0);Append(star);
+        }
         var bar=new BookProgressBar(reputation/100f);bar.Left.Set(76,0);bar.Top.Set(40,0);bar.Width.Set(-78,.62f);bar.Height.Set(12,0);Append(bar);
         var amount=new BookText($"{reputation} / 100",.83f,ResidentBookJournal.Ink);amount.Left.Set(8,.62f);amount.Top.Set(37,0);amount.Width.Set(-8,.38f);Append(amount);
-        var label=new BookText(active?(ru?"Задание":"Quest"):pending?(ru?"Нужно найти":"Find resident"):(ru?"Доступно":"Available"),.67f,pending?ResidentBookJournal.Muted:DingDongUiTheme.Positive);label.Left.Set(76,0);label.Width.Set(-76,1);label.Top.Set(60,0);Append(label);
+        string state=active?(ru?"Задание":"Quest"):pending?(ru?"Нужно найти":"Find resident"):(ru?"Доступно":"Available");
+        var label=new BookText(mainStory?(ru?"Сюжетная · ":"Main · ")+state:state,.67f,pending?ResidentBookJournal.Muted:DingDongUiTheme.Positive);label.Left.Set(76,0);label.Width.Set(-76,1);label.Top.Set(60,0);Append(label);
     }
     protected override void DrawSelf(SpriteBatch b)
     {
