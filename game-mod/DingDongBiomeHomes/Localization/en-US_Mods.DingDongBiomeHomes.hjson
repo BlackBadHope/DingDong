@@ -11,7 +11,7 @@ AutoUncraft: {
 	Enabled: Auto-uncraft ON ({0} rules)
 	Disabled: Auto-uncraft OFF ({0} rules)
 	ShowList: Show and edit auto-uncraft rules
-	Preview: "{0} {1} returns up to: {2}"
+	Preview: "Dismantling {0} returns up to: {1}"
 	RatioHint: The configured Lans return ratio and random rounding apply.
 	Title: Auto-uncraft ({0} rules)
 	EditHint: Add via the slot; click a listed item to remove it.

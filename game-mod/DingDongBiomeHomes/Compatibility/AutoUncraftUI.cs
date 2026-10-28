@@ -63,12 +63,7 @@ public sealed class AutoUncraftUI : ModSystem
    if (Hovered(slot)) {
     Main.HoverItem = items[0].Clone();
     Main.hoverItemName = Text(trash ? "TrashSlotHint" : "SlotHint");
-    if (!trash && !Main.mouseItem.IsAir) {
-     string preview = Preview(Main.mouseItem);
-     Main.hoverItemName += "\n" + preview;
-     // An item on the cursor replaces vanilla hover text, so the breakdown needs its own panel.
-     DrawPreviewPanel(batch, slot, preview);
-    }
+    if (!trash && !Main.mouseItem.IsAir) Main.hoverItemName += "\n" + Preview(Main.mouseItem);
     if (Main.mouseLeft && Main.mouseLeftRelease) {
      if (trash) AutoTrashSlot.Click(Main.LocalPlayer);
      else TransferUncraft(player, false);
@@ -103,31 +98,13 @@ public sealed class AutoUncraftUI : ModSystem
   Recipe.FindRecipes();
   return true;
  }
- private static void DrawPreviewPanel(SpriteBatch batch, Rectangle slot, string preview) {
-  var font = FontAssets.MouseText.Value;
-  const float scale = .75f; const int pad = 8, maxWidth = 440;
-  List<string> lines = new();
-  foreach (string paragraph in preview.Split('\n')) {
-   string line = "";
-   foreach (string word in paragraph.Split(' ')) {
-    string next = line.Length == 0 ? word : line + " " + word;
-    if (line.Length != 0 && font.MeasureString(next).X * scale > maxWidth) { lines.Add(line); line = word; }
-    else line = next;
-   }
-   lines.Add(line);
-  }
-  int lineHeight = (int)(font.LineSpacing * scale);
-  int w = pad * 2 + (int)lines.Max(l => font.MeasureString(l).X * scale);
-  int h = pad * 2 + lineHeight * lines.Count;
-  Rectangle panel = new(Math.Clamp(slot.X - 8, 4, Math.Max(4, Main.screenWidth - w - 4)), Math.Max(4, slot.Y - h - 6), w, h);
-  batch.Draw(TextureAssets.MagicPixel.Value, panel, new Color(23, 38, 68, 240));
-  for (int i = 0; i < lines.Count; i++)
-   Utils.DrawBorderString(batch, lines[i], panel.TopLeft() + new Vector2(pad, pad + i * lineHeight), Color.LightCyan, scale);
- }
  private static string Preview(Item item) {
   Recipe recipe = UncraftRecipeCompatibility.BasicRecipe(item);
   if (recipe == null) return Text("CannotUncraft");
-  return Text("Preview", recipe.createItem.stack, item.Name, string.Join(", ", recipe.requiredItem.Select(i => i.Name + " x" + i.stack))) + "\n" + Text("RatioHint");
+  // Owner 28.10: show the exchange as item icons with stack counts, not names.
+  // [i/sN:type] tags render in hover text and in the item tooltip lines.
+  string returns = string.Join(" ", recipe.requiredItem.Where(i => i != null && !i.IsAir).Select(i => $"[i/s{i.stack}:{i.type}]"));
+  return Text("Preview", $"[i/s{recipe.createItem.stack}:{item.type}]", returns) + "\n" + Text("RatioHint");
  }
  private static void DrawList(SpriteBatch batch, AutoUncraftPlayer player, Rectangle slot, int width, int height) {
   List<Item> filters = trashList ? AutoTrashSlot.Filters(Main.LocalPlayer) : player.Filters;
