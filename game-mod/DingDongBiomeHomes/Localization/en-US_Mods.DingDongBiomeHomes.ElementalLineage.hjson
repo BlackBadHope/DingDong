@@ -1,6 +1,5 @@
 Header: Biome bonuses of its source weapons:
 Line: "  {0} - {1}: {2}"
-
 Effects: {
 	Fire: burning
 	Frost: frostburn and a short chill

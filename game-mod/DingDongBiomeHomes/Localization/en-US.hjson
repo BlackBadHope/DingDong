@@ -26115,9 +26115,10 @@ Mods: {
 	}
 }
 
-// Recipe Browser 0.12.0.3 looks this key up under RecipeBrowserUI while its own files define it under RecipeCatalogueUI; without it a station tile with no map entry shows "<Tile>Mods.RecipeBrowser.RecipeBrowserUI.NoTileEntry".
-RecipeBrowser.RecipeBrowserUI.NoTileEntry: " (no map entry)"
-
+RecipeBrowser: {
+	// Recipe Browser 0.12.0.3 looks this key up under RecipeBrowserUI while its own files define it under RecipeCatalogueUI; without it a station tile with no map entry shows "<Tile>Mods.RecipeBrowser.RecipeBrowserUI.NoTileEntry".
+	RecipeBrowserUI.NoTileEntry: " (no map entry)"
+}
 tModLoader: {
 	MagicSummonHybridDamageClass: " magic or summon damage"
 	LoadErrorDependencySideIncompatible: "{0} (side: {1}) requires {2} (side: {3}), which does not load on {4}. Consider changing to a weak reference"

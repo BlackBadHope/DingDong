@@ -26049,9 +26049,9 @@ Mods: {
 	}
 }
 
-// Recipe Browser 0.12.0.3 looks this key up under RecipeBrowserUI while its own files define it under RecipeCatalogueUI; without it a station tile with no map entry shows "<Tile>Mods.RecipeBrowser.RecipeBrowserUI.NoTileEntry".
-RecipeBrowser.RecipeBrowserUI.NoTileEntry: " (нет записи на карте)"
-
+RecipeBrowser: {
+	RecipeBrowserUI.NoTileEntry: " (нет записи на карте)"
+}
 tModLoader: {
 	MagicSummonHybridDamageClass: " магического урона или урона призыва"
 	LoadErrorDependencySideIncompatible: "{0} (тип загрузки: {1}) требует {2} (тип загрузки: {3}), который не загружается на {4}. Попробуйте указать слабую зависимость"

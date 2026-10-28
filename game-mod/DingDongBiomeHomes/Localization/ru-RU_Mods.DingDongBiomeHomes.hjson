@@ -11,7 +11,7 @@ AutoUncraft: {
 	Enabled: Авторазборка ВКЛ ({0} правил)
 	Disabled: Авторазборка ВЫКЛ ({0} правил)
 	ShowList: Показать и изменить список авторазборки
-	Preview: Разбор {0} вернёт до: {1}
+	Preview: "Разбор {0} вернёт до: {1}"
 	RatioHint: Применяется коэффициент возврата Lans и случайное округление.
 	Title: Авторазборка ({0} правил)
 	EditHint: Добавьте через слот; нажмите на предмет в списке, чтобы убрать.
@@ -38,31 +38,30 @@ WorldCreation: {
 
 		Закройте ненужные приложения и повторите попытку. Этот отказ не означает повреждение мира. Файлы мира и резервные копии не изменены.
 		'''
-
-	// Presets 28.10: world presets by total PC RAM (single player). They replace Small/Medium/Large.
+	// Presets 28.10: пресеты мира по общему объёму ОЗУ ПК (одиночная игра) вместо Малый/Средний/Большой.
 	Presets: {
 		ram8: {
-			Name: 8 ГБ (нужен файл подкачки)
+			Name: "8 ГБ (нужен файл подкачки)"
 			Description: Континент 14 000 × 4 200 тайлов (2,9 площади большого мира). Примерная потребность всего ПК в одиночной игре — около 10,5–12,5 ГБ (оценка): на ПК с 8 ГБ нужен файл подкачки от 16 ГБ, закрытый браузер и терпение. Для Host & Play нужно больше. Нужен 64-битный tModLoader; память проверяется до создания.
 		}
 
 		ram12: {
-			Name: 12 ГБ
+			Name: "12 ГБ"
 			Description: Континент 16 800 × 4 800 тайлов (4,0 площади большого мира). Примерная потребность всего ПК в одиночной игре — около 11–13 ГБ (оценка); не отключайте файл подкачки Windows и закройте браузер. Для Host & Play (сервер и клиент на одном ПК) нужно больше. Нужен 64-битный tModLoader; память проверяется до создания.
 		}
 
 		ram16: {
-			Name: 16 ГБ
+			Name: "16 ГБ"
 			Description: Континент 20 400 × 6 000 тайлов (6,1 площади большого мира). Примерная потребность всего ПК в одиночной игре — около 12–14 ГБ (оценка); не отключайте файл подкачки Windows. Для Host & Play (сервер и клиент на одном ПК) нужно больше. Нужен 64-битный tModLoader; память проверяется до создания.
 		}
 
 		ram24: {
-			Name: 24 ГБ
+			Name: "24 ГБ"
 			Description: Континент 23 800 × 6 600 тайлов (7,8 площади большого мира). Примерная потребность всего ПК в одиночной игре — около 13–15 ГБ (оценка). Для Host & Play (сервер и клиент на одном ПК) нужно больше. Нужен 64-битный tModLoader; память проверяется до создания.
 		}
 
 		ram32: {
-			Name: 32 ГБ — мир ×10
+			Name: "32 ГБ — мир ×10"
 			Description: Континентальный мир — 28 000 × 7 200 тайлов, ровно десять площадей большого мира. Нужны 64-битный tModLoader, свободная ОЗУ и запас лимита выделения памяти Windows. Проверка выполняется до создания. Примерная потребность всего ПК в одиночной игре — около 14–16 ГБ (оценка); для Host & Play (сервер и клиент на одном ПК) нужен ПК с 32 ГБ.
 		}
 	}
@@ -90,7 +89,6 @@ Items: {
 			Подобранные ключи сразу попадают в связку; запертый сундук берёт ключ из связки
 			'''
 	}
-
 	SpiritWardTotemItem: {
 		DisplayName: Тотем против духов
 		Tooltip:
@@ -578,78 +576,128 @@ Items: {
 	}
 
 	BrineBladder: {
+		// DisplayName: Brine Bladder
+		// Tooltip: ""
 	}
 
 	CoralClaw: {
+		// DisplayName: Coral Claw
+		// Tooltip: ""
 	}
 
 	GlassFin: {
+		// DisplayName: Glass Fin
+		// Tooltip: ""
 	}
 
 	GlassWing: {
+		// DisplayName: Glass Wing
+		// Tooltip: ""
 	}
 
 	GrottoBanner: {
+		// DisplayName: Grotto Banner
+		// Tooltip: ""
 	}
 
 	GrottoGeode: {
+		// DisplayName: Grotto Geode
+		// Tooltip: ""
 	}
 
 	GrottoLantern: {
+		// DisplayName: Grotto Lantern
+		// Tooltip: ""
 	}
 
 	HadalLens: {
+		// DisplayName: Hadal Lens
+		// Tooltip: ""
 	}
 
 	IslandNavigator: {
+		// DisplayName: Island Navigator
+		// Tooltip: ""
 	}
 
 	LuminousGel: {
+		// DisplayName: Luminous Gel
+		// Tooltip: ""
 	}
 
 	OceanGiantBanner: {
+		// DisplayName: Ocean Giant Banner
+		// Tooltip: ""
 	}
 
 	PelagicHarness: {
+		// DisplayName: Pelagic Harness
+		// Tooltip: ""
 	}
 
 	PelagicScale: {
+		// DisplayName: Pelagic Scale
+		// Tooltip: ""
 	}
 
 	PressureWard: {
+		// DisplayName: Pressure Ward
+		// Tooltip: ""
 	}
 
 	ReefFaunaBanner: {
+		// DisplayName: Reef Fauna Banner
+		// Tooltip: ""
 	}
 
 	ReefwalkerBoots: {
+		// DisplayName: Reefwalker Boots
+		// Tooltip: ""
 	}
 
 	RibbonGill: {
+		// DisplayName: Ribbon Gill
+		// Tooltip: ""
 	}
 
 	Sailbone: {
+		// DisplayName: Sailbone
+		// Tooltip: ""
 	}
 
 	SailboneBow: {
+		// DisplayName: Sailbone Bow
+		// Tooltip: ""
 	}
 
 	SaltCrystal: {
+		// DisplayName: Salt Crystal
+		// Tooltip: ""
 	}
 
 	SeaEssence: {
+		// DisplayName: Sea Essence
+		// Tooltip: ""
 	}
 
 	SiltWhisker: {
+		// DisplayName: Silt Whisker
+		// Tooltip: ""
 	}
 
 	SoundingPendant: {
+		// DisplayName: Sounding Pendant
+		// Tooltip: ""
 	}
 
 	Tidebreaker: {
+		// DisplayName: Tidebreaker
+		// Tooltip: ""
 	}
 
 	VentCore: {
+		// DisplayName: Vent Core
+		// Tooltip: ""
 	}
 }
 
@@ -723,7 +771,9 @@ MobRelics: {
 	}
 }
 
-SpiritWard.MapEntry: Тотем против духов
+SpiritWard: {
+	MapEntry: Тотем против духов
+}
 
 ResidenceFlag: {
 	MapEntry: Флаг дома NPC
@@ -1722,10 +1772,9 @@ SynergyArmor: {
 		SynergyArmor_LegendaryBellArchitect_Legs: ""
 	}
 }
-
 Keyring: {
-	Title: Связка ключей: {0} видов, {1} шт.
-	Count: Внутри: {0} видов, {1} шт. (до {2} стопок)
-	TakeHint: ЛКМ — взять один, Shift+ЛКМ — всю стопку
-	NotAKey: Это не ключ и не отмычка
+	Title: "Связка ключей: {0} видов, {1} шт."
+	Count: "Внутри: {0} видов, {1} шт. (до {2} стопок)"
+	TakeHint: "ЛКМ — взять один, Shift+ЛКМ — всю стопку"
+	NotAKey: "Это не ключ и не отмычка"
 }

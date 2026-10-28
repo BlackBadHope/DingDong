@@ -11,7 +11,7 @@ AutoUncraft: {
 	Enabled: Auto-uncraft ON ({0} rules)
 	Disabled: Auto-uncraft OFF ({0} rules)
 	ShowList: Show and edit auto-uncraft rules
-	Preview: Dismantling {0} returns up to: {1}
+	Preview: "Dismantling {0} returns up to: {1}"
 	RatioHint: The configured Lans return ratio and random rounding apply.
 	Title: Auto-uncraft ({0} rules)
 	EditHint: Add via the slot; click a listed item to remove it.
@@ -38,31 +38,30 @@ WorldCreation: {
 
 		Close unused applications and try again. This refusal does not mean that the world is corrupt. Your world and its backups have not been changed.
 		'''
-
 	// Presets 28.10: world presets by total PC RAM (single player). They replace Small/Medium/Large.
 	Presets: {
 		ram8: {
-			Name: 8 GB (page file required)
+			Name: "8 GB (page file required)"
 			Description: Continent 14,000 x 4,200 tiles (2.9 Large-world areas). Estimated need about 10.5-12.5 GB for the whole PC in single player (estimate): an 8 GB PC needs a page file of 16 GB or more, a closed browser and patience. Host & Play needs more. Requires 64-bit tModLoader; memory is checked before creation.
 		}
 
 		ram12: {
-			Name: 12 GB
+			Name: "12 GB"
 			Description: Continent 16,800 x 4,800 tiles (4.0 Large-world areas). Estimated need about 11-13 GB for the whole PC in single player (estimate); keep a Windows page file enabled and close the browser. Host & Play (server and client on one PC) needs more. Requires 64-bit tModLoader; memory is checked before creation.
 		}
 
 		ram16: {
-			Name: 16 GB
+			Name: "16 GB"
 			Description: Continent 20,400 x 6,000 tiles (6.1 Large-world areas). Estimated need about 12-14 GB for the whole PC in single player (estimate); keep a Windows page file enabled. Host & Play (server and client on one PC) needs more. Requires 64-bit tModLoader; memory is checked before creation.
 		}
 
 		ram24: {
-			Name: 24 GB
+			Name: "24 GB"
 			Description: Continent 23,800 x 6,600 tiles (7.8 Large-world areas). Estimated need about 13-15 GB for the whole PC in single player (estimate). Host & Play (server and client on one PC) needs more. Requires 64-bit tModLoader; memory is checked before creation.
 		}
 
 		ram32: {
-			Name: 32 GB — World x10
+			Name: "32 GB — World x10"
 			Description: Continental world — 28,000 x 7,200 tiles, exactly ten Large-world areas. Requires 64-bit tModLoader and sufficient free RAM and Windows commit headroom. Memory is checked before creation. Estimated need about 14-16 GB for the whole PC in single player (estimate); Host & Play (server and client on one PC) needs a 32 GB PC.
 		}
 	}
@@ -90,7 +89,6 @@ Items: {
 			Keys you pick up go straight into the ring; a locked chest takes its key from the ring
 			'''
 	}
-
 	SpiritWardTotemItem: {
 		DisplayName: Spirit Ward Totem
 		Tooltip:
@@ -578,78 +576,128 @@ Items: {
 	}
 
 	BrineBladder: {
+		DisplayName: Brine Bladder
+		Tooltip: ""
 	}
 
 	CoralClaw: {
+		DisplayName: Coral Claw
+		Tooltip: ""
 	}
 
 	GlassFin: {
+		DisplayName: Glass Fin
+		Tooltip: ""
 	}
 
 	GlassWing: {
+		DisplayName: Glass Wing
+		Tooltip: ""
 	}
 
 	GrottoBanner: {
+		DisplayName: Grotto Banner
+		Tooltip: ""
 	}
 
 	GrottoGeode: {
+		DisplayName: Grotto Geode
+		Tooltip: ""
 	}
 
 	GrottoLantern: {
+		DisplayName: Grotto Lantern
+		Tooltip: ""
 	}
 
 	HadalLens: {
+		DisplayName: Hadal Lens
+		Tooltip: ""
 	}
 
 	IslandNavigator: {
+		DisplayName: Island Navigator
+		Tooltip: ""
 	}
 
 	LuminousGel: {
+		DisplayName: Luminous Gel
+		Tooltip: ""
 	}
 
 	OceanGiantBanner: {
+		DisplayName: Ocean Giant Banner
+		Tooltip: ""
 	}
 
 	PelagicHarness: {
+		DisplayName: Pelagic Harness
+		Tooltip: ""
 	}
 
 	PelagicScale: {
+		DisplayName: Pelagic Scale
+		Tooltip: ""
 	}
 
 	PressureWard: {
+		DisplayName: Pressure Ward
+		Tooltip: ""
 	}
 
 	ReefFaunaBanner: {
+		DisplayName: Reef Fauna Banner
+		Tooltip: ""
 	}
 
 	ReefwalkerBoots: {
+		DisplayName: Reefwalker Boots
+		Tooltip: ""
 	}
 
 	RibbonGill: {
+		DisplayName: Ribbon Gill
+		Tooltip: ""
 	}
 
 	Sailbone: {
+		DisplayName: Sailbone
+		Tooltip: ""
 	}
 
 	SailboneBow: {
+		DisplayName: Sailbone Bow
+		Tooltip: ""
 	}
 
 	SaltCrystal: {
+		DisplayName: Salt Crystal
+		Tooltip: ""
 	}
 
 	SeaEssence: {
+		DisplayName: Sea Essence
+		Tooltip: ""
 	}
 
 	SiltWhisker: {
+		DisplayName: Silt Whisker
+		Tooltip: ""
 	}
 
 	SoundingPendant: {
+		DisplayName: Sounding Pendant
+		Tooltip: ""
 	}
 
 	Tidebreaker: {
+		DisplayName: Tidebreaker
+		Tooltip: ""
 	}
 
 	VentCore: {
+		DisplayName: Vent Core
+		Tooltip: ""
 	}
 }
 
@@ -723,7 +771,9 @@ MobRelics: {
 	}
 }
 
-SpiritWard.MapEntry: Spirit ward totem
+SpiritWard: {
+	MapEntry: Spirit ward totem
+}
 
 ResidenceFlag: {
 	MapEntry: NPC home flag
@@ -1722,10 +1772,9 @@ SynergyArmor: {
 		SynergyArmor_LegendaryBellArchitect_Legs: ""
 	}
 }
-
 Keyring: {
-	Title: Keyring: {0} kinds, {1} keys
-	Count: Holds {0} kinds, {1} keys (up to {2} stacks)
-	TakeHint: Click: take one. Shift+click: take the stack
-	NotAKey: That is not a key or a lockpick
+	Title: "Keyring: {0} kinds, {1} keys"
+	Count: "Holds {0} kinds, {1} keys (up to {2} stacks)"
+	TakeHint: "Click: take one. Shift+click: take the stack"
+	NotAKey: "That is not a key or a lockpick"
 }
