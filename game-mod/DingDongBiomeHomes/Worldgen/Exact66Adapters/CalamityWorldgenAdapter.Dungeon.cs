@@ -82,8 +82,9 @@ internal static partial class CalamityWorldgenAdapter
 			orig(x, y);
 			return;
 		}
+		// Presets 28.10: tiles of the current preset (x10: 28000*7200, unchanged).
 		ContinentalDungeonBufferPlan plan = ContinentalDungeonBufferPlan.Create(
-			ContinentalWorldDimensions.TileCount,
+			(long)Main.maxTilesX * Main.maxTilesY,
 			(long)ContinentalWorldDimensions.VanillaLargeWidth *
 			ContinentalWorldDimensions.VanillaLargeHeight);
 		EnsureDungeonBuffers(plan);

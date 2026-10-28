@@ -1,0 +1,17 @@
+# Roadmap item 8: quest book texts (owner reference "DingDong Hub", 27.10.2026).
+MainStory: Main storyline
+SideStory: Side story
+Reputation: World reputation
+StagesTitle: Chain stages (shared by all players)
+ResidenceProtected: Residence protected until relocation
+ResidenceMoved: Relocation complete
+AcceptOnMeet: Accept when you meet
+TurnInOnMeet: Turn in when you meet
+InviteOnMeet: Invite when you meet
+
+Status: {
+	Available: Available
+	InProgress: In progress
+	Find: Not found yet
+	Complete: Completed
+}

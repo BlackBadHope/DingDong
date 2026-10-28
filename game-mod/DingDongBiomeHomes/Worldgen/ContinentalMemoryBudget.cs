@@ -29,6 +29,11 @@ internal readonly record struct ContinentalMemoryBudget(
 	internal const long CapacityPhysicalFloorBytes = 2L * GiB;
 	// economical (generation only): 971 - 103 MiB integrity snapshot streamed to disk
 	// = 868 MiB, + 25 % margin = 1085, rounded up to 1088 MiB. Free RAM floor 1 GiB.
+	// Presets 28.10 review fix: B9 (recompute to 1472 MiB = (1264 - 103) x 1.25, rounded up) is
+	// DEFERRED. It would change x10 admission (lowMemoryCommitRequired 4568649105 -> 4971302289 B,
+	// denying S6 states at 4.31-4.46 GiB), and the 1264 MiB input was measured in the fast tier with
+	// stock GC, not in economical mode. Recompute only after S7Eco or a dedicated economical x10 run
+	// measures non-plane growth under this tier; until then x10 keeps the measured 1088 MiB.
 	internal const long EconomicalReserveBytes = 1088L * MiB;
 	internal const long EconomicalPhysicalFloorBytes = 1L * GiB;
 	internal const long DeferredMapReserveBytes = 512L * MiB;

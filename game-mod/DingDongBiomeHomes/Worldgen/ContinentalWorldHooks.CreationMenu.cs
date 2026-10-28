@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -16,8 +17,9 @@ internal static partial class ContinentalWorldHooks
 	private static readonly FieldInfo OptionSizeField = PrivateField("_optionSize");
 	private static readonly FieldInfo DescriptionTextField = PrivateField("_descriptionText");
 	private static readonly MethodInfo UpdatePreviewMethod = PrivateMethod("UpdatePreviewPlate");
-	private static bool continentalWorldRequested;
-	private static GroupOptionButton<bool> continentalButton;
+	// Presets 28.10: the preset chosen in the creation menu (null = none) and its buttons.
+	private static ContinentalWorldPreset requestedPreset;
+	private static readonly List<GroupOptionButton<int>> presetButtons = new();
 
 	private static void InstallWorldCreationMenu()
 	{
@@ -45,10 +47,12 @@ internal static partial class ContinentalWorldHooks
 		orig(self);
 		ClearWorldCreationRequest();
 		if (IsEnabled())
-			AppendContinentalSizeButton(self);
+			ReplaceSizeButtonsWithPresets(self);
 	}
 
-	private static void AppendContinentalSizeButton(UIWorldCreation screen)
+	// Presets 28.10 (design step 6): the three vanilla size buttons are removed and replaced by
+	// one button per available preset; vanilla Large stays the hidden carrier of the selection.
+	private static void ReplaceSizeButtonsWithPresets(UIWorldCreation screen)
 	{
 		Array rawButtons = (Array)SizeButtonsField.GetValue(screen);
 		if (rawButtons?.Length != 3)
@@ -60,46 +64,107 @@ internal static partial class ContinentalWorldHooks
 		UIElement parent = buttons[0].Parent ??
 			throw new InvalidOperationException("World-size menu has no parent.");
 
-		continentalButton = new GroupOptionButton<bool>(true,
-			Language.GetText($"{MenuKey}.Name"),
-			Language.GetText($"{MenuKey}.Description"),
-			new Color(255, 190, 70), "Images/UI/WorldCreation/IconSizeLarge",
-			1f, 1f, 16f);
-		continentalButton.Top = buttons[0].Top;
-		continentalButton.SetCurrentOption(false);
-		continentalButton.SetSnapPoint("size", 3);
-		continentalButton.OnLeftMouseDown += (_, _) => SelectContinentalWorld(screen, buttons);
-		continentalButton.OnMouseOver += (_, _) => SetDescription(screen,
-			Language.GetTextValue($"{MenuKey}.Description"));
-		continentalButton.OnMouseOut += (_, _) => SetDescription(screen, string.Empty);
+		IReadOnlyList<ContinentalWorldPreset> presets = ContinentalWorldDimensions.Available;
+		if (presets.Count == 0)
+			return; // Nothing released: keep the vanilla menu untouched.
+		foreach (UIElement button in buttons)
+			parent.RemoveChild(button);
 
-		for (int index = 0; index < buttons.Length; index++)
+		long? physical = MenuTotalPhysicalBytes();
+		ContinentalWorldPreset recommended = ContinentalWorldDimensions.Recommend(physical);
+		presetButtons.Clear();
+		for (int index = 0; index < presets.Count; index++)
 		{
-			LayoutSizeButton(buttons[index], index, 4);
-			buttons[index].OnLeftMouseDown += (_, _) => ClearWorldCreationRequest();
+			ContinentalWorldPreset preset = presets[index];
+			int optionIndex = index;
+			string description = PresetDescription(preset, preset == recommended, physical);
+			var button = new GroupOptionButton<int>(optionIndex,
+				Language.GetText(preset.LocKey + ".Name"),
+				Language.GetText(preset.LocKey + ".Description"),
+				new Color(255, 190, 70), PresetIcon(preset),
+				1f, 1f, 16f);
+			button.Top = buttons[0].Top;
+			button.SetCurrentOption(-1);
+			button.SetSnapPoint("size", index);
+			button.OnLeftMouseDown += (_, _) => SelectPreset(screen, preset, optionIndex);
+			button.OnMouseOver += (_, _) => SetDescription(screen, description);
+			button.OnMouseOut += (_, _) => SetDescription(screen, string.Empty);
+			LayoutSizeButton(button, index, presets.Count);
+			parent.Append(button);
+			presetButtons.Add(button);
 		}
-		LayoutSizeButton(continentalButton, 3, 4);
-		parent.Append(continentalButton);
+		// Without a selection "Create" would make a vanilla Medium world: open with the
+		// recommended preset already chosen.
+		int selected = Math.Max(0, IndexOf(presets, recommended));
+		SelectPreset(screen, presets[selected], selected);
+		DingDongBiomeHomes.Instance?.Logger.Info(
+			$"DINGDONG_CREATION_MENU|presets={presets.Count}|ids={string.Join(",", IdsOf(presets))}" +
+			$"|selected={presets[selected].Id}|preview={ContinentalWorldDimensions.PreviewEnabled}" +
+			$"|physicalGiB={(physical is long bytes ? (bytes / (1024d * 1024d * 1024d)).ToString("F1", System.Globalization.CultureInfo.InvariantCulture) : "unknown")}");
 	}
 
-	private static void SelectContinentalWorld(UIWorldCreation screen, UIElement[] vanillaButtons)
+	private static void SelectPreset(UIWorldCreation screen, ContinentalWorldPreset preset, int optionIndex)
 	{
-		continentalWorldRequested = true;
-		Type sizeType = OptionSizeField.FieldType;
-		OptionSizeField.SetValue(screen, Enum.ToObject(sizeType, 2));
-		object noVanillaSelection = Enum.ToObject(sizeType, 3);
-		foreach (UIElement button in vanillaButtons)
-			button.GetType().GetMethod("SetCurrentOption")?.Invoke(button,
-				new[] { noVanillaSelection });
-		continentalButton.SetCurrentOption(true);
+		requestedPreset = preset;
+		// Presets 28.10: vanilla Large is the carrier for FinishCreatingWorld.
+		OptionSizeField.SetValue(screen, Enum.ToObject(OptionSizeField.FieldType, 2));
+		foreach (GroupOptionButton<int> button in presetButtons)
+			button.SetCurrentOption(optionIndex);
 		UpdatePreviewMethod.Invoke(screen, null);
+	}
+
+	// Presets 28.10: hover text = localized description + recommendation / RAM warning /
+	// "residences not guaranteed" lines.
+	private static string PresetDescription(ContinentalWorldPreset preset, bool recommended, long? physical)
+	{
+		string text = Language.GetTextValue(preset.LocKey + ".Description");
+		const string NewLine = "\n";
+		if (recommended)
+			text += NewLine + Language.GetTextValue($"{MenuKey}.PresetRecommended");
+		if (physical is long bytes && !ContinentalWorldDimensions.FitsPhysical(preset, bytes))
+			text += NewLine + Language.GetTextValue($"{MenuKey}.PresetAboveRam", preset.RamTierGb,
+				(bytes / (1024d * 1024d * 1024d)).ToString("F1"));
+		if (!preset.ResidencesProven)
+			text += NewLine + Language.GetTextValue($"{MenuKey}.PresetResidencesUnproven");
+		return text;
+	}
+
+	private static string PresetIcon(ContinentalWorldPreset preset) => preset.RamTierGb switch
+	{
+		<= 12 => "Images/UI/WorldCreation/IconSizeSmall",
+		<= 16 => "Images/UI/WorldCreation/IconSizeMedium",
+		_ => "Images/UI/WorldCreation/IconSizeLarge"
+	};
+
+	private static long? MenuTotalPhysicalBytes()
+	{
+		try { return ContinentalMemoryStatus.Read().TotalPhysicalBytes; }
+		catch (Exception ex) when (ex is PlatformNotSupportedException or
+			System.ComponentModel.Win32Exception or ContinentalMemoryAdmissionException)
+		{
+			return null;
+		}
+	}
+
+	private static int IndexOf(IReadOnlyList<ContinentalWorldPreset> presets, ContinentalWorldPreset preset)
+	{
+		for (int index = 0; index < presets.Count; index++)
+			if (presets[index] == preset) return index;
+		return -1;
+	}
+
+	private static IEnumerable<string> IdsOf(IReadOnlyList<ContinentalWorldPreset> presets)
+	{
+		foreach (ContinentalWorldPreset preset in presets)
+			yield return preset.Id;
 	}
 
 	private static void LayoutSizeButton(UIElement button, int index, int count)
 	{
 		button.Width = StyleDimension.FromPixelsAndPercent(-4f * (count - 1), 1f / count);
 		button.Left = StyleDimension.FromPercent(0f);
-		button.HAlign = index / (float)(count - 1);
+		// Presets 28.10: a single preset (preview off) spans the row; avoid 0/0.
+		button.HAlign = count > 1 ? index / (float)(count - 1) : 0.5f;
 	}
 
 	private static void SetDescription(UIWorldCreation screen, string text) =>
@@ -107,8 +172,9 @@ internal static partial class ContinentalWorldHooks
 
 	private static void ClearWorldCreationRequest()
 	{
-		continentalWorldRequested = false;
-		continentalButton?.SetCurrentOption(false);
+		requestedPreset = null;
+		foreach (GroupOptionButton<int> button in presetButtons)
+			button.SetCurrentOption(-1);
 	}
 
 	private static FieldInfo PrivateField(string name) =>

@@ -45,8 +45,11 @@ internal static class RamOptAdmissionPolicy
 		}
 	}
 
+	// Presets 28.10: presetLabel/smallerPresetId only change the denial text ("x10"/null = ram32
+	// without a smaller released preset).
 	internal static RamOptAdmission Evaluate(ContinentalMemoryBudget fast, ContinentalMemoryBudget? lowMemory,
-		ContinentalMemorySnapshot memory, RamOptPagefileEstimate pagefile)
+		ContinentalMemorySnapshot memory, RamOptPagefileEstimate pagefile,
+		string presetLabel = "x10", string smallerPresetId = null)
 	{
 		long physical = memory.AvailablePhysicalBytes, commit = memory.AvailableCommitBytes;
 		long fastRequired = fast.RequiredHeadroom;
@@ -65,11 +68,13 @@ internal static class RamOptAdmissionPolicy
 		ContinentalMemoryBudget floor = lowMemory ?? fast;
 		bool physicalShort = physical <= 0 || physical < floor.RequiredPhysicalSafety;
 		return new(false, DeniedTier, fastRequired, floor.RequiredHeadroom, floor.RequiredPhysicalSafety, 0,
-			DenialMessage(fast, floor, lowMemory.HasValue, physical, commit, pagefile, physicalShort));
+			DenialMessage(fast, floor, lowMemory.HasValue, physical, commit, pagefile, physicalShort,
+				presetLabel ?? "x10", smallerPresetId));
 	}
 
 	private static string DenialMessage(ContinentalMemoryBudget fast, ContinentalMemoryBudget floor,
-		bool lowTier, long physical, long commit, RamOptPagefileEstimate pagefile, bool physicalShort)
+		bool lowTier, long physical, long commit, RamOptPagefileEstimate pagefile, bool physicalShort,
+		string presetLabel, string smallerPresetId)
 	{
 		static string G(long bytes) => (Math.Max(0, bytes) / (double)GiB).ToString("F2");
 		bool ru = Language.ActiveCulture?.Name?.StartsWith("ru", StringComparison.OrdinalIgnoreCase) == true;
@@ -80,22 +85,28 @@ internal static class RamOptAdmissionPolicy
 				: $"Континентальному миру нужно {G(floor.RequiredHeadroom)} ГиБ доступного лимита выделения (commit); доступно {G(commit)} ГиБ.";
 			string pf = pagefile.Known ? $"; файл подкачки может вырасти ещё примерно на {G(pagefile.GrowthBytes)} ГиБ" : "";
 			return first +
-				$" Обычный режим ×10: {G(fast.RequiredHeadroom)} ГиБ commit и {G(fast.RequiredPhysicalSafety)} ГиБ свободной ОЗУ" +
+				$" Обычный режим {(presetLabel == "x10" ? "×10" : presetLabel)}: {G(fast.RequiredHeadroom)} ГиБ commit и {G(fast.RequiredPhysicalSafety)} ГиБ свободной ОЗУ" +
 				(lowTier ? $"; медленный экономичный режим генерации: не меньше {G(floor.RequiredHeadroom)} ГиБ commit и {G(floor.RequiredPhysicalSafety)} ГиБ ОЗУ" : "") +
 				$" (сейчас {G(commit)} ГиБ commit, {G(physical)} ГиБ ОЗУ{pf})." +
-				" Большому миру (8400×2400) нужна примерно десятая часть этой памяти тайлов: выберите большой мир" +
-				" (на выделенном сервере DINGDONG_SERVER_WORLD_SIZE=large) или закройте другие приложения и повторите.";
+				// Presets 28.10: vanilla Large can no longer be created; name the smaller preset.
+				(smallerPresetId != null
+					? $" Выберите меньший пресет: {smallerPresetId} (на выделенном сервере DINGDONG_SERVER_WORLD_SIZE={smallerPresetId})" +
+					  " или закройте другие приложения и повторите."
+					: " Закройте другие приложения и повторите.");
 		}
 		string firstEn = physicalShort
 			? $"Continental world requires {G(floor.RequiredPhysicalSafety)} GiB available physical memory; available={G(physical)} GiB."
 			: $"Continental world requires {G(floor.RequiredHeadroom)} GiB available commit; available={G(commit)} GiB.";
 		string pfEn = pagefile.Known ? $"; the Windows page file can still grow by about {G(pagefile.GrowthBytes)} GiB" : "";
 		return firstEn +
-			$" Normal x10 mode needs {G(fast.RequiredHeadroom)} GiB commit and {G(fast.RequiredPhysicalSafety)} GiB free RAM" +
+			$" Normal {presetLabel} mode needs {G(fast.RequiredHeadroom)} GiB commit and {G(fast.RequiredPhysicalSafety)} GiB free RAM" +
 			(lowTier ? $"; the slower low-memory generation mode needs at least {G(floor.RequiredHeadroom)} GiB commit and {G(floor.RequiredPhysicalSafety)} GiB free RAM" : "") +
 			$" (now {G(commit)} GiB commit, {G(physical)} GiB free RAM{pfEn})." +
-			" A Large world (8400x2400) needs about a tenth of this tile memory: choose a Large world" +
-			" (dedicated server: DINGDONG_SERVER_WORLD_SIZE=large) or close other applications and retry.";
+			// Presets 28.10: vanilla Large can no longer be created; name the smaller preset.
+			(smallerPresetId != null
+				? $" Choose the smaller preset {smallerPresetId} (dedicated server: DINGDONG_SERVER_WORLD_SIZE={smallerPresetId})" +
+				  " or close other applications and retry."
+				: " Close other applications and retry.");
 	}
 
 	// Read-only: HKLM\...\Memory Management\PagingFiles plus drive sizes. Never changes settings.

@@ -17,6 +17,9 @@ public static partial class DingDongAuthoredStructureLoader
 	{
 		StructureData data = GetOrLoad(mod, preset.ResourcePath);
 		StructureWritePlan plan = GetWritePlan(data, preset.ResourcePath, profile);
+		// Item 6 (28.10): the same deterministic write-time subset Generate used; only
+		// ambient decoration and housing-free fragments can be in it, never masonry of a home.
+		SceneGroundDrop drop = BuildSceneGroundDrop(data, plan, profile);
 		int omittedTiles = 0, omittedWalls = 0, missingSolids = 0, missingWalls = 0;
 		string first = "none";
 		for (int i = 0; i < data.Width * data.Height; i++)
@@ -34,7 +37,8 @@ public static partial class DingDongAuthoredStructureLoader
 			// Natural conversion, plants, doors and animation frames can legitimately
 			// change. Solid authored masonry and housing walls cannot disappear.
 			bool solid = construction && Main.tileSolid[source.TileType] && !Main.tileFrameImportant[source.TileType] &&
-				!Terraria.ID.TileID.Sets.Falling[source.TileType];
+				!Terraria.ID.TileID.Sets.Falling[source.TileType] &&
+				(drop == null || !drop.Tiles[i]);
 			if (solid && (!actual.HasTile || actual.TileType != source.TileType))
 			{
 				missingSolids++;

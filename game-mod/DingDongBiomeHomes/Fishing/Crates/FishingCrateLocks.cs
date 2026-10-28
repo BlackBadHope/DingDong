@@ -14,30 +14,35 @@ namespace DingDongBiomeHomes.Fishing.Crates;
 
 public sealed class FishingCrateLocks : ModSystem
 {
-    private Hook opening, eligibility;
+    private Hook opening;
     [ThreadStatic] private static bool openingCrate;
     /// <summary>Probes set a fixed roll (0..1) instead of Main.rand.</summary>
     [ThreadStatic] internal static float? ForcedRoll;
     private delegate void OriginalOpen(Item item, Player player);
     private delegate void OpenHook(OriginalOpen original, Item item, Player player);
-    private delegate bool OriginalEligibility(Item item);
-    private delegate bool EligibilityHook(OriginalEligibility original, Item item);
     public override void Load()
     {
         MethodInfo open = typeof(ItemSlot).GetMethod("TryOpenContainer", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static, null, new[] { typeof(Item), typeof(Player) }, null)
             ?? throw new InvalidOperationException("Native crate opening boundary changed.");
         opening = new Hook(open, new OpenHook((original, item, player) => {
             if (!CrateLockpickCatalog.IsLockedCrate(item.type)) { original(item, player); return; }
-            TryOpen(item, player, sample => original(sample, player));
+            if (TryOpen(item, player, sample => original(sample, player)) == Outcome.NoPick) RefuseWithoutPick(item, player);
         }));
-        eligibility = new Hook(typeof(ItemLoader).GetMethod(nameof(ItemLoader.CanRightClick)), new EligibilityHook((original, item) => {
-            if (item != null && !item.IsAir && CrateLockpickCatalog.IsLockedCrate(item.type) && !Main.dedServ &&
-                ((uint)Main.myPlayer >= Main.maxPlayers || CrateLockpickCatalog.Best(Main.LocalPlayer, out _) == null)) return false;
-            return original(item);
-        }));
+        // No CanRightClick detour: returning false there made ItemSlot.RightClick fall through to the
+        // stack-split path (one crate picked into the cursor). The opening hook above already blocks
+        // the open and leaves the stack untouched; RefuseWithoutPick consumes the click instead.
     }
 
     internal enum Outcome { NoPick, Opened, Broke }
+
+    /// <summary>A locked crate clicked without a pick: show the requirement and swallow the click; the stack stays as it was.</summary>
+    private static void RefuseWithoutPick(Item item, Player player)
+    {
+        if (Main.dedServ || player == null || player.whoAmI != Main.myPlayer || item == null || item.IsAir) return;
+        if (CrateLockpickCatalog.Best(player, out _) != null) return; // NoPick for another reason (re-entry, dead player)
+        Main.mouseRightRelease = false;
+        Main.NewText(Language.GetTextValue("Mods.DingDongBiomeHomes.CrateLocks.Requires"), new Color(244, 161, 118));
+    }
 
     /// <summary>
     /// One attempt with the best lockpick carried: the crate is always consumed, the
@@ -65,7 +70,7 @@ public sealed class FishingCrateLocks : ModSystem
         finally { openingCrate = false; }
         return Outcome.Opened;
     }
-    public override void Unload() { eligibility?.Dispose(); opening?.Dispose(); eligibility = opening = null; openingCrate = false; ForcedRoll = null; }
+    public override void Unload() { opening?.Dispose(); opening = null; openingCrate = false; ForcedRoll = null; }
 }
 
 public sealed class CrateLockpickTooltip : GlobalItem

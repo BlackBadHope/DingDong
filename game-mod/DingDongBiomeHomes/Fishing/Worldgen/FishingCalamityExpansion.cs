@@ -41,6 +41,7 @@ public sealed class FishingCalamityExpansion : ModSystem
 			seaDepth = sea.GetProperty("BlockDepth");
 			seaWidth = sea.GetProperty("BiomeWidth").GetMethod.CreateDelegate<Func<int>>();
 			hooks.Add(new ILHook(sea.GetMethod("PlaceSulphurSea"), PatchSeaStart));
+			hooks.Add(FishingSulphurTreasureGuard.Install(sea));
 			hooks.Add(new ILHook(sea.GetProperty("BiomeWidth").GetMethod, PatchSeaWidth));
 			hooks.Add(new ILHook(sea.GetProperty("BlockDepth").GetMethod, PatchSeaDepth));
 			hooks.Add(new ILHook(abyssType.GetMethod("PlaceAbyss"), PatchAbyss));
@@ -85,6 +86,7 @@ public sealed class FishingCalamityExpansion : ModSystem
 	{
 		foreach (var hook in hooks.AsEnumerable().Reverse()) hook.Dispose();
 		hooks.Clear(); present = supported = false; abyssType = null; provider = null;
+		FishingSulphurTreasureGuard.Reset();
 		seaStart = seaDepth = null; determineSeaStart = null; seaWidth = null;
 	}
 	private static void ReturnMap(ILContext il, Func<int, int> map)
@@ -225,5 +227,8 @@ public sealed class FishingCalamityExpansion : ModSystem
 				t.ClearTile(); t.LiquidType = LiquidID.Water; t.LiquidAmount = 255;
 			}
 		}
+		// Roadmap item 7: the routes above are Ding Dong's own; give every
+		// crossing waystations and debris so the floors lead somewhere.
+		OceanExpeditions.AbyssWaystations.Decorate(ModContent.GetInstance<FishingCalamityExpansion>().Mod, left, top, bottom);
 	}
 }

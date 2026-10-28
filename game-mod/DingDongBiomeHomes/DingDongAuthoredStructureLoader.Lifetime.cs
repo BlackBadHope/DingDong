@@ -49,6 +49,7 @@ public static partial class DingDongAuthoredStructureLoader
 		IntegratedWritePlanCache.Clear();
 		RawWritePlanCache.Clear();
 		liquidSafetyEnvelopes.Clear();
+		ClearSceneGroundDropCache(); // item 6: one-entry write-subset cache
 	}
 
 	internal static void ReleaseIdleCaches(Mod mod, string stage)

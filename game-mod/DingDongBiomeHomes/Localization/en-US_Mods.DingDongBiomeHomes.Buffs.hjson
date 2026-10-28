@@ -17,3 +17,28 @@ ForestComfortBuff: {
 	DisplayName: Familiar Forest
 	Description: Pure forest air clears hostile climate exposure and slightly improves regeneration, movement and mining.
 }
+
+StaticShockDebuff: {
+	DisplayName: Static Shock
+	Description: Lightning arcs through the body; wet targets conduct it three times harder.
+}
+
+CrackedArmorDebuff: {
+	DisplayName: Cracked Armor
+	Description: Earth strikes split the armor; hits ignore 8 defense.
+}
+
+RadianceDebuff: {
+	DisplayName: Radiance
+	Description: Holy light sears and dazzles; contact hits deal 8% less damage.
+}
+
+StarMarkDebuff: {
+	DisplayName: Star Mark
+	Description: An astral mark draws blows; takes 6% more damage.
+}
+
+VoidDrainDebuff: {
+	DisplayName: Void Drain
+	Description: The void unravels life.
+}

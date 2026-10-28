@@ -51,7 +51,7 @@ internal sealed class ResidentBookJournal : UIElement
         foreach(var npc in NpcTownManifest.All.OrderBy(n=>NpcQuestSystem.ResidentName(n.NpcKey),StringComparer.CurrentCulture))
         {
             var p=Get(npc.NpcKey);string key=npc.NpcKey;if(key==selected)selectedIndex=index;index++;
-            var row=new BookResidentRow(NpcQuestSystem.ResidentName(key),ResidentTrustPolicy.Percent(p,npc),NpcResidentRegistry.TryGetType(key,out int t)?t:0,key==selected,p.Active,ResidentEncounterSystem.IsPending(key),ResidentStoryRoles.IsMain(key));
+            var row=new BookResidentRow(NpcQuestSystem.ResidentName(key),ResidentTrustPolicy.Percent(p,npc),NpcResidentRegistry.TryGetType(key,out int t)?t:0,key==selected,p.Active,ResidentEncounterSystem.IsPending(key),ResidentStoryRoles.IsMain(key),key,PersonalResidentQuestCatalog.Complete(key,p.Completed));
             row.OnLeftClick+=(_,_)=>SelectResident(key);
             residents.Add(row);
         }
@@ -71,7 +71,8 @@ internal sealed class ResidentBookJournal : UIElement
         var heading=new BookResidentHeader(selected,percent,NpcResidentRegistry.TryGetType(selected,out int type)?type:0,ResidentQuote(selected));
         detail.Add(heading);
         // Owner item 11: main storyline residents are drawn per world (ResidentStoryRoles) and marked.
-        AddText(ResidentStoryRoles.IsMain(selected)?L("★ Сюжетная линия","★ Main storyline"):L("Побочная линия","Side story"),.84f,!ResidentStoryRoles.IsMain(selected));
+        // The vanilla font has no "★" glyph: draw the Fallen Star sprite instead (owner item 8 reference).
+        detail.Add(new BookStoryBadge(ResidentStoryRoles.IsMain(selected)));
         bool pending=ResidentEncounterSystem.IsPending(selected);
         if(pending)AddText(EncounterHint(selected),.80f,true);
         bool complete=PersonalResidentQuestCatalog.Complete(selected,p.Completed);
@@ -81,14 +82,18 @@ internal sealed class ResidentBookJournal : UIElement
         if(!complete)
         {
             var objective=new BookSection();
-            var titleRow=new UIElement();titleRow.Width.Set(0,1);titleRow.Height.Set(34,0);
-            var targetIcon=new QuestTargetIcon(step.ItemType>0?step.ItemType:step.TargetNpcType==0?ItemID.Compass:0,step.TargetNpcType,30);targetIcon.Width.Set(32,0);targetIcon.Height.Set(32,0);titleRow.Append(targetIcon);
-            var title=new BookText(step.Title,1.15f,Ink);title.Left.Set(42,0);title.Width.Set(-42,1);titleRow.Append(title);objective.Add(titleRow);
-            objective.Add(new BookText(NpcQuestSystem.ObjectiveText(Main.LocalPlayer,d,p),.98f,Ink));
+            // Reference layout: chapter title with a large glyph, then framed sub-cards for the
+            // objective (item slot + text + bar) and for the performer (player head + note).
+            var titleRow=new UIElement();titleRow.Width.Set(0,1);titleRow.Height.Set(44,0);
+            int targetItem=step.ItemType>0?step.ItemType:step.TargetNpcType==0?ItemID.Compass:0;
+            var targetIcon=new QuestTargetIcon(targetItem,step.TargetNpcType,40);targetIcon.Width.Set(42,0);targetIcon.Height.Set(42,0);titleRow.Append(targetIcon);
+            var title=new BookText(step.Title,1.25f,Ink);title.Left.Set(50,0);title.Top.Set(6,0);title.Width.Set(-50,1);titleRow.Append(title);objective.Add(titleRow);
             int objectiveProgress=d.Kind is ResidentQuestKind.DeliverSupplies or ResidentQuestKind.Expedition?NpcQuestSystem.QuestInventoryCount(Main.LocalPlayer,d,p):p.Progress;
-            objective.Add(new BookProgressBar(p.Active?Math.Min(1,objectiveProgress/(float)Math.Max(1,d.Goal)):0));
-            objective.Add(new BookText(p.Active?L("Выполняет: ","Assigned to: ")+p.AssignedName:L("Можно принять при встрече.","Available when you meet this resident."),.94f,Ink));
-            objective.Add(new BookText(L("Прогресс общий. Награда — исполнителю.","Shared progress. Reward goes to the performer."),.79f,Muted));detail.Add(objective);
+            var slotIcon=new QuestTargetIcon(targetItem,step.TargetNpcType,34);
+            objective.Add(new BookSlotRow(slotIcon,NpcQuestSystem.ObjectiveText(Main.LocalPlayer,d,p),.92f,null,p.Active?Math.Min(1,objectiveProgress/(float)Math.Max(1,d.Goal)):0));
+            UIElement performerIcon=p.Active?new BookPlayerHead(p.AssignedName):new QuestTargetIcon(ItemID.Compass,0,30);
+            objective.Add(new BookSlotRow(performerIcon,p.Active?L("Выполняет: ","Assigned to: ")+p.AssignedName:L("Можно принять при встрече.","Available when you meet this resident."),.90f,
+                L("Прогресс общий. Награда — исполнителю.","Shared progress. Reward goes to the performer.")));detail.Add(objective);
             var rewards=new BookSection(88);rewards.Add(new BookText(L("Награды","Rewards"),.89f,Ink));
             var rewardRow=new UIElement();rewardRow.Width.Set(0,1);rewardRow.Height.Set(45,0);
             var reward=new QuestTargetIcon(d.RewardItemType,0,36);reward.Width.Set(38,0);reward.Height.Set(38,0);rewardRow.Append(reward);
@@ -136,6 +141,8 @@ internal sealed class ResidentBookJournal : UIElement
         bool ready=p.Active&&NpcQuestSystem.IsReady(Main.LocalPlayer,d,p);
         int near=NearbyResident(selected);bool invite=complete&&percent==100&&!moved&&!pending;
         string label=invite?L("Пригласить к себе","Invite to your settlement"):complete?L("История завершена","Story complete"):ready?L("Сдать задание","Turn in quest"):p.Active?L("Задание выполняется","Quest in progress"):L("Принять задание","Accept quest");
+        // Reference: away from the resident the disabled button itself says "... при встрече".
+        if(near<0&&!pending&&mine)label=invite?BookUiText.Get("InviteOnMeet"):complete?label:ready?BookUiText.Get("TurnInOnMeet"):p.Active?label:BookUiText.Get("AcceptOnMeet");
         bool enabled=near>=0&&!pending&&(invite||!complete&&mine&&(!p.Active||ready));
         var step=PersonalResidentQuestCatalog.Step(d.StoryKey);
         if(p.Active&&mine&&!ready&&d.Kind==ResidentQuestKind.DialogueChoice&&p.Progress==0&&step!=null&&step.Choices.Length>=2)
@@ -155,19 +162,21 @@ internal sealed class ResidentBookJournal : UIElement
         action.Left.Set(24,0);action.Width.Set(-48,1);action.Height.Set(44,0);
         action.OnLeftClick+=(_,_)=>{if(enabled){NpcQuestNetwork.RequestQuestInteraction(near,invite);Reload();}};questFooter.Append(action);
         }
-        string hint=pending?L("Сначала найдите и освободите жителя.","Find and rescue this resident first."):!mine?L("Задание выполняет: ","Assigned to: ")+p.AssignedName:near<0?L("Подойдите к жителю, чтобы поговорить.","Meet this resident to speak."):"";
+        string hint=pending?L("Сначала найдите и освободите жителя.","Find and rescue this resident first."):!mine?L("Задание выполняет: ","Assigned to: ")+p.AssignedName:near<0&&p.Active&&!ready&&!complete?L("Подойдите к жителю, чтобы поговорить.","Meet this resident to speak."):"";
         var notice=new BookText(hint,.67f,Muted);notice.Top.Set(47,0);notice.Left.Set(4,0);notice.Width.Set(-8,1);questFooter.Append(notice);
-        var trail=new ResidentStoryTrail(selected,p.Completed);trail.Top.Set(74,0);trail.Width.Set(-170,1);trail.Height.Set(100,0);questFooter.Append(trail);
-        var house=new BookAssetIcon(moved?BookGlyph.Residents:BookGlyph.Residence);house.Left.Set(-148,1);house.Top.Set(68,0);house.Width.Set(118,0);house.Height.Set(63,0);questFooter.Append(house);
-        var homeText=new BookText(moved?L("Переезд завершён","Relocation complete"):L("Защищена до переезда","Protected until relocation"),.66f,Ink);homeText.Left.Set(-148,1);homeText.Top.Set(132,0);homeText.Width.Set(118,0);questFooter.Append(homeText);
+        // Reference: the chain sits in its own framed card; the residence lock gets a full caption beside it.
+        var trail=new ResidentStoryTrail(selected,p.Completed);trail.Top.Set(68,0);trail.Width.Set(-170,1);trail.Height.Set(104,0);questFooter.Append(trail);
+        var house=new BookAssetIcon(moved?BookGlyph.Residents:BookGlyph.Residence);house.Left.Set(-160,1);house.Top.Set(66,0);house.Width.Set(150,0);house.Height.Set(66,0);questFooter.Append(house);
+        var homeText=new BookText(BookUiText.Get(moved?"ResidenceMoved":"ResidenceProtected"),.70f,Ink){Centered=true};homeText.Left.Set(-162,1);homeText.Top.Set(134,0);homeText.Width.Set(156,0);questFooter.Append(homeText);
     }
 
 }
 
 internal sealed class BookText : UIElement
 {
-    private string text;private readonly float scale;private string[] lines=Array.Empty<string>();
+    private string text;private readonly float scale;private string[] lines=Array.Empty<string>();private float[] widths=Array.Empty<float>();
     internal Color TextColor {get;set;}
+    internal bool Centered {get;set;}
     internal string Value=>text;
     internal BookText(string text,float scale,Color color)
     {this.text=text;this.scale=scale;TextColor=color;Width.Set(0,1);Height.Set(24,0);IgnoresMouseInteraction=true;}
@@ -190,10 +199,17 @@ internal sealed class BookText : UIElement
             }
             output.Add(line);
         }
-        lines=output.ToArray();Height.Set(Math.Max(1,lines.Length)*FontAssets.MouseText.Value.LineSpacing*scale+2,0);base.Recalculate();
+        lines=output.ToArray();widths=new float[lines.Length];
+        for(int i=0;i<lines.Length;i++)widths[i]=FontAssets.MouseText.Value.MeasureString(lines[i]).X*scale;
+        Height.Set(Math.Max(1,lines.Length)*FontAssets.MouseText.Value.LineSpacing*scale+2,0);base.Recalculate();
     }
     protected override void DrawSelf(SpriteBatch b)
-    {var p=GetInnerDimensions().Position();foreach(string line in lines){b.DrawString(FontAssets.MouseText.Value,line,p,TextColor,0,Vector2.Zero,scale,SpriteEffects.None,0);p.Y+=FontAssets.MouseText.Value.LineSpacing*scale;}}
+    {
+        var inner=GetInnerDimensions();var p=inner.Position();
+        for(int i=0;i<lines.Length;i++){
+            var at=Centered&&i<widths.Length?new Vector2(p.X+Math.Max(0,(inner.Width-widths[i])*.5f),p.Y):p;
+            b.DrawString(FontAssets.MouseText.Value,lines[i],at,TextColor,0,Vector2.Zero,scale,SpriteEffects.None,0);p.Y+=FontAssets.MouseText.Value.LineSpacing*scale;}
+    }
 }
 internal sealed class BookProgressBar : UIElement
 {
@@ -205,27 +221,48 @@ internal sealed class BookProgressBar : UIElement
 internal sealed class BookResidentRow : UIElement
 {
     internal const float RowHeight=98;
-    private readonly bool selected;
-    internal BookResidentRow(string name,int reputation,int npcType,bool selected,bool active,bool pending,bool mainStory=false)
+    private readonly bool selected,mainStory;
+    private readonly QuestTargetIcon portrait;
+    private readonly BookText title,amount,status;
+    private readonly BookProgressBar bar;
+    private readonly BookItemGlyph role,star;
+    // Reference layout (owner item 8): portrait | name, reputation bar and "40 / 100" | role glyph above the status.
+    internal BookResidentRow(string name,int reputation,int npcType,bool selected,bool active,bool pending,bool mainStory=false,string npcKey=null,bool complete=false)
     {
-        this.selected=selected;Width.Set(0,1);Height.Set(RowHeight,0);SetPadding(7);
-        var icon=new QuestTargetIcon(0,npcType,82,true);icon.Width.Set(66,0);icon.Height.Set(76,0);Append(icon);
-        var title=new BookText(name,1.04f,ResidentBookJournal.Ink);title.Left.Set(76,0);title.Width.Set(mainStory?-108:-76,1);Append(title);
-        bool ru=Language.ActiveCulture.CultureInfo.TwoLetterISOLanguageName=="ru";
+        this.selected=selected;this.mainStory=mainStory;Width.Set(0,1);Height.Set(RowHeight,0);SetPadding(7);
+        portrait=new QuestTargetIcon(0,npcType,82,true);portrait.Width.Set(66,0);portrait.Height.Set(76,0);Append(portrait);
+        title=new BookText(name,1.04f,ResidentBookJournal.Ink);Append(title);
         if(mainStory)
         {
-            // Main storyline marker (owner item 11): a fallen star in the row's corner.
-            var star=new QuestTargetIcon(ItemID.FallenStar,0,26);star.Left.Set(-30,1);star.Top.Set(2,0);star.Width.Set(28,0);star.Height.Set(28,0);Append(star);
+            // Main storyline marker (owner item 11): a fallen star before the name, explained on hover.
+            star=new BookItemGlyph(ItemID.FallenStar,22,BookUiText.Get("MainStory"),Color.White);Append(star);
         }
-        var bar=new BookProgressBar(reputation/100f);bar.Left.Set(76,0);bar.Top.Set(40,0);bar.Width.Set(-78,.62f);bar.Height.Set(12,0);Append(bar);
-        var amount=new BookText($"{reputation} / 100",.83f,ResidentBookJournal.Ink);amount.Left.Set(8,.62f);amount.Top.Set(37,0);amount.Width.Set(-8,.38f);Append(amount);
-        string state=active?(ru?"Задание":"Quest"):pending?(ru?"Нужно найти":"Find resident"):(ru?"Доступно":"Available");
-        var label=new BookText(mainStory?(ru?"Сюжетная · ":"Main · ")+state:state,.67f,pending?ResidentBookJournal.Muted:DingDongUiTheme.Positive);label.Left.Set(76,0);label.Width.Set(-76,1);label.Top.Set(60,0);Append(label);
+        bar=new BookProgressBar(reputation/100f);bar.Height.Set(14,0);Append(bar);
+        amount=new BookText($"{reputation} / 100",.86f,ResidentBookJournal.Ink);Append(amount);
+        string state=BookUiText.Get(complete?"Status.Complete":active?"Status.InProgress":pending?"Status.Find":"Status.Available");
+        int roleItem=ResidentRoleIcons.Get(npcKey,npcKey==null?"":PersonalResidentQuestCatalog.Force(npcKey));
+        role=new BookItemGlyph(roleItem,30,state,pending?new Color(120,112,98):Color.White);Append(role);
+        status=new BookText(state,.72f,pending?new Color(112,104,92):DingDongUiTheme.Positive){Centered=true};Append(status);
+    }
+    public override void Recalculate()
+    {
+        base.Recalculate();
+        float width=GetInnerDimensions().Width,column=Math.Clamp(width*.21f,64,104),left=76,nameLeft=mainStory?left+26:left;
+        if(star!=null){star.Left.Set(left,0);star.Top.Set(3,0);}
+        title.Left.Set(nameLeft,0);title.Top.Set(2,0);title.Width.Set(-nameLeft-column-4,1);
+        float amountWidth=Math.Clamp(width*.16f,52,74);
+        bar.Left.Set(left,0);bar.Top.Set(40,0);bar.Width.Set(-left-column-amountWidth-10,1);
+        amount.Left.Set(-column-amountWidth-2,1);amount.Top.Set(35,0);amount.Width.Set(amountWidth,0);
+        role.Left.Set(-column+(column-30)*.5f,1);role.Top.Set(8,0);role.Width.Set(30,0);role.Height.Set(30,0);
+        status.Left.Set(-column,1);status.Top.Set(46,0);status.Width.Set(column,0);
+        base.Recalculate();
     }
     protected override void DrawSelf(SpriteBatch b)
     {
         var area=GetDimensions().ToRectangle();
         DingDongUiAssets.DrawBookCard(b,area,selected?new Color(255,236,177):IsMouseHovering?Color.White:Color.White*.72f);
+        // Main storyline rows carry a thin gold spine so they stand out while scrolling.
+        if(mainStory)DingDongUiTheme.Fill(b,new Rectangle(area.X+5,area.Y+12,3,Math.Max(0,area.Height-24)),new Color(196,146,48));
     }
 }
 

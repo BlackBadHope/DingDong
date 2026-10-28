@@ -1,6 +1,6 @@
 displayName = DingDong: Biome Homes
 author = local Home project; Structify builders credited in ThirdPartyNotices
-version = 0.29.0.21
+version = 0.29.0.23
 hideCode = false
 hideResources = false
 includeSource = true

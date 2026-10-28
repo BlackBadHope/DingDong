@@ -58,8 +58,10 @@ internal static partial class ContinentalWorldCapacity
 			RestoreVanillaCapacity();
 			return;
 		}
-		if (Main.tile.Width == ContinentalWorldDimensions.StorageWidth &&
-			Main.tile.Height == ContinentalWorldDimensions.StorageHeight)
+		// Presets 28.10: target storage of the current preset; "already sized" means an exact match.
+		(int targetWidth, int targetHeight) = StorageForWorld(Main.maxTilesX, Main.maxTilesY);
+		if (Main.tile.Width == targetWidth &&
+			Main.tile.Height == targetHeight)
 		{
 			if (deferClientMap)
 				DeferClientMap();
@@ -85,7 +87,7 @@ internal static partial class ContinentalWorldCapacity
 		long privateShrunk = ContinentalWorldCapacity.ProcessPrivateBytes();
 		try
 		{
-			PreflightMemory(allocateClientMap: !deferClientMap, generation);
+			PreflightMemory(targetWidth, targetHeight, allocateClientMap: !deferClientMap, generation);
 		}
 		catch
 		{
@@ -94,8 +96,7 @@ internal static partial class ContinentalWorldCapacity
 				Main.tile = (Tilemap)tilemapConstructor.Invoke(new object[] { (ushort)previousWidth, (ushort)previousHeight });
 			throw;
 		}
-		ResizeCore(ContinentalWorldDimensions.StorageWidth,
-			ContinentalWorldDimensions.StorageHeight, !deferClientMap);
+		ResizeCore(targetWidth, targetHeight, !deferClientMap);
 		// RamOpt 28.10: direct probe of the "lazy commit" anomaly seen in S5.
 		DingDongBiomeHomes.Instance?.Logger.Info(
 			$"DINGDONG_RAMOPT_RESIZE|reason={reason}|previous={previousWidth}x{previousHeight}|shrunkFirst={shrunk}" +
@@ -118,9 +119,11 @@ internal static partial class ContinentalWorldCapacity
 		if (Main.maxTilesX <= 0 || Main.maxTilesY <= 0)
 			return;
 		(int width, int height) = StorageForWorld(Main.maxTilesX, Main.maxTilesY);
+		// Presets 28.10: leaving any continental preset (all are larger than vanilla Large
+		// storage in both dimensions), not only x10.
 		bool leavingContinental =
-			Main.tile.Width == ContinentalWorldDimensions.StorageWidth &&
-			Main.tile.Height == ContinentalWorldDimensions.StorageHeight;
+			Main.tile.Width > ContinentalWorldDimensions.VanillaLargeWidth + 1 &&
+			Main.tile.Height > ContinentalWorldDimensions.VanillaLargeHeight + 1;
 		bool undersized = Main.tile.Width < width || Main.tile.Height < height;
 		if (leavingContinental || undersized)
 			ResizeCore(width, height, allocateClientMap: true);
@@ -162,14 +165,15 @@ internal static partial class ContinentalWorldCapacity
 			clientMapDeferred = false;
 			return;
 		}
-		PreflightDeferredClientMap();
-		Main.Map = new WorldMap(ContinentalWorldDimensions.StorageWidth,
-			ContinentalWorldDimensions.StorageHeight);
+		// Presets 28.10: the map is sized exactly for the current preset.
+		(int width, int height) = StorageForWorld(Main.maxTilesX, Main.maxTilesY);
+		PreflightDeferredClientMap(width, height);
+		Main.Map = new WorldMap(width, height);
 		mapAllocations++;
 		clientMapDeferred = false;
 		DingDongBiomeHomes.Instance.Logger.Info(
 			"DINGDONG_CONTINENTAL_MAP|verdict=PASS|allocation=deferred" +
-			$"|cells={ContinentalWorldDimensions.StorageCellCount}");
+			$"|cells={(long)width * height}");
 	}
 
 	private static void DeferClientMap()
@@ -188,9 +192,20 @@ internal static partial class ContinentalWorldCapacity
 		clientMapDeferred = true;
 	}
 
-	private static bool HasClientMapCapacity() =>
+	// Presets 28.10: exact match with the current preset (not >=), so a smaller preset after
+	// x10 does not keep the x10 map committed.
+	private static bool HasClientMapCapacity()
+	{
+		if (Main.maxTilesX <= 0 || Main.maxTilesY <= 0 ||
+			Main.maxTilesX >= short.MaxValue || Main.maxTilesY >= short.MaxValue)
+			return false;
+		(int width, int height) = StorageForWorld(Main.maxTilesX, Main.maxTilesY);
+		return HasClientMapCapacity(width, height);
+	}
+
+	private static bool HasClientMapCapacity(int width, int height) =>
 		Main.Map != null &&
-		Main.Map.MaxWidth >= ContinentalWorldDimensions.StorageWidth &&
-		Main.Map.MaxHeight >= ContinentalWorldDimensions.StorageHeight;
+		Main.Map.MaxWidth == width &&
+		Main.Map.MaxHeight == height;
 
 }

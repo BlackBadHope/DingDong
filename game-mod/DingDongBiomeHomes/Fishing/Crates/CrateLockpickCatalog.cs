@@ -62,7 +62,12 @@ internal static class CrateLockpickCatalog
     internal static bool IsLockedCrate(int crate) => lockedCrates.Contains(crate);
     internal static bool TryGetTier(int itemType, out LockpickTier tier) => tierByType.TryGetValue(itemType, out tier);
 
-    /// <summary>The best lockpick in the player's inventory, or null.</summary>
+    /// <summary>
+    /// The best lockpick in the player's inventory or in a carried keyring, or null.
+    /// <paramref name="slot"/> is the inventory slot of that pick, or -1 when the best
+    /// pick sits in the keyring. Lockpicks are never consumed, so callers only read
+    /// the tier and must not touch the item by slot.
+    /// </summary>
     internal static LockpickTier Best(Player player, out int slot)
     {
         slot = -1; LockpickTier best = null;
@@ -73,6 +78,14 @@ internal static class CrateLockpickCatalog
             if (item == null || item.IsAir || !tierByType.TryGetValue(item.type, out LockpickTier tier)) continue;
             if (best == null || tier.Level > best.Level) { best = tier; slot = i; }
         }
+        // KeyringItem.IsKey routes lockpicks into the ring (store click / pickup), so a pick kept there counts too.
+        var ring = global::DingDongBiomeHomes.Items.Keyring.KeyringItem.Find(player);
+        if (ring != null)
+            foreach (Item item in ring.Stored)
+            {
+                if (item == null || item.IsAir || !tierByType.TryGetValue(item.type, out LockpickTier tier)) continue;
+                if (best == null || tier.Level > best.Level) { best = tier; slot = -1; }
+            }
         return best;
     }
 

@@ -37,7 +37,7 @@ public sealed class ContinentalClientLoadProbe : ModSystem
 				!Path.GetFullPath(output).StartsWith(safeRoot + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase))
 				throw new InvalidOperationException("Disposable Fix-R32 paths required.");
 			long before = ContinentalMemoryStatus.Read().AvailableCommitBytes;
-			ContinentalWorldCapacity.AdmitClientLoad();
+			ContinentalWorldCapacity.AdmitClientLoad(ContinentalWorldDimensions.X10); // Presets 28.10: x10 fixture
 			long after = ContinentalMemoryStatus.Read().AvailableCommitBytes;
 			Main.ActiveWorldFileData = WorldFile.GetAllMetadata(path, false);
 			WorldFile.LoadWorld(false);

@@ -1,0 +1,17 @@
+# Roadmap item 8: quest book texts (owner reference "DingDong Hub", 27.10.2026).
+MainStory: Сюжетная линия
+SideStory: Побочная линия
+Reputation: Репутация мира
+StagesTitle: Этапы цепочки (общие для всех игроков)
+ResidenceProtected: Резиденция защищена до переезда
+ResidenceMoved: Переезд завершён
+AcceptOnMeet: Принять при встрече
+TurnInOnMeet: Сдать при встрече
+InviteOnMeet: Пригласить при встрече
+
+Status: {
+	Available: Доступно
+	InProgress: Выполняется
+	Find: Нужно найти
+	Complete: Завершено
+}

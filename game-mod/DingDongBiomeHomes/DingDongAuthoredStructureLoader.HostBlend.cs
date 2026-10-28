@@ -143,7 +143,7 @@ public static partial class DingDongAuthoredStructureLoader
 	// inside the write envelope becomes water, and lava arriving from outside then
 	// meets it as obsidian instead of entering the rooms.
 	private const int QuenchApronTiles = 12;
-	private static int QuenchAmbientLava(StructureData data, StructureWritePlan plan, Point origin, AuthoredDeploymentProfile profile)
+	private static int QuenchAmbientLava(StructureData data, StructureWritePlan plan, Point origin, AuthoredDeploymentProfile profile, SceneGroundDrop drop = null)
 	{
 		Rectangle asset = new(origin.X, origin.Y, data.Width, data.Height);
 		Rectangle envelope = Worldgen.ResidenceWriteSafety.Bounds(profile.ProtectedFootprint(asset), profile.ProtectedPadding);
@@ -158,8 +158,9 @@ public static partial class DingDongAuthoredStructureLoader
 			Tile tile = Main.tile[x, y];
 			if (tile.LiquidAmount == 0 || tile.LiquidType != LiquidID.Lava) continue;
 			int sx = x - origin.X, sy = y - origin.Y;
-			if (sx >= 0 && sy >= 0 && sx < data.Width && sy < data.Height && plan.WriteTiles[sx * data.Height + sy])
-				continue; // authored liquid plane, possibly deliberate lava
+			if (sx >= 0 && sy >= 0 && sx < data.Width && sy < data.Height && plan.WriteTiles[sx * data.Height + sy] &&
+				(drop == null || !drop.Tiles[sx * data.Height + sy]))
+				continue; // authored liquid plane, possibly deliberate lava (a cell left to the host is ambient)
 			tile.LiquidType = LiquidID.Water;
 			quenched++;
 		}
@@ -179,7 +180,7 @@ public static partial class DingDongAuthoredStructureLoader
 	// A scene's retained cliff often ends where its crop ended, leaving a sheer cut
 	// or a ledge hanging over lower host ground. Grow natural support under the
 	// lowest retained terrain of every column until the host ground is reached.
-	private static int BackfillSurfaceSupport(StructureData data, StructureWritePlan plan, Point origin)
+	private static int BackfillSurfaceSupport(StructureData data, StructureWritePlan plan, Point origin, SceneGroundDrop drop = null)
 	{
 		Rectangle bounds = plan.MutationBounds;
 		int filled = 0, left = int.MaxValue, right = int.MinValue, top = int.MaxValue, bottom = int.MinValue;
@@ -191,7 +192,7 @@ public static partial class DingDongAuthoredStructureLoader
 			for (int y = bounds.Bottom - 1; y >= bounds.Top; y--)
 			{
 				int index = x * data.Height + y;
-				if (!plan.WriteTiles[index]) continue;
+				if (!plan.WriteTiles[index] || (drop != null && drop.Tiles[index])) continue; // host cells are not a scene seam
 				Tile written = Main.tile[worldX, origin.Y + y];
 				if (!written.HasTile || !IsNaturalTerrainTile(written.TileType) || !Main.tileSolid[written.TileType]) continue;
 				seam = origin.Y + y; surface = written.TileType; break;

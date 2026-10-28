@@ -13,11 +13,13 @@ internal static partial class ContinentalWorldHooks
 		int previousHeight = Main.maxTilesY;
 		// Promotion belongs only to new-world generation. Capacity alignment does
 		// not: LoadHeader sets maxTiles before clearWorld invokes mod callbacks.
-		if ((WorldGen.generatingWorld || WorldGen.gen) && ShouldPromoteLargeWorld())
-			ApplyPresetIfLarge();
+		// Presets 28.10: promote the carrier to the requested preset instead of fixed x10.
+		ContinentalWorldPreset requested = WorldGen.generatingWorld || WorldGen.gen ? RequestedPreset() : null;
+		if (requested != null)
+			ApplyPreset(requested);
 		if (WorldGen.generatingWorld || WorldGen.gen) AssertRequestedDimensions();
 		bool creatingContinental = ContinentalWorldDimensions.IsContinental &&
-			(WorldGen.generatingWorld || WorldGen.gen || continentalWorldRequested);
+			(WorldGen.generatingWorld || WorldGen.gen || requestedPreset != null);
 		try
 		{
 			ContinentalWorldCapacity.Ensure("clear-world-pre-callbacks",
@@ -37,7 +39,7 @@ internal static partial class ContinentalWorldHooks
 			// RamOpt 28.10: a dedicated server would otherwise fall through to the
 			// failed-load branch of Main.DedServ_PostModLoad and block on Console.ReadKey.
 			if (serverCreation)
-				ExitServerAfterMemoryDenial("create", denial);
+				ExitServerAfterMemoryDenial("create", denial, requested);
 			throw; // Native worldgen error menu, not the fatal OOM handler.
 		}
 		// A genuine world clear starts a new section epoch even when the next
@@ -54,8 +56,8 @@ internal static partial class ContinentalWorldHooks
 	{
 		try
 		{
-			if (ShouldPromoteLargeWorld())
-				ApplyPresetIfLarge();
+			if (RequestedPreset() is ContinentalWorldPreset preset)
+				ApplyPreset(preset);
 			AssertRequestedDimensions();
 			try
 			{
@@ -100,10 +102,11 @@ internal static partial class ContinentalWorldHooks
 	{
 		// The previous attempt's dimensions can still be active in the menu.
 		// Do not allocate a map here: the selected header/clearWorld owns it.
-		if (!Main.dedServ && Main.ActiveWorldFileData?.WorldSizeX == ContinentalWorldDimensions.Width &&
-			Main.ActiveWorldFileData.WorldSizeY == ContinentalWorldDimensions.Height)
+		// Presets 28.10: any continental preset, admitted with its own storage.
+		if (!Main.dedServ && Main.ActiveWorldFileData is Terraria.IO.WorldFileData data &&
+			ContinentalWorldDimensions.TryResolve(data.WorldSizeX, data.WorldSizeY) is ContinentalWorldPreset loading)
 		{
-			try { ContinentalWorldCapacity.AdmitClientLoad(); }
+			try { ContinentalWorldCapacity.AdmitClientLoad(loading); }
 			catch (ContinentalMemoryAdmissionException ex)
 			{
 				ShowLoadMemoryError(ex);
@@ -128,15 +131,24 @@ internal static partial class ContinentalWorldHooks
 		ContinentalWorldCapacity.ClientMapDeferred ? false :
 			orig(i, j, addToList);
 
-	private static void ApplyPresetIfLarge()
+	// Presets 28.10: vanilla Large is the carrier set by the client menu; a dedicated server also
+	// promotes -autocreate 1/2 (Small/Medium) to the chosen preset (owner decision B4).
+	// Presets 28.10 review fix: the client accepts any vanilla size too. Vanilla FinishCreatingWorld
+	// runs ProcessSeed first, and a four-part seed "size.difficulty.evil.seed" (e.g. "1.2.1.123456",
+	// the copy-seed form) rewrites _optionSize to Small/Medium after our Large carrier was set; the
+	// preset was already chosen and memory-admitted, so it must still be applied. ApplyPreset only
+	// runs with a non-null preset (menu choice or server request), never for a plain vanilla world.
+	private static void ApplyPreset(ContinentalWorldPreset preset)
 	{
-		if (!ContinentalWorldDimensions.IsVanillaLarge)
+		bool carrier = ContinentalWorldDimensions.IsVanillaSize(Main.maxTilesX, Main.maxTilesY);
+		if (!carrier)
 			return;
-		Main.maxTilesX = ContinentalWorldDimensions.Width;
-		Main.maxTilesY = ContinentalWorldDimensions.Height;
+		Main.maxTilesX = preset.Width;
+		Main.maxTilesY = preset.Height;
 		WorldGen.setWorldSize();
 	}
 
+	// Presets 28.10: true unless the hidden "restore vanilla sizes" switch is on (B3).
 	private static bool IsEnabled() =>
 		ModContent.GetInstance<DingDongServerConfig>().EnableContinentalWorlds;
 
@@ -147,8 +159,33 @@ internal static partial class ContinentalWorldHooks
 			throw new System.InvalidOperationException($"Requested test dimensions {expected}, actual {Main.maxTilesX}x{Main.maxTilesY}; stopped before capacity allocation.");
 	}
 
-	private static bool ShouldPromoteLargeWorld() =>
-		ContinentalCreationChoice.ShouldPromote(IsEnabled(), Main.dedServ,
-			continentalWorldRequested,
-			System.Environment.GetEnvironmentVariable("DINGDONG_SERVER_WORLD_SIZE"));
+	// Presets 28.10: preset requested for the world being created, or null (no promotion).
+	private static ContinentalWorldPreset RequestedPreset()
+	{
+		string serverSize = System.Environment.GetEnvironmentVariable(ContinentalCreationChoice.ServerSizeVariable);
+		long? physical = Main.dedServ ? TotalPhysicalBytesOrNull() : null;
+		ContinentalWorldPreset preset = ContinentalCreationChoice.ResolveRequestedPreset(IsEnabled(), Main.dedServ,
+			requestedPreset, serverSize, physical);
+		// Presets 28.10 review fix: say once why a default server stays vanilla.
+		if (Main.dedServ && preset == null && string.IsNullOrWhiteSpace(serverSize) && IsEnabled() && !serverDefaultLogged)
+		{
+			serverDefaultLogged = true;
+			DingDongBiomeHomes.Instance?.Logger.Info(
+				$"DINGDONG_SERVER_WORLD_SIZE|value=empty|promotion=none|reason={(physical is null ? "physical-ram-unknown" : "no-available-preset-fits-physical-ram")}" +
+				$"|physical={(physical?.ToString() ?? "unknown")}|available={string.Join(",", System.Linq.Enumerable.Select(ContinentalWorldDimensions.Available, p => p.Id))}");
+		}
+		return preset;
+	}
+
+	private static bool serverDefaultLogged;
+
+	private static long? TotalPhysicalBytesOrNull()
+	{
+		try { return ContinentalMemoryStatus.Read().TotalPhysicalBytes; }
+		catch (System.Exception ex) when (ex is System.PlatformNotSupportedException or
+			System.ComponentModel.Win32Exception or ContinentalMemoryAdmissionException)
+		{
+			return null;
+		}
+	}
 }

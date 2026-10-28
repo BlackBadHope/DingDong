@@ -1,3 +1,4 @@
+using System;
 using Terraria;
 using Terraria.GameContent.UI.States;
 using Terraria.Localization;
@@ -11,12 +12,18 @@ internal static partial class ContinentalWorldHooks
 	{
 		// FinishCreatingWorld mutates dimensions, seed and metadata, then queues
 		// the worker. Reject before calling any of it; keep the user's options.
-		if (ShouldPromoteLargeWorld() &&
-			!ContinentalWorldCapacity.TryAdmitClientCreation(out string error))
+		// Presets 28.10: admit the selected preset; the carrier size is re-asserted because
+		// vanilla code may have reset _optionSize after the preset was picked.
+		if (RequestedPreset() is ContinentalWorldPreset preset)
 		{
-			Utils.ShowFancyErrorMessage(
-				Language.GetTextValue($"{MenuKey}.MemoryDenied", error), 888, self);
-			return;
+			if (!ContinentalWorldCapacity.TryAdmitClientCreation(preset, out string error))
+			{
+				Utils.ShowFancyErrorMessage(
+					Language.GetTextValue($"{MenuKey}.MemoryDenied", error,
+						Language.GetTextValue(preset.LocKey + ".Name")), 888, self);
+				return;
+			}
+			OptionSizeField.SetValue(self, Enum.ToObject(OptionSizeField.FieldType, 2));
 		}
 		orig(self);
 	}

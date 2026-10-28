@@ -220,7 +220,11 @@ public sealed partial class OceanExpeditionWorldSystem
             int x=p.X(edge),y=p.Floor(edge);
             if(admission.Allows(new Rectangle(x-3,y-6,7,8))) WorldGen.PlaceTile(x,y-1,TileID.Coral,mute:true);
         }
+        // Roadmap item 7: wrecks, ruins, coral gardens and kelp on the floor,
+        // placed before the settle so the refill receipt covers them too.
+        string seabed = DecorateSeabed(p, admission);
         Mod owner = ModContent.GetInstance<OceanExpeditionWorldSystem>().Mod;
+        owner.Logger.Info("DINGDONG_OPEN_OCEAN_CONTENT|" + seabed);
         string settlement = SettleAndRefill(p, admission, owner);
         owner.Logger.Info(
             $"DINGDONG_OPEN_OCEAN|version=1|side={(p.Left ? "left" : "right")}|width={p.Width}|sea={p.SeaLevel}|bottom={p.Bottom}|underworldGap={p.Clearance}|waterCells={carved}|retainedCells={retained}|islands={p.Islands.Count}|airGrottos={p.Grottos.Count}|landmarks={p.Landmarks.Count}|grottoCandidates={grottoCandidates}|blockedGrottos={blockedGrottos}|adaptiveGrottos={adaptiveGrottos}|layoutSeed={p.Seed}|islandLayout={p.IslandLayout}|floorSealedCells={sealedCells}|damCells={damCells}|shellCells={shellCells}|{settlement}|abyssModified=False");

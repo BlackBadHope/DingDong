@@ -60,7 +60,10 @@ public sealed class ContinentalCapacityProbeSystem : ModSystem
 		if (Main.tile.Width != ContinentalWorldDimensions.StorageWidth ||
 			Main.tile.Height != ContinentalWorldDimensions.StorageHeight)
 			throw new InvalidOperationException("Continental tile capacity is incomplete.");
-		if (Main.maxSectionsX != 140 || Main.maxSectionsY != 48)
+		// Presets 28.10: grid from the x10 fixture dimensions (140x48) instead of literals.
+		int sectionsX = ContinentalWorldDimensions.Width / Main.sectionWidth;
+		int sectionsY = ContinentalWorldDimensions.Height / Main.sectionHeight;
+		if (Main.maxSectionsX != sectionsX || Main.maxSectionsY != sectionsY)
 			throw new InvalidOperationException("Continental network section grid is invalid.");
 		ValidateRemoteSections();
 		ValidateSignedWireRoundtrip();
@@ -71,7 +74,8 @@ public sealed class ContinentalCapacityProbeSystem : ModSystem
 		if (Netplay.Clients == null)
 			return;
 		foreach (RemoteClient client in Netplay.Clients)
-			if (client != null && (client.TileSections.GetLength(0) < 141 || client.TileSections.GetLength(1) < 49))
+			if (client != null && (client.TileSections.GetLength(0) < Main.maxSectionsX + 1 ||
+				client.TileSections.GetLength(1) < Main.maxSectionsY + 1))
 				throw new InvalidOperationException("Remote client section capacity is incomplete.");
 	}
 

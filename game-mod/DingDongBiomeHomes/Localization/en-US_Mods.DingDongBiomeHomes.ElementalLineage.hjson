@@ -1,0 +1,18 @@
+Header: Biome bonuses of its source weapons:
+Line: "  {0} - {1}: {2}"
+
+Effects: {
+	Fire: burning
+	Frost: frostburn and a short chill
+	Poison: poison
+	Shadow: shadowflame
+	Water: soaks (lightning hits harder)
+	Gel: oils (fire burns hotter)
+	Nature: Dryad's Bane
+	Lightning: static shock, triple on wet targets
+	Earth: cracked armor, hits ignore 8 defense
+	Holy: radiance, its contact hits deal 8% less
+	Astral: star mark, takes 6% more damage
+	Void: void drain
+	None: no effect
+}

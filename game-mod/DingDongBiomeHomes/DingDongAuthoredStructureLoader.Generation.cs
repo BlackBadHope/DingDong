@@ -36,6 +36,12 @@ public static partial class DingDongAuthoredStructureLoader
 		ClearIntersectedDoors(mod, writePlan, data.Width, data.Height, origin);
 		bool blend = BlendsWithHost(profile);
 		int repainted = 0;
+		// Item 6 (28.10): write-time subset of the plan (placement inputs unchanged)
+		// and a palette read from the host each cell is written into.
+		SceneGroundDrop drop = blend ? BuildSceneGroundDrop(data, writePlan, profile) : null;
+		HostBiomeField hostField = UsesHostPalette(profile) ? HostBiomeField.Sample(origin, data.Width, data.Height, profile.TargetBiome) : null;
+		HostPalette targetPalette = new(profile?.TargetBiome ?? HomeBiome.Forest, HostEvilKind.None);
+		int protectedMasonry = 0, pocketWalls = 0;
 		for (int x = 0; x < data.Width; x++)
 		{
 			for (int y = 0; y < data.Height; y++)
@@ -44,7 +50,24 @@ public static partial class DingDongAuthoredStructureLoader
 				Tile tile = Main.tile[origin.X + x, origin.Y + y];
 				TileTypeData tileType = ReadEntry<TileTypeData>(data.TileTypes, index);
 				WallTypeData wallType = ReadEntry<WallTypeData>(data.WallTypes, index);
-				if (writePlan.WriteTiles[index])
+				bool writeTile = writePlan.WriteTiles[index] && (drop == null || !drop.Tiles[index]);
+				bool writeWall = writePlan.WriteWalls[index] && (drop == null || !drop.Walls[index]);
+				HostPalette palette = targetPalette;
+				if (blend && (writeTile || writeWall))
+				{
+					SourceCell source = ReadSourceCell(data, index);
+					bool naturalTile = writeTile && source.HasTile && IsNaturalTerrainTile(source.TileType);
+					// The host cell is read before this cell is overwritten.
+					if (hostField != null && (naturalTile || (writeWall && source.WallType != WallID.None && IsNaturalBackgroundWall(source.WallType)) || (drop != null && drop.PocketWalls[index])))
+						palette = hostField.At(tile, origin.X + x, origin.Y + y);
+					if (naturalTile && drop != null && tile.HasTile && IsProtectedHostMasonry(tile.TileType))
+					{
+						writeTile = false;
+						if (writeWall && (source.WallType == WallID.None || IsNaturalBackgroundWall(source.WallType))) writeWall = false;
+						protectedMasonry++;
+					}
+				}
+				if (writeTile)
 				{
 					SetEntry(tile, tileType);
 					SetEntry(tile, ReadEntry<LiquidData>(data.Liquids, index));
@@ -52,19 +75,25 @@ public static partial class DingDongAuthoredStructureLoader
 					SetEntry(tile, ReadEntry<TileWallWireStateData>(data.WireState, index));
 					if (blend && tile.HasTile && IsNaturalTerrainTile(tile.TileType))
 					{
-						ushort host = HostNaturalTile(tile.TileType, profile.TargetBiome);
+						ushort host = PaletteTile(tile.TileType, palette, profile.TargetBiome);
 						if (host != tile.TileType) { tile.TileType = host; repainted++; }
 					}
 				}
 
-				if (writePlan.WriteWalls[index])
+				if (writeWall)
 				{
 					SetEntry(tile, wallType);
 					if (blend && tile.WallType != WallID.None && IsNaturalBackgroundWall(tile.WallType))
 					{
-						ushort host = HostNaturalWall(tile.WallType, profile.TargetBiome);
+						ushort host = PaletteWall(tile.WallType, palette);
 						if (host != tile.WallType) { tile.WallType = host; repainted++; }
 					}
+				}
+				// A closed wall-less cave pocket inside retained ground reads as sky.
+				if (drop != null && drop.PocketWalls[index] && writeTile && writeWall && !tile.HasTile && tile.WallType == WallID.None)
+				{
+					tile.WallType = PaletteWall(WallID.DirtUnsafe, palette);
+					pocketWalls++;
 				}
 				if (tile.HasTile && tile.TileType >= TileLoader.TileCount)
 				{
@@ -77,9 +106,11 @@ public static partial class DingDongAuthoredStructureLoader
 				}
 			}
 		}
-		int backfilled = BackfillsSupport(profile) ? BackfillSurfaceSupport(data, writePlan, origin) : 0;
-		int quenched = QuenchesLava(profile) ? QuenchAmbientLava(data, writePlan, origin, profile) : 0;
-		if (blend) mod.Logger.Info($"DINGDONG_SCENE_HOST_BLEND|preset={preset.Id}|origin={origin.X},{origin.Y}|target={profile.TargetBiome}|repainted={repainted}|backfilled={backfilled}|quenchedLava={quenched}");
+		int backfilled = BackfillsSupport(profile) ? BackfillSurfaceSupport(data, writePlan, origin, drop) : 0;
+		int quenched = QuenchesLava(profile) ? QuenchAmbientLava(data, writePlan, origin, profile, drop) : 0;
+		if (blend) mod.Logger.Info($"DINGDONG_SCENE_HOST_BLEND|preset={preset.Id}|origin={origin.X},{origin.Y}|target={profile.TargetBiome}|repainted={repainted}|backfilled={backfilled}|quenchedLava={quenched}" +
+			$"|palette={(hostField != null ? "host" : "target")}|hostCells={hostField?.HostCells ?? 0}|foreignBaseCells={hostField?.ForeignBaseCells ?? 0}|evilCells={hostField?.EvilCells ?? 0}" +
+			$"|droppedGround={drop?.DroppedGround ?? 0}|droppedAmbient={drop?.DroppedAmbient ?? 0}|droppedClearance={drop?.DroppedClearance ?? 0}|droppedFragments={drop?.DroppedFragments ?? 0}|pocketWalls={pocketWalls}|protectedMasonry={protectedMasonry}");
 		Rectangle frameBounds = writePlan.MutationBounds;
 		frameBounds.Offset(origin);
 		RegisterNativeContainer(preset, origin);

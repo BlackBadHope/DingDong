@@ -9,10 +9,11 @@ namespace DingDongBiomeHomes;
 /// <summary>
 /// Real elemental on-hit consequences for the existing persisted element tags:
 /// fire ignites, frost chills, poison poisons, shadow burns with shadowflame,
-/// water soaks and gel oils. Vanilla debuff IDs only, so NPC immunity data,
-/// Oiled/fire synergy and net sync of NPC buffs stay native. Elements without
-/// a safe vanilla consequence (lightning, earth, holy, astral, void, nature,
-/// mod) intentionally map to nothing here instead of inventing side systems.
+/// water soaks, gel oils and nature calls the vanilla Dryad's Bane. Elements
+/// without a fitting vanilla NPC debuff (lightning, earth, holy, astral, void)
+/// use small DingDong debuffs (see DamageElementalAffinityEffects.cs) that are
+/// ordinary NPC buffs too, so immunity, timers and net sync stay native.
+/// Neutral and the foreign "mod element" adapter label apply nothing.
 /// </summary>
 public static class DamageElementalStatusPolicy
 {
@@ -27,8 +28,14 @@ public static class DamageElementalStatusPolicy
 		[DamageTags.Poison] = new ElementalStatus(BuffID.Poisoned, 300, 600),
 		[DamageTags.Shadow] = new ElementalStatus(BuffID.ShadowFlame, 240, 480),
 		[DamageTags.Water] = new ElementalStatus(BuffID.Wet, 300, 600),
-		[DamageTags.Gel] = new ElementalStatus(BuffID.Oiled, 300, 600)
+		[DamageTags.Gel] = new ElementalStatus(BuffID.Oiled, 300, 600),
+		[DamageTags.Nature] = new ElementalStatus(BuffID.DryadsWardDebuff, 240, 480)
 	};
+
+	/// <summary>A refresh that would add less than this many ticks is skipped:
+	/// sustained multihit (and composite weapons applying several elements)
+	/// then sends a buff packet only when the timer meaningfully changes.</summary>
+	public const int MinRefreshGainTicks = 30;
 
 	/// <summary>Chill marker reuses the vanilla Chilled debuff id; the slow
 	/// itself is applied by <see cref="DamageElementalStatusGlobalNPC"/>.</summary>
@@ -38,8 +45,41 @@ public static class DamageElementalStatusPolicy
 	public const int ChillResistTicks = 300;
 	public const float ChillVelocityFactor = 0.82f;
 
-	public static bool TryGetStatus(string elementTag, out ElementalStatus status) =>
-		Statuses.TryGetValue(elementTag ?? string.Empty, out status);
+	public static bool TryGetStatus(string elementTag, out ElementalStatus status)
+	{
+		if (Statuses.TryGetValue(elementTag ?? string.Empty, out status))
+			return true;
+		// Mod buff ids exist only after load, so they are resolved here (a
+		// static generic lookup, no allocation) instead of in the table.
+		status = elementTag switch
+		{
+			DamageTags.Lightning => new ElementalStatus(ModContent.BuffType<StaticShockDebuff>(), 180, 360),
+			DamageTags.Earth => new ElementalStatus(ModContent.BuffType<CrackedArmorDebuff>(), 300, 600),
+			DamageTags.Holy => new ElementalStatus(ModContent.BuffType<RadianceDebuff>(), 240, 480),
+			DamageTags.Astral => new ElementalStatus(ModContent.BuffType<StarMarkDebuff>(), 240, 480),
+			DamageTags.Void => new ElementalStatus(ModContent.BuffType<VoidDrainDebuff>(), 240, 480),
+			_ => default
+		};
+		return status.BuffId > 0;
+	}
+
+	/// <summary>Localization key suffix of an element's on-hit effect text.</summary>
+	public static string EffectKey(string elementTag) => elementTag switch
+	{
+		DamageTags.Fire => "Fire",
+		DamageTags.Frost => "Frost",
+		DamageTags.Poison => "Poison",
+		DamageTags.Shadow => "Shadow",
+		DamageTags.Water => "Water",
+		DamageTags.Gel => "Gel",
+		DamageTags.Nature => "Nature",
+		DamageTags.Lightning => "Lightning",
+		DamageTags.Earth => "Earth",
+		DamageTags.Holy => "Holy",
+		DamageTags.Astral => "Astral",
+		DamageTags.Void => "Void",
+		_ => "None"
+	};
 
 	/// <summary>Targets that must never receive combat status effects.</summary>
 	public static bool IsStatusExempt(NPC npc) =>
@@ -60,7 +100,7 @@ public static class DamageElementalStatusPolicy
 		int index = npc.FindBuffIndex(buffId);
 		int remaining = index >= 0 ? npc.buffTime[index] : 0;
 		int target = Math.Min(maxRemainingTicks, remaining + durationTicks);
-		if (target > remaining)
+		if (target > remaining && (remaining <= 0 || target - remaining >= MinRefreshGainTicks))
 			npc.AddBuff(buffId, target);
 	}
 
@@ -69,11 +109,28 @@ public static class DamageElementalStatusPolicy
 	/// jungle venom and evil-biome shadowflame land together on every strike.
 	/// Each element goes through the ordinary caps and exemptions above.
 	/// </summary>
-	public static void ApplyNightsEdgeBiomes(NPC npc)
+	public static void ApplyNightsEdgeBiomes(NPC npc) => ApplyItemElements(npc, ItemID.NightsEdge, DamageTags.Shadow);
+
+	/// <summary>
+	/// The struck weapon's own element plus, for a composite weapon, the
+	/// biome element of each source weapon (<see cref="CompositeWeaponLineage"/>),
+	/// at most <see cref="CompositeWeaponLineage.MaxInheritedElements"/> statuses
+	/// per hit. Each status keeps its own caps and exemptions.
+	/// </summary>
+	public static void ApplyItemElements(NPC npc, int originItemType, string ownElement)
 	{
-		ApplyElement(npc, DamageTags.Shadow);
-		ApplyElement(npc, DamageTags.Fire);
-		ApplyElement(npc, DamageTags.Poison);
+		if (IsStatusExempt(npc))
+			return;
+		ApplyElement(npc, ownElement);
+		int applied = TryGetStatus(ownElement, out _) ? 1 : 0;
+		CompositeWeaponLineage.InheritedElement[] inherited = CompositeWeaponLineage.Get(originItemType);
+		for (int i = 0; i < inherited.Length && applied < CompositeWeaponLineage.MaxInheritedElements; i++)
+		{
+			if (string.Equals(inherited[i].Element, ownElement, StringComparison.Ordinal))
+				continue;
+			ApplyElement(npc, inherited[i].Element);
+			applied++;
+		}
 	}
 
 	public static void ApplyElement(NPC npc, string elementTag)
@@ -108,20 +165,15 @@ public sealed class DamageElementalStatusGlobalNPC : GlobalNPC
 
 	public override void OnHitByItem(NPC npc, Player player, Item item, NPC.HitInfo hit, int damageDone)
 	{
-		if (item.type == ItemID.NightsEdge)
-			DamageElementalStatusPolicy.ApplyNightsEdgeBiomes(npc);
-		else if (item.TryGetGlobalItem(out DamageAffinityGlobalItem affinity))
-			DamageElementalStatusPolicy.ApplyElement(npc, affinity.ElementTag);
+		string own = item.TryGetGlobalItem(out DamageAffinityGlobalItem affinity) ? affinity.ElementTag : DamageTags.Neutral;
+		DamageElementalStatusPolicy.ApplyItemElements(npc, item.type, own);
 	}
 
 	public override void OnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hit, int damageDone)
 	{
 		if (!projectile.TryGetGlobalProjectile(out DamageLineageGlobalProjectile lineage))
 			return;
-		if (lineage.OriginItemType == ItemID.NightsEdge)
-			DamageElementalStatusPolicy.ApplyNightsEdgeBiomes(npc);
-		else
-			DamageElementalStatusPolicy.ApplyElement(npc, lineage.ElementTag);
+		DamageElementalStatusPolicy.ApplyItemElements(npc, lineage.OriginItemType, lineage.ElementTag);
 	}
 
 	public override void PostAI(NPC npc)

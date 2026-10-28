@@ -29,6 +29,21 @@ internal static class NativeHeightCompatibilityProbe
 				Require(Hell(threshold+1)&&!Hell(threshold)&&!Hell(threshold-1),"native Hell predicate boundary version "+version);
 				Require(threshold==new[]{7010,6610,6810}[version],"saved geometry moved");
 			}
+			// Presets 28.10: geometry v2 Hell boundary at every preset height (design step 3:
+			// 4200->3860, 4800->4410, 6000->5610, 6600->6210, 7200->6810). The x10 fixture above stays.
+			// Only available presets: the native Hell patch is active only where IsContinental is
+			// (run with DINGDONG_PRESET_PREVIEW=1 to cover ram12/ram16/ram24).
+			system.LoadWorldData(new TagCompound{["nativeUnderworldGeometryVersion"]=2});
+			foreach(ContinentalWorldPreset preset in ContinentalWorldDimensions.Available)
+			{
+				Main.maxTilesX=preset.Width;Main.maxTilesY=preset.Height;
+				int expected=preset.Height switch{4200=>3860,4800=>4410,6000=>5610,6600=>6210,7200=>6810,_=>-1};
+				int presetThreshold=preset.Height-NativeHeightBoundaryPolicy.Translate(190,preset.Height,2);
+				bool PresetHell(int y)=>(bool)predicate.Invoke(receiver,new object[]{new NPCSpawnInfo{SpawnTileY=y}});
+				Require(presetThreshold==expected,"preset Hell threshold "+preset.Id);
+				Require(PresetHell(presetThreshold+1)&&!PresetHell(presetThreshold)&&!PresetHell(presetThreshold-1),"native Hell predicate boundary preset "+preset.Id);
+			}
+			Main.maxTilesX=28000;Main.maxTilesY=7200;
 			coast.LoadWorldData(new TagCompound{["CoastBoundsV1"]=new int[]{1200,2100,900,1800}});
 			Require(NativeCoastalBiomeSystem.IsOcean(1100,2000),"left deep ocean missing");
 			Require(!NativeCoastalBiomeSystem.IsOcean(1500,2000),"left inland treated as ocean");

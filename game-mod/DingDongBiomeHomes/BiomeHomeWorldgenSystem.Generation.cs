@@ -55,7 +55,10 @@ public sealed partial class BiomeHomeWorldgenSystem
 		}
 		if (!ContinentalWorldDimensions.SupportsAuthoredSettlements)
 		{
-			Mod.Logger.Warn($"Authored 61-residence generation requires at least Large dimensions; current={Main.maxTilesX}x{Main.maxTilesY}. Generation skipped without procedural fallback.");
+			// Presets 28.10 (design step 10): vanilla sizes (and unreleased presets) are skipped.
+			Mod.Logger.Warn($"DINGDONG_WORLDGEN_SETTLEMENTS|verdict=SKIPPED|reason=not-a-continental-preset|current={Main.maxTilesX}x{Main.maxTilesY}" +
+				$"|available={string.Join(",", System.Linq.Enumerable.Select(Worldgen.ContinentalWorldDimensions.Available, p => p.Id))}" +
+				". Authored 61-residence generation needs a Ding Dong world preset; generation skipped without procedural fallback.");
 			return;
 		}
 

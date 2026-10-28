@@ -27,7 +27,10 @@ public static partial class DingDongAuthoredStructureLoader
 			StructureData data = GetOrLoad(mod, preset.ResourcePath);
 			StructureWritePlan plan = GetWritePlan(data, preset.ResourcePath, profile);
 			var integrity = InspectIntegrity(mod, preset, residence.Area.Location, profile);
-			int omittedConstruction = 0, omittedNatural = 0, missingPlaced = 0, expectedPlaced = 0;
+			// Item 6 (28.10): cells the write-time subset deliberately left to the host are
+			// counted as hostKept, not as expected/missing placements.
+			SceneGroundDrop drop = BuildSceneGroundDrop(data, plan, profile);
+			int omittedConstruction = 0, omittedNatural = 0, missingPlaced = 0, expectedPlaced = 0, hostKept = 0;
 			int sourceLava = 0, actualLava = 0, unexpectedAuthoredLava = 0;
 			List<object> missingExamples = new();
 			for (int index = 0; index < data.Width * data.Height; index++)
@@ -38,9 +41,11 @@ public static partial class DingDongAuthoredStructureLoader
 				bool placedLava = observed.LiquidAmount > 0 && observed.LiquidType == 1;
 				if (rawLava) sourceLava++;
 				if (placedLava) actualLava++;
-				if (placedLava && !rawLava && plan.WriteTiles[index]) unexpectedAuthoredLava++;
+				bool leftToHost = drop != null && drop.Tiles[index];
+				if (placedLava && !rawLava && plan.WriteTiles[index] && !leftToHost) unexpectedAuthoredLava++;
 				if (!scratch.HasTile) continue;
-				if (!plan.WriteTiles[index])
+				if (plan.WriteTiles[index] && leftToHost) hostKept++;
+				else if (!plan.WriteTiles[index])
 				{
 					if (IsNaturalTerrainTile(scratch.TileType)) omittedNatural++;
 					else omittedConstruction++;
@@ -60,7 +65,7 @@ public static partial class DingDongAuthoredStructureLoader
 			var housing = AuthoredSettlementBuilder.ProbeHousing(residence.Area);
 			var housingFailures = housing.ValidRooms == 0 ? AuthoredSettlementBuilder.ExplainHousingFailures(residence.Area) : null;
 			reports.Add(new { residence.ReviewId, residence.NpcKey, preset.Id, x = residence.Area.X, y = residence.Area.Y,
-				data.Width, data.Height, omittedConstruction, omittedNatural, expectedPlaced, missingPlaced,
+				data.Width, data.Height, omittedConstruction, omittedNatural, expectedPlaced, missingPlaced, hostKept,
 				sourceLava, actualLava, unexpectedAuthoredLava, housing, housingFailures, missingExamples,
 				focus = plan.FocusBounds?.ToString(), plan.DiscardedMutationCellCount, integrity });
 			WriteSceneComparison(Path.Combine(directory, $"{residence.ReviewId:D2}-{preset.Id}.bmp"), data, plan, residence, palette);

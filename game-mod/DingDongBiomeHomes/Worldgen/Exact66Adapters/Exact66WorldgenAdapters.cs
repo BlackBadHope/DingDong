@@ -13,7 +13,9 @@ internal static class Exact66WorldgenAdapters
 	private const int FingerprintCount = 17 + 10; // Village admission/footprints and big-geode template.
 	private static bool installed;
 	internal static bool Ready => installed && Hooks.Count == RuntimeHookCount + CleanupCount;
-	internal const string Receipt = "exact66:SOTS-0.25.1.9;ThoriumMod-1.7.2.8;CalamityMod-2.2.2;x10-28000x7200";
+	// Presets 28.10: "<id>-<W>x<H>" of the current preset; ram32 stays exactly "x10-28000x7200".
+	internal static string Receipt => "exact66:SOTS-0.25.1.9;ThoriumMod-1.7.2.8;CalamityMod-2.2.2;" +
+		(ContinentalWorldDimensions.Current ?? ContinentalWorldDimensions.X10).ReceiptTag;
 	internal static bool WorldgenComplete =>
 		Ready && ContinentalWorldgenScaleReceipt.Complete &&
 		SotsWorldgenReceipt.Complete && ThoriumWorldgenReceipt.Complete &&

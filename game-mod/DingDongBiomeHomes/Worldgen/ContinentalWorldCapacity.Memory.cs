@@ -8,30 +8,33 @@ internal static partial class ContinentalWorldCapacity
 {
 	private const long GiB = 1024L * 1024L * 1024L;
 
-	internal static void AdmitClientLoad()
+	// Presets 28.10: admission uses the cells of the preset being loaded.
+	internal static void AdmitClientLoad(ContinentalWorldPreset preset)
 	{
 		if (Main.dedServ) return;
 		CompactTransientLoadGarbage();
 		var full = ContinentalMemoryBudget.ForCapacity(
-			ContinentalWorldDimensions.StorageWidth,
-			ContinentalWorldDimensions.StorageHeight, true);
-		bool tilesReady = Main.tile.Width == ContinentalWorldDimensions.StorageWidth &&
-			Main.tile.Height == ContinentalWorldDimensions.StorageHeight;
+			preset.StorageWidth,
+			preset.StorageHeight, true);
+		bool tilesReady = Main.tile.Width == preset.StorageWidth &&
+			Main.tile.Height == preset.StorageHeight;
 		// RamOpt review fix 28.10: loading uses the fast rule only (low tiers are measured
 		// for generation, not for loading or joining).
 		Admit("load-menu", new ContinentalMemoryBudget(
 			tilesReady ? 0 : full.TileBytes,
-			HasClientMapCapacity() ? 0 : full.MapBytes,
+			HasClientMapCapacity(preset.StorageWidth, preset.StorageHeight) ? 0 : full.MapBytes,
 			tilesReady ? ContinentalMemoryBudget.DeferredMapReserveBytes : full.ReserveBytes,
-			tilesReady ? 0 : full.PhysicalFloorBytes));
+			tilesReady ? 0 : full.PhysicalFloorBytes), preset);
 	}
 
-	internal static bool TryAdmitClientCreation(out string error)
+	// Presets 28.10: the menu admits the selected preset (Main.maxTiles is still the carrier).
+	internal static bool TryAdmitClientCreation(ContinentalWorldPreset preset, out string error)
 	{
 		try
 		{
 			CompactTransientLoadGarbage();
-			PreflightMemory(allocateClientMap: false, generation: true);
+			PreflightMemory(preset.StorageWidth, preset.StorageHeight,
+				allocateClientMap: false, generation: true, preset);
 			error = null;
 			return true;
 		}
@@ -45,8 +48,10 @@ internal static partial class ContinentalWorldCapacity
 		}
 	}
 
-	private static void PreflightMemory(bool allocateClientMap, bool generation)
+	private static void PreflightMemory(int storageWidth, int storageHeight,
+		bool allocateClientMap, bool generation, ContinentalWorldPreset preset = null)
 	{
+		preset ??= ContinentalWorldDimensions.Current;
 		if (!Environment.Is64BitProcess)
 			throw new PlatformNotSupportedException("Continental worlds require 64-bit tModLoader.");
 		// RamOpt review fix 28.10: a client that creates a world must also be able to
@@ -54,31 +59,39 @@ internal static partial class ContinentalWorldCapacity
 		// (otherwise "generated, but cannot enter" after 30-60 minutes).
 		bool includeMap = !Main.dedServ && (allocateClientMap || generation);
 		ContinentalMemoryBudget budget = ContinentalMemoryBudget.ForCapacity(
-			ContinentalWorldDimensions.StorageWidth,
-			ContinentalWorldDimensions.StorageHeight, includeMap);
+			storageWidth, storageHeight, includeMap);
 		// RamOpt 28.10: adaptive tiers instead of one hard threshold, but only for world
 		// generation, where the economical code and the measurement apply. Loading a
 		// world, a server load and a client joining an x10 server keep the fast rule.
 		ContinentalMemoryBudget? lowMemory = generation
 			? ContinentalMemoryBudget.ForCapacity(
-				ContinentalWorldDimensions.StorageWidth,
-				ContinentalWorldDimensions.StorageHeight, includeMap, lowMemory: true)
+				storageWidth, storageHeight, includeMap, lowMemory: true)
 			: null;
-		Admit("capacity", budget, lowMemory, generation);
+		Admit("capacity", budget, preset, lowMemory, generation);
 	}
 
-	private static void PreflightDeferredClientMap()
+	private static void PreflightDeferredClientMap(int storageWidth, int storageHeight)
 	{
 		ContinentalMemoryBudget budget = ContinentalMemoryBudget.ForDeferredMap(
-			ContinentalWorldDimensions.StorageWidth,
-			ContinentalWorldDimensions.StorageHeight);
-		Admit("deferred-map", budget);
+			storageWidth, storageHeight);
+		Admit("deferred-map", budget, ContinentalWorldDimensions.Current);
 	}
 
-	private static void Admit(string scope, ContinentalMemoryBudget budget,
+	private static void Admit(string scope, ContinentalMemoryBudget budget, ContinentalWorldPreset preset,
 		ContinentalMemoryBudget? lowMemory = null, bool generation = false)
 	{
-		ContinentalMemorySnapshot memory = ContinentalMemoryStatus.Read();
+		ContinentalMemorySnapshot memory;
+		// Presets 28.10 review fix: unreadable telemetry (non-Windows host, GlobalMemoryStatusEx
+		// failure) is a memory denial, not a generic crash: the dedicated server then prints the
+		// message and exits with ServerMemoryDeniedExitCode instead of a worldgen error that can
+		// block on Console.ReadKey, and a failed load does not trigger the backup recovery.
+		try { memory = ContinentalMemoryStatus.Read(); }
+		catch (Exception ex) when (ex is PlatformNotSupportedException or System.ComponentModel.Win32Exception)
+		{
+			DingDongBiomeHomes.Instance?.Logger.Warn(
+				$"DINGDONG_CONTINENTAL_MEMORY|verdict=DENIED|scope={scope}|generation={generation}|tier=telemetry-unavailable|reason={ex.Message}");
+			throw new ContinentalMemoryAdmissionException(ex.Message);
+		}
 		// RamOpt 28.10: fast tier = previous rule; lower tiers only where measured.
 		// Review fix: the pagefile-growth tier is opt-in (unverified on a real x10 run).
 		RamOptPagefileEstimate pagefile = !lowMemory.HasValue
@@ -86,7 +99,9 @@ internal static partial class ContinentalWorldCapacity
 			: RamOptAdmissionPolicy.PagefileTierEnabled
 				? RamOptAdmissionPolicy.EstimatePagefileGrowth(memory)
 				: new(false, 0, "disabled-default(" + RamOptAdmissionPolicy.PagefileOptInVariable + "=1 enables)");
-		RamOptAdmission decision = RamOptAdmissionPolicy.Evaluate(budget, lowMemory, memory, pagefile);
+		// Presets 28.10: denial text names the preset and the next smaller one that fits better.
+		RamOptAdmission decision = RamOptAdmissionPolicy.Evaluate(budget, lowMemory, memory, pagefile,
+			PresetLabel(preset), ContinentalWorldDimensions.NextSmaller(preset)?.Id);
 		string planes = $"{RamOptTilePlanes.AllKnownBytesPerCell(out string known)}:{known}" +
 			$"|registeredBytesPerCell={RamOptTilePlanes.RegisteredBytesPerCell(out string registered)}:{registered}";
 		if (!decision.Admitted)
@@ -113,7 +128,7 @@ internal static partial class ContinentalWorldCapacity
 			$"|commitLimit={memory.CommitLimitBytes}|planeBytesPerCell={planes}");
 		if (decision.Tier != RamOptAdmissionPolicy.FastTier)
 		{
-			string warning = $"DingDong: x10 world admitted in the slower low-memory mode (tier={decision.Tier}); " +
+			string warning = $"DingDong: {PresetLabel(preset)} world admitted in the slower low-memory mode (tier={decision.Tier}); " +
 				$"normal mode needs {decision.FastRequired / (double)GiB:F2} GiB available commit, " +
 				$"available {memory.AvailableCommitBytes / (double)GiB:F2} GiB. Generation will take longer" +
 				(decision.Tier == RamOptAdmissionPolicy.PagefileTier ? " and Windows will enlarge the page file." : ".");
@@ -121,6 +136,10 @@ internal static partial class ContinentalWorldCapacity
 			if (Main.dedServ) Console.WriteLine(warning);
 		}
 	}
+
+	// Presets 28.10: "x10" for ram32 keeps the previous texts byte-identical.
+	internal static string PresetLabel(ContinentalWorldPreset preset) =>
+		preset == null || preset.IsX10 ? "x10" : preset.Id;
 
 	private static void CompactTransientLoadGarbage()
 	{

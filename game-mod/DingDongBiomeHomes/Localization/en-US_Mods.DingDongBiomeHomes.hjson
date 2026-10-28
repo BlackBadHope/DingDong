@@ -38,11 +38,41 @@ WorldCreation: {
 
 		Close unused applications and try again. This refusal does not mean that the world is corrupt. Your world and its backups have not been changed.
 		'''
-	Name: World x10
-	Description: Continental world — 28,000 x 7,200 tiles, exactly ten Large-world areas. Requires 64-bit tModLoader and sufficient free RAM and Windows commit headroom. Memory is checked before creation.
+
+	// Presets 28.10: world presets by total PC RAM (single player). They replace Small/Medium/Large.
+	Presets: {
+		ram8: {
+			Name: 8 GB (page file required)
+			Description: Continent 14,000 x 4,200 tiles (2.9 Large-world areas). Estimated need about 10.5-12.5 GB for the whole PC in single player (estimate): an 8 GB PC needs a page file of 16 GB or more, a closed browser and patience. Host & Play needs more. Requires 64-bit tModLoader; memory is checked before creation.
+		}
+
+		ram12: {
+			Name: 12 GB
+			Description: Continent 16,800 x 4,800 tiles (4.0 Large-world areas). Estimated need about 11-13 GB for the whole PC in single player (estimate); keep a Windows page file enabled and close the browser. Host & Play (server and client on one PC) needs more. Requires 64-bit tModLoader; memory is checked before creation.
+		}
+
+		ram16: {
+			Name: 16 GB
+			Description: Continent 20,400 x 6,000 tiles (6.1 Large-world areas). Estimated need about 12-14 GB for the whole PC in single player (estimate); keep a Windows page file enabled. Host & Play (server and client on one PC) needs more. Requires 64-bit tModLoader; memory is checked before creation.
+		}
+
+		ram24: {
+			Name: 24 GB
+			Description: Continent 23,800 x 6,600 tiles (7.8 Large-world areas). Estimated need about 13-15 GB for the whole PC in single player (estimate). Host & Play (server and client on one PC) needs more. Requires 64-bit tModLoader; memory is checked before creation.
+		}
+
+		ram32: {
+			Name: 32 GB — World x10
+			Description: Continental world — 28,000 x 7,200 tiles, exactly ten Large-world areas. Requires 64-bit tModLoader and sufficient free RAM and Windows commit headroom. Memory is checked before creation. Estimated need about 14-16 GB for the whole PC in single player (estimate); Host & Play (server and client on one PC) needs a 32 GB PC.
+		}
+	}
+
+	PresetRecommended: Recommended for your PC.
+	PresetAboveRam: Warning: this preset is meant for {0} GB of RAM and this PC has {1} GiB. It stays available, but creation may be refused by the memory check or run slowly with the page file.
+	PresetResidencesUnproven: Preview: placement of all 61 residences is not yet proven on this size.
 	MemoryDenied:
 		'''
-		World x10 was not started. Your world settings are preserved.
+		{1} was not started. Your world settings are preserved.
 
 		{0}
 
@@ -1177,7 +1207,7 @@ Damage: {
 				RuleTitle: What an element does
 				RuleBody: It looks up the enemy's multiplier for that tag. For example, frost ×1.10 on a slime gives a 10% trait bonus before DingDong's final limits.
 				NoDebuffTitle: Elements and status effects
-				NoDebuffBody: Fire does not ignite, frost does not freeze, and lightning does not create a chain by itself. Such effects must come from the weapon or another mod.
+				NoDebuffBody: Every element except neutral and mod element leaves a short capped status on hit: fire burns, frost frostburns and briefly chills (never bosses), poison poisons, shadow ignites shadowflame, water soaks, gel oils, nature calls Dryad's Bane, lightning shocks (three times harder on wet targets), earth cracks armor (hits ignore 8 defense), holy radiates (4 hp/s, 8% weaker contact hits), astral marks (+6% damage taken) and void drains life. Composite weapons forged from other weapons also apply the elements of their source weapons, listed in their tooltip.
 			}
 
 			Patterns: {
@@ -1278,8 +1308,8 @@ Configs: {
 		DisplayName: Server world generation
 
 		EnableContinentalWorlds: {
-			Label: Continental world ×10
-			Tooltip: Every newly created Large world has exactly ten times the area, expanded Sahara, Arctic and Amazon regions, giant trees and a scaled dungeon. Requires 64-bit tModLoader, substantial memory and a reload.
+			Label: Continental world presets
+			Tooltip: World presets by RAM (12 / 16 / 24 / 32 GB) replace Small, Medium and Large and are always on. Emergency only: setting "RestoreVanillaWorldSizes": true in this config file while the game is closed restores the vanilla sizes without Ding Dong continental features.
 		}
 
 		GenerateAuthoredSettlements: {

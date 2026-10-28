@@ -17,3 +17,28 @@ ForestComfortBuff: {
 	DisplayName: Родной лес
 	Description: Чистый лес быстро снимает опасное воздействие климата и немного улучшает восстановление, движение и добычу.
 }
+
+StaticShockDebuff: {
+	DisplayName: Статический разряд
+	Description: Молния бежит по телу; мокрые цели проводят её втрое сильнее.
+}
+
+CrackedArmorDebuff: {
+	DisplayName: Треснувшая броня
+	Description: Удары земли раскалывают броню; удары игнорируют 8 защиты.
+}
+
+RadianceDebuff: {
+	DisplayName: Сияние
+	Description: Святой свет жжёт и слепит; контактный урон цели на 8% ниже.
+}
+
+StarMarkDebuff: {
+	DisplayName: Звёздная метка
+	Description: Астральная метка притягивает удары; цель получает на 6% больше урона.
+}
+
+VoidDrainDebuff: {
+	DisplayName: Иссушение пустотой
+	Description: Пустота распускает жизнь.
+}

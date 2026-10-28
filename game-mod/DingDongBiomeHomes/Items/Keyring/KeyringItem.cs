@@ -28,7 +28,8 @@ public sealed class KeyringItem : ModItem
 		ItemID.GoldenKey, ItemID.ShadowKey, ItemID.TempleKey, ItemID.JungleKey, ItemID.CorruptionKey, ItemID.CrimsonKey,
 		ItemID.HallowedKey, ItemID.FrozenKey, ItemID.DungeonDesertKey, ItemID.LightKey, ItemID.NightKey
 	};
-	internal readonly List<Item> Stored = new();
+	// Not readonly: base.Clone is a MemberwiseClone, so Clone must give the copy its own list.
+	internal List<Item> Stored = new();
 	public override string Texture => "DingDongBiomeHomes/Assets/Items/Keyring";
 	public override void SetStaticDefaults() { Item.ResearchUnlockCount = 1; }
 	public override void SetDefaults()
@@ -38,17 +39,35 @@ public sealed class KeyringItem : ModItem
 	public override ModItem Clone(Item newEntity)
 	{
 		var clone = (KeyringItem)base.Clone(newEntity);
-		clone.Stored.AddRange(Stored.Select(i => i.Clone()));
+		clone.Stored = Stored.Select(i => i.Clone()).ToList();
 		return clone;
 	}
 
 	internal static bool IsKey(Item item)
 	{
-		if (item == null || item.IsAir) return false;
+		if (item == null || item.IsAir || item.ModItem is KeyringItem) return false; // a ring never goes into a ring
 		if (VanillaKeys.Contains(item.type) || CrateLockpickCatalog.TryGetTier(item.type, out _)) return true;
-		string name = item.ModItem?.Name ?? "";
-		return item.ModItem != null && (name.EndsWith("Key", StringComparison.Ordinal) || name.Contains("Key", StringComparison.Ordinal) && !name.Contains("Keyboard", StringComparison.Ordinal));
+		if (item.ModItem == null || !NamedLikeKey(item.ModItem.Name)) return false;
+		// Modded fallback: only plain key-like items, never gear or blocks that merely carry "Key" in the name.
+		return item.damage <= 0 && !item.accessory && item.headSlot < 0 && item.bodySlot < 0 && item.legSlot < 0 &&
+			item.createTile < 0 && item.createWall < 0 && item.pick <= 0 && item.axe <= 0 && item.hammer <= 0 &&
+			item.ammo == AmmoID.None && item.mountType < 0 && item.shoot <= ProjectileID.None;
 	}
+
+	/// <summary>"Key" as a whole PascalCase word: GoldKey, KeyOfNight, Key_2 - not Keyblade, Keystone, Keycard, KeyringItem.</summary>
+	private static bool NamedLikeKey(string name)
+	{
+		for (int at = name.IndexOf("Key", StringComparison.Ordinal); at >= 0; at = name.IndexOf("Key", at + 1, StringComparison.Ordinal))
+		{
+			int next = at + 3;
+			if (next >= name.Length || !char.IsLower(name[next])) return true;
+		}
+		return false;
+	}
+
+	/// <summary>Two stored entries can share a stack only when they are the same item with the same data.</summary>
+	private static bool Stackable(Item into, Item from) =>
+		into.type == from.type && into.prefix == from.prefix && ItemLoader.CanStack(into, from);
 
 	internal int Count(int type) => Stored.Where(i => i.type == type).Sum(i => i.stack);
 
@@ -57,7 +76,7 @@ public sealed class KeyringItem : ModItem
 	{
 		if (!IsKey(item)) return item?.stack ?? 0;
 		int remaining = item.stack;
-		foreach (Item slot in Stored.Where(i => i.type == item.type && i.stack < i.maxStack))
+		foreach (Item slot in Stored.Where(i => i.stack < i.maxStack && Stackable(i, item)))
 		{
 			int moved = Math.Min(remaining, slot.maxStack - slot.stack);
 			slot.stack += moved; remaining -= moved;
@@ -65,23 +84,28 @@ public sealed class KeyringItem : ModItem
 		}
 		while (remaining > 0 && Stored.Count < MaxEntries)
 		{
-			Item entry = new(item.type); entry.stack = Math.Min(remaining, entry.maxStack);
+			// A real clone keeps prefix, ModItem and GlobalItem data; the stack is capped per entry.
+			Item entry = item.Clone(); entry.stack = Math.Min(remaining, Math.Max(1, entry.maxStack));
 			Stored.Add(entry); remaining -= entry.stack;
 		}
 		return remaining;
 	}
 
+	/// <summary>Takes up to <paramref name="count"/> of one stored item (a clone of the newest entry plus entries that stack with it).</summary>
 	internal Item Take(int type, int count)
 	{
-		Item result = new(type); result.stack = 0;
-		for (int i = Stored.Count - 1; i >= 0 && result.stack < count; i--)
+		Item result = null;
+		for (int i = Stored.Count - 1; i >= 0 && (result == null || result.stack < count); i--)
 		{
-			if (Stored[i].type != type) continue;
-			int moved = Math.Min(count - result.stack, Stored[i].stack);
-			Stored[i].stack -= moved; result.stack += moved;
-			if (Stored[i].stack == 0) Stored.RemoveAt(i);
+			Item entry = Stored[i];
+			if (entry.type != type) continue;
+			if (result == null) { result = entry.Clone(); result.stack = 0; count = Math.Min(count, Math.Max(1, result.maxStack)); }
+			else if (!Stackable(result, entry)) continue;
+			int moved = Math.Min(count - result.stack, entry.stack);
+			entry.stack -= moved; result.stack += moved;
+			if (entry.stack <= 0) Stored.RemoveAt(i);
 		}
-		if (result.stack == 0) result.TurnToAir();
+		if (result == null || result.stack <= 0) return new Item();
 		return result;
 	}
 
@@ -177,9 +201,14 @@ public sealed class KeyringChestSupply : GlobalTile
 		if (ring == null) return;
 		int key = KeyFor(type, Main.tile[i, j].TileFrameX);
 		if (key == 0 || player.HasItem(key) || ring.Count(key) == 0) return;
-		Item taken = ring.Take(key, 1);
-		if (taken.IsAir) return;
-		player.QuickSpawnItem(player.GetSource_Misc("DingDongKeyring"), taken, 1);
-		// vanilla finds the key in the inventory and unlocks the chest
+		// TileLoader.RightClick runs after vanilla's locked-chest block, so the ring unlocks the chest itself
+		// (same path as a vanilla key: Chest.Unlock + LockAndUnlock on clients); the next click opens it.
+		int x = i, y = j;
+		Tile tile = Main.tile[i, j];
+		if (tile.TileFrameX % 36 != 0) x--;
+		if (tile.TileFrameY % 36 != 0) y--;
+		if (!Chest.Unlock(x, y)) return; // e.g. biome chest before Plantera: the key stays in the ring
+		if (key != ItemID.ShadowKey) ring.Take(key, 1); // vanilla never consumes the shadow key
+		if (Main.netMode == NetmodeID.MultiplayerClient) NetMessage.SendData(MessageID.LockAndUnlock, -1, -1, null, player.whoAmI, 1f, x, y);
 	}
 }
