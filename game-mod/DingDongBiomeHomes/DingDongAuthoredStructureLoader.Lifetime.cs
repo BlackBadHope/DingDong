@@ -37,9 +37,13 @@ public static partial class DingDongAuthoredStructureLoader
 		return new(Cache.Count, IntegratedWritePlanCache.Count + RawWritePlanCache.Count, bytes);
 	}
 
+	private static int lastCacheHits, lastCacheLoads; // RamOpt 28.10
+
 	private static void ClearTransientCaches()
 	{
 		LastReleasedCache = InspectCacheUsage();
+		lastCacheHits = cacheHits; lastCacheLoads = cacheLoads; // RamOpt 28.10
+		cacheHits = cacheLoads = 0;
 		// Evict references; never clear shared array contents or foreign caches.
 		Cache.Clear();
 		IntegratedWritePlanCache.Clear();
@@ -50,6 +54,7 @@ public static partial class DingDongAuthoredStructureLoader
 	internal static void ReleaseIdleCaches(Mod mod, string stage)
 	{
 		if (CacheLifetime.ReleaseWhenIdle()) ReportCacheRelease(mod, stage);
+		lastCacheHits = lastCacheLoads = 0; // RamOpt 28.10: report each release once.
 	}
 
 	internal static void ReportCacheRelease(Mod mod, string stage)
@@ -58,6 +63,7 @@ public static partial class DingDongAuthoredStructureLoader
 		mod.Logger.Info($"DINGDONG_TRANSIENT_CACHE|stage={stage}|structures={LastReleasedCache.Structures}" +
 			$"|plans={LastReleasedCache.Plans}|evictedPayloadBytes={LastReleasedCache.PayloadBytes}" +
 			$"|remainingBytes={current.PayloadBytes}|activeConsumers={CacheLifetime.Consumers}" +
-			"|forcedGC=False|foreignBuffersTouched=False|reclaimedRamNotMeasured=True");
+			"|forcedGC=False|foreignBuffersTouched=False|reclaimedRamNotMeasured=True" +
+			$"|cacheHits={lastCacheHits}|cacheLoads={lastCacheLoads}"); // RamOpt 28.10
 	}
 }

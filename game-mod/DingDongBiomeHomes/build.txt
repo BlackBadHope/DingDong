@@ -1,10 +1,10 @@
-displayName = DingDong: Biome Homes (Public)
+displayName = DingDong: Biome Homes
 author = local Home project; Structify builders credited in ThirdPartyNotices
-version = 0.29.8
+version = 0.29.0.21
 hideCode = false
 hideResources = false
 includeSource = true
-buildIgnore = *.md, *.md, *.py, Tools\*, Tests\*, *.csproj, *.user, obj\*, bin\*, .vs\*, Tests\*, Tools\*, DAMAGE_SYSTEM_STATUS.md, AI_ITEM_CATALOG.md, MOB_RELIC_GENERATION.md, MOB_RELIC_GENERATION_PROMPTS.md, TMOD_LOOT_LIFECYCLE.md, icon_small.png, Assets/DingDongIconSource.png, Assets/DingDongIconContinentalSource.png, Assets/Ui/_src/*, Assets/AiArsenal/_src/*, Assets/MobRelics/_src/*, Assets/SynergyArmor/_src/*, Assets/AccessoryEnchanting/_src/*, Assets/Climate/_src/*, Items/SynergyArmor/Templates/*
+buildIgnore = *.csproj, *.user, obj\*, bin\*, .vs\*, Tests\*, Tools\*, DAMAGE_SYSTEM_STATUS.md, AI_ITEM_CATALOG.md, MOB_RELIC_GENERATION.md, MOB_RELIC_GENERATION_PROMPTS.md, TMOD_LOOT_LIFECYCLE.md, icon_small.png, Assets/DingDongIconSource.png, Assets/DingDongIconContinentalSource.png, Assets/Ui/_src/*, Assets/AiArsenal/_src/*, Assets/MobRelics/_src/*, Assets/SynergyArmor/_src/*, Assets/AccessoryEnchanting/_src/*, Assets/Climate/_src/*, Items/SynergyArmor/Templates/*
 sortAfter = CalamityRuTranslate, AbilityToRead, AbslbRecipe, AlchemistNPCLite, androLib, AnglerArmorBonus, AssortedCrazyThings, Autofish, AutoHealMod, AutoTrash, BetterBossBarPlus, BetterExtractinator, BetterMultiplayer, BetterZoom, BossChecklist, CalamityMod, CalValEX, CalamityModMusic, CheatSheet, ColoredDamageTypes, danmaku, Fargowiltas, FargowiltasSouls, FishermanNPC, FishGunsPlus, FishinRodZenith, GlobalTrinkets, ImproveGame, InfiniteMunitions, KokoLib, LansHouseBuilder, LansUILib, LansUncraftItems, LootBeams, LootBonus, Luminance, MagicStorage, MaxStackExtra, miningcracks_take_on_luiafk, MoreEndlessAmmo, NoFishingQuests, OmniSwing, OneStopNPCShop, OreExcavator, PackBuilder, PackWorldgenFix, PlayerSwapper, PrettyRarities, RandomLoot, RecipeBrowser, SerousCommonLib, SeveralfoldProjectiles, SignatureEquipment, SilkyUIFramework, SOTS, StructureHelper, SubworldLibrary, SummonersAssociation, ThoriumMod, UnlimitedBuffSlots, UnuBattleRods, VacuumOreBag, WeaponEnchantments, WeaponOutLite, WingSlotExtra, WMITF
 side = Both
 

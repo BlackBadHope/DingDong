@@ -39,7 +39,11 @@ internal sealed partial class NativePyramidProtection : ModSystem
 	public override void ClearWorld() => Reset();
 	public override void PreWorldGen() => Reset();
 	public override void Unload() => Reset();
-	private static void Reset() { cells.Clear(); captured = false; area = default; description = null; }
+	// RamOpt 28.10: TrimExcess so the ~1.5 MB x10 cell list is not kept for the whole session.
+	private static void Reset() { cells.Clear(); cells.TrimExcess(); captured = false; area = default; description = null; }
+
+	// RamOpt 28.10: the post-worldgen check is the last reader of the generation-time copy.
+	internal static void ReleaseAfterWorldgen() => Reset();
 
 	internal static void Reserve(Mod owner)
 	{

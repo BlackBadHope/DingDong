@@ -35,6 +35,7 @@ internal static class ResidenceReservationDiagnostics
 				regions = regions.Select(r => new { r.X, r.Y, r.Width, r.Height })
 			}));
 			mod.Logger.Info($"DINGDONG_RESERVATION_SNAPSHOT|regions={regions.Length}|path={path}|tilesIncluded=False");
+			regions = []; // RamOpt 28.10: written to the JSON above; nothing reads the copy later.
 		}
 		catch(Exception ex) { mod.Logger.Warn("Reservation diagnostics unavailable: " + ex.Message); }
 	}

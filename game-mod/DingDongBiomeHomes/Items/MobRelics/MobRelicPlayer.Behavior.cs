@@ -24,6 +24,8 @@ public sealed partial class MobRelicPlayer
 			equippedSets.Add(profile.Source.ContentKey, set);
 		}
 
+		if (set.IsEmpty)
+			tickSets.Add(set); // PerfOpt 28.10
 		set.Register(profile);
 		if (!providerSources.TryGetValue(profile.Source.Provider, out HashSet<string> sources))
 		{
@@ -31,6 +33,8 @@ public sealed partial class MobRelicPlayer
 			providerSources.Add(profile.Source.Provider, sources);
 		}
 
+		if (sources.Count == 0)
+			tickProviders.Add(sources); // PerfOpt 28.10
 		sources.Add(profile.Source.ContentKey);
 	}
 

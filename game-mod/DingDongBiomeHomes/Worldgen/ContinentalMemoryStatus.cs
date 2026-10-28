@@ -7,7 +7,8 @@ namespace DingDongBiomeHomes.Worldgen;
 internal readonly record struct ContinentalMemorySnapshot(
 	long TotalPhysicalBytes,
 	long AvailablePhysicalBytes,
-	long AvailableCommitBytes);
+	long AvailableCommitBytes,
+	long CommitLimitBytes = 0); // RamOpt 28.10: ullTotalPageFile (RAM + page files)
 
 internal static class ContinentalMemoryStatus
 {
@@ -26,7 +27,25 @@ internal static class ContinentalMemoryStatus
 		long total = CheckedPositive(status.TotalPhysical, "total physical memory");
 		long physical = CheckedPositive(status.AvailablePhysical, "available physical memory");
 		long commit = CheckedPositive(status.AvailablePageFile, "available commit");
-		return new(total, physical, commit);
+		long limit = status.TotalPageFile > long.MaxValue ? long.MaxValue : (long)status.TotalPageFile;
+		return Simulated(new(total, physical, commit, limit));
+	}
+
+	// RamOpt 28.10: test hook DINGDONG_RAMOPT_SIMULATE_AVAILABLE=physicalBytes,commitBytes.
+	// It can only LOWER the measured values, so it never weakens admission.
+	private static ContinentalMemorySnapshot Simulated(ContinentalMemorySnapshot real)
+	{
+		string value = Environment.GetEnvironmentVariable("DINGDONG_RAMOPT_SIMULATE_AVAILABLE");
+		if (string.IsNullOrWhiteSpace(value)) return real;
+		string[] parts = value.Split(',', StringSplitOptions.TrimEntries);
+		if (parts.Length != 2 || !long.TryParse(parts[0], out long physical) || !long.TryParse(parts[1], out long commit) ||
+			physical <= 0 || commit <= 0)
+			throw new ContinentalMemoryAdmissionException("DINGDONG_RAMOPT_SIMULATE_AVAILABLE must be physicalBytes,commitBytes.");
+		return real with
+		{
+			AvailablePhysicalBytes = Math.Min(real.AvailablePhysicalBytes, physical),
+			AvailableCommitBytes = Math.Min(real.AvailableCommitBytes, commit)
+		};
 	}
 
 	private static long CheckedPositive(ulong value, string field)
@@ -48,7 +67,7 @@ internal static class ContinentalMemoryStatus
 		private uint MemoryLoad;
 		internal ulong TotalPhysical;
 		internal ulong AvailablePhysical;
-		private ulong TotalPageFile;
+		internal ulong TotalPageFile;
 		internal ulong AvailablePageFile;
 		private ulong TotalVirtual;
 		private ulong AvailableVirtual;

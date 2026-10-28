@@ -46,6 +46,58 @@ internal static partial class ContinentalWorldHooks
 		Console.WriteLine(message + error.Message);
 		DingDongBiomeHomes.Instance.Logger.Warn(
 			"DINGDONG_SERVER_MEMORY|verdict=DENIED|backupRecovery=skipped|worldFileUnchanged=True|reason=" + error.Message);
+		// RamOpt 28.10: fail fast instead of waiting on Console.ReadKey in
+		// Main.DedServ_PostModLoad ("if (!autoShutdown) Console.ReadKey(); return;").
+		// The world-load callback continues to its native failed-load branch, which now
+		// returns at once; the process then ends with a non-zero exit code.
+		Main.autoShutdown = true;
+		Environment.ExitCode = ServerMemoryDeniedExitCode;
 		return true;
+	}
+
+	// RamOpt 28.10: distinct exit code for scripts and hosting panels.
+	internal const int ServerMemoryDeniedExitCode = 3;
+
+	private static void ExitServerAfterMemoryDenial(string scope, ContinentalMemoryAdmissionException error)
+	{
+		bool ru = Language.ActiveCulture.Name.StartsWith("ru", StringComparison.OrdinalIgnoreCase);
+		string message = ru
+			? "Недостаточно памяти для создания мира ×10 на этом сервере. Создание остановлено до выделения памяти, файл мира не записывался. "
+			: "Not enough memory to create the x10 world on this server. Creation stopped before allocation; no world file was written. ";
+		Console.WriteLine(message + error.Message);
+		DingDongBiomeHomes.Instance?.Logger.Warn(
+			$"DINGDONG_SERVER_MEMORY|verdict=DENIED|scope={scope}|worldFileWritten=False|exitCode={ServerMemoryDeniedExitCode}" +
+			"|consoleWait=skipped|reason=" + error.Message);
+		Console.Out.Flush();
+		Environment.Exit(ServerMemoryDeniedExitCode);
+	}
+
+	// RamOpt review fix 28.10: out of memory during x10 generation on a dedicated server.
+	// Unlike the admission refusal this happens after allocation. The final save of the new
+	// world runs only after GenerateWorld returns, so the world is never completed.
+	private static void ExitServerAfterGenerationOutOfMemory(OutOfMemoryException error)
+	{
+		bool ru = Language.ActiveCulture.Name.StartsWith("ru", StringComparison.OrdinalIgnoreCase);
+		string message = ru
+			? "Память закончилась во время генерации мира ×10. Генерация остановлена, мир не создан. " +
+			  "Закройте другие приложения, увеличьте файл подкачки или выберите большой мир (DINGDONG_SERVER_WORLD_SIZE=large) и повторите. "
+			: "Memory ran out during x10 world generation. Generation stopped; the world was not created. " +
+			  "Close other applications, enlarge the page file or choose a Large world (DINGDONG_SERVER_WORLD_SIZE=large) and retry. ";
+		string memory;
+		try
+		{
+			ContinentalMemorySnapshot snapshot = ContinentalMemoryStatus.Read();
+			memory = $"|physical={snapshot.AvailablePhysicalBytes}|commit={snapshot.AvailableCommitBytes}|commitLimit={snapshot.CommitLimitBytes}";
+		}
+		catch (Exception)
+		{
+			memory = "|memory=unavailable";
+		}
+		Console.WriteLine(message + error.Message);
+		DingDongBiomeHomes.Instance?.Logger.Warn(
+			$"DINGDONG_SERVER_MEMORY|verdict=OUT_OF_MEMORY|scope=generation|worldCompleted=False|exitCode={ServerMemoryDeniedExitCode}" +
+			memory + "|consoleWait=skipped|reason=" + error.Message);
+		Console.Out.Flush();
+		Environment.Exit(ServerMemoryDeniedExitCode);
 	}
 }

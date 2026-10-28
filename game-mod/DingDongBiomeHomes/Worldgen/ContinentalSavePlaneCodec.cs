@@ -25,7 +25,11 @@ internal static class ContinentalSavePlaneCodec
 	}
 
 	internal static BinaryWriter CreateEncodedWriter(Stream output) => new(
-		new GZipStream(output, CompressionLevel.Fastest, leaveOpen: true),
+		// PerfOpt 28.10: TileIO SaveData writes ~2 bytes per tile (~206M Write calls per
+		// plane at 28000x7200). Unbuffered, each call hit DeflateStream.WriteCore and a native
+		// zlib deflate (~75 ns/write -> ~15 s/plane). Encoded bytes may differ slightly
+		// (block boundaries); the decoded plane is identical.
+		new BufferedStream(new GZipStream(output, CompressionLevel.Fastest, leaveOpen: true), 1 << 20),
 		Encoding.UTF8, leaveOpen: false);
 
 	internal static BinaryWriter CreatePlainWriter(Stream output) =>

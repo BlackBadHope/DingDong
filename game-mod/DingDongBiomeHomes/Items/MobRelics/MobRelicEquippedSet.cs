@@ -18,6 +18,16 @@ internal sealed class MobRelicEquippedSet
 	private bool hasAnchor;
 	internal int DistinctTierCount { get; private set; }
 	internal MobRelicEffectProfile Anchor => anchor;
+	internal bool IsEmpty => !hasAnchor;
+
+	// PerfOpt 28.10: reused across ticks instead of reallocated by every UpdateAccessory.
+	internal void Reset()
+	{
+		tierMask = 0;
+		anchor = default;
+		hasAnchor = false;
+		DistinctTierCount = 0;
+	}
 
 	internal void Register(MobRelicEffectProfile profile)
 	{

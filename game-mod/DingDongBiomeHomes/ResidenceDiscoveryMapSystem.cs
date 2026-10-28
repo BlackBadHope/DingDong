@@ -19,6 +19,8 @@ public sealed class ResidenceDiscoveryMapSystem : ModSystem
 {
 	private static readonly Dictionary<int, int> ReviewIdByNpcType = new();
 	private static readonly Dictionary<int, int> NpcTypeByReviewId = new();
+	// PerfOpt 28.10: reused per-frame scratch list (taken/returned so re-entry stays safe).
+	private static List<NPC> hiddenScratch;
 	private delegate void OrigDrawMap(Main self, GameTime gameTime);
 	private delegate void HookDrawMap(OrigDrawMap orig, Main self, GameTime gameTime);
 	public override void Load()
@@ -66,7 +68,8 @@ public sealed class ResidenceDiscoveryMapSystem : ModSystem
 		}
 
 		ResidenceDiscoveryPlayer knowledge = Main.LocalPlayer.GetModPlayer<ResidenceDiscoveryPlayer>();
-		List<NPC> hidden = new();
+		List<NPC> hidden = hiddenScratch ?? new List<NPC>(64);
+		hiddenScratch = null;
 		try
 		{
 			for (int index = 0; index < Main.maxNPCs; index++)
@@ -87,6 +90,8 @@ public sealed class ResidenceDiscoveryMapSystem : ModSystem
 		{
 			foreach (NPC npc in hidden)
 				npc.townNPC = true;
+			hidden.Clear();
+			hiddenScratch = hidden;
 		}
 	}
 

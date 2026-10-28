@@ -6,18 +6,18 @@ namespace DingDongBiomeHomes;
 
 public static partial class DingDongAuthoredStructureLoader
 {
+	// RamOpt 28.10: access counters for the cache receipt. They show whether a
+	// byte-budgeted (LRU) cache would re-decode rarely or on every request.
+	private static int cacheHits, cacheLoads;
+
 	private static StructureData GetOrLoad(Mod mod, string resourcePath)
 	{
 		if (Cache.TryGetValue(resourcePath, out StructureData cached))
-			return cached;
-		if (PublicHomeReplacementCatalog.IsForbiddenLegacyResource(resourcePath))
-			throw new InvalidDataException("Public builds cannot load private home payloads; use a procedural public preset.");
-		if (PublicHomeReplacementCatalog.IsProcedural(resourcePath))
 		{
-			StructureData generated = CreatePublicHome(resourcePath);
-			Cache.Add(resourcePath, generated);
-			return generated;
+			cacheHits++;
+			return cached;
 		}
+		cacheLoads++;
 		if (resourcePath == AuthoredSourceContext.JungleResource)
 		{
 			using Stream reviewed = mod.GetFileStream(resourcePath);

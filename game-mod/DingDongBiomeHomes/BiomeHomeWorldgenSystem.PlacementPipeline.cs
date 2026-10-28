@@ -72,6 +72,7 @@ public sealed partial class BiomeHomeWorldgenSystem
 			out string reservationFailure))
 		{
 			SettlementWorldState.AbortGeneration();
+			foreignGuard?.Dispose(); // RamOpt 28.10: release the snapshot (or its temp file) now.
 			progress.Message = "DingDong residences withheld by StructureMap";
 			bool compiler = Worldgen.Compiler.Runtime.WorldCompilerActivation.IsActive;
 			Mod.Logger.Error($"DINGDONG_WORLDGEN_END|verdict=WITHHELD|phase=structure-reservation|failure={reservationFailure}|reserved=0/61|mutated=0|worldgenContinues={!compiler}");

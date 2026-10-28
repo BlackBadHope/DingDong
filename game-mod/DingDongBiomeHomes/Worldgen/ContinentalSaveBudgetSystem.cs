@@ -23,6 +23,7 @@ public sealed partial class ContinentalSaveBudgetSystem : ModSystem
 		ModContent.GetInstance<SpawnSanctuaryWorldgenSystem>()
 			.FinalizeBeforeSave();
 		NativePyramidProtection.Validate(Mod, "post-worldgen");
+		NativePyramidProtection.ReleaseAfterWorldgen(); // RamOpt 28.10
 	}
 
 	public override void SaveWorldData(TagCompound tag)

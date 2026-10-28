@@ -42,14 +42,16 @@ internal static partial class ContinentalWorldCapacity
 		tileAllocations = mapAllocations = 0;
 	}
 
-	internal static void Ensure(string reason, bool deferClientMap = false)
+	// RamOpt review fix 28.10: generation=true only for new-world generation; only there
+	// may the admission use the measured low-memory tier.
+	internal static void Ensure(string reason, bool deferClientMap = false, bool generation = false)
 	{
 		// Tilemap construction mutates shared TileData arrays and pinned handles.
 		// Keep the size check, admission and publication in one critical section.
-		lock (allocationGate) EnsureLocked(reason, deferClientMap);
+		lock (allocationGate) EnsureLocked(reason, deferClientMap, generation);
 	}
 
-	private static void EnsureLocked(string reason, bool deferClientMap)
+	private static void EnsureLocked(string reason, bool deferClientMap, bool generation)
 	{
 		if (!ContinentalWorldDimensions.IsContinental)
 		{
@@ -68,11 +70,46 @@ internal static partial class ContinentalWorldCapacity
 			return;
 		}
 
+		// RamOpt 28.10: shrink before growing. TileData<T>.SetLength allocates each new
+		// plane while the previous (Large, ~0.32 GiB) planes are still alive, and the
+		// admission below read commit with them charged. Release them first, compact,
+		// then admit against what is really free. Only outside gameplay (menu, server,
+		// world creation/load), where nothing else reads Main.tile; the old contents
+		// are discarded by clearWorld/load anyway.
+		int previousWidth = Main.tile.Width, previousHeight = Main.tile.Height;
+		long privateBefore = ContinentalWorldCapacity.ProcessPrivateBytes();
+		bool shrunk = (Main.dedServ || Main.gameMenu) && previousWidth > 1 && previousHeight > 1;
+		if (shrunk)
+			Main.tile = (Tilemap)tilemapConstructor.Invoke(new object[] { (ushort)1, (ushort)1 });
 		CompactTransientLoadGarbage();
-		PreflightMemory(allocateClientMap: !deferClientMap);
+		long privateShrunk = ContinentalWorldCapacity.ProcessPrivateBytes();
+		try
+		{
+			PreflightMemory(allocateClientMap: !deferClientMap, generation);
+		}
+		catch
+		{
+			// Denied (or telemetry failed): give back the previous capacity unchanged in size.
+			if (shrunk)
+				Main.tile = (Tilemap)tilemapConstructor.Invoke(new object[] { (ushort)previousWidth, (ushort)previousHeight });
+			throw;
+		}
 		ResizeCore(ContinentalWorldDimensions.StorageWidth,
 			ContinentalWorldDimensions.StorageHeight, !deferClientMap);
+		// RamOpt 28.10: direct probe of the "lazy commit" anomaly seen in S5.
+		DingDongBiomeHomes.Instance?.Logger.Info(
+			$"DINGDONG_RAMOPT_RESIZE|reason={reason}|previous={previousWidth}x{previousHeight}|shrunkFirst={shrunk}" +
+			$"|privateBefore={privateBefore}|privateAfterShrinkGc={privateShrunk}" +
+			$"|privateAfterAllocation={ContinentalWorldCapacity.ProcessPrivateBytes()}" +
+			$"|gcCommitted={GC.GetGCMemoryInfo().TotalCommittedBytes}" +
+			$"|availableCommit={ReadAvailableCommitForLog()}");
 		LogCapacity(reason);
+	}
+
+	private static long ReadAvailableCommitForLog()
+	{
+		try { return ContinentalMemoryStatus.Read().AvailableCommitBytes; }
+		catch (Exception) { return -1; }
 	}
 
 	private static void RestoreVanillaCapacity()

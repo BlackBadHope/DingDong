@@ -9,13 +9,13 @@ namespace DingDongBiomeHomes.Systems.HardLoot;
 internal static class HardLootProfileGate
 {
 	private const string OwnerName = "DingDongBiomeHomes";
-	internal const int ProfileExternalCount = 64;
+	internal const int ProfileExternalCount = 65;
 	private static readonly Version MinimumCompatibleOwnerVersion = new(0, 27, 16);
 	private static readonly HardLootArtifactIdentity[] External =
 	[
 		.. HardLootExactManifestA.Entries,
 		.. HardLootExactManifestB.Entries,
-		.. HardLootExactManifestC.Entries.Where(entry => entry.Name != "PackWorldgenFix")
+		.. HardLootExactManifestC.Entries
 	];
 
 	internal static bool Verified { get; private set; }
@@ -31,11 +31,13 @@ internal static class HardLootProfileGate
 
 	internal static void AssertExact(Mod owner)
 	{
-		bool compatibleOwnerVersion = owner.Version == new Version(0, 29, 8);
+		bool compatibleOwnerVersion = owner.Version.Major == 0 &&
+			((owner.Version.Minor == 27 && owner.Version >= MinimumCompatibleOwnerVersion) ||
+			 owner.Version.Minor == 28 || owner.Version == new Version(0, 29, 0, 1) || owner.Version == new Version(0, 29, 0, 2) || owner.Version == new Version(0, 29, 0, 3) || owner.Version == new Version(0, 29, 0, 4) || owner.Version == new Version(0, 29, 0, 5) || owner.Version == new Version(0, 29, 0, 6) || owner.Version == new Version(0, 29, 0, 8) || owner.Version == new Version(0, 29, 0, 9) || owner.Version == new Version(0, 29, 0, 10) || owner.Version == new Version(0, 29, 0, 11) || owner.Version == new Version(0, 29, 0, 12) || owner.Version == new Version(0, 29, 0, 13) || owner.Version == new Version(0, 29, 0, 14) || owner.Version == new Version(0, 29, 0, 15) || owner.Version == new Version(0, 29, 0, 16) || owner.Version == new Version(0, 29, 0, 17) || owner.Version == new Version(0, 29, 0, 18) || owner.Version == new Version(0, 29, 0, 19) || owner.Version == new Version(0, 29, 0, 20) || owner.Version == new Version(0, 29, 0, 21));
 		if (owner.Name != OwnerName || !compatibleOwnerVersion)
 			throw new InvalidOperationException(
 				$"Hard-loot owner identity changed: {owner.Name} {owner.Version}; expected {OwnerName} " +
-				$"{MinimumCompatibleOwnerVersion}, a compatible 0.27/0.28 patch release, or audited RC 0.29.0.1/0.29.0.2.");
+				$"{MinimumCompatibleOwnerVersion}, a compatible 0.27/0.28 patch release, or audited RC 0.29.0.1/0.29.0.2/0.29.0.3/0.29.0.4/0.29.0.5.");
 		if (External.Length != ProfileExternalCount)
 			throw new InvalidOperationException(
 				$"Hard-loot manifest has {External.Length} external entries; expected {ProfileExternalCount}.");

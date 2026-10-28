@@ -21,10 +21,11 @@ internal static partial class ContinentalWorldHooks
 		try
 		{
 			ContinentalWorldCapacity.Ensure("clear-world-pre-callbacks",
-				deferClientMap: creatingContinental);
+				deferClientMap: creatingContinental, generation: creatingContinental);
 		}
-		catch (ContinentalMemoryAdmissionException)
+		catch (ContinentalMemoryAdmissionException denial)
 		{
+			bool serverCreation = Main.dedServ && (WorldGen.generatingWorld || WorldGen.gen);
 			// Commit can change after the menu check. Admission runs before
 			// ResizeCore: no tiles or mod callbacks have been changed yet.
 			Main.maxTilesX = previousWidth;
@@ -33,6 +34,10 @@ internal static partial class ContinentalWorldHooks
 			WorldGen.generatingWorld = false;
 			WorldGen.gen = false;
 			ClearWorldCreationRequest();
+			// RamOpt 28.10: a dedicated server would otherwise fall through to the
+			// failed-load branch of Main.DedServ_PostModLoad and block on Console.ReadKey.
+			if (serverCreation)
+				ExitServerAfterMemoryDenial("create", denial);
 			throw; // Native worldgen error menu, not the fatal OOM handler.
 		}
 		// A genuine world clear starts a new section epoch even when the next
@@ -52,13 +57,37 @@ internal static partial class ContinentalWorldHooks
 			if (ShouldPromoteLargeWorld())
 				ApplyPresetIfLarge();
 			AssertRequestedDimensions();
-			ContinentalWorldCapacity.Ensure("worldgen-entry",
-				deferClientMap: ContinentalWorldDimensions.IsContinental);
+			try
+			{
+				ContinentalWorldCapacity.Ensure("worldgen-entry",
+					deferClientMap: ContinentalWorldDimensions.IsContinental, generation: true);
+			}
+			// RamOpt 28.10: measured on the dedicated server (RamCheck-failfast attempt 1):
+			// -autocreate generates from WorldFile.LoadWorld -> GenerateWorld, after a
+			// clearWorld that ran before promotion, so the refusal is raised here. Without
+			// this the server reaches "if (!autoShutdown) Console.ReadKey()" and blocks.
+			catch (ContinentalMemoryAdmissionException denial) when (Main.dedServ)
+			{
+				ExitServerAfterMemoryDenial("create", denial);
+				throw;
+			}
 			using var throughput = new WorldgenThroughputScope(
 				ContinentalWorldDimensions.IsContinental,
 				message => DingDongBiomeHomes.Instance.Logger.Warn(
 					"Optional worldgen GC mode unavailable: " + message));
-			orig(seed, progress);
+			try
+			{
+				orig(seed, progress);
+			}
+			// RamOpt review fix 28.10: if commit still runs out mid-generation (the gate
+			// keeps a margin, but the true in-pass peak is not measured), a dedicated
+			// server exits at once with the memory exit code instead of the fatal handler.
+			// tML's WorldGenerator rethrows the original exception (bare "throw;").
+			catch (System.OutOfMemoryException oom) when (Main.dedServ && ContinentalWorldDimensions.IsContinental)
+			{
+				ExitServerAfterGenerationOutOfMemory(oom);
+				throw;
+			}
 		}
 		finally
 		{

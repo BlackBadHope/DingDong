@@ -15,8 +15,13 @@ public sealed partial class MobRelicPlayer
 {
 	public override void ResetEffects()
 	{
-		equippedSets.Clear();
-		providerSources.Clear();
+		// PerfOpt 28.10: keep the per-source containers and empty only the ones used last tick.
+		foreach (MobRelicEquippedSet set in tickSets)
+			set.Reset();
+		tickSets.Clear();
+		foreach (HashSet<string> sources in tickProviders)
+			sources.Clear();
+		tickProviders.Clear();
 		activeProfiles.Clear();
 		echoSetSize = 0;
 		wardSetSize = 0;
@@ -43,7 +48,7 @@ public sealed partial class MobRelicPlayer
 				ApplyActiveInvocation(profile, state);
 		}
 
-		foreach (MobRelicEquippedSet set in equippedSets.Values)
+		foreach (MobRelicEquippedSet set in tickSets) // PerfOpt 28.10
 		{
 			int count = set.DistinctTierCount;
 			if (count >= MobRelicMechanics.LinkThreshold)
@@ -70,7 +75,7 @@ public sealed partial class MobRelicPlayer
 				fullConvergence = true;
 		}
 
-		foreach (HashSet<string> sources in providerSources.Values)
+		foreach (HashSet<string> sources in tickProviders) // PerfOpt 28.10
 		{
 			if (sources.Count < MobRelicMechanics.ProviderHarmonyThreshold)
 				continue;
