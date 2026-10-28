@@ -93,9 +93,16 @@ public static partial class AuthoredSettlementBuilder
 			// Vanilla scores a room as -1 when a town NPC already lives in it. After a
 			// world load the resident itself may already occupy its own residence, so
 			// the post-settling acceptance must ignore that NPC, as the housing UI does.
+			// The scored type may differ from the spawned resident's type (variants,
+			// registry aliases), so the resident is recognised by its home being inside
+			// the room found by StartRoomCheck, not by type. A second occupant still fails.
 			int ignore = -1;
 			for (int i = 0; i < Main.maxNPCs; i++)
-				if (Main.npc[i].active && Main.npc[i].townNPC && Main.npc[i].type == npcType) { ignore = i; break; }
+			{
+				NPC candidate = Main.npc[i];
+				if (!candidate.active || !candidate.townNPC || candidate.homeless) continue;
+				if (candidate.homeTileX >= WorldGen.roomX1 && candidate.homeTileX <= WorldGen.roomX2 && candidate.homeTileY >= WorldGen.roomY1 && candidate.homeTileY <= WorldGen.roomY2 + 1) { ignore = i; break; }
+			}
 			WorldGen.ScoreRoom(ignore, npcType);
 			bool valid = WorldGen.canSpawn && WorldGen.hiScore > 0;
 			failureReason = valid ? string.Empty : $"ScoreRoom canSpawn={WorldGen.canSpawn}, hiScore={WorldGen.hiScore}{DescribeOccupant(ignore)}";
