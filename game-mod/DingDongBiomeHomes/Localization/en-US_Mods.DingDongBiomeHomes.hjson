@@ -11,7 +11,7 @@ AutoUncraft: {
 	Enabled: Auto-uncraft ON ({0} rules)
 	Disabled: Auto-uncraft OFF ({0} rules)
 	ShowList: Show and edit auto-uncraft rules
-	Preview: "Dismantling {0} returns up to: {1}"
+	Preview: Dismantling {0} returns up to: {1}
 	RatioHint: The configured Lans return ratio and random rounding apply.
 	Title: Auto-uncraft ({0} rules)
 	EditHint: Add via the slot; click a listed item to remove it.
@@ -51,6 +51,16 @@ WorldCreation: {
 }
 
 Items: {
+	KeyringItem: {
+		DisplayName: Keyring
+		Tooltip:
+			'''
+			Holds every key, chest key and lockpick
+			Right-click with a key on the cursor to store it; right-click with an empty cursor to open the ring
+			Keys you pick up go straight into the ring; a locked chest takes its key from the ring
+			'''
+	}
+
 	SpiritWardTotemItem: {
 		DisplayName: Spirit Ward Totem
 		Tooltip:
@@ -538,128 +548,78 @@ Items: {
 	}
 
 	BrineBladder: {
-		DisplayName: Brine Bladder
-		Tooltip: ""
 	}
 
 	CoralClaw: {
-		DisplayName: Coral Claw
-		Tooltip: ""
 	}
 
 	GlassFin: {
-		DisplayName: Glass Fin
-		Tooltip: ""
 	}
 
 	GlassWing: {
-		DisplayName: Glass Wing
-		Tooltip: ""
 	}
 
 	GrottoBanner: {
-		DisplayName: Grotto Banner
-		Tooltip: ""
 	}
 
 	GrottoGeode: {
-		DisplayName: Grotto Geode
-		Tooltip: ""
 	}
 
 	GrottoLantern: {
-		DisplayName: Grotto Lantern
-		Tooltip: ""
 	}
 
 	HadalLens: {
-		DisplayName: Hadal Lens
-		Tooltip: ""
 	}
 
 	IslandNavigator: {
-		DisplayName: Island Navigator
-		Tooltip: ""
 	}
 
 	LuminousGel: {
-		DisplayName: Luminous Gel
-		Tooltip: ""
 	}
 
 	OceanGiantBanner: {
-		DisplayName: Ocean Giant Banner
-		Tooltip: ""
 	}
 
 	PelagicHarness: {
-		DisplayName: Pelagic Harness
-		Tooltip: ""
 	}
 
 	PelagicScale: {
-		DisplayName: Pelagic Scale
-		Tooltip: ""
 	}
 
 	PressureWard: {
-		DisplayName: Pressure Ward
-		Tooltip: ""
 	}
 
 	ReefFaunaBanner: {
-		DisplayName: Reef Fauna Banner
-		Tooltip: ""
 	}
 
 	ReefwalkerBoots: {
-		DisplayName: Reefwalker Boots
-		Tooltip: ""
 	}
 
 	RibbonGill: {
-		DisplayName: Ribbon Gill
-		Tooltip: ""
 	}
 
 	Sailbone: {
-		DisplayName: Sailbone
-		Tooltip: ""
 	}
 
 	SailboneBow: {
-		DisplayName: Sailbone Bow
-		Tooltip: ""
 	}
 
 	SaltCrystal: {
-		DisplayName: Salt Crystal
-		Tooltip: ""
 	}
 
 	SeaEssence: {
-		DisplayName: Sea Essence
-		Tooltip: ""
 	}
 
 	SiltWhisker: {
-		DisplayName: Silt Whisker
-		Tooltip: ""
 	}
 
 	SoundingPendant: {
-		DisplayName: Sounding Pendant
-		Tooltip: ""
 	}
 
 	Tidebreaker: {
-		DisplayName: Tidebreaker
-		Tooltip: ""
 	}
 
 	VentCore: {
-		DisplayName: Vent Core
-		Tooltip: ""
 	}
 }
 
@@ -733,9 +693,7 @@ MobRelics: {
 	}
 }
 
-SpiritWard: {
-	MapEntry: Spirit ward totem
-}
+SpiritWard.MapEntry: Spirit ward totem
 
 ResidenceFlag: {
 	MapEntry: NPC home flag
@@ -1733,4 +1691,11 @@ SynergyArmor: {
 		SynergyArmor_LegendaryBellArchitect_Body: ""
 		SynergyArmor_LegendaryBellArchitect_Legs: ""
 	}
+}
+
+Keyring: {
+	Title: Keyring: {0} kinds, {1} keys
+	Count: Holds {0} kinds, {1} keys (up to {2} stacks)
+	TakeHint: Click: take one. Shift+click: take the stack
+	NotAKey: That is not a key or a lockpick
 }

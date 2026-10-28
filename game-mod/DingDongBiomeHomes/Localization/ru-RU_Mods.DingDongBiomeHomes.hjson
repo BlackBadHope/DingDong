@@ -11,7 +11,7 @@ AutoUncraft: {
 	Enabled: Авторазборка ВКЛ ({0} правил)
 	Disabled: Авторазборка ВЫКЛ ({0} правил)
 	ShowList: Показать и изменить список авторазборки
-	Preview: "Разбор {0} вернёт до: {1}"
+	Preview: Разбор {0} вернёт до: {1}
 	RatioHint: Применяется коэффициент возврата Lans и случайное округление.
 	Title: Авторазборка ({0} правил)
 	EditHint: Добавьте через слот; нажмите на предмет в списке, чтобы убрать.
@@ -51,6 +51,16 @@ WorldCreation: {
 }
 
 Items: {
+	KeyringItem: {
+		DisplayName: Связка ключей
+		Tooltip:
+			'''
+			Хранит все ключи, ключи от сундуков и отмычки
+			ПКМ с ключом на курсоре — положить; ПКМ с пустым курсором — открыть связку
+			Подобранные ключи сразу попадают в связку; запертый сундук берёт ключ из связки
+			'''
+	}
+
 	SpiritWardTotemItem: {
 		DisplayName: Тотем против духов
 		Tooltip:
@@ -538,128 +548,78 @@ Items: {
 	}
 
 	BrineBladder: {
-		// DisplayName: Brine Bladder
-		// Tooltip: ""
 	}
 
 	CoralClaw: {
-		// DisplayName: Coral Claw
-		// Tooltip: ""
 	}
 
 	GlassFin: {
-		// DisplayName: Glass Fin
-		// Tooltip: ""
 	}
 
 	GlassWing: {
-		// DisplayName: Glass Wing
-		// Tooltip: ""
 	}
 
 	GrottoBanner: {
-		// DisplayName: Grotto Banner
-		// Tooltip: ""
 	}
 
 	GrottoGeode: {
-		// DisplayName: Grotto Geode
-		// Tooltip: ""
 	}
 
 	GrottoLantern: {
-		// DisplayName: Grotto Lantern
-		// Tooltip: ""
 	}
 
 	HadalLens: {
-		// DisplayName: Hadal Lens
-		// Tooltip: ""
 	}
 
 	IslandNavigator: {
-		// DisplayName: Island Navigator
-		// Tooltip: ""
 	}
 
 	LuminousGel: {
-		// DisplayName: Luminous Gel
-		// Tooltip: ""
 	}
 
 	OceanGiantBanner: {
-		// DisplayName: Ocean Giant Banner
-		// Tooltip: ""
 	}
 
 	PelagicHarness: {
-		// DisplayName: Pelagic Harness
-		// Tooltip: ""
 	}
 
 	PelagicScale: {
-		// DisplayName: Pelagic Scale
-		// Tooltip: ""
 	}
 
 	PressureWard: {
-		// DisplayName: Pressure Ward
-		// Tooltip: ""
 	}
 
 	ReefFaunaBanner: {
-		// DisplayName: Reef Fauna Banner
-		// Tooltip: ""
 	}
 
 	ReefwalkerBoots: {
-		// DisplayName: Reefwalker Boots
-		// Tooltip: ""
 	}
 
 	RibbonGill: {
-		// DisplayName: Ribbon Gill
-		// Tooltip: ""
 	}
 
 	Sailbone: {
-		// DisplayName: Sailbone
-		// Tooltip: ""
 	}
 
 	SailboneBow: {
-		// DisplayName: Sailbone Bow
-		// Tooltip: ""
 	}
 
 	SaltCrystal: {
-		// DisplayName: Salt Crystal
-		// Tooltip: ""
 	}
 
 	SeaEssence: {
-		// DisplayName: Sea Essence
-		// Tooltip: ""
 	}
 
 	SiltWhisker: {
-		// DisplayName: Silt Whisker
-		// Tooltip: ""
 	}
 
 	SoundingPendant: {
-		// DisplayName: Sounding Pendant
-		// Tooltip: ""
 	}
 
 	Tidebreaker: {
-		// DisplayName: Tidebreaker
-		// Tooltip: ""
 	}
 
 	VentCore: {
-		// DisplayName: Vent Core
-		// Tooltip: ""
 	}
 }
 
@@ -733,9 +693,7 @@ MobRelics: {
 	}
 }
 
-SpiritWard: {
-	MapEntry: Тотем против духов
-}
+SpiritWard.MapEntry: Тотем против духов
 
 ResidenceFlag: {
 	MapEntry: Флаг дома NPC
@@ -1733,4 +1691,11 @@ SynergyArmor: {
 		SynergyArmor_LegendaryBellArchitect_Body: ""
 		SynergyArmor_LegendaryBellArchitect_Legs: ""
 	}
+}
+
+Keyring: {
+	Title: Связка ключей: {0} видов, {1} шт.
+	Count: Внутри: {0} видов, {1} шт. (до {2} стопок)
+	TakeHint: ЛКМ — взять один, Shift+ЛКМ — всю стопку
+	NotAKey: Это не ключ и не отмычка
 }

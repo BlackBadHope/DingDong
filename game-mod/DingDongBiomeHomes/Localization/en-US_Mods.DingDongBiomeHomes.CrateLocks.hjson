@@ -1,0 +1,42 @@
+Requires: Locked: needs a lockpick in your inventory (wooden crates open freely).
+Chance: Your {0} opens it with a {1}% chance; a failed attempt breaks the crate.
+Broke: The {0} broke under the lockpick ({1}% chance).
+Unlocked: The grand lockpick opened the lock.
+
+Items: {
+	ApprenticeCrateLockpick: {
+		DisplayName: Apprentice lockpick
+		Tooltip:
+			'''
+			Opens fished crates with a 25% chance. Never consumed; a failed attempt breaks the crate.
+			Crafted from a relic of King Slime, the Eye of Cthulhu, the Eater of Worlds or the Brain of Cthulhu.
+			'''
+	}
+
+	JourneymanCrateLockpick: {
+		DisplayName: Journeyman lockpick
+		Tooltip:
+			'''
+			Opens fished crates with a 50% chance. Never consumed; a failed attempt breaks the crate.
+			Crafted from a relic of any mechanical boss.
+			'''
+	}
+
+	MasterCrateLockpick: {
+		DisplayName: Master lockpick
+		Tooltip:
+			'''
+			Opens fished crates with a 75% chance. Never consumed; a failed attempt breaks the crate.
+			Crafted from the Golem relic.
+			'''
+	}
+
+	GrandCrateLockpick: {
+		DisplayName: Grand lockpick
+		Tooltip:
+			'''
+			Opens every fished crate and every locked chest, biome chests of the dungeon included. Never consumed.
+			Crafted from the Moon Lord relic.
+			'''
+	}
+}

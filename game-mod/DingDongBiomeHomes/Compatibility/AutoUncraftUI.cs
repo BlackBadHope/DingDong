@@ -61,9 +61,15 @@ public sealed class AutoUncraftUI : ModSystem
     else Utils.DrawBorderString(batch, "[i:" + ItemID.WoodenHammer + "]", slot.TopLeft() + new Vector2(6, 5), Color.White * .7f, .8f);
    }
    if (Hovered(slot)) {
-    Main.HoverItem = items[0].Clone();
+    // Owner 28.10 04:38: the preview never showed. With an item in the slot the
+    // vanilla mouse text drew that item's own tooltip instead of our hover text,
+    // so the slot item is no longer handed to Main.HoverItem; the preview is shown
+    // for the cursor item, or for the slot item when the cursor is empty.
+    Main.HoverItem = new Item();
     Main.hoverItemName = Text(trash ? "TrashSlotHint" : "SlotHint");
-    if (!trash && !Main.mouseItem.IsAir) Main.hoverItemName += "\n" + Preview(Main.mouseItem);
+    Item previewed = !Main.mouseItem.IsAir ? Main.mouseItem : items[0];
+    if (!trash && !previewed.IsAir) Main.hoverItemName += "\n" + Preview(previewed);
+    else if (trash && !items[0].IsAir) Main.hoverItemName += "\n" + items[0].Name + " ×" + items[0].stack;
     if (Main.mouseLeft && Main.mouseLeftRelease) {
      if (trash) AutoTrashSlot.Click(Main.LocalPlayer);
      else TransferUncraft(player, false);

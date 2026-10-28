@@ -13,7 +13,10 @@ public static partial class DingDongAuthoredStructureLoader
 	// Scene crops carry the biome of the construction world they were cut from.
 	// Hallow or evil ground dropped onto a fresh purity surface reads as a painted
 	// rectangle on the map, so retained natural terrain takes the host palette.
-	private static ushort HostNaturalTile(ushort type, HomeBiome target) => type switch
+	private static ushort HostNaturalTile(ushort type, HomeBiome target) => BiomePalette(Purify(type, target), target);
+
+	// Step 1: hallow and evil ground becomes its purity equivalent.
+	private static ushort Purify(ushort type, HomeBiome target) => type switch
 	{
 		TileID.Pearlstone or TileID.Ebonstone or TileID.Crimstone => TileID.Stone,
 		TileID.HallowedGrass or TileID.CorruptGrass or TileID.CrimsonGrass => TileID.Grass,
@@ -25,7 +28,62 @@ public static partial class DingDongAuthoredStructureLoader
 		_ => type
 	};
 
-	private static ushort HostNaturalWall(ushort type, HomeBiome target) => type switch
+	// Step 2 (owner item 6 / WORLDGEN-ISSUES E, 28.10): the retained natural ground of a
+	// scene takes the palette of the biome it is deployed in, so a snow castle no longer
+	// carries a grey stone-and-dirt rectangle into the snow and a jungle manor no longer
+	// sits on a forest-dirt block. Only the plain natural materials are swapped; ores,
+	// bricks and furniture are never touched (IsNaturalTerrainTile gates the call).
+	private static ushort BiomePalette(ushort type, HomeBiome target) => target switch
+	{
+		HomeBiome.Snow => type switch
+		{
+			TileID.Dirt or TileID.Grass or TileID.Mud or TileID.JungleGrass or TileID.Sand or TileID.HardenedSand => TileID.SnowBlock,
+			TileID.Stone or TileID.Sandstone => TileID.IceBlock,
+			_ => type
+		},
+		HomeBiome.Desert => type switch
+		{
+			TileID.Grass or TileID.JungleGrass or TileID.SnowBlock => TileID.Sand,
+			TileID.Dirt or TileID.Mud => TileID.HardenedSand,
+			TileID.Stone or TileID.IceBlock => TileID.Sandstone,
+			_ => type
+		},
+		HomeBiome.Jungle => type switch
+		{
+			TileID.Dirt or TileID.SnowBlock or TileID.Sand or TileID.HardenedSand => TileID.Mud,
+			TileID.Grass => TileID.JungleGrass,
+			TileID.IceBlock or TileID.Sandstone => TileID.Stone,
+			_ => type
+		},
+		HomeBiome.Ocean => type switch
+		{
+			TileID.Dirt or TileID.Grass or TileID.Mud or TileID.JungleGrass or TileID.SnowBlock => TileID.Sand,
+			TileID.IceBlock => TileID.Sandstone,
+			_ => type
+		},
+		HomeBiome.Underworld => type switch
+		{
+			TileID.Dirt or TileID.Grass or TileID.Mud or TileID.JungleGrass or TileID.SnowBlock or TileID.Sand or TileID.HardenedSand => TileID.Ash,
+			TileID.IceBlock or TileID.Sandstone => TileID.Stone,
+			_ => type
+		},
+		HomeBiome.Mushroom => type switch
+		{
+			TileID.Dirt or TileID.SnowBlock or TileID.Sand => TileID.Mud,
+			TileID.Grass or TileID.JungleGrass => TileID.MushroomGrass,
+			_ => type
+		},
+		// Forest, Hallow (purity surface before hardmode) and Underground lore homes: forest palette.
+		_ => type switch
+		{
+			TileID.SnowBlock or TileID.Mud or TileID.Sand or TileID.HardenedSand => TileID.Dirt,
+			TileID.JungleGrass => TileID.Grass,
+			TileID.IceBlock or TileID.Sandstone => TileID.Stone,
+			_ => type
+		}
+	};
+
+	private static ushort HostNaturalWall(ushort type, HomeBiome target) => WallPalette(type switch
 	{
 		WallID.HallowedGrassUnsafe or WallID.CorruptGrassUnsafe or WallID.CrimsonGrassUnsafe => WallID.GrassUnsafe,
 		WallID.PearlstoneBrickUnsafe or WallID.EbonstoneUnsafe or WallID.CrimstoneUnsafe => WallID.Stone,
@@ -33,6 +91,41 @@ public static partial class DingDongAuthoredStructureLoader
 		WallID.HallowSandstone or WallID.CorruptSandstone or WallID.CrimsonSandstone => WallID.Sandstone,
 		WallID.MushroomUnsafe when target != HomeBiome.Mushroom => WallID.GrassUnsafe,
 		_ => type
+	}, target);
+
+	private static ushort WallPalette(ushort type, HomeBiome target) => target switch
+	{
+		HomeBiome.Snow => type switch
+		{
+			WallID.DirtUnsafe or WallID.GrassUnsafe or WallID.MudUnsafe or WallID.JungleUnsafe or WallID.HardenedSand => WallID.SnowWallUnsafe,
+			WallID.Sandstone => WallID.IceUnsafe,
+			_ => type
+		},
+		HomeBiome.Desert => type switch
+		{
+			WallID.DirtUnsafe or WallID.GrassUnsafe or WallID.MudUnsafe or WallID.JungleUnsafe or WallID.SnowWallUnsafe => WallID.HardenedSand,
+			WallID.IceUnsafe => WallID.Sandstone,
+			_ => type
+		},
+		HomeBiome.Jungle => type switch
+		{
+			WallID.DirtUnsafe or WallID.SnowWallUnsafe or WallID.HardenedSand => WallID.MudUnsafe,
+			WallID.GrassUnsafe => WallID.JungleUnsafe,
+			_ => type
+		},
+		HomeBiome.Ocean => type switch
+		{
+			WallID.DirtUnsafe or WallID.GrassUnsafe or WallID.MudUnsafe or WallID.JungleUnsafe or WallID.SnowWallUnsafe => WallID.HardenedSand,
+			_ => type
+		},
+		HomeBiome.Underworld or HomeBiome.Mushroom => type,
+		_ => type switch
+		{
+			WallID.SnowWallUnsafe or WallID.MudUnsafe or WallID.HardenedSand => WallID.DirtUnsafe,
+			WallID.JungleUnsafe => WallID.GrassUnsafe,
+			WallID.IceUnsafe or WallID.Sandstone => WallID.Stone,
+			_ => type
+		}
 	};
 
 	private static bool BlendsWithHost(AuthoredDeploymentProfile profile) => profile != null &&
