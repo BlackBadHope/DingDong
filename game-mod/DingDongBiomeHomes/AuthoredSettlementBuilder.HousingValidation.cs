@@ -62,6 +62,18 @@ public static partial class AuthoredSettlementBuilder
 		return false;
 	}
 
+	private static string DescribeOccupant(int ignore)
+	{
+		for (int i = 0; i < Main.maxNPCs; i++)
+		{
+			NPC npc = Main.npc[i];
+			if (i == ignore || !npc.active || !npc.townNPC || npc.homeless) continue;
+			if (npc.homeTileX >= WorldGen.roomX1 && npc.homeTileX <= WorldGen.roomX2 && npc.homeTileY >= WorldGen.roomY1 && npc.homeTileY <= WorldGen.roomY2 + 1)
+				return $", occupant={npc.TypeName}#{i}@{npc.homeTileX},{npc.homeTileY}";
+		}
+		return string.Empty;
+	}
+
 	private static bool ValidateHousing(Point point, int npcType, out string failureReason)
 	{
 		try
@@ -78,9 +90,15 @@ public static partial class AuthoredSettlementBuilder
 				return false;
 			}
 
-			WorldGen.ScoreRoom(-1, npcType);
+			// Vanilla scores a room as -1 when a town NPC already lives in it. After a
+			// world load the resident itself may already occupy its own residence, so
+			// the post-settling acceptance must ignore that NPC, as the housing UI does.
+			int ignore = -1;
+			for (int i = 0; i < Main.maxNPCs; i++)
+				if (Main.npc[i].active && Main.npc[i].townNPC && Main.npc[i].type == npcType) { ignore = i; break; }
+			WorldGen.ScoreRoom(ignore, npcType);
 			bool valid = WorldGen.canSpawn && WorldGen.hiScore > 0;
-			failureReason = valid ? string.Empty : $"ScoreRoom canSpawn={WorldGen.canSpawn}, hiScore={WorldGen.hiScore}";
+			failureReason = valid ? string.Empty : $"ScoreRoom canSpawn={WorldGen.canSpawn}, hiScore={WorldGen.hiScore}{DescribeOccupant(ignore)}";
 			return valid;
 		}
 		catch (Exception exception)
