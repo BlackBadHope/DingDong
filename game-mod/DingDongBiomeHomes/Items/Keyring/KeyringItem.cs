@@ -164,7 +164,8 @@ public sealed class KeyringChestSupply : GlobalTile
 	private static int KeyFor(int type, int frameX)
 	{
 		int column = frameX / 36;
-		if (type == TileID.Containers) return column switch { 2 => ItemID.GoldenKey, 4 => ItemID.ShadowKey, 23 => ItemID.JungleKey, 24 => ItemID.CorruptionKey, 25 => ItemID.CrimsonKey, 26 => ItemID.HallowedKey, 27 => ItemID.FrozenKey, _ => 0 };
+		if (type == TileID.Containers) return column switch { 2 or 36 or 38 or 40 => ItemID.GoldenKey, // S6: locked green/pink/blue dungeon chests open with the golden key too
+			 4 => ItemID.ShadowKey, 23 => ItemID.JungleKey, 24 => ItemID.CorruptionKey, 25 => ItemID.CrimsonKey, 26 => ItemID.HallowedKey, 27 => ItemID.FrozenKey, _ => 0 };
 		if (type == TileID.Containers2) return column == 13 ? ItemID.DungeonDesertKey : 0;
 		return 0;
 	}

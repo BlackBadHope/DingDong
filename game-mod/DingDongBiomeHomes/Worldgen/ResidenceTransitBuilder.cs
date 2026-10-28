@@ -33,9 +33,9 @@ internal static class ResidenceTransitBuilder
 		int floorY = MetroFloorY();
 		Rectangle[] reservations = ForeignStructureIntegrityGuard.ReadReservations();
 		(int trackCells, int leftEnd, int rightEnd, int skipped, int metroFramed) = CarveMetro(floorY, reservations);
-		int shaftX = ShaftColumn(out string shaftOrigin);
-		(int shaftTop, int shaftBottom, int shaftCells, int shaftSkipped, int lavaCleared, int shaftFramed) = CarveShaft(shaftX, floorY, reservations);
-		mod.Logger.Info($"DINGDONG_TRANSIT|verdict=PASS|metroY={floorY}|left={leftEnd}|right={rightEnd}|trackCells={trackCells}|metroSkippedColumns={skipped}|metroFramed={metroFramed}|shaftX={shaftX}|shaftOrigin={shaftOrigin}|shaftTop={shaftTop}|shaftBottom={shaftBottom}|shaftCells={shaftCells}|shaftSkippedRows={shaftSkipped}|shaftFramed={shaftFramed}|lavaCleared={lavaCleared}|protectedRegions={reservations.Length}");
+		int shaftX = ShaftColumn(out string shaftOrigin, out int groundHint);
+		(int shaftTop, int shaftBottom, int shaftCells, int shaftSkipped, int lavaCleared, int shaftFramed) = CarveShaft(shaftX, floorY, groundHint, reservations);
+		mod.Logger.Info($"DINGDONG_TRANSIT|verdict=PASS|groundHint={groundHint}|metroY={floorY}|left={leftEnd}|right={rightEnd}|trackCells={trackCells}|metroSkippedColumns={skipped}|metroFramed={metroFramed}|shaftX={shaftX}|shaftOrigin={shaftOrigin}|shaftTop={shaftTop}|shaftBottom={shaftBottom}|shaftCells={shaftCells}|shaftSkippedRows={shaftSkipped}|shaftFramed={shaftFramed}|lavaCleared={lavaCleared}|protectedRegions={reservations.Length}");
 	}
 
 	/// <summary>
@@ -89,15 +89,17 @@ internal static class ResidenceTransitBuilder
 		}
 	}
 
-	private static int ShaftColumn(out string origin)
+	private static int ShaftColumn(out string origin, out int groundHint)
 	{
 		var sanctuary = ModContent.GetInstance<SpawnSanctuaryWorldgenSystem>().PlannedSanctuary;
 		if (sanctuary.HasValue)
 		{
 			origin = "sanctuary";
+			groundHint = sanctuary.Value.FloorY;
 			return Math.Clamp(sanctuary.Value.SafeArea.Right + ShaftOffsetFromSanctuary, 40, Main.maxTilesX - 40);
 		}
 		origin = "spawn";
+		groundHint = Main.spawnTileY;
 		return Math.Clamp(Main.spawnTileX + 20, 40, Main.maxTilesX - 40);
 	}
 
@@ -163,9 +165,9 @@ internal static class ResidenceTransitBuilder
 		return last;
 	}
 
-	private static (int Top, int Bottom, int Cells, int Skipped, int LavaCleared, int Framed) CarveShaft(int x, int metroFloorY, Rectangle[] reservations)
+	private static (int Top, int Bottom, int Cells, int Skipped, int LavaCleared, int Framed) CarveShaft(int x, int metroFloorY, int groundHint, Rectangle[] reservations)
 	{
-		int top = SurfaceAt(x);
+		int top = SurfaceAt(x, groundHint);
 		int bottom = Main.maxTilesY - 200 - ShaftBottomAboveUnderworld; // vanilla underworld starts at maxTilesY-200
 		int cells = 0, skipped = 0, lava = 0;
 		var band = new ProtectionBand(new Rectangle(x - ShaftHalfWidth - 3, 0, 2 * ShaftHalfWidth + 7, Main.maxTilesY), reservations);
@@ -220,26 +222,28 @@ internal static class ResidenceTransitBuilder
 		return true;
 	}
 
-	// The ground surface, not a cloud or sky island: the first solid cell with mostly
-	// solid ground under it for sixty rows. S3 started a shaft at y=79 (a cloud), S4 at
-	// y=100 (an island thicker than the dozen rows checked then); no island is sixty deep.
-	private static int SurfaceAt(int x)
+	// The ground surface next to the sanctuary, not a cloud or sky island. S3 started
+	// the shaft at y=79 (a cloud) and S4/S5 at y=79..100 (islands thick enough for any
+	// density test). S6: the shaft stands six tiles beside the sanctuary, so its ground
+	// is near the sanctuary floor — start the search a little above that floor (hills)
+	// and take the first solid, non-cloud tile with ground under it.
+	internal const int GroundSearchAboveHint = 60;
+	private static int SurfaceAt(int x, int groundHint)
 	{
-		const int GroundDepth = 60, RequiredSolid = 36;
-		for (int y = 40; y < Main.maxTilesY - 300; y++)
+		const int GroundDepth = 12;
+		int start = Math.Clamp(groundHint - GroundSearchAboveHint, 40, Main.maxTilesY - 400);
+		for (int y = start; y < Main.maxTilesY - 300; y++)
 		{
 			Tile t = Main.tile[x, y];
-			if (!t.HasTile || !Main.tileSolid[t.TileType]) continue;
+			if (!t.HasTile || !Main.tileSolid[t.TileType] || t.TileType is TileID.Cloud or TileID.RainCloud or TileID.SnowCloud) continue;
 			int solid = 0;
 			for (int d = 1; d <= GroundDepth; d++)
 			{
 				Tile below = Main.tile[x, y + d];
 				if (below.HasTile && Main.tileSolid[below.TileType]) solid++;
 			}
-			if (solid >= RequiredSolid) return y;
-			// Skip past this floating thing: continue from its first air cell below.
-			while (y < Main.maxTilesY - 300 && Main.tile[x, y].HasTile && Main.tileSolid[Main.tile[x, y].TileType]) y++;
+			if (solid >= GroundDepth / 2) return y;
 		}
-		return (int)Main.worldSurface;
+		return Math.Clamp(groundHint, 40, Main.maxTilesY - 400);
 	}
 }

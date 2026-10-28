@@ -42,6 +42,10 @@ public sealed class ResidenceQuestMapLayer : ModMapLayer
 		// Several residents often point at the same authored home or city. Stacked
 		// rings there became one unreadable blot, so nearby targets share a marker
 		// and the hover text lists every objective behind it.
+		// S6 (owner item G): the merge distance follows the zoom. A fixed 40 tiles
+		// is a few pixels on a zoomed-out x10 map, so pins 50..200 tiles apart still
+		// melted into one blot; merge whatever would sit closer than MergePixels.
+		int mergeTiles = MergeDistanceForZoom();
 		var groups = new List<TargetGroup>();
 		foreach ((string npcKey, ResidentQuestProgress progress) in
 			player.GetModPlayer<NpcQuestPlayer>().CurrentActiveRecords())
@@ -59,7 +63,7 @@ public sealed class ResidenceQuestMapLayer : ModMapLayer
 			foreach (TargetGroup candidate in groups)
 			{
 				int dx = candidate.Target.X - target.X, dy = candidate.Target.Y - target.Y;
-				if (dx * dx + dy * dy <= MergeDistanceTiles * MergeDistanceTiles) { group = candidate; break; }
+				if (dx * dx + dy * dy <= mergeTiles * mergeTiles) { group = candidate; break; }
 			}
 			if (group == null) groups.Add(group = new TargetGroup(target));
 			group.RadiusTiles = Math.Max(group.RadiusTiles, radiusTiles);
@@ -68,13 +72,42 @@ public sealed class ResidenceQuestMapLayer : ModMapLayer
 
 		foreach (TargetGroup group in groups)
 		{
-			bool hovered = DrawDottedRing(ref context, group.Target, group.RadiusTiles, SearchColor);
-			hovered |= DrawTargetCross(ref context, group.Target, group.RadiusTiles);
+			// A town NPC head under the pin was hidden by it; lift the marker one merge
+			// step above the head so both stay readable (the hover text is unchanged).
+			Point drawAt = TownHeadNear(group.Target, mergeTiles)
+				? new Point(group.Target.X, Math.Max(0, group.Target.Y - mergeTiles))
+				: group.Target;
+			bool hovered = DrawDottedRing(ref context, drawAt, group.RadiusTiles, SearchColor);
+			hovered |= DrawTargetCross(ref context, drawAt, group.RadiusTiles);
 			if (hovered) text = string.Join("\n", group.Labels);
 		}
 	}
 
 	private const int MergeDistanceTiles = 40;
+	private const float MergePixels = 22f;
+
+	/// <summary>Merge distance in tiles for the map mode being drawn (fullscreen, minimap or overlay).</summary>
+	internal static int MergeDistanceForZoom()
+	{
+		float pixelsPerTile = Main.mapFullscreen ? Main.mapFullscreenScale
+			: Main.mapStyle == 1 ? Main.mapMinimapScale
+			: Main.mapOverlayScale;
+		if (!(pixelsPerTile > 0.01f)) return MergeDistanceTiles;
+		return Math.Clamp((int)MathF.Ceiling(MergePixels / pixelsPerTile), MergeDistanceTiles, 2000);
+	}
+
+	private static bool TownHeadNear(Point target, int tiles)
+	{
+		long limit = (long)tiles * tiles;
+		foreach (NPC npc in Main.ActiveNPCs)
+		{
+			if (!npc.townNPC) continue;
+			Point head = npc.Center.ToTileCoordinates();
+			long dx = head.X - target.X, dy = head.Y - target.Y;
+			if (dx * dx + dy * dy <= limit) return true;
+		}
+		return false;
+	}
 
 	private sealed class TargetGroup
 	{

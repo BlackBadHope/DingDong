@@ -97,6 +97,6 @@ public sealed class GrandLockpickChestUnlock : GlobalTile
         if (!Chest.Unlock(x, y)) return;
         if (Main.netMode == NetmodeID.MultiplayerClient) NetMessage.SendData(MessageID.LockAndUnlock, -1, -1, null, player.whoAmI, 1f, x, y);
         Main.NewText(Language.GetTextValue("Mods.DingDongBiomeHomes.CrateLocks.Unlocked"), new Color(151, 218, 160));
-        // vanilla then opens the (now unlocked) chest as usual
+        // Like a vanilla key: this click unlocks (TileLoader.RightClick runs after the chest block), the next one opens.
     }
 }
