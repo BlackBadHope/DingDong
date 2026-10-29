@@ -39,7 +39,7 @@ public sealed class FullClientLoadProbe : ModSystem
 		if (string.IsNullOrEmpty(enabledPath) || string.IsNullOrEmpty(output)) throw new InvalidOperationException("Explicit client probe paths required.");
 		string[] expected = JsonSerializer.Deserialize<string[]>(File.ReadAllText(enabledPath));
 		string[] missing = expected.Where(name => !ModLoader.TryGetMod(name, out _)).ToArray();
-		if (expected.Length != 66 || missing.Length != 0) throw new InvalidOperationException("Client probe missing mods: " + string.Join(",", missing));
+		if (expected.Length != 67 || missing.Length != 0) throw new InvalidOperationException("Client probe missing mods: " + string.Join(",", missing));
 		int uiChecks = LansUncraftCompatibility.RunRuntimeChecks() + UncraftRecipeCompatibility.CheckNativeClientPanel();
 		int inventoryControlsChecks = Diagnostics.InventoryControlsRuntimeProbe.Run();
 		complete = true;

@@ -130,6 +130,8 @@ internal static class PersonalResidentQuestCatalog
     internal static bool Complete(string npc, int completed) => completed >= Length(npc);
     internal static string Force(string npc) { EnsureLoaded(); return Stories.TryGetValue(npc, out var s) ? s.Force : ""; }
     internal static ResidentStoryStep Step(string key) { EnsureLoaded(); return Steps.TryGetValue(key, out var s) ? s : null; }
+    internal static ResidentStoryStep Step(string npc, int stage) => Step(npc + ":" + stage);
+    internal static ResidentStory Story(string npc) { EnsureLoaded(); return Stories.TryGetValue(npc, out var s) ? s : null; }
     internal static string NpcContentKey(int npcType) => npcType < NPCID.Count ? "Terraria/" + NPCID.Search.GetName(npcType) : NPCLoader.GetNPC(npcType)?.FullName ?? "";
     internal static ResidentQuestDefinition Resolve(NpcTownIdentity npc, int chapter)
     {

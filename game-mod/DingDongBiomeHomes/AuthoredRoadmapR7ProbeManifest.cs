@@ -29,5 +29,19 @@ public static class AuthoredRoadmapR7ProbeManifest
 		int height,
 		string author,
 		string workshopId,
-		string worldSha256) => PublicHomeReplacementCatalog.Create(id, width, height, AuthoredPlacementMode.TerrainScene, PresetRole.Residence | PresetRole.Civic);
+		string worldSha256) => new(
+		id,
+		$"Structures/PrivateHome/RoadmapR7/{id}.shstruct",
+		width,
+		height,
+		null,
+		0,
+		author,
+		$"https://steamcommunity.com/sharedfiles/filedetails/?id={workshopId}",
+		$"wld-sha256:{worldSha256}",
+		AuthoredPresetCatalog.PrivateHomeLicense,
+		PresetRole.Residence | PresetRole.Civic | PresetRole.PrivateHome,
+		AuthoredPlacementMode.TerrainScene,
+		false,
+		false);
 }

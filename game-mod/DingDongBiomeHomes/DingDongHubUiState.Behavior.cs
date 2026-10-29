@@ -18,9 +18,9 @@ internal sealed partial class DingDongHubUiState
 {
 	private void AddTab(UIElement parent, DingDongHubTab tab, float leftPercent)
 	{
-		DingDongHubTabButton button = new(Text($"Tabs.{tab}"));
+		DingDongHubTabButton button = new(TabLabel(tab), tab);
 		button.Left.Set(4f, leftPercent);
-		button.Width.Set(-8f, 0.25f);
+		button.Width.Set(-8f, 0.2f);
 		button.Height.Set(0f, 1f);
 		button.OnLeftClick += (_, _) =>
 		{
@@ -37,31 +37,37 @@ internal sealed partial class DingDongHubUiState
 	{
 		if (contentList == null || Main.LocalPlayer == null)
 			return;
-		float previousPosition = contentList.ViewPosition;
 		contentList.Clear();
 		contentCards.Clear();
-		contentCards.Add(contentHeader);
-		switch (selectedTab)
+		contentList.Remove(); contentScrollbar.Remove(); bookJournal?.Remove(); spread?.Remove();
+		if (selectedTab == DingDongHubTab.Quests)
 		{
-			case DingDongHubTab.Quests:
-				BuildQuests(questSnapshot);
-				break;
-			case DingDongHubTab.Combat:
-				BuildCombat();
-				break;
-			case DingDongHubTab.Residences:
-				BuildResidences();
-				break;
-			default:
-				BuildHelp();
-				break;
+			BuildQuests(questSnapshot);
+			Recalculate();
+			return;
 		}
 
-		// AddRange lays out the completed section once, not once per discovered residence.
-		contentList.AddRange(contentCards);
+		// Every other tab is a book spread: index on the left page, the chosen page on the right.
+		spread ??= new BookSpread();
+		spread.Clear(keepIndexScroll: !resetScroll);
+		contentPanel.Append(spread);
+		switch (selectedTab)
+		{
+			case DingDongHubTab.Combat:
+				BuildCombat(spread);
+				break;
+			case DingDongHubTab.Residences:
+				BuildResidences(spread);
+				break;
+			case DingDongHubTab.Chronicle:
+				BuildChronicle(spread);
+				break;
+			default:
+				BuildHelp(spread);
+				break;
+		}
 		Recalculate();
-		// UIList clamps immediately against its current extent, so restore only after layout.
-		contentList.ViewPosition = resetScroll ? 0f : previousPosition;
+		spread.Finish();
 	}
 
 	private static JournalFrame Card(DamageGuideTone tone)
@@ -77,4 +83,12 @@ internal sealed partial class DingDongHubUiState
 		previous.Entries.SequenceEqual(current.Entries);
 
 	private static string Text(string key, params object[] args) => Language.GetTextValue($"Mods.DingDongBiomeHomes.Hub.{key}", args);
+
+	/// <summary>Tab captions; "Жители" and "Летопись" live in the book localization (the main file stays untouched).</summary>
+	private static string TabLabel(DingDongHubTab tab) => tab switch
+	{
+		DingDongHubTab.Residences => BookUiText.Get("Tabs.Residents"),
+		DingDongHubTab.Chronicle => BookUiText.Get("Tabs.Chronicle"),
+		_ => Text($"Tabs.{tab}")
+	};
 }

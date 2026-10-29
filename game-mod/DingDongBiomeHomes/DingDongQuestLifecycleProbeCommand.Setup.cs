@@ -30,7 +30,7 @@ public sealed partial class DingDongQuestLifecycleProbeCommand
 		residenceSystem.ClearWorld();
 		settlementState.ClearWorld();
 		BuildSyntheticResidenceRegistry(failures);
-		if (!NpcTownManifest.TryGet("Terraria/Guide", out identity) || !NpcResidentRegistry.TryGetType(identity.NpcKey, out int npcType))
+		if (!NpcTownManifest.TryGet(LifecycleResidentKey, out identity) || !NpcResidentRegistry.TryGetType(identity.NpcKey, out int npcType))
 		{
 			throw new InvalidOperationException("Guide resident identity is unavailable.");
 		}

@@ -16,6 +16,7 @@ internal static partial class QuestContentRegistry
 {
 	internal static bool TryRebind(ResidentQuestDefinition saved, out ResidentQuestDefinition rebound)
 	{
+		if (saved.StoryKey.Length > 0) return PersonalResidentQuestCatalog.TryResolve(saved.StoryKey, out rebound);
 		EnsureInitialized();
 		rebound = saved;
 		switch (saved.Kind)

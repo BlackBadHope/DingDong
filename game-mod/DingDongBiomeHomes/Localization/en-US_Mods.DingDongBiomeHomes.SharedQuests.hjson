@@ -16,11 +16,21 @@
   "EncounterPending": "Find or rescue this resident and fulfil their residence arrival condition first.",
   "Tiles": {
     "Torch": "torches",
-    "Planter": "planter boxes",
-    "TreeSapling": "tree saplings"
+    "Planter": "daybloom planter boxes",
+    "TreeSapling": "tree saplings",
+    "GolfHole": "golf holes",
+    "Statues": "statues",
+    "Campfire": "campfires",
+    "Candles": "candles",
+    "Signs": "signs",
+    "Beds": "beds",
+    "Lever": "levers",
+    "Lampposts": "lamp posts",
+    "Teleporter": "teleporters",
+    "Sunflower": "sunflowers"
   },
   "Sources": {
-    "worldgen": "from world caches and ruins",
+    "worldgen": "in the world itself, not in a shop or workshop",
     "fishing": "by fishing",
     "crafted": "by your own crafting",
     "creature_drop": "from creatures",

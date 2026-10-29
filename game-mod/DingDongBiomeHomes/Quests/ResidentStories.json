@@ -16,10 +16,10 @@
     "Target": ""
    },
    {
-    "TitleRu": "Листы для хроники",
-    "TitleEn": "Pages for the chronicle",
+    "TitleRu": "Перья для летописи",
+    "TitleEn": "Quills for the chronicle",
     "Kind": "Deliver",
-    "Target": "Book",
+    "Target": "Feather",
     "Count": 5,
     "Reward": "Rope",
     "RewardCount": 30,
@@ -75,12 +75,12 @@
   "Force": "tiders",
   "Steps": [
    {
-    "TitleRu": "Товар на пробу",
-    "TitleEn": "Samples for the stall",
+    "TitleRu": "Оценка",
+    "TitleEn": "The appraisal",
     "Kind": "Deliver",
-    "Target": "Gel",
-    "Count": 30,
-    "Reward": "BugNet",
+    "Target": "Amethyst|Topaz|Sapphire|Emerald|Ruby|Diamond",
+    "Count": 3,
+    "Reward": "MiningHelmet",
     "RewardCount": 1,
     "Coins": 3000
    },
@@ -96,16 +96,14 @@
     "Coins": 7000
    },
    {
-    "TitleRu": "Торговый путь",
-    "TitleEn": "The trade road",
-    "Kind": "Trial",
-    "NpcTarget": "Terraria/BlueSlime",
-    "Count": 15,
-    "ForbiddenDebuff": "Slow",
+    "TitleRu": "Стервятники над трактом",
+    "TitleEn": "Vultures over the road",
+    "Kind": "Hunt",
+    "Target": "Terraria/Vulture",
+    "Count": 6,
     "Reward": "SwiftnessPotion",
     "RewardCount": 3,
-    "Coins": 10000,
-    "Target": ""
+    "Coins": 10000
    },
    {
     "TitleRu": "Цена роста",
@@ -152,7 +150,7 @@
     "Kind": "Observe",
     "NpcTarget": "Terraria/Bunny",
     "Seconds": 30,
-    "Reward": "Bunny",
+    "Reward": "BugNet",
     "RewardCount": 1,
     "Coins": 3000,
     "Count": 1,
@@ -171,13 +169,13 @@
     "Target": ""
    },
    {
-    "TitleRu": "Образцы",
-    "TitleEn": "Specimens",
+    "TitleRu": "Приют в пустом доме",
+    "TitleEn": "A shelter in an empty house",
     "Kind": "Deliver",
-    "Target": "Goldfish",
-    "Count": 2,
-    "Reward": "BugNet",
-    "RewardCount": 1,
+    "Target": "Bunny|Squirrel|Goldfish",
+    "Count": 3,
+    "Reward": "HunterPotion",
+    "RewardCount": 3,
     "Coins": 9000
    },
    {
@@ -203,15 +201,15 @@
     "Target": ""
    },
    {
-    "TitleRu": "Наблюдение без вреда",
-    "TitleEn": "Observe without harm",
-    "Kind": "Trial",
-    "NpcTarget": "Terraria/Zombie",
-    "Count": 10,
-    "ForbiddenDebuff": "Bleeding",
-    "Reward": "HunterPotion",
-    "RewardCount": 5,
+    "TitleRu": "Страница полнолуния",
+    "TitleEn": "The full moon page",
+    "Kind": "Observe",
+    "NpcTarget": "Terraria/BestiaryGirl",
+    "Seconds": 30,
+    "Reward": "MoonCharm",
+    "RewardCount": 1,
     "Coins": 17000,
+    "Count": 1,
     "Target": ""
    }
   ]
@@ -221,23 +219,23 @@
   "Force": "gardeners",
   "Steps": [
    {
-    "TitleRu": "Освещённое поле",
-    "TitleEn": "A lit course",
+    "TitleRu": "Разметка поля",
+    "TitleEn": "Marking the course",
     "Kind": "GatherEnv",
-    "TileToken": "Torch",
-    "Count": 10,
+    "TileToken": "GolfHole",
+    "Count": 3,
     "Reward": "GolfBall",
     "RewardCount": 10,
     "Coins": 3000,
     "Target": ""
    },
    {
-    "TitleRu": "Мячи",
-    "TitleEn": "Balls",
-    "Kind": "Deliver",
-    "Target": "GolfBall",
-    "Count": 10,
-    "Reward": "GolfTee",
+    "TitleRu": "Мяч в песках",
+    "TitleEn": "The ball in the sands",
+    "Kind": "Visit",
+    "Target": "Desert",
+    "Count": 1500,
+    "Reward": "GolfClubWedge",
     "RewardCount": 1,
     "Coins": 6000
    },
@@ -245,28 +243,33 @@
     "TitleRu": "Соперник на газоне",
     "TitleEn": "A rival on the green",
     "Kind": "Observe",
-    "NpcTarget": "Terraria/Bunny",
+    "NpcTarget": "Terraria/Bird",
     "Seconds": 30,
-    "Reward": "GolfCup",
+    "Reward": "GolfTee",
     "RewardCount": 1,
     "Coins": 9000,
     "Count": 1,
     "Target": ""
    },
    {
-    "TitleRu": "Подстричь или оставить",
-    "TitleEn": "Mow it or leave it",
+    "TitleRu": "Последняя лунка",
+    "TitleEn": "The last hole",
     "Kind": "DialogueChoice",
     "Choices": [
      {
-      "Id": "mow",
-      "TextRu": "Подстричь всё до самого края",
-      "TextEn": "Mow it all to the edge"
+      "Id": "wild",
+      "TextRu": "У самого края мира, над океаном",
+      "TextEn": "At the very edge of the world, above the ocean"
      },
      {
-      "Id": "wild",
-      "TextRu": "Оставить траву дикой",
-      "TextEn": "Leave the grass wild"
+      "Id": "mow",
+      "TextRu": "У клубного дома: ровно и под присмотром",
+      "TextEn": "By the clubhouse: even and watched"
+     },
+     {
+      "Id": "sand",
+      "TextRu": "В подземной пустыне, где он потерялся",
+      "TextEn": "In the underground desert where he got lost"
      }
     ],
     "Reward": "GolfClubIron",
@@ -293,11 +296,11 @@
   "Force": "gardeners",
   "Steps": [
    {
-    "TitleRu": "Светлая палата",
-    "TitleEn": "A bright ward",
+    "TitleRu": "Койки для палаты",
+    "TitleEn": "Beds for the ward",
     "Kind": "GatherEnv",
-    "TileToken": "Torch",
-    "Count": 10,
+    "TileToken": "Beds",
+    "Count": 2,
     "Reward": "LesserHealingPotion",
     "RewardCount": 5,
     "Coins": 3000,
@@ -317,9 +320,9 @@
     "TitleRu": "Без царапины",
     "TitleEn": "Not a scratch",
     "Kind": "Trial",
-    "NpcTarget": "Terraria/DemonEye",
+    "NpcTarget": "Terraria/SpikedJungleSlime",
     "Count": 10,
-    "ForbiddenDebuff": "Bleeding",
+    "ForbiddenDebuff": "Poisoned",
     "Reward": "RegenerationPotion",
     "RewardCount": 4,
     "Coins": 10000,
@@ -365,11 +368,11 @@
   "Force": "tiders",
   "Steps": [
    {
-    "TitleRu": "Пристрелка",
-    "TitleEn": "Zeroing in",
+    "TitleRu": "Движущиеся мишени",
+    "TitleEn": "Moving targets",
     "Kind": "Hunt",
-    "Target": "Terraria/Zombie",
-    "Count": 10,
+    "Target": "Terraria/DemonEye",
+    "Count": 8,
     "Reward": "MusketBall",
     "RewardCount": 100,
     "Coins": 3000
@@ -388,9 +391,9 @@
     "TitleRu": "Чистый выстрел",
     "TitleEn": "A clean shot",
     "Kind": "Trial",
-    "NpcTarget": "Terraria/Skeleton",
-    "Count": 12,
-    "ForbiddenDebuff": "OnFire",
+    "NpcTarget": "Terraria/IceBat",
+    "Count": 10,
+    "ForbiddenDebuff": "Chilled",
     "Reward": "Shuriken",
     "RewardCount": 100,
     "Coins": 10000,
@@ -446,12 +449,12 @@
     "Coins": 3000
    },
    {
-    "TitleRu": "Краска из тайника",
-    "TitleEn": "Dye from the cache",
+    "TitleRu": "Цвет морского дна",
+    "TitleEn": "The colour of the seabed",
     "Kind": "Expedition",
-    "Target": "BlackInk",
+    "Target": "Coral",
     "SourceTag": "dingdong:acquisition/worldgen",
-    "Count": 1,
+    "Count": 3,
     "Reward": "CyanHusk",
     "RewardCount": 3,
     "Coins": 7000
@@ -489,8 +492,8 @@
     "Target": ""
    },
    {
-    "TitleRu": "Чан настаивается",
-    "TitleEn": "The vat steeps",
+    "TitleRu": "Цвет, который ещё растёт",
+    "TitleEn": "A colour still growing",
     "Kind": "Delayed",
     "Days": 2,
     "Reward": "SilverDye",
@@ -506,36 +509,35 @@
   "Force": "tiders",
   "Steps": [
    {
-    "TitleRu": "Шестерни",
-    "TitleEn": "Gears",
+    "TitleRu": "Медь для котла",
+    "TitleEn": "Copper for the boiler",
     "Kind": "Deliver",
-    "Target": "Cog",
-    "Count": 10,
-    "Reward": "Wire",
-    "RewardCount": 50,
+    "Target": "CopperBar|TinBar",
+    "Count": 15,
+    "Reward": "Teleporter",
+    "RewardCount": 2,
     "Coins": 3000
    },
    {
-    "TitleRu": "Без ожогов",
-    "TitleEn": "No burns",
-    "Kind": "Trial",
-    "NpcTarget": "Terraria/Skeleton",
-    "Count": 12,
-    "ForbiddenDebuff": "OnFire",
-    "Reward": "Teleporter",
-    "RewardCount": 1,
+    "TitleRu": "Трубы до соседей",
+    "TitleEn": "Pipes to the neighbours",
+    "Kind": "GatherEnv",
+    "TileToken": "Teleporter",
+    "Count": 2,
+    "Reward": "Wire",
+    "RewardCount": 100,
     "Coins": 7000,
     "Target": ""
    },
    {
-    "TitleRu": "Деталь из тайника",
-    "TitleEn": "A part from the cache",
+    "TitleRu": "Чужая машина",
+    "TitleEn": "Someone else's machine",
     "Kind": "Expedition",
-    "Target": "SpelunkerPotion",
+    "Target": "Extractinator",
     "SourceTag": "dingdong:acquisition/worldgen",
     "Count": 1,
-    "Reward": "Cog",
-    "RewardCount": 20,
+    "Reward": "Clentaminator",
+    "RewardCount": 1,
     "Coins": 10000
    },
    {
@@ -561,15 +563,14 @@
     "Target": ""
    },
    {
-    "TitleRu": "Котёл набирает давление",
-    "TitleEn": "The boiler builds pressure",
-    "Kind": "Delayed",
-    "Days": 2,
+    "TitleRu": "Испытание в дюнах",
+    "TitleEn": "Field test in the dunes",
+    "Kind": "Visit",
+    "Target": "Desert",
+    "Count": 1800,
     "Reward": "GreenSolution",
     "RewardCount": 10,
-    "Coins": 18000,
-    "Count": 1,
-    "Target": ""
+    "Coins": 18000
    }
   ]
  },
@@ -589,26 +590,25 @@
     "Target": ""
    },
    {
-    "TitleRu": "Семена сада",
-    "TitleEn": "Seeds of the garden",
-    "Kind": "Deliver",
-    "Target": "DaybloomSeeds",
-    "Count": 5,
-    "Reward": "MoonglowSeeds",
-    "RewardCount": 5,
+    "TitleRu": "Дом старших дриад",
+    "TitleEn": "Home of the elder dryads",
+    "Kind": "Expedition",
+    "Target": "BabyBirdStaff",
+    "SourceTag": "dingdong:acquisition/worldgen",
+    "Count": 1,
+    "Reward": "LeafWand",
+    "RewardCount": 1,
     "Coins": 6000
    },
    {
-    "TitleRu": "Чистая земля",
-    "TitleEn": "Clean ground",
-    "Kind": "Trial",
-    "NpcTarget": "Terraria/Zombie",
-    "Count": 10,
-    "ForbiddenDebuff": "Poisoned",
+    "TitleRu": "Свет, которого не сеяли",
+    "TitleEn": "Light nobody sowed",
+    "Kind": "Visit",
+    "Target": "Mushroom",
+    "Count": 1500,
     "Reward": "PurificationPowder",
     "RewardCount": 10,
-    "Coins": 10000,
-    "Target": ""
+    "Coins": 10000
    },
    {
     "TitleRu": "Где кончается сад",
@@ -637,8 +637,8 @@
     "TitleEn": "Growing season",
     "Kind": "Delayed",
     "Days": 3,
-    "Reward": "Acorn",
-    "RewardCount": 30,
+    "Reward": "StaffofRegrowth",
+    "RewardCount": 1,
     "Coins": 19000,
     "Count": 1,
     "Target": ""
@@ -662,11 +662,11 @@
     "Target": ""
    },
    {
-    "TitleRu": "Пигмент",
-    "TitleEn": "Pigment",
+    "TitleRu": "Чья это картина",
+    "TitleEn": "Whose painting is this",
     "Kind": "Deliver",
-    "Target": "RedDye",
-    "Count": 3,
+    "Target": "Waldo|DarkSoulReaper|TrappedGhost|DemonsEye|GoodMorning|FirstEncounter",
+    "Count": 1,
     "Reward": "PaintRoller",
     "RewardCount": 1,
     "Coins": 6000
@@ -743,12 +743,13 @@
     "Target": ""
    },
    {
-    "TitleRu": "Свидетель джунглей",
-    "TitleEn": "Witness of the jungle",
-    "Kind": "Visit",
-    "Target": "Jungle",
-    "Count": 1500,
-    "Reward": "Vine",
+    "TitleRu": "Святилища старших",
+    "TitleEn": "Shrines of the elders",
+    "Kind": "Expedition",
+    "Target": "AnkletoftheWind|FeralClaws|FlowerBoots",
+    "SourceTag": "dingdong:acquisition/worldgen",
+    "Count": 1,
+    "Reward": "FlaskofPoison",
     "RewardCount": 5,
     "Coins": 9000
    },
@@ -775,14 +776,14 @@
     "Target": ""
    },
    {
-    "TitleRu": "Без яда",
-    "TitleEn": "Without venom",
+    "TitleRu": "Жало, что выросло с миром",
+    "TitleEn": "The sting that grew with the world",
     "Kind": "Trial",
-    "NpcTarget": "Terraria/JungleBat",
-    "Count": 12,
+    "NpcTarget": "Terraria/Hornet",
+    "Count": 10,
     "ForbiddenDebuff": "Poisoned",
-    "Reward": "Seed",
-    "RewardCount": 100,
+    "Reward": "PygmyNecklace",
+    "RewardCount": 1,
     "Coins": 17000,
     "Target": ""
    }
@@ -793,11 +794,11 @@
   "Force": "tiders",
   "Steps": [
    {
-    "TitleRu": "Провода для схемы",
-    "TitleEn": "Wires for the board",
+    "TitleRu": "Металл с неба",
+    "TitleEn": "Metal from the sky",
     "Kind": "Deliver",
-    "Target": "Wire",
-    "Count": 50,
+    "Target": "MeteoriteBar",
+    "Count": 5,
     "Reward": "RocketI",
     "RewardCount": 20,
     "Coins": 3000
@@ -808,19 +809,19 @@
     "Kind": "Observe",
     "NpcTarget": "Terraria/BlueSlime",
     "Seconds": 30,
-    "Reward": "RocketI",
-    "RewardCount": 40,
+    "Reward": "NightVisionHelmet",
+    "RewardCount": 1,
     "Coins": 6000,
     "Count": 1,
     "Target": ""
    },
    {
-    "TitleRu": "Без сбоев",
-    "TitleEn": "No malfunctions",
+    "TitleRu": "Короткое замыкание",
+    "TitleEn": "Short circuit",
     "Kind": "Trial",
-    "NpcTarget": "Terraria/Zombie",
-    "Count": 15,
-    "ForbiddenDebuff": "Confused",
+    "NpcTarget": "Terraria/PinkJellyfish",
+    "Count": 8,
+    "ForbiddenDebuff": "Electrified",
     "Reward": "Nanites",
     "RewardCount": 20,
     "Coins": 9000,
@@ -849,10 +850,11 @@
     "Target": ""
    },
    {
-    "TitleRu": "Прошивка",
-    "TitleEn": "The firmware",
-    "Kind": "Delayed",
-    "Days": 2,
+    "TitleRu": "Сигнал из гранита",
+    "TitleEn": "A signal in the granite",
+    "Kind": "Observe",
+    "NpcTarget": "Terraria/GraniteFlyer",
+    "Seconds": 40,
     "Reward": "RocketIII",
     "RewardCount": 20,
     "Coins": 17000,
@@ -876,13 +878,13 @@
     "Coins": 3000
    },
    {
-    "TitleRu": "Свет по проводу",
-    "TitleEn": "Light along the line",
+    "TitleRu": "Рычаги по местам",
+    "TitleEn": "Levers in place",
     "Kind": "GatherEnv",
-    "TileToken": "Torch",
-    "Count": 15,
-    "Reward": "Switch",
-    "RewardCount": 5,
+    "TileToken": "Lever",
+    "Count": 3,
+    "Reward": "Timer1Second",
+    "RewardCount": 3,
     "Coins": 6000,
     "Target": ""
    },
@@ -890,7 +892,7 @@
     "TitleRu": "Ритм ловушки",
     "TitleEn": "The rhythm of a trap",
     "Kind": "Observe",
-    "NpcTarget": "Terraria/Skeleton",
+    "NpcTarget": "Terraria/AngryBones",
     "Seconds": 30,
     "Reward": "Wrench",
     "RewardCount": 1,
@@ -921,12 +923,12 @@
     "Target": ""
    },
    {
-    "TitleRu": "Без короткого замыкания",
-    "TitleEn": "No short circuit",
+    "TitleRu": "Снять проклятие",
+    "TitleEn": "Lifting the curse",
     "Kind": "Trial",
-    "NpcTarget": "Terraria/BlueSlime",
-    "Count": 15,
-    "ForbiddenDebuff": "Slow",
+    "NpcTarget": "Terraria/CursedSkull",
+    "Count": 8,
+    "ForbiddenDebuff": "Cursed",
     "Reward": "Teleporter",
     "RewardCount": 1,
     "Coins": 18000,
@@ -949,15 +951,14 @@
     "Coins": 3000
    },
    {
-    "TitleRu": "Огни зимы",
-    "TitleEn": "Winter lights",
-    "Kind": "GatherEnv",
-    "TileToken": "Torch",
-    "Count": 20,
+    "TitleRu": "Заплатка на мешок",
+    "TitleEn": "A patch for the sack",
+    "Kind": "Deliver",
+    "Target": "Leather",
+    "Count": 5,
     "Reward": "GingerbreadCookie",
     "RewardCount": 5,
-    "Coins": 6000,
-    "Target": ""
+    "Coins": 6000
    },
    {
     "TitleRu": "Пингвины у проруби",
@@ -1021,10 +1022,10 @@
     "Coins": 3000
    },
    {
-    "TitleRu": "Обход участков",
-    "TitleEn": "Walking the lots",
+    "TitleRu": "Старый адрес",
+    "TitleEn": "The old address",
     "Kind": "Visit",
-    "Target": "Forest",
+    "Target": "Underworld",
     "Count": 1200,
     "Reward": "GoldCoin",
     "RewardCount": 2,
@@ -1034,16 +1035,16 @@
     "TitleRu": "Фонари на улицах",
     "TitleEn": "Lamps on the streets",
     "Kind": "GatherEnv",
-    "TileToken": "Torch",
-    "Count": 30,
+    "TileToken": "Lampposts",
+    "Count": 3,
     "Reward": "GoldCoin",
     "RewardCount": 3,
     "Coins": 9000,
     "Target": ""
    },
    {
-    "TitleRu": "Чей порядок",
-    "TitleEn": "Whose order",
+    "TitleRu": "Налоговый устав",
+    "TitleEn": "The tax charter",
     "Kind": "DialogueChoice",
     "Choices": [
      {
@@ -1057,8 +1058,8 @@
       "TextEn": "Lower it for those who build"
      }
     ],
-    "Reward": "PlatinumCoin",
-    "RewardCount": 1,
+    "Reward": "GoldCoin",
+    "RewardCount": 10,
     "Coins": 12000,
     "Count": 1,
     "Target": ""
@@ -1069,7 +1070,7 @@
     "Kind": "Delayed",
     "Days": 3,
     "Reward": "PlatinumCoin",
-    "RewardCount": 2,
+    "RewardCount": 1,
     "Coins": 20000,
     "Count": 1,
     "Target": ""
@@ -1091,11 +1092,11 @@
     "Coins": 3000
    },
    {
-    "TitleRu": "Улов из тайника",
-    "TitleEn": "A catch from the cache",
+    "TitleRu": "Сапог со дна",
+    "TitleEn": "A boot from the bottom",
     "Kind": "Expedition",
-    "Target": "FlipperPotion",
-    "SourceTag": "dingdong:acquisition/worldgen",
+    "Target": "OldShoe",
+    "SourceTag": "dingdong:acquisition/fishing",
     "Count": 1,
     "Reward": "SonarPotion",
     "RewardCount": 3,
@@ -1136,15 +1137,14 @@
     "Target": ""
    },
    {
-    "TitleRu": "Клёв вернётся",
-    "TitleEn": "The bite returns",
-    "Kind": "Delayed",
-    "Days": 1,
-    "Reward": "FishingPotion",
-    "RewardCount": 5,
-    "Coins": 17000,
-    "Count": 1,
-    "Target": ""
+    "TitleRu": "Берег, где меня нашли",
+    "TitleEn": "The shore where I was found",
+    "Kind": "Visit",
+    "Target": "Ocean",
+    "Count": 1800,
+    "Reward": "HighTestFishingLine",
+    "RewardCount": 1,
+    "Coins": 17000
    }
   ]
  },
@@ -1206,16 +1206,14 @@
     "Target": ""
    },
    {
-    "TitleRu": "Абордаж без крови",
-    "TitleEn": "A bloodless boarding",
-    "Kind": "Trial",
-    "NpcTarget": "Terraria/Crab",
-    "Count": 10,
-    "ForbiddenDebuff": "Bleeding",
-    "Reward": "GoldCoin",
-    "RewardCount": 5,
-    "Coins": 18000,
-    "Target": ""
+    "TitleRu": "Акулы за кормой",
+    "TitleEn": "Sharks astern",
+    "Kind": "Hunt",
+    "Target": "Terraria/Shark",
+    "Count": 3,
+    "Reward": "Cannon",
+    "RewardCount": 1,
+    "Coins": 18000
    }
   ]
  },
@@ -1246,15 +1244,14 @@
     "Target": ""
    },
    {
-    "TitleRu": "Зеркала и свет",
-    "TitleEn": "Mirrors and light",
-    "Kind": "GatherEnv",
-    "TileToken": "Torch",
-    "Count": 12,
-    "Reward": "Lens",
-    "RewardCount": 5,
-    "Coins": 9000,
-    "Target": ""
+    "TitleRu": "Гнездо под ножницы",
+    "TitleEn": "The nest under the shears",
+    "Kind": "Hunt",
+    "Target": "Terraria/WallCreeperWall",
+    "Count": 8,
+    "Reward": "WebSlinger",
+    "RewardCount": 1,
+    "Coins": 9000
    },
    {
     "TitleRu": "Стрижка по моде",
@@ -1340,12 +1337,12 @@
     "Target": ""
    },
    {
-    "TitleRu": "Не испачкать",
-    "TitleEn": "Keep it clean",
+    "TitleRu": "Нить сильнее проклятия",
+    "TitleEn": "A thread stronger than a curse",
     "Kind": "Trial",
-    "NpcTarget": "Terraria/Zombie",
-    "Count": 12,
-    "ForbiddenDebuff": "Bleeding",
+    "NpcTarget": "Terraria/CursedSkull",
+    "Count": 10,
+    "ForbiddenDebuff": "Cursed",
     "Reward": "SummerHat",
     "RewardCount": 1,
     "Coins": 12000,
@@ -1393,8 +1390,8 @@
     "TitleRu": "Не опали бороду",
     "TitleEn": "Keep the beard",
     "Kind": "Trial",
-    "NpcTarget": "Terraria/CaveBat",
-    "Count": 12,
+    "NpcTarget": "Terraria/FireImp",
+    "Count": 8,
     "ForbiddenDebuff": "OnFire",
     "Reward": "StickyBomb",
     "RewardCount": 10,
@@ -1424,15 +1421,14 @@
     "Target": ""
    },
    {
-    "TitleRu": "Пока оседает пыль",
-    "TitleEn": "While the dust settles",
-    "Kind": "Delayed",
-    "Days": 1,
-    "Reward": "Dynamite",
+    "TitleRu": "Кто грызёт штрек",
+    "TitleEn": "Who's gnawing the drift",
+    "Kind": "Hunt",
+    "Target": "Terraria/GiantWormHead",
+    "Count": 5,
+    "Reward": "ScarabBomb",
     "RewardCount": 10,
-    "Coins": 18000,
-    "Count": 1,
-    "Target": ""
+    "Coins": 18000
    }
   ]
  },
@@ -1463,15 +1459,14 @@
     "Target": ""
    },
    {
-    "TitleRu": "Порядок в мастерской",
-    "TitleEn": "Order in the workshop",
-    "Kind": "GatherEnv",
-    "TileToken": "Torch",
-    "Count": 12,
+    "TitleRu": "Воры среди своих",
+    "TitleEn": "Thieves among my kin",
+    "Kind": "Hunt",
+    "Target": "Terraria/GoblinThief",
+    "Count": 6,
     "Reward": "Glowstick",
     "RewardCount": 20,
-    "Coins": 9000,
-    "Target": ""
+    "Coins": 9000
    },
    {
     "TitleRu": "Чинить или менять",
@@ -1496,15 +1491,15 @@
     "Target": ""
    },
    {
-    "TitleRu": "Шестерёнки встали на место",
-    "TitleEn": "The gears settle",
-    "Kind": "Delayed",
-    "Days": 2,
-    "Reward": "Cog",
-    "RewardCount": 10,
-    "Coins": 18000,
+    "TitleRu": "Свой клинок",
+    "TitleEn": "A blade of your own",
+    "Kind": "Expedition",
+    "Target": "IronBroadsword|LeadBroadsword",
+    "SourceTag": "dingdong:acquisition/crafted",
     "Count": 1,
-    "Target": ""
+    "Reward": "Toolbelt",
+    "RewardCount": 1,
+    "Coins": 18000
    }
   ]
  },
@@ -1513,21 +1508,21 @@
   "Force": "archivists",
   "Steps": [
    {
-    "TitleRu": "Пустые кружки",
-    "TitleEn": "Empty mugs",
+    "TitleRu": "Бочка из здешнего дуба",
+    "TitleEn": "A cask of local oak",
     "Kind": "Deliver",
-    "Target": "Bottle",
-    "Count": 15,
+    "Target": "Keg",
+    "Count": 1,
     "Reward": "Ale",
     "RewardCount": 5,
     "Coins": 3000
    },
    {
-    "TitleRu": "Слушатель у стойки",
-    "TitleEn": "A listener at the bar",
+    "TitleRu": "Разведчик перед армией",
+    "TitleEn": "The scout before the army",
     "Kind": "Observe",
-    "NpcTarget": "Terraria/Zombie",
-    "Seconds": 45,
+    "NpcTarget": "Terraria/GoblinScout",
+    "Seconds": 30,
     "Reward": "Ale",
     "RewardCount": 10,
     "Coins": 6000,
@@ -1594,15 +1589,14 @@
     "Coins": 3000
    },
    {
-    "TitleRu": "Гирлянды",
-    "TitleEn": "Garlands",
-    "Kind": "GatherEnv",
-    "TileToken": "Torch",
-    "Count": 20,
-    "Reward": "Confetti",
-    "RewardCount": 30,
-    "Coins": 6000,
-    "Target": ""
+    "TitleRu": "Танцпол под шляпками",
+    "TitleEn": "A dance floor under the caps",
+    "Kind": "Visit",
+    "Target": "Mushroom",
+    "Count": 1200,
+    "Reward": "PartyGirlGrenade",
+    "RewardCount": 20,
+    "Coins": 6000
    },
    {
     "TitleRu": "Танцующие слаймы",
@@ -1700,21 +1694,22 @@
     "Target": ""
    },
    {
-    "TitleRu": "Прогулка по владениям",
-    "TitleEn": "A walk through the domain",
-    "Kind": "Visit",
-    "Target": "Forest",
-    "Count": 1500,
+    "TitleRu": "Куда смотрят подсолнухи",
+    "TitleEn": "Where the sunflowers turn",
+    "Kind": "GatherEnv",
+    "TileToken": "Sunflower",
+    "Count": 3,
     "Reward": "PrincessDress",
     "RewardCount": 1,
-    "Coins": 12000
+    "Coins": 12000,
+    "Target": ""
    },
    {
     "TitleRu": "Бал назначен",
     "TitleEn": "The ball is set",
     "Kind": "Delayed",
     "Days": 2,
-    "Reward": "PlatinumCoin",
+    "Reward": "MusicBoxTitle",
     "RewardCount": 1,
     "Coins": 18000,
     "Count": 1,
@@ -1781,15 +1776,14 @@
     "Target": ""
    },
    {
-    "TitleRu": "Заклинание дозревает",
-    "TitleEn": "The spell matures",
-    "Kind": "Delayed",
-    "Days": 3,
-    "Reward": "Ruby",
-    "RewardCount": 3,
-    "Coins": 18000,
-    "Count": 1,
-    "Target": ""
+    "TitleRu": "Свежие строки",
+    "TitleEn": "Fresh lines",
+    "Kind": "Visit",
+    "Target": "Hallow",
+    "Count": 1500,
+    "Reward": "CrystalBall",
+    "RewardCount": 1,
+    "Coins": 18000
    }
   ]
  },
@@ -1819,11 +1813,11 @@
     "Coins": 6000
    },
    {
-    "TitleRu": "Тишина пещеры",
-    "TitleEn": "The quiet of the cave",
+    "TitleRu": "Светящаяся улитка",
+    "TitleEn": "The glowing snail",
     "Kind": "Observe",
-    "NpcTarget": "Terraria/CaveBat",
-    "Seconds": 40,
+    "NpcTarget": "Terraria/GlowingSnail",
+    "Seconds": 20,
     "Reward": "ShinePotion",
     "RewardCount": 3,
     "Coins": 9000,
@@ -1831,19 +1825,24 @@
     "Target": ""
    },
    {
-    "TitleRu": "Сад в темноте",
-    "TitleEn": "A garden in the dark",
+    "TitleRu": "Соседи на крючке",
+    "TitleEn": "Neighbours on the hook",
     "Kind": "DialogueChoice",
     "Choices": [
      {
-      "Id": "spread",
-      "TextRu": "Пусть грибница займёт всю пещеру",
-      "TextEn": "Let the mycelium take the whole cave"
+      "Id": "keep",
+      "TextRu": "Увести улиток глубже в грибницу",
+      "TextEn": "Lead the snails deeper into the mycelium"
      },
      {
-      "Id": "keep",
-      "TextRu": "Ровно столько, сколько нужно",
-      "TextEn": "Exactly as much as is needed"
+      "Id": "spread",
+      "TextRu": "Пусть живут как живут: рыбаки тоже соседи",
+      "TextEn": "Let them live as they live: fishers are neighbours too"
+     },
+     {
+      "Id": "record",
+      "TextRu": "Попросить Зоолога вписать их в перепись",
+      "TextEn": "Ask the Zoologist to enter them in the census"
      }
     ],
     "Reward": "GlowingMushroom",
@@ -1891,16 +1890,14 @@
     "Target": ""
    },
    {
-    "TitleRu": "Чистота реактива",
-    "TitleEn": "Reagent purity",
-    "Kind": "Trial",
-    "NpcTarget": "Terraria/Zombie",
-    "Count": 12,
-    "ForbiddenDebuff": "Poisoned",
-    "Reward": "RegenerationPotion",
-    "RewardCount": 5,
-    "Coins": 11000,
-    "Target": ""
+    "TitleRu": "Сад без садовника",
+    "TitleEn": "A garden with no gardener",
+    "Kind": "Visit",
+    "Target": "Jungle",
+    "Count": 1200,
+    "Reward": "NaturesGift",
+    "RewardCount": 1,
+    "Coins": 11000
    },
    {
     "TitleRu": "Старое пламя",
@@ -1909,7 +1906,7 @@
     "Choices": [
      {
       "Id": "ask",
-      "TextRu": "Спросить о прежних днях с Brewer",
+      "TextRu": "Спросить о прежних днях с Варщицей",
       "TextEn": "Ask about the old days with the Brewer"
      },
      {
@@ -1963,12 +1960,12 @@
     "Target": ""
    },
    {
-    "TitleRu": "Образцовый дом",
-    "TitleEn": "A model house",
+    "TitleRu": "Чужая кладка",
+    "TitleEn": "Someone else's masonry",
     "Kind": "Visit",
-    "Target": "Forest",
-    "Count": 1500,
-    "Reward": "RedBrick",
+    "Target": "Underworld",
+    "Count": 1200,
+    "Reward": "ObsidianBrick",
     "RewardCount": 100,
     "Coins": 10000
    },
@@ -2032,13 +2029,13 @@
     "Coins": 7000
    },
    {
-    "TitleRu": "Дегустатор",
-    "TitleEn": "The taster",
+    "TitleRu": "Свет на запах",
+    "TitleEn": "Drawn to the glow",
     "Kind": "Observe",
-    "NpcTarget": "Terraria/Zombie",
+    "NpcTarget": "Terraria/Firefly",
     "Seconds": 45,
-    "Reward": "Ale",
-    "RewardCount": 5,
+    "Reward": "FireflyinaBottle",
+    "RewardCount": 3,
     "Coins": 10000,
     "Count": 1,
     "Target": ""
@@ -2055,7 +2052,7 @@
      },
      {
       "Id": "defend",
-      "TextRu": "Заступиться за Alchemist",
+      "TextRu": "Заступиться за Алхимика",
       "TextEn": "Stand up for the Alchemist"
      }
     ],
@@ -2066,14 +2063,15 @@
     "Target": ""
    },
    {
-    "TitleRu": "Фирменный рецепт",
-    "TitleEn": "The signature brew",
-    "Kind": "Delayed",
-    "Days": 2,
+    "TitleRu": "Огонь под медным котлом",
+    "TitleEn": "Fire under the copper kettle",
+    "Kind": "Trial",
+    "NpcTarget": "Terraria/LavaSlime",
+    "Count": 10,
+    "ForbiddenDebuff": "OnFire",
     "Reward": "RestorationPotion",
     "RewardCount": 5,
     "Coins": 21000,
-    "Count": 1,
     "Target": ""
    }
   ]
@@ -2096,7 +2094,7 @@
     "TitleRu": "Клад из глубин",
     "TitleEn": "A hoard from below",
     "Kind": "Expedition",
-    "Target": "GoldCrown",
+    "Target": "BandofRegeneration",
     "SourceTag": "dingdong:acquisition/worldgen",
     "Count": 1,
     "Reward": "Ruby",
@@ -2104,14 +2102,16 @@
     "Coins": 9000
    },
    {
-    "TitleRu": "Час у витрины",
-    "TitleEn": "An hour at the display",
-    "Kind": "Visit",
-    "Target": "Forest",
-    "Count": 1200,
+    "TitleRu": "Камень на лапках",
+    "TitleEn": "A stone on little paws",
+    "Kind": "Observe",
+    "NpcTarget": "Terraria/GemSquirrelAmethyst",
+    "Seconds": 30,
     "Reward": "Diamond",
     "RewardCount": 2,
-    "Coins": 12000
+    "Coins": 12000,
+    "Count": 1,
+    "Target": ""
    },
    {
     "TitleRu": "Цена блеска",
@@ -2136,8 +2136,8 @@
     "Target": ""
    },
    {
-    "TitleRu": "Заказ на оправу",
-    "TitleEn": "A setting to order",
+    "TitleRu": "Не на продажу",
+    "TitleEn": "Not for sale",
     "Kind": "Delayed",
     "Days": 2,
     "Reward": "DiamondRing",
@@ -2153,10 +2153,10 @@
   "Force": "tiders",
   "Steps": [
    {
-    "TitleRu": "Тишина перед нотой",
-    "TitleEn": "Silence before the note",
+    "TitleRu": "Кто поёт первым",
+    "TitleEn": "Who sings first",
     "Kind": "Observe",
-    "NpcTarget": "Terraria/Bunny",
+    "NpcTarget": "Terraria/Bird",
     "Seconds": 45,
     "Reward": "Harp",
     "RewardCount": 1,
@@ -2165,23 +2165,23 @@
     "Target": ""
    },
    {
-    "TitleRu": "Струны и колки",
-    "TitleEn": "Strings and pegs",
+    "TitleRu": "Голос прибоя",
+    "TitleEn": "The voice of the surf",
     "Kind": "Deliver",
-    "Target": "Cobweb",
-    "Count": 20,
-    "Reward": "Silk",
-    "RewardCount": 5,
+    "Target": "Seashell|TulipShell|LightningWhelkShell|JunoniaShell",
+    "Count": 5,
+    "Reward": "IvyGuitar",
+    "RewardCount": 1,
     "Coins": 7000
    },
    {
-    "TitleRu": "Концерт у костра",
-    "TitleEn": "A campfire concert",
+    "TitleRu": "Эхо в пещерах",
+    "TitleEn": "Echo in the caves",
     "Kind": "Visit",
-    "Target": "Forest",
+    "Target": "Underground",
     "Count": 1200,
-    "Reward": "FallenStar",
-    "RewardCount": 5,
+    "Reward": "MusicBoxUnderground",
+    "RewardCount": 1,
     "Coins": 10000
    },
    {
@@ -2210,7 +2210,7 @@
     "TitleRu": "Новая баллада",
     "TitleEn": "A new ballad",
     "Kind": "Delayed",
-    "Days": 1,
+    "Days": 2,
     "Reward": "MusicBoxOverworldDay",
     "RewardCount": 1,
     "Coins": 20000,
@@ -2244,15 +2244,15 @@
     "Coins": 8000
    },
    {
-    "TitleRu": "Без короткого замыкания",
-    "TitleEn": "No short circuit",
-    "Kind": "Trial",
-    "NpcTarget": "Terraria/PinkJellyfish",
-    "Count": 8,
-    "ForbiddenDebuff": "Electrified",
+    "TitleRu": "Проверка источника",
+    "TitleEn": "Source check",
+    "Kind": "Observe",
+    "NpcTarget": "Terraria/Dolphin",
+    "Seconds": 40,
     "Reward": "Timer1Second",
     "RewardCount": 1,
     "Coins": 12000,
+    "Count": 1,
     "Target": ""
    },
    {
@@ -2305,27 +2305,27 @@
     "Coins": 4000
    },
    {
-    "TitleRu": "Полевые испытания",
-    "TitleEn": "Field testing",
-    "Kind": "Trial",
-    "NpcTarget": "Terraria/Skeleton",
-    "Count": 10,
-    "ForbiddenDebuff": "BrokenArmor",
-    "Reward": "Grenade",
-    "RewardCount": 15,
-    "Coins": 9000,
-    "Target": ""
-   },
-   {
-    "TitleRu": "Деталь из тайника",
-    "TitleEn": "A part from a cache",
+    "TitleRu": "Ничего лишнего",
+    "TitleEn": "Nothing extra",
     "Kind": "Expedition",
-    "Target": "Spear",
+    "Target": "Aglet",
     "SourceTag": "dingdong:acquisition/worldgen",
     "Count": 1,
     "Reward": "ThrowingKnife",
     "RewardCount": 50,
-    "Coins": 12000
+    "Coins": 9000
+   },
+   {
+    "TitleRu": "Испытание жаром",
+    "TitleEn": "The heat test",
+    "Kind": "Trial",
+    "NpcTarget": "Terraria/Hellbat",
+    "Count": 10,
+    "ForbiddenDebuff": "OnFire",
+    "Reward": "Grenade",
+    "RewardCount": 15,
+    "Coins": 12000,
+    "Target": ""
    },
    {
     "TitleRu": "Идеальная сборка",
@@ -2367,12 +2367,12 @@
   "Force": "unassigned",
   "Steps": [
    {
-    "TitleRu": "Первое поручение",
-    "TitleEn": "The first errand",
+    "TitleRu": "Мерцающий корень",
+    "TitleEn": "The blinking root",
     "Kind": "Deliver",
-    "Target": "Mushroom",
+    "Target": "Blinkroot",
     "Count": 5,
-    "Reward": "LesserHealingPotion",
+    "Reward": "HealingPotion",
     "RewardCount": 3,
     "Coins": 3000
    },
@@ -2389,13 +2389,13 @@
     "Target": ""
    },
    {
-    "TitleRu": "Первая вылазка",
-    "TitleEn": "The first outing",
+    "TitleRu": "Без куртки",
+    "TitleEn": "No jacket",
     "Kind": "Trial",
-    "NpcTarget": "Terraria/BlueSlime",
+    "NpcTarget": "Terraria/IceSlime",
     "Count": 10,
-    "ForbiddenDebuff": "Poisoned",
-    "Reward": "SwiftnessPotion",
+    "ForbiddenDebuff": "Chilled",
+    "Reward": "WarmthPotion",
     "RewardCount": 3,
     "Coins": 9000,
     "Target": ""
@@ -2423,15 +2423,15 @@
     "Target": ""
    },
    {
-    "TitleRu": "Первая собственная настойка",
-    "TitleEn": "The first brew of his own",
-    "Kind": "Delayed",
-    "Days": 3,
-    "Reward": "ObsidianSkinPotion",
-    "RewardCount": 5,
-    "Coins": 20000,
+    "TitleRu": "Своя рыба, свой рецепт",
+    "TitleEn": "His own fish, his own recipe",
+    "Kind": "Expedition",
+    "Target": "FrostMinnow",
+    "SourceTag": "dingdong:acquisition/fishing",
     "Count": 1,
-    "Target": ""
+    "Reward": "AlchemyTable",
+    "RewardCount": 1,
+    "Coins": 20000
    }
   ]
  },
@@ -2451,23 +2451,23 @@
     "Target": ""
    },
    {
-    "TitleRu": "Большая вязанка",
-    "TitleEn": "The big bundle",
+    "TitleRu": "Знаток всех пород",
+    "TitleEn": "Expert in every wood",
     "Kind": "Deliver",
-    "Target": "Wood",
-    "Count": 200,
+    "Target": "BorealWood|PalmWood|RichMahogany|Ebonwood|Shadewood",
+    "Count": 60,
     "Reward": "BuilderPotion",
     "RewardCount": 3,
     "Coins": 8000
    },
    {
-    "TitleRu": "Лес кусается",
-    "TitleEn": "The forest bites back",
+    "TitleRu": "Пепельная роща",
+    "TitleEn": "The ash grove",
     "Kind": "Trial",
-    "NpcTarget": "Terraria/ManEater",
-    "Count": 6,
-    "ForbiddenDebuff": "Poisoned",
-    "Reward": "RichMahogany",
+    "NpcTarget": "Terraria/FireImp",
+    "Count": 8,
+    "ForbiddenDebuff": "OnFire",
+    "Reward": "AshWood",
     "RewardCount": 100,
     "Coins": 12000,
     "Target": ""
@@ -2555,27 +2555,26 @@
     "Coins": 12000
    },
    {
-    "TitleRu": "Без огонька",
-    "TitleEn": "No spark allowed",
-    "Kind": "Trial",
-    "NpcTarget": "Terraria/Zombie",
-    "Count": 20,
-    "ForbiddenDebuff": "OnFire",
-    "Reward": "InfernoPotion",
-    "RewardCount": 2,
+    "TitleRu": "Кто носит куклу",
+    "TitleEn": "Who carries the doll",
+    "Kind": "Observe",
+    "NpcTarget": "Terraria/VoodooDemon",
+    "Seconds": 30,
+    "Reward": "GuideVoodooDoll",
+    "RewardCount": 1,
     "Coins": 16000,
+    "Count": 1,
     "Target": ""
    },
    {
-    "TitleRu": "Сидим, ждём босса",
-    "TitleEn": "Sitting, waiting for a boss",
-    "Kind": "Delayed",
-    "Days": 1,
-    "Reward": "TeleportationPotion",
-    "RewardCount": 5,
-    "Coins": 25000,
+    "TitleRu": "Вторая фраза",
+    "TitleEn": "The second phrase",
+    "Kind": "Hunt",
+    "Target": "Terraria/WallofFlesh",
     "Count": 1,
-    "Target": ""
+    "Reward": "MechanicalEye",
+    "RewardCount": 1,
+    "Coins": 25000
    }
   ]
  },
@@ -2589,8 +2588,8 @@
     "Kind": "Observe",
     "NpcTarget": "Terraria/Squirrel",
     "Seconds": 60,
-    "Reward": "Acorn",
-    "RewardCount": 10,
+    "Reward": "Daybloom",
+    "RewardCount": 3,
     "Coins": 3000,
     "Count": 1,
     "Target": ""
@@ -2606,18 +2605,18 @@
     "Coins": 6000
    },
    {
-    "TitleRu": "Роща",
-    "TitleEn": "The grove",
-    "Kind": "GatherEnv",
-    "TileToken": "TreeSapling",
-    "Count": 5,
-    "Reward": "Daybloom",
-    "RewardCount": 5,
-    "Coins": 9000,
-    "Target": ""
+    "TitleRu": "Тропы кроны",
+    "TitleEn": "Canopy trails",
+    "Kind": "Expedition",
+    "Target": "Apple|Apricot|Grapefruit|Lemon|Peach",
+    "SourceTag": "dingdong:acquisition/worldgen",
+    "Count": 3,
+    "Reward": "SquirrelHook",
+    "RewardCount": 1,
+    "Coins": 9000
    },
    {
-    "TitleRu": "*скрип?*",
+    "TitleRu": "*писк?*",
     "TitleEn": "*squeak?*",
     "Kind": "DialogueChoice",
     "Choices": [
@@ -2661,8 +2660,8 @@
     "Kind": "Observe",
     "NpcTarget": "Terraria/Guide",
     "Seconds": 60,
-    "Reward": "Silk",
-    "RewardCount": 3,
+    "Reward": "Aglet",
+    "RewardCount": 1,
     "Coins": 4000,
     "Count": 1,
     "Target": ""
@@ -2713,13 +2712,12 @@
    {
     "TitleRu": "Разношенная пара",
     "TitleEn": "A pair worn in",
-    "Kind": "Delayed",
-    "Days": 1,
-    "Reward": "SailfishBoots",
+    "Kind": "Visit",
+    "Target": "Forest",
+    "Count": 1800,
+    "Reward": "RocketBoots",
     "RewardCount": 1,
-    "Coins": 20000,
-    "Count": 1,
-    "Target": ""
+    "Coins": 20000
    }
   ]
  },
@@ -2740,13 +2738,13 @@
     "Target": ""
    },
    {
-    "TitleRu": "Что-то знакомое",
-    "TitleEn": "Something familiar",
+    "TitleRu": "Чистый кальций",
+    "TitleEn": "Pure calcium",
     "Kind": "Deliver",
-    "Target": "Cobweb",
-    "Count": 20,
-    "Reward": "Torch",
-    "RewardCount": 20,
+    "Target": "Bone",
+    "Count": 25,
+    "Reward": "CalmingPotion",
+    "RewardCount": 3,
     "Coins": 6000
    },
    {
@@ -2775,24 +2773,24 @@
     "TitleRu": "Не теряя себя",
     "TitleEn": "Without losing yourself",
     "Kind": "Trial",
-    "NpcTarget": "Terraria/Zombie",
-    "Count": 10,
-    "ForbiddenDebuff": "Confused",
+    "NpcTarget": "Terraria/Hornet",
+    "Count": 8,
+    "ForbiddenDebuff": "Poisoned",
     "Reward": "NightOwlPotion",
     "RewardCount": 5,
     "Coins": 12000,
     "Target": ""
    },
    {
-    "TitleRu": "Память возвращается",
-    "TitleEn": "Memory returns",
-    "Kind": "Delayed",
-    "Days": 3,
+    "TitleRu": "Дорога домой",
+    "TitleEn": "The way home",
+    "Kind": "Expedition",
+    "Target": "RecallPotion",
+    "SourceTag": "dingdong:acquisition/worldgen",
+    "Count": 1,
     "Reward": "LifeCrystal",
     "RewardCount": 1,
-    "Coins": 17000,
-    "Count": 1,
-    "Target": ""
+    "Coins": 17000
    }
   ]
  },
@@ -2822,26 +2820,42 @@
     "Target": ""
    },
    {
-    "TitleRu": "Рыба дня",
-    "TitleEn": "Catch of the day",
-    "Kind": "Expedition",
-    "Target": "Salmon",
-    "SourceTag": "dingdong:acquisition/fishing",
-    "Count": 5,
-    "Reward": "CookedFish",
+    "TitleRu": "Грибы, что кусаются",
+    "TitleEn": "Mushrooms that bite back",
+    "Kind": "Observe",
+    "NpcTarget": "Terraria/AnomuraFungus",
+    "Seconds": 45,
+    "Reward": "MushroomGrassSeeds",
     "RewardCount": 5,
-    "Coins": 11000
+    "Coins": 11000,
+    "Count": 1,
+    "Target": ""
    },
    {
-    "TitleRu": "Специи из джунглей",
-    "TitleEn": "Jungle spices",
-    "Kind": "Trial",
-    "NpcTarget": "Terraria/ManEater",
-    "Count": 5,
-    "ForbiddenDebuff": "Poisoned",
-    "Reward": "AmmoReservationPotion",
+    "TitleRu": "Рецепт для спорщиков",
+    "TitleEn": "A recipe for quarrellers",
+    "Kind": "DialogueChoice",
+    "Choices": [
+     {
+      "Id": "book",
+      "TextRu": "По книге: каждому блюду своё место",
+      "TextEn": "By the book: every dish in its place"
+     },
+     {
+      "Id": "pot",
+      "TextRu": "Всё, что принесут гости, — в один котёл",
+      "TextEn": "Everything the guests bring goes in one pot"
+     },
+     {
+      "Id": "old",
+      "TextRu": "Старый рецепт малого мира",
+      "TextEn": "The old recipe of the small world"
+     }
+    ],
+    "Reward": "SeafoodDinner",
     "RewardCount": 3,
     "Coins": 15000,
+    "Count": 1,
     "Target": ""
    },
    {
@@ -2849,8 +2863,8 @@
     "TitleEn": "A feast for everyone",
     "Kind": "Delayed",
     "Days": 2,
-    "Reward": "CookingPot",
-    "RewardCount": 1,
+    "Reward": "GoldenDelight",
+    "RewardCount": 2,
     "Coins": 22000,
     "Count": 1,
     "Target": ""
@@ -2874,12 +2888,12 @@
     "Target": ""
    },
    {
-    "TitleRu": "Контракт: глаза",
-    "TitleEn": "Contract: the eyes",
+    "TitleRu": "Контракт: потерянная девочка",
+    "TitleEn": "Contract: the lost girl",
     "Kind": "Hunt",
-    "Target": "Terraria/WanderingEye",
-    "Count": 6,
-    "Reward": "HunterPotion",
+    "Target": "Terraria/Nymph",
+    "Count": 1,
+    "Reward": "TrapsightPotion",
     "RewardCount": 3,
     "Coins": 9000
    },
@@ -2887,9 +2901,9 @@
     "TitleRu": "Чистая работа",
     "TitleEn": "Clean work",
     "Kind": "Trial",
-    "NpcTarget": "Terraria/Zombie",
-    "Count": 15,
-    "ForbiddenDebuff": "Bleeding",
+    "NpcTarget": "Terraria/SpikedIceSlime",
+    "Count": 10,
+    "ForbiddenDebuff": "Chilled",
     "Reward": "ArcheryPotion",
     "RewardCount": 3,
     "Coins": 13000,
@@ -2911,18 +2925,19 @@
       "TextEn": "Let the beast go and say nothing"
      }
     ],
-    "Reward": "TrapsightPotion",
-    "RewardCount": 3,
+    "Reward": "Binoculars",
+    "RewardCount": 1,
     "Coins": 16000,
     "Count": 1,
     "Target": ""
    },
    {
-    "TitleRu": "Донесение ордену",
-    "TitleEn": "Report to the order",
-    "Kind": "Delayed",
-    "Days": 1,
-    "Reward": "Marrow",
+    "TitleRu": "Северянин во льдах",
+    "TitleEn": "A northerner in the ice",
+    "Kind": "Observe",
+    "NpcTarget": "Terraria/UndeadViking",
+    "Seconds": 30,
+    "Reward": "IceBlade",
     "RewardCount": 1,
     "Coins": 24000,
     "Count": 1,
@@ -2935,32 +2950,32 @@
   "Force": "unassigned",
   "Steps": [
    {
-    "TitleRu": "Проба клинка",
-    "TitleEn": "Testing the blade",
+    "TitleRu": "Камень без воли",
+    "TitleEn": "Stone with no will",
     "Kind": "Hunt",
-    "Target": "Terraria/Skeleton",
-    "Count": 10,
+    "Target": "Terraria/GraniteGolem",
+    "Count": 8,
     "Reward": "IronskinPotion",
     "RewardCount": 3,
     "Coins": 3000
    },
    {
-    "TitleRu": "Без ран",
-    "TitleEn": "Unwounded",
+    "TitleRu": "В огне моей родни",
+    "TitleEn": "In my kin's fire",
     "Kind": "Trial",
-    "NpcTarget": "Terraria/CaveBat",
-    "Count": 12,
-    "ForbiddenDebuff": "Bleeding",
+    "NpcTarget": "Terraria/Hellbat",
+    "Count": 10,
+    "ForbiddenDebuff": "OnFire",
     "Reward": "EndurancePotion",
     "RewardCount": 3,
     "Coins": 7000,
     "Target": ""
    },
    {
-    "TitleRu": "Стойка противника",
-    "TitleEn": "The enemy's stance",
+    "TitleRu": "Лицо родни",
+    "TitleEn": "The face of my kin",
     "Kind": "Observe",
-    "NpcTarget": "Terraria/GoblinScout",
+    "NpcTarget": "Terraria/Demon",
     "Seconds": 30,
     "Reward": "RagePotion",
     "RewardCount": 3,
@@ -2991,14 +3006,14 @@
     "Target": ""
    },
    {
-    "TitleRu": "Клинок закалён",
-    "TitleEn": "The blade is tempered",
-    "Kind": "Delayed",
-    "Days": 2,
+    "TitleRu": "Маленькие огни",
+    "TitleEn": "Little fires",
+    "Kind": "GatherEnv",
+    "TileToken": "Campfire",
+    "Count": 3,
     "Reward": "TitanPotion",
     "RewardCount": 3,
     "Coins": 18000,
-    "Count": 1,
     "Target": ""
    }
   ]
@@ -3032,7 +3047,7 @@
     "TitleEn": "A cool head",
     "Kind": "Trial",
     "NpcTarget": "Terraria/IceSlime",
-    "Count": 12,
+    "Count": 10,
     "ForbiddenDebuff": "Chilled",
     "Reward": "MagicPowerPotion",
     "RewardCount": 3,
@@ -3100,16 +3115,27 @@
     "Coins": 7000
    },
    {
-    "TitleRu": "Слежка",
-    "TitleEn": "Tailing",
+    "TitleRu": "Чужая добыча",
+    "TitleEn": "Someone else's haul",
     "Kind": "Observe",
-    "NpcTarget": "Terraria/Skeleton",
+    "NpcTarget": "Terraria/UndeadMiner",
     "Seconds": 30,
     "Reward": "InvisibilityPotion",
     "RewardCount": 3,
     "Coins": 10000,
     "Count": 1,
     "Target": ""
+   },
+   {
+    "TitleRu": "Хранилище данжа",
+    "TitleEn": "The Dungeon vault",
+    "Kind": "Expedition",
+    "Target": "Muramasa|CobaltShield|AquaScepter|BlueMoon|Handgun|MagicMissile|Valor",
+    "SourceTag": "dingdong:acquisition/worldgen",
+    "Count": 1,
+    "Reward": "PoisonedKnife",
+    "RewardCount": 75,
+    "Coins": 13000
    },
    {
     "TitleRu": "Чьё золото",
@@ -3128,21 +3154,9 @@
      }
     ],
     "Reward": "GoldCoin",
-    "RewardCount": 3,
-    "Coins": 13000,
-    "Count": 1,
-    "Target": ""
-   },
-   {
-    "TitleRu": "Чисто уйти",
-    "TitleEn": "A clean getaway",
-    "Kind": "Trial",
-    "NpcTarget": "Terraria/DemonEye",
-    "Count": 10,
-    "ForbiddenDebuff": "Slow",
-    "Reward": "SwiftnessPotion",
     "RewardCount": 5,
     "Coins": 18000,
+    "Count": 1,
     "Target": ""
    }
   ]
@@ -3185,14 +3199,16 @@
     "Coins": 9000
    },
    {
-    "TitleRu": "Берег напротив Бездны",
-    "TitleEn": "The shore opposite the Abyss",
-    "Kind": "Visit",
-    "Target": "Ocean",
-    "Count": 1800,
+    "TitleRu": "Питомцы Илмериса",
+    "TitleEn": "The pets of Ilmeris",
+    "Kind": "Observe",
+    "NpcTarget": "CalamityMod/PrismBack",
+    "Seconds": 40,
     "Reward": "WaterWalkingPotion",
     "RewardCount": 2,
-    "Coins": 12000
+    "Coins": 12000,
+    "Count": 1,
+    "Target": ""
    },
    {
     "TitleRu": "Непрошеные гости",
@@ -3222,36 +3238,36 @@
   "Force": "unassigned",
   "Steps": [
    {
-    "TitleRu": "Пламя под контролем",
-    "TitleEn": "Flame under control",
+    "TitleRu": "Те, кто видел",
+    "TitleEn": "Those who saw",
     "Kind": "Observe",
-    "NpcTarget": "Terraria/Zombie",
-    "Seconds": 40,
-    "Reward": "ObsidianSkinPotion",
-    "RewardCount": 3,
+    "NpcTarget": "CalamityMod/Scryllar",
+    "Seconds": 30,
+    "Reward": "CalamityMod/EssenceofHavoc",
+    "RewardCount": 5,
     "Coins": 3000,
     "Count": 1,
     "Target": ""
    },
    {
-    "TitleRu": "Обсидиан",
-    "TitleEn": "Obsidian",
+    "TitleRu": "Застывшая сера",
+    "TitleEn": "Brimstone set solid",
     "Kind": "Deliver",
-    "Target": "Obsidian",
-    "Count": 10,
-    "Reward": "ObsidianSkinPotion",
-    "RewardCount": 5,
+    "Target": "CalamityMod/BrimstoneSlag",
+    "Count": 50,
+    "Reward": "InfernoPotion",
+    "RewardCount": 3,
     "Coins": 6000
    },
    {
-    "TitleRu": "Без огня",
-    "TitleEn": "Without fire",
+    "TitleRu": "Ловцы, которых она бросила",
+    "TitleEn": "The seekers she abandoned",
     "Kind": "Trial",
-    "NpcTarget": "Terraria/Skeleton",
-    "Count": 12,
-    "ForbiddenDebuff": "OnFire",
-    "Reward": "Fireblossom",
-    "RewardCount": 5,
+    "NpcTarget": "CalamityMod/SoulSlurper",
+    "Count": 8,
+    "ForbiddenDebuff": "CalamityMod/BrimstoneFlames",
+    "Reward": "CalamityMod/AshesofCalamity",
+    "RewardCount": 10,
     "Coins": 10000,
     "Target": ""
    },
@@ -3295,8 +3311,8 @@
   "Force": "tricksters",
   "Steps": [
    {
-    "TitleRu": "Жала из зарослей",
-    "TitleEn": "Stingers from the thicket",
+    "TitleRu": "Скипетр с жалом",
+    "TitleEn": "A sceptre with a sting",
     "Kind": "Deliver",
     "Target": "Stinger",
     "Count": 5,
@@ -3421,14 +3437,14 @@
     "Coins": 18000
    },
    {
-    "TitleRu": "Освящение",
-    "TitleEn": "Consecration",
-    "Kind": "Delayed",
-    "Days": 2,
+    "TitleRu": "Стражи святилища",
+    "TitleEn": "Guardians of the shrine",
+    "Kind": "GatherEnv",
+    "TileToken": "Statues",
+    "Count": 3,
     "Reward": "NeptunesShell",
     "RewardCount": 1,
     "Coins": 24000,
-    "Count": 1,
     "Target": ""
    }
   ]
@@ -3438,10 +3454,10 @@
   "Force": "archivists",
   "Steps": [
    {
-    "TitleRu": "Знак в небе",
-    "TitleEn": "A sign in the sky",
+    "TitleRu": "Совиный взгляд",
+    "TitleEn": "An owl's gaze",
     "Kind": "Observe",
-    "NpcTarget": "Terraria/Harpy",
+    "NpcTarget": "Terraria/Owl",
     "Seconds": 40,
     "Reward": "FallenStar",
     "RewardCount": 5,
@@ -3450,14 +3466,15 @@
     "Target": ""
    },
    {
-    "TitleRu": "Высота",
-    "TitleEn": "Altitude",
-    "Kind": "Visit",
-    "Target": "Forest",
-    "Count": 1500,
+    "TitleRu": "Дома для малышей",
+    "TitleEn": "Homes for the little ones",
+    "Kind": "GatherEnv",
+    "TileToken": "TreeSapling",
+    "Count": 8,
     "Reward": "FeatherfallPotion",
     "RewardCount": 3,
-    "Coins": 6000
+    "Coins": 6000,
+    "Target": ""
    },
    {
     "TitleRu": "Звёздная пыль",
@@ -3521,31 +3538,48 @@
     "Target": ""
    },
    {
-    "TitleRu": "Утренний улов",
-    "TitleEn": "The morning catch",
-    "Kind": "Deliver",
-    "Target": "Bass",
-    "Count": 10,
-    "Reward": "FishingPotion",
-    "RewardCount": 2,
-    "Coins": 8000
+    "TitleRu": "Секрет наживки",
+    "TitleEn": "The bait secret",
+    "Kind": "DialogueChoice",
+    "Choices": [
+     {
+      "Id": "keep",
+      "TextRu": "Сохранить секрет старика",
+      "TextEn": "Keep the old man's secret"
+     },
+     {
+      "Id": "tell",
+      "TextRu": "Рассказать Трюфелю",
+      "TextEn": "Tell Truffle"
+     },
+     {
+      "Id": "trade",
+      "TextRu": "Уговорить его платить Трюфелю за шляпки",
+      "TextEn": "Talk him into paying Truffle for the caps"
+     }
+    ],
+    "Reward": "JourneymanBait",
+    "RewardCount": 5,
+    "Coins": 8000,
+    "Count": 1,
+    "Target": ""
    },
    {
-    "TitleRu": "Дорога к морю",
-    "TitleEn": "The road to the sea",
-    "Kind": "Visit",
-    "Reward": "SonarPotion",
-    "RewardCount": 3,
-    "Coins": 12000,
-    "Target": "Ocean",
-    "Count": 1800
+    "TitleRu": "Доски для лодки",
+    "TitleEn": "Planks for a boat",
+    "Kind": "Deliver",
+    "Target": "PalmWood",
+    "Count": 50,
+    "Reward": "WeatherRadio",
+    "RewardCount": 1,
+    "Coins": 12000
    },
    {
     "TitleRu": "Кровь в воде",
     "TitleEn": "Blood in the water",
     "Kind": "Trial",
     "NpcTarget": "Terraria/Piranha",
-    "Count": 10,
+    "Count": 6,
     "ForbiddenDebuff": "Bleeding",
     "Reward": "AnglerTackleBag",
     "RewardCount": 1,
@@ -3553,15 +3587,14 @@
     "Target": ""
    },
    {
-    "TitleRu": "Большая рыба ждёт",
-    "TitleEn": "The big one waits",
-    "Kind": "Delayed",
-    "Days": 1,
-    "Reward": "FishermansGuide",
-    "RewardCount": 1,
-    "Coins": 24000,
+    "TitleRu": "Наживка на большую рыбу",
+    "TitleEn": "Bait for the big one",
+    "Kind": "Deliver",
+    "Target": "GlowingSnail",
     "Count": 1,
-    "Target": ""
+    "Reward": "GoldenFishingRod",
+    "RewardCount": 1,
+    "Coins": 24000
    }
   ]
  },
@@ -3603,16 +3636,14 @@
     "Target": ""
    },
    {
-    "TitleRu": "Небо чисто",
-    "TitleEn": "The sky is clear",
-    "Kind": "Trial",
-    "NpcTarget": "Terraria/Vulture",
-    "Count": 8,
-    "ForbiddenDebuff": "Bleeding",
-    "Reward": "AmmoBox",
-    "RewardCount": 1,
-    "Coins": 14000,
-    "Target": ""
+    "TitleRu": "То, что ходит сквозь песок",
+    "TitleEn": "What moves through the sand",
+    "Kind": "Hunt",
+    "Target": "Terraria/TombCrawlerHead",
+    "Count": 3,
+    "Reward": "HunterPotion",
+    "RewardCount": 5,
+    "Coins": 14000
    },
    {
     "TitleRu": "Признание",
@@ -3630,8 +3661,8 @@
       "TextEn": "Remind him of a watchman's duty"
      }
     ],
-    "Reward": "FossilOre",
-    "RewardCount": 15,
+    "Reward": "AncientBattleArmorMaterial",
+    "RewardCount": 3,
     "Coins": 20000,
     "Count": 1,
     "Target": ""
@@ -3643,8 +3674,8 @@
   "Force": "gardeners",
   "Steps": [
    {
-    "TitleRu": "Роща",
-    "TitleEn": "The grove",
+    "TitleRu": "Незасеянная поляна",
+    "TitleEn": "The unsown glade",
     "Kind": "GatherEnv",
     "TileToken": "TreeSapling",
     "Count": 10,
@@ -3654,8 +3685,8 @@
     "Target": ""
    },
    {
-    "TitleRu": "Соки земли",
-    "TitleEn": "Sap of the earth",
+    "TitleRu": "После взрыва",
+    "TitleEn": "After the blast",
     "Kind": "Deliver",
     "Target": "Vine",
     "Count": 5,
@@ -3749,13 +3780,13 @@
     "Coins": 14000
    },
    {
-    "TitleRu": "Не коснуться тока",
+    "TitleRu": "Не задев течения",
     "TitleEn": "Untouched by the current",
     "Kind": "Trial",
-    "NpcTarget": "Terraria/PinkJellyfish",
-    "Count": 10,
+    "NpcTarget": "Terraria/BlueJellyfish",
+    "Count": 8,
     "ForbiddenDebuff": "Electrified",
-    "Reward": "DivingHelmet",
+    "Reward": "JellyfishNecklace",
     "RewardCount": 1,
     "Coins": 18000,
     "Target": ""
@@ -3776,8 +3807,8 @@
       "TextEn": "Keep the place secret"
      }
     ],
-    "Reward": "ObsidianSkinPotion",
-    "RewardCount": 3,
+    "Reward": "DivingGear",
+    "RewardCount": 1,
     "Coins": 22000,
     "Count": 1,
     "Target": ""
@@ -3821,25 +3852,27 @@
     "Coins": 8000
    },
    {
-    "TitleRu": "Чёрная жемчужина",
-    "TitleEn": "The black pearl",
+    "TitleRu": "Ящик с прилива",
+    "TitleEn": "A crate from the tide",
     "Kind": "Expedition",
-    "Target": "BlackPearl",
+    "Target": "OceanCrate",
     "SourceTag": "dingdong:acquisition/fishing",
     "Count": 1,
-    "Reward": "GoldCoin",
+    "Reward": "Sextant",
     "RewardCount": 1,
-    "Coins": 8000
+    "Coins": 10000
    },
    {
-    "TitleRu": "Час у прилавка",
-    "TitleEn": "An hour at the stall",
-    "Kind": "Visit",
-    "Target": "Ocean",
-    "Count": 1200,
+    "TitleRu": "Чайки у прилавка",
+    "TitleEn": "Gulls at the stall",
+    "Kind": "Observe",
+    "NpcTarget": "Terraria/Seagull",
+    "Seconds": 40,
     "Reward": "LuckPotionLesser",
     "RewardCount": 1,
-    "Coins": 14000
+    "Coins": 14000,
+    "Count": 1,
+    "Target": ""
    },
    {
     "TitleRu": "Рынок растёт",
@@ -3869,27 +3902,25 @@
     "Coins": 3000
    },
    {
-    "TitleRu": "Свет в архиве",
-    "TitleEn": "Light in the archive",
+    "TitleRu": "Ярлыки",
+    "TitleEn": "Labels",
     "Kind": "GatherEnv",
-    "TileToken": "Torch",
-    "Count": 20,
+    "TileToken": "Signs",
+    "Count": 4,
     "Reward": "Sapphire",
     "RewardCount": 3,
     "Coins": 6000,
     "Target": ""
    },
    {
-    "TitleRu": "Каталогизация",
-    "TitleEn": "Cataloguing",
-    "Kind": "Observe",
-    "NpcTarget": "Terraria/Zombie",
-    "Seconds": 45,
+    "TitleRu": "Несанкционированная процедура",
+    "TitleEn": "Unauthorized routine",
+    "Kind": "Deliver",
+    "Target": "JungleRose",
+    "Count": 1,
     "Reward": "Emerald",
     "RewardCount": 3,
-    "Coins": 9000,
-    "Count": 1,
-    "Target": ""
+    "Coins": 9000
    },
    {
     "TitleRu": "Что хранить",
@@ -3931,11 +3962,11 @@
   "Force": "unassigned",
   "Steps": [
    {
-    "TitleRu": "Камень из глубин",
-    "TitleEn": "Stone from the deep",
+    "TitleRu": "Верёвка вниз",
+    "TitleEn": "A rope going down",
     "Kind": "Deliver",
-    "Target": "StoneBlock",
-    "Count": 100,
+    "Target": "Rope",
+    "Count": 50,
     "Reward": "SpelunkerPotion",
     "RewardCount": 3,
     "Coins": 3000
@@ -3955,8 +3986,8 @@
     "TitleRu": "Шорох внизу",
     "TitleEn": "A rustle below",
     "Kind": "Observe",
-    "NpcTarget": "Terraria/CaveBat",
-    "Seconds": 40,
+    "NpcTarget": "Terraria/GiantWormHead",
+    "Seconds": 20,
     "Reward": "MiningPotion",
     "RewardCount": 3,
     "Coins": 9000,
@@ -4013,16 +4044,14 @@
     "Coins": 5000
    },
    {
-    "TitleRu": "Не дай сломать броню",
-    "TitleEn": "Keep the armor whole",
-    "Kind": "Trial",
-    "NpcTarget": "Terraria/Skeleton",
-    "Count": 12,
-    "ForbiddenDebuff": "BrokenArmor",
-    "Reward": "IronAnvil",
-    "RewardCount": 1,
-    "Coins": 9000,
-    "Target": ""
+    "TitleRu": "Чужие кирки",
+    "TitleEn": "Someone else's picks",
+    "Kind": "Hunt",
+    "Target": "Terraria/UndeadMiner",
+    "Count": 3,
+    "Reward": "MiningPotion",
+    "RewardCount": 3,
+    "Coins": 9000
    },
    {
     "TitleRu": "Чей молот",
@@ -4047,26 +4076,26 @@
     "Target": ""
    },
    {
-    "TitleRu": "Осветить мастерскую",
-    "TitleEn": "Light the workshop",
-    "Kind": "GatherEnv",
-    "TileToken": "Torch",
-    "Count": 12,
-    "Reward": "LesserRestorationPotion",
-    "RewardCount": 5,
-    "Coins": 10000,
+    "TitleRu": "Броня на морозе",
+    "TitleEn": "Armour in the frost",
+    "Kind": "Trial",
+    "NpcTarget": "Terraria/IceBat",
+    "Count": 10,
+    "ForbiddenDebuff": "Chilled",
+    "Reward": "ArmorPolish",
+    "RewardCount": 1,
+    "Coins": 14000,
     "Target": ""
    },
    {
     "TitleRu": "Заказ на совесть",
     "TitleEn": "An honest commission",
-    "Kind": "Delayed",
-    "Days": 2,
-    "Reward": "HellstoneBar",
-    "RewardCount": 10,
-    "Coins": 24000,
-    "Count": 1,
-    "Target": ""
+    "Kind": "Deliver",
+    "Target": "HellstoneBar",
+    "Count": 10,
+    "Reward": "MoltenPickaxe",
+    "RewardCount": 1,
+    "Coins": 24000
    }
   ]
  },
@@ -4075,13 +4104,13 @@
   "Force": "tricksters",
   "Steps": [
    {
-    "TitleRu": "Какой милый!",
-    "TitleEn": "So cute!",
+    "TitleRu": "Что-то грызунье",
+    "TitleEn": "Something rodent-y",
     "Kind": "Observe",
-    "NpcTarget": "Terraria/Bunny",
-    "Seconds": 45,
-    "Reward": "Carrot",
-    "RewardCount": 1,
+    "NpcTarget": "Terraria/Mouse",
+    "Seconds": 40,
+    "Reward": "StinkPotion",
+    "RewardCount": 2,
     "Coins": 4000,
     "Count": 1,
     "Target": ""
@@ -4109,36 +4138,38 @@
     "Target": ""
    },
    {
-    "TitleRu": "Тренировка в пещерах",
-    "TitleEn": "Cave training",
-    "Kind": "Hunt",
-    "Target": "Terraria/CaveBat",
-    "Count": 15,
-    "Reward": "NightOwlPotion",
-    "RewardCount": 3,
-    "Coins": 10000
+    "TitleRu": "Узор короля",
+    "TitleEn": "The king's pattern",
+    "Kind": "Observe",
+    "NpcTarget": "Terraria/KingSlime",
+    "Seconds": 30,
+    "Reward": "NinjaHood",
+    "RewardCount": 1,
+    "Coins": 10000,
+    "Count": 1,
+    "Target": ""
    },
    {
-    "TitleRu": "Сердце для смелых",
-    "TitleEn": "A heart for the brave",
-    "Kind": "Expedition",
-    "Target": "LifeCrystal",
-    "SourceTag": "dingdong:acquisition/worldgen",
-    "Count": 1,
-    "Reward": "HeartreachPotion",
-    "RewardCount": 3,
-    "Coins": 14000
+    "TitleRu": "Жарче, чем в прошлый раз",
+    "TitleEn": "Hotter than last time",
+    "Kind": "Trial",
+    "NpcTarget": "Terraria/Hellbat",
+    "Count": 10,
+    "ForbiddenDebuff": "OnFire",
+    "Reward": "ObsidianSkull",
+    "RewardCount": 1,
+    "Coins": 14000,
+    "Target": ""
    },
    {
     "TitleRu": "Редкость для редкой",
     "TitleEn": "A rarity for the rare",
-    "Kind": "Delayed",
-    "Days": 2,
+    "Kind": "Hunt",
+    "Target": "Terraria/Tim",
+    "Count": 1,
     "Reward": "SlimeStaff",
     "RewardCount": 1,
-    "Coins": 25000,
-    "Count": 1,
-    "Target": ""
+    "Coins": 25000
    }
   ]
  },
@@ -4157,15 +4188,14 @@
     "Coins": 3000
    },
    {
-    "TitleRu": "Тихий свет",
-    "TitleEn": "A quiet light",
-    "Kind": "GatherEnv",
-    "TileToken": "Torch",
-    "Count": 15,
+    "TitleRu": "Тень снизу",
+    "TitleEn": "The shadow from below",
+    "Kind": "Visit",
+    "Target": "Underground",
+    "Count": 1500,
     "Reward": "CalmingPotion",
     "RewardCount": 3,
-    "Coins": 6000,
-    "Target": ""
+    "Coins": 6000
    },
    {
     "TitleRu": "Беспокойные души",
@@ -4202,14 +4232,14 @@
     "Target": ""
    },
    {
-    "TitleRu": "Молитва услышана",
-    "TitleEn": "The prayer is heard",
-    "Kind": "Delayed",
-    "Days": 2,
+    "TitleRu": "Свеча на каждую душу",
+    "TitleEn": "A candle for every soul",
+    "Kind": "GatherEnv",
+    "TileToken": "Candles",
+    "Count": 5,
     "Reward": "LifeforcePotion",
     "RewardCount": 3,
     "Coins": 17000,
-    "Count": 1,
     "Target": ""
    }
   ]
@@ -4241,16 +4271,15 @@
     "Target": ""
    },
    {
-    "TitleRu": "Чистое зелье",
-    "TitleEn": "A clean brew",
-    "Kind": "Trial",
-    "NpcTarget": "Terraria/Zombie",
-    "Count": 12,
-    "ForbiddenDebuff": "Poisoned",
+    "TitleRu": "Рыба из гнили",
+    "TitleEn": "Fish from the rot",
+    "Kind": "Expedition",
+    "Target": "Ebonkoi|Hemopiranha",
+    "SourceTag": "dingdong:acquisition/fishing",
+    "Count": 2,
     "Reward": "BattlePotion",
     "RewardCount": 3,
-    "Coins": 10000,
-    "Target": ""
+    "Coins": 10000
    },
    {
     "TitleRu": "Чары",
@@ -4275,15 +4304,14 @@
     "Target": ""
    },
    {
-    "TitleRu": "Зелье настаивается",
-    "TitleEn": "The potion steeps",
-    "Kind": "Delayed",
-    "Days": 3,
+    "TitleRu": "Прополка",
+    "TitleEn": "The weeding",
+    "Kind": "Hunt",
+    "Target": "Terraria/ManEater",
+    "Count": 10,
     "Reward": "LifeforcePotion",
     "RewardCount": 3,
-    "Coins": 18000,
-    "Count": 1,
-    "Target": ""
+    "Coins": 18000
    }
   ]
  },
@@ -4324,20 +4352,20 @@
     "Coins": 9000
    },
    {
-    "TitleRu": "Метеоритная закалка",
-    "TitleEn": "Meteor tempering",
-    "Kind": "Trial",
-    "NpcTarget": "Terraria/MeteorHead",
-    "Count": 10,
-    "ForbiddenDebuff": "OnFire",
-    "Reward": "MeteoriteBar",
-    "RewardCount": 8,
+    "TitleRu": "На чьей стороне",
+    "TitleEn": "Whose side",
+    "Kind": "Observe",
+    "NpcTarget": "Terraria/GoblinSorcerer",
+    "Seconds": 30,
+    "Reward": "PeaceCandle",
+    "RewardCount": 1,
     "Coins": 14000,
+    "Count": 1,
     "Target": ""
    },
    {
-    "TitleRu": "Шестифунтовый окунь",
-    "TitleEn": "The six pound bass",
+    "TitleRu": "Окунь на удочку",
+    "TitleEn": "Bass on the line",
     "Kind": "Expedition",
     "Target": "Bass",
     "SourceTag": "dingdong:acquisition/fishing",
@@ -4347,15 +4375,14 @@
     "Coins": 16000
    },
    {
-    "TitleRu": "Жатва подождёт",
-    "TitleEn": "The harvest can wait",
-    "Kind": "Delayed",
-    "Days": 1,
-    "Reward": "Sickle",
-    "RewardCount": 1,
-    "Coins": 24000,
+    "TitleRu": "Ночь, которую не отменить",
+    "TitleEn": "The night that can't be cancelled",
+    "Kind": "Hunt",
+    "Target": "Terraria/BloodNautilus",
     "Count": 1,
-    "Target": ""
+    "Reward": "BloodMoonStarter",
+    "RewardCount": 1,
+    "Coins": 24000
    }
   ]
  }

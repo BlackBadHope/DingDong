@@ -15,6 +15,6 @@ using Terraria.ModLoader.IO;
 namespace DingDongBiomeHomes;
 internal static partial class NpcQuestNetwork
 {
-	internal const byte QuestProtocolVersion = 2;
+	internal const byte QuestProtocolVersion = 5;
 	internal const int MaximumQuestStringLength = 256;
 }

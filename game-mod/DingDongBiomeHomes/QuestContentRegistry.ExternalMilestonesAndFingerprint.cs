@@ -52,6 +52,7 @@ internal static partial class QuestContentRegistry
 			Mix(template.BaseRewardCopper.ToString());
 		}
 
+		Mix(System.Text.Encoding.UTF8.GetString(DingDongBiomeHomes.Instance.GetFileBytes("Quests/ResidentStories.json")));
 		return hash == 0 ? offset : hash;
 		void Mix(string value)
 		{

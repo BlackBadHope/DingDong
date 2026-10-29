@@ -21,9 +21,11 @@ public sealed partial class OceanExpeditionWorldSystem : ModSystem
     public static bool Active => Layout != null;
     public override void ClearWorld() => Layout = null;
     public override void OnWorldUnload() => Layout = null;
+    public override void PostWorldGen() => OceanForeignFootprint.Release(); // V03 29.10
 
     internal static void Attach(List<GenPass> tasks, ref double weight)
     {
+        OceanForeignFootprint.Arm(false);
         if (!ContinentalWorldDimensions.IsContinental || Main.remixWorld || Main.notTheBeesWorld ||
             global::DingDongBiomeHomes.Worldgen.Compiler.Runtime.WorldCompilerActivation.IsActive) return;
         // Providers finish their real underwater structures first. Their tiles and
@@ -38,6 +40,19 @@ public sealed partial class OceanExpeditionWorldSystem : ModSystem
             Generate();
         }, 1.6));
         weight += 1.6;
+        OceanForeignFootprint.Arm(true);
+        // V03 29.10: SOTS Pyramid/AbandonedVillage/Sanctuary/GemStructures run after the sea;
+        // the receipt follows the last foreign pass.
+        int lastForeign = tasks.FindLastIndex(p => !p.Name.StartsWith("DingDong", StringComparison.Ordinal));
+        if (lastForeign > at)
+        {
+            tasks.Insert(lastForeign + 1, new PassLegacy("DingDong ocean foreign footprint receipt", (p, _) =>
+            {
+                p.Message = "Checking the island sea for foreign structures";
+                OceanForeignFootprint.Receipt(ModContent.GetInstance<OceanExpeditionWorldSystem>().Mod);
+            }, 0.01));
+            weight += 0.01;
+        }
     }
     private static void Generate()
     {
@@ -57,6 +72,7 @@ public sealed partial class OceanExpeditionWorldSystem : ModSystem
         var plan = new OceanExpeditionLayout(Main.maxTilesX, Main.maxTilesY, left, sea, NativeUnderworldSystem.Layer, WorldGen.genRand.Next());
         Apply(plan);
         Layout = plan;
+        OceanForeignFootprint.CaptureBaseline(plan, ModContent.GetInstance<OceanExpeditionWorldSystem>().Mod); // V03 29.10
         FishingWaterWorldSystem.RecordExpeditionOcean(plan);
         NativeCoastalBiomeSystem.CaptureGeneratedBounds();
     }

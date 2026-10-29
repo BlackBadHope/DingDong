@@ -15,5 +15,5 @@ using Terraria.ModLoader.IO;
 namespace DingDongBiomeHomes;
 public sealed partial class NpcQuestWorldLedger
 {
-	public override void ClearWorld() => Records.Clear();
+	public override void ClearWorld() { Records.Clear(); ClearShared(); MissingClaimTicks.Clear(); }
 }

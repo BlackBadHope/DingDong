@@ -30,12 +30,40 @@ public static class AuthoredResidenceIntakeProbeManifest
 		int width,
 		int height,
 		AuthoredPlacementMode placementMode,
-		PresetRole roles) => PublicHomeReplacementCatalog.Create(id, width, height, placementMode, roles);
+		PresetRole roles) => new(
+		id,
+		$"Structures/PrivateHome/HuadiaoUpdated/{id}.shstruct",
+		width,
+		height,
+		null,
+		0,
+		"huadiao",
+		HuadiaoSource,
+		$"wld-sha256:{HuadiaoWorldSha256}",
+		AuthoredPresetCatalog.PrivateHomeLicense,
+		roles | PresetRole.PrivateHome,
+		placementMode,
+		false,
+		false);
 
 	private static AuthoredPreset CreateBarton(
 		string id,
 		int width,
 		int height,
 		AuthoredPlacementMode placementMode,
-		PresetRole roles) => PublicHomeReplacementCatalog.Create(id, width, height, placementMode, roles);
+		PresetRole roles) => new(
+		id,
+		$"Structures/PrivateHome/Barton/{id}.shstruct",
+		width,
+		height,
+		null,
+		0,
+		"XORandom",
+		BartonSource,
+		$"wld-sha256:{BartonWorldSha256}",
+		AuthoredPresetCatalog.PrivateHomeLicense,
+		roles | PresetRole.PrivateHome,
+		placementMode,
+		false,
+		false);
 }

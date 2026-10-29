@@ -18,5 +18,7 @@ internal enum DingDongPacketKind : byte
 	FishingRigSnapshot = 77,
     ResidentEncounterTalk = 80,
     ResidentEncounterSnapshot = 81,
-    QuestChoiceRequest = 82
+    QuestChoiceRequest = 82,
+    QuestAbandonRequest = 83,
+    QuestNotice = 84
 }

@@ -16,6 +16,17 @@ namespace DingDongBiomeHomes;
 internal sealed class ResidentQuestProgress
 {
 	internal int Completed { get; set; }
+	internal string AssignedTo { get; set; } = string.Empty;
+	internal string AssignedName { get; set; } = string.Empty;
+	internal string LastCompletedBy { get; set; } = string.Empty;
+	// A paused task (its performer left the world) belongs to nobody until a player resumes it.
+	internal bool IsAssignedTo(string id) => !Paused && AssignedTo.Length > 0 && string.Equals(AssignedTo, id, StringComparison.Ordinal);
+	internal bool IsPausedFor(string id) => Paused && AssignedTo.Length > 0 && string.Equals(AssignedTo, id, StringComparison.Ordinal);
+	internal bool Paused { get; set; }
+	// Delayed form: world quest clock tick at acceptance (NpcQuestWorldLedger.Clock).
+	internal long StartClock { get; set; }
+	// Gather-Env form: matching tiles that already stood in the area at acceptance.
+	internal int Baseline { get; set; }
 	internal bool Active { get; set; }
 	internal int Progress { get; set; }
 	internal int ActiveQuestId { get; set; } = -1;
@@ -28,10 +39,14 @@ internal sealed class ResidentQuestProgress
 	internal string ActiveTargetName { get; set; } = string.Empty;
 	internal int RewardCopper { get; set; }
 	internal int DifficultyRank { get; set; }
+	internal string ActiveStoryKey { get; set; } = string.Empty;
+	internal int RewardItemType { get; set; }
+	internal int RewardItemCount { get; set; }
 
 	internal ResidentQuestProgress Clone() => new()
 	{
 		Completed = Completed,
+		AssignedTo = AssignedTo, AssignedName = AssignedName, LastCompletedBy = LastCompletedBy, Paused = Paused, StartClock = StartClock, Baseline = Baseline,
 		Active = Active,
 		Progress = Progress,
 		ActiveQuestId = ActiveQuestId,
@@ -43,11 +58,13 @@ internal sealed class ResidentQuestProgress
 		ActiveTargetKey = ActiveTargetKey,
 		ActiveTargetName = ActiveTargetName,
 		RewardCopper = RewardCopper,
-		DifficultyRank = DifficultyRank
+		DifficultyRank = DifficultyRank, ActiveStoryKey = ActiveStoryKey, RewardItemType = RewardItemType, RewardItemCount = RewardItemCount
 	};
 	internal void Begin(ResidentQuestDefinition definition, int rewardCopper, int difficultyRank)
 	{
+		ActiveStoryKey = definition.StoryKey; RewardItemType = definition.RewardItemType; RewardItemCount = definition.RewardItemCount;
 		Active = true;
+		Paused = false; StartClock = 0; Baseline = 0;
 		Progress = 0;
 		ActiveQuestId = definition.Id;
 		ActiveKind = definition.Kind;
@@ -65,7 +82,7 @@ internal sealed class ResidentQuestProgress
 	{
 		if (ActiveGoal > 0)
 		{
-			return new ResidentQuestDefinition(ActiveQuestId, ActiveKind, ActiveVariant, ActiveItemType, ActiveGoal, ActiveRadiusTiles, ActiveTargetKey, ActiveTargetName, RewardCopper);
+			return new ResidentQuestDefinition(ActiveQuestId, ActiveKind, ActiveVariant, ActiveItemType, ActiveGoal, ActiveRadiusTiles, ActiveTargetKey, ActiveTargetName, RewardCopper, ActiveStoryKey, RewardItemType, RewardItemCount);
 		}
 
 		ResidentQuestDefinition legacy = ResidentQuestCatalog.Resolve(identity, ActiveQuestId);
@@ -74,7 +91,10 @@ internal sealed class ResidentQuestProgress
 
 	internal void ClearActive()
 	{
+		ActiveStoryKey = string.Empty; RewardItemType = RewardItemCount = 0;
 		Active = false;
+		Paused = false; StartClock = 0; Baseline = 0;
+		AssignedTo = AssignedName = string.Empty;
 		Progress = 0;
 		ActiveQuestId = -1;
 		ActiveGoal = 0;
@@ -86,26 +106,18 @@ internal sealed class ResidentQuestProgress
 
 	internal bool NormalizeLoaded(NpcTownIdentity identity, string persistentId)
 	{
-		if (!Active)
-			return false;
-		if (ActiveGoal > 0 && Enum.IsDefined(ActiveKind))
-		{
-			ResidentQuestDefinition saved = Definition(identity);
-			if (Progress >= saved.Goal)
-				return false;
-			if (QuestContentRegistry.TryRebind(saved, out ResidentQuestDefinition rebound) && QuestContentRegistry.TargetExists(rebound))
-			{
-				bool changed = rebound.ItemType != ActiveItemType || !string.Equals(rebound.TargetName, ActiveTargetName, StringComparison.Ordinal);
-				ActiveItemType = rebound.ItemType;
-				ActiveTargetName = rebound.TargetName ?? string.Empty;
-				Progress = Math.Min(Progress, ActiveGoal);
-				return changed;
-			}
-		}
+        if (!Active) return false;
+        if (ActiveStoryKey.Length == 0 || !PersonalResidentQuestCatalog.TryResolve(ActiveStoryKey, out var rebound))
+        { ClearActive(); return true; } // Retire old random tasks without consuming supplies or changing earned trust.
+        // A stage rewritten since the save (other form or target) cannot continue its old progress:
+        // retire it the same way, so the resident offers the same stage again with its new definition.
+        if (rebound.Kind != ActiveKind || !string.Equals(rebound.TargetKey, ActiveTargetKey, StringComparison.Ordinal))
+        { ClearActive(); return true; }
+        bool changed = rebound.ItemType != ActiveItemType || rebound.RewardItemType != RewardItemType || rebound.TargetName != ActiveTargetName;
+        ActiveItemType = rebound.ItemType; ActiveTargetName = rebound.TargetName;
+        RewardItemType = rebound.RewardItemType; RewardItemCount = rebound.RewardItemCount;
+        Progress = Math.Min(Progress, ActiveGoal);
+        return changed;
 
-		ResidentQuestDefinition selected = ResidentQuestCatalog.SelectAvailable(persistentId, identity, Completed);
-		ResidentQuestDefinition scaled = QuestRewardBalance.Scale(selected, out int rewardCopper, out int difficultyRank);
-		Begin(scaled, rewardCopper, difficultyRank);
-		return true;
 	}
 }

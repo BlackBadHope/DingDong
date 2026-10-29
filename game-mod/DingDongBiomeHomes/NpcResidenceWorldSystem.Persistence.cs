@@ -44,6 +44,7 @@ public sealed partial class NpcResidenceWorldSystem
 	public override void NetReceive(BinaryReader reader) => ReadSnapshot(reader);
 	private static void WriteSnapshot(BinaryWriter writer)
 	{
+		writer.Write((byte)SaveVersion);
 		writer.Write(worldRevision);
 		writer.Write((ushort)Math.Min(States.Count, NpcTownManifest.AuthoredCount));
 		foreach (ResidentEscortState state in States.Values.OrderBy(state => state.NpcKey, StringComparer.Ordinal).Take(NpcTownManifest.AuthoredCount))
@@ -52,6 +53,7 @@ public sealed partial class NpcResidenceWorldSystem
 
 	private static void ReadSnapshot(BinaryReader reader)
 	{
+		if (reader.ReadByte() != SaveVersion) throw new InvalidDataException("Unsupported residence snapshot version.");
 		long revision = reader.ReadInt64();
 		int count = reader.ReadUInt16();
 		if (count > NpcTownManifest.AuthoredCount)
@@ -74,6 +76,7 @@ public sealed partial class NpcResidenceWorldSystem
 	{
 		["NpcKey"] = state.NpcKey,
 		["Stage"] = (int)state.Stage,
+		["OriginReleased"] = state.OriginReleased,
 		["OwnerId"] = state.OwnerId,
 		["OwnerPlayerIndex"] = -1,
 		["FlagX"] = (int)state.FlagPosition.X,

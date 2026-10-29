@@ -1,0 +1,706 @@
+{
+ "format": "dingdong-lore-node-v1",
+ "node": "ocean",
+ "nodePage": {
+  "title": {
+   "ru": "Берег напротив Бездны",
+   "en": "The Shore Opposite the Abyss"
+  },
+  "body": {
+   "ru": "У мира два берега, и они не похожи друг на друга. На одном — Бездна: старая, тёмная, придвинутая к самой кромке суши, а под ней лежат руины города, о котором здесь говорят вполголоса. На другом — глубокий океан, которого прежде не было. Он пришёл вместе с новыми краями мира, и вода в нём ещё не решила, какой ей быть.\n\nЗдешние жители называют его «непроизнесённой» частью мира: будто мир собирается что-то сказать, но пока держит слово во рту. Каждая экспедиция на дно — чтение черновиков, и всякий, кто возвращается с жемчугом, приносит обрывок недописанной фразы.\n\nКороль без королевства, водолаз, ищущий свои Глубины, старый моряк, торговка с рыбного рынка и жрица медуз спорят не о том, расти ли миру, а о том, что делать со всем, что смыла и ещё смоет вода.",
+   "en": "The world has two shores, and they are nothing alike. On one lies the Abyss: old, dark, pressed right against the edge of the land, with the ruins of a city beneath it that people here mention only in a low voice. On the other lies a deep ocean that was not there before. It came with the world's new edges, and its water has not yet decided what it wants to be.\n\nThe locals call it the “unspoken” part of the world: as if the world were about to say something but still held the word in its mouth. Every expedition to the seabed is a reading of the world's drafts, and whoever returns with a pearl brings back a scrap of an unfinished sentence.\n\nA king without a kingdom, a diver searching for his Depths, an old sailor, a trader from the fish market and a jellyfish priestess do not argue over whether the world should grow, but over what to do with everything the water has washed away, and will wash away yet."
+  }
+ },
+ "residents": [
+  {
+   "npcKey": "CalamityMod/SeaKing",
+   "force": "archivists",
+   "epithet": {
+    "ru": "Король без королевства",
+    "en": "A king without a kingdom"
+   },
+   "quote": {
+    "ru": "Вода помнит всё, что в неё уронили. Я лишь пересказываю.",
+    "en": "Water remembers everything that was ever dropped into it. I only retell it."
+   },
+   "intro": {
+    "ru": "Амидиас был королём подводного народа. Народа больше нет, коралловые дома лежат в темноте, а сам он не спит — так устроен его род — и потому помнит дольше других. Пустые резиденции на берегу кажутся ему знакомыми: так строят для тех, кого ещё ждут. В споре сил он с архивистами: пусть мир растёт или подрезает себя, лишь бы не забывал, кого уже потерял.",
+    "en": "Amidias was once king of an undersea people. The people are gone and their coral homes lie in darkness, but he does not sleep, for that is the nature of his kind, and so he remembers longer than anyone. The empty residences on the shore feel familiar to him: that is how one builds for those still awaited. In the quarrel of the forces he sides with the Archivists: let the world grow or prune itself, so long as it never forgets whom it has lost."
+   },
+   "findHint": {
+    "ru": "Его находят в раковине Гигантского моллюска: одолей это создание после победы над Пустынным бичом — и пленник раковины выйдет на берег.",
+    "en": "He is found inside the shell of a Giant Clam: defeat it after the Desert Scourge has fallen, and the shell's captive will come ashore."
+   },
+   "epilogue": {
+    "ru": "Амидиас сохранил твоё слово там же, где хранит имена своего народа, — в памяти, которая не спит. «Королевства тонут, {player}, но, пока их пересказывают, они ещё не на дне», — говорит он. Если Водолаз однажды придёт к нему с картой Глубин, старый король выслушает. А если не придёт — поймёт.",
+    "en": "Amidias has kept your word in the same place he keeps the names of his people: in a memory that never sleeps. “Kingdoms sink, {player}, but as long as someone retells them, they have not reached the bottom yet,” he says. If the Diverman ever comes to him with a map of the Depths, the old king will listen. And if he never comes, the king will understand."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Что помнит вода",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Амидиас готов рассказать, что помнит вода, но рассказ у него один, а начать его можно по-разному. Выбери, о чём спросить: о погибшем королевстве или о Бездне и городе под ней.",
+      "en": "Amidias is ready to tell what the water remembers. He has only one story, but it can begin in different places. Choose what to ask about: the drowned kingdom, or the Abyss and the city beneath it."
+     },
+     "offer": {
+      "ru": "Садись, {player}. Я не сплю уже много лет, и времени на рассказы у меня больше, чем слушателей.",
+      "en": "Sit down, {player}. I have not slept in many years, and I have more time for stories than I have listeners."
+     },
+     "complete": {
+      "ru": "Спасибо, что выслушал. Сказанное вслух тонет медленнее.",
+      "en": "Thank you for listening. What is spoken aloud sinks more slowly."
+     },
+     "waiting": null,
+     "choices": {
+      "listen": {
+       "outcome": {
+        "ru": "Амидиас рассказывает о свете над коралловыми домами и об отцах, что вынашивали яйца до вылупления. О том, как всё кончилось, он молчит.",
+        "en": "Amidias tells of the light above the coral homes, and of fathers who carried the eggs until they hatched. Of how it all ended, he says nothing."
+       },
+       "lean": "archivists"
+      },
+      "abyss": {
+       "outcome": {
+        "ru": "Под Бездной, в Преисподней, лежит Азафур — древнейший город мира, первым вставший за Ярима. Теперь там руины. «Не спеши туда», — просит он.",
+        "en": "Beneath the Abyss, in the Underworld, lies Azafure, the oldest city in the world and the first to stand with Yharim. Now it is ruins. “Do not hurry there,” he asks."
+       },
+       "lean": "tiders"
+      }
+     }
+    },
+    {
+     "index": 1,
+     "titleRu": "Жемчуг со дна",
+     "kind": "Expedition",
+     "description": {
+      "ru": "Королевство Амидиаса украшало себя жемчугом. Он просит выловить белые жемчужины — именно поймать в море, а не купить: память хранит лишь то, что вода отдала сама.",
+      "en": "Amidias's kingdom adorned itself with pearls. He asks you to fish up white pearls, truly caught at sea rather than bought: memory keeps only what the water gives up of its own accord."
+     },
+     "offer": {
+      "ru": "Мой народ носил жемчуг как память. Принеси белые жемчужины, что отдаст само море, — купленные ничего не помнят.",
+      "en": "My people wore pearls as memories. Bring me white pearls the sea itself gives up; bought ones remember nothing."
+     },
+     "complete": {
+      "ru": "Белые, как свет над нашими кораллами. Благодарю тебя. Эти я сохраню.",
+      "en": "White as the light above our corals. I thank you. These I will keep."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Питомцы Илмериса",
+     "kind": "Observe",
+     "description": {
+      "ru": "Под пустыней лежит Затонувшее море — уцелевший край Илмериса, королевства Амидиаса. Там живут призмоспины, которых его народ держал как любимцев. Понаблюдай за одним, не причиняя вреда: помнит ли он руку хозяина?",
+      "en": "Beneath the desert lies the Sunken Sea, a surviving corner of Ilmeris, Amidias's kingdom. Prism-backs live there, the animals his people kept as pets. Watch one without harming it: does it still remember a keeper's hand?"
+     },
+     "offer": {
+      "ru": "Мой народ держал призмоспинов у порога, как вы — собак. Они ещё живут под песком. Посмотри на одного за меня, {player}. Я не вынесу, если он меня не узнает.",
+      "en": "My people kept prism-backs by the door, as you keep dogs. Beneath the sands they can still be found. Look at one for me, {player}. I could not bear it if it failed to know me."
+     },
+     "complete": {
+      "ru": "Он сам подплыл к тебе? Значит, помнит не меня — руку. Этого довольно. Илмерис ещё дышит под песком.",
+      "en": "It swam up to you on its own? Then it remembers not me, but the hand. That is enough. Ilmeris still breathes beneath the sand."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Непрошеные гости",
+     "kind": "Hunt",
+     "description": {
+      "ru": "К берегу, где поселился Амидиас, приходят акулы. Он не любит крови в воде, но эти хищники пугают всех, кто живёт у моря, и он просит избавить от них берег.",
+      "en": "Sharks keep coming to the shore where Amidias has settled. He has no love for blood in the water, but these predators frighten everyone who lives by the sea, and he asks you to rid the shore of them."
+     },
+     "offer": {
+      "ru": "Я видел достаточно резни на одну жизнь. Но акулы у берега не оставят в покое ни рыбаков, ни детей. Прошу тебя.",
+      "en": "I have seen enough carnage for one lifetime. But the sharks by the shore will leave neither fishermen nor children in peace. I ask this of you."
+     },
+     "complete": {
+      "ru": "Стало тише. Мне жаль их, и всё же благодарю. Король обязан выбирать, даже когда королевства уже нет.",
+      "en": "It is quieter now. I pity them, and still I thank you. A king must choose, even when there is no kingdom left."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 4,
+     "titleRu": "Слово, сказанное морю",
+     "kind": "Delayed",
+     "description": {
+      "ru": "Амидиас хочет произнести над водой имена своего народа. Говорить с морем приходится медленно: оно отвечает не сразу. Возвращайся, когда пройдёт несколько дней.",
+      "en": "Amidias wishes to speak the names of his people over the water. One must talk to the sea slowly: it does not answer at once. Come back when several days have passed."
+     },
+     "offer": {
+      "ru": "Я скажу морю имена, которых больше никто не помнит. Подожди со мной, {player}. Море отвечает не сразу.",
+      "en": "I will tell the sea names that no one else remembers. Wait with me, {player}. The sea does not answer at once."
+     },
+     "complete": {
+      "ru": "Слышишь? Прибой стал другим. Может, это просто ветер. А может, вода наконец запомнила.",
+      "en": "Do you hear it? The surf has changed. Perhaps it is only the wind. Or perhaps the water has finally remembered."
+     },
+     "waiting": {
+      "ru": "Амидиас стоит у кромки воды и шёпотом повторяет имена. Море пока молчит.",
+      "en": "Amidias stands at the water's edge, whispering the names over and over. The sea is silent for now."
+     },
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "ThoriumMod/Diverman",
+   "force": "tiders",
+   "epithet": {
+    "ru": "Искатель Глубин",
+    "en": "Seeker of the Depths"
+   },
+   "quote": {
+    "ru": "Где-то под этим морем есть другое. Я почти уверен.",
+    "en": "Somewhere beneath this sea there is another one. I'm almost sure of it."
+   },
+   "intro": {
+    "ru": "Водолаз слишком долго пробыл в Глубинах — водном мире под одним из океанов, — и одиночество там омрачило его нрав. Теперь он ищет их снова и продаёт то, что поднял со дна. У него есть догадка: новый океан напротив Бездны может скрывать вход в те же Глубины. Доказательств пока нет. Он среди приливников: если мир растёт вглубь, кто-то должен нырнуть первым.",
+    "en": "The Diverman spent too long in the Depths, a world of water beneath one of the oceans, and the solitude there darkened his temper. Now he searches for them again and sells whatever he brings up from the seabed. He has a hunch: the new ocean opposite the Abyss may hide a way into those same Depths. There is no proof yet. He stands with the Tiders: if the world is growing downward, someone has to dive first."
+   },
+   "findHint": {
+    "ru": "Придёт в город после победы над Королевой медуз.",
+    "en": "He comes to town once the Queen Jellyfish has been defeated."
+   },
+   "epilogue": {
+    "ru": "Водолаз отметил на карте точку — пока только точку, без названия. «Может, это Глубины. А может, мир только примеряет новое слово», — пожимает он плечами. Впервые за долгое время он улыбается не морю, а людям вокруг: оказалось, что искать вдвоём легче, чем одному.",
+    "en": "The Diverman has marked a point on his map: just a point for now, with no name. “Maybe it's the Depths. Or maybe the world is only trying a new word on for size,” he shrugs. For the first time in a long while he smiles not at the sea but at the people around him: it turns out searching is easier with two than alone."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Тихие соседи",
+     "kind": "Observe",
+     "description": {
+      "ru": "Перед погружением Водолаз хочет понять повадки здешних кальмаров. Понаблюдай за ними вблизи, не нападая: важно, как они двигаются, а не сколько их поймано.",
+      "en": "Before diving, the Diverman wants to learn the habits of the local squid. Watch them up close without attacking: what matters is how they move, not how many are caught."
+     },
+     "offer": {
+      "ru": "Под водой спешат только утопленники. Посмотри на кальмаров, {player}, просто посмотри. Течения они знают лучше нас.",
+      "en": "Underwater, only the drowned are in a hurry. Watch the squid, {player}, just watch. They know the currents better than we do."
+     },
+     "complete": {
+      "ru": "Видел, как они уходят вниз все разом? Там течение. А течения всегда куда-нибудь ведут.",
+      "en": "Did you see them all head down at once? There's a current there. And currents always lead somewhere."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Свет на дне",
+     "kind": "GatherEnv",
+     "description": {
+      "ru": "Путь к воде должен быть освещён, чтобы на обратной дороге не заблудиться. Расставь факелы: Водолаз хочет, чтобы дорога от дома до моря была видна в темноте.",
+      "en": "The way to the water must be lit, so no one gets lost on the way back. Place torches: the Diverman wants the road from home to the sea to be visible in the dark."
+     },
+     "offer": {
+      "ru": "В последний раз я нырнул без света и вернулся другим человеком. Расставь факелы — хочу видеть дорогу домой.",
+      "en": "The last time I dove without light, I came back a different man. Put up some torches. I want to see the way home."
+     },
+     "complete": {
+      "ru": "Вот теперь видно, откуда я ушёл. Ныряльщику это важнее, чем знать, куда он плывёт.",
+      "en": "Now I can see where I set out from. For a diver that matters more than knowing where he's swimming."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Снасть глубин",
+     "kind": "Expedition",
+     "description": {
+      "ru": "Водолаз слышал, что море иногда отдаёт рыбакам странные находки — даже кирку, похожую на акулу. Выуди такую: по ней он поймёт, что лежит на дне нового океана.",
+      "en": "The Diverman has heard that the sea sometimes hands strange finds to fishermen, even a pickaxe shaped like a shark. Fish one up: from it he will learn what lies on the floor of the new ocean."
+     },
+     "offer": {
+      "ru": "Говорят, море иногда цепляет на крючок кирку, похожую на акулу. Выуди мне такую — это лучше любой карты дна.",
+      "en": "They say the sea sometimes snags a shark-shaped pickaxe on a hook. Fish one up for me. It's better than any map of the seabed."
+     },
+     "complete": {
+      "ru": "Зубья целы, ржавчины почти нет. Её потеряли недавно — или море недавно её придумало.",
+      "en": "The teeth are intact, hardly any rust. Someone lost it recently, or the sea only recently made it up."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Не задев течения",
+     "kind": "Trial",
+     "description": {
+      "ru": "Водолаз так и не забыл розовую студенистую тварь, из-за которой остался без дома. В подземных водах светятся синие медузы её породы. Одолей их, ни разу не попав под разряд: Водолазу нужно знать, что путь вниз проходим.",
+      "en": "The Diverman never forgot the pink gelatinous mutant that once cost him his home. Blue jellyfish of her kind now glow in the underground waters. Defeat them without taking a single shock: the Diverman needs to know the way down can be passed."
+     },
+     "offer": {
+      "ru": "В прошлый раз медуза оставила меня без крыши и без сна. Покажи, что с ними можно справиться и не поймать ток. Только Жрице не говори, ладно?",
+      "en": "Last time a jellyfish left me without a roof and without sleep. Show me they can be handled without catching a shock. Just don't tell the Priestess, all right?"
+     },
+     "complete": {
+      "ru": "Ни одной искры? Ловко. Значит, и я пройду, если буду держаться за тобой.",
+      "en": "Not a single spark? Neat. Then I'll make it too, if I stay close behind you."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 4,
+     "titleRu": "Куда зовут глубины",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Водолаз нашёл место, где новый океан уходит глубже, чем должен. Возможно, это Глубины, а возможно, и нет. Реши вместе с ним, рассказать ли Амидиасу или сохранить тайну.",
+      "en": "The Diverman has found a place where the new ocean goes deeper than it should. It may be the Depths, or it may not. Decide with him whether to tell Amidias or keep the secret."
+     },
+     "offer": {
+      "ru": "Я нашёл, {player}. Или мне кажется, что нашёл. Амидиас помнит воду лучше всех — но стоит ли ему знать?",
+      "en": "I found it, {player}. Or I think I did. Amidias remembers the water better than anyone, but should he know?"
+     },
+     "complete": {
+      "ru": "Решено. Что бы там ни было, теперь это и твоё слово.",
+      "en": "It's decided. Whatever is down there, this is your word now too."
+     },
+     "waiting": null,
+     "choices": {
+      "tell": {
+       "outcome": {
+        "ru": "Водолаз идёт к Амидиасу. Старый король долго молчит, а потом просит описать, как там падает свет. Он запомнит это место.",
+        "en": "The Diverman goes to Amidias. The old king is silent for a long time, then asks how the light falls down there. He will remember this place."
+       },
+       "lean": "archivists"
+      },
+      "keep": {
+       "outcome": {
+        "ru": "Водолаз прячет карту за пазуху. «Пусть море договорит само. Записанная тайна перестаёт расти», — говорит он.",
+        "en": "The Diverman tucks the map inside his coat. “Let the sea finish speaking on its own. A secret written down stops growing,” he says."
+       },
+       "lean": "tiders"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "npcKey": "FishermanNPC/Fisherman",
+   "force": "tiders",
+   "epithet": {
+    "ru": "Моряк на суше",
+    "en": "A sailor ashore"
+   },
+   "quote": {
+    "ru": "Отцом мальчишке я не прихожусь, но кто-то же должен за ним присматривать.",
+    "en": "I'm no father to the lad, but someone has to keep an eye on him."
+   },
+   "intro": {
+    "ru": "Старого рыбака занесло сюда штормом: по его словам, он сюда вовсе не собирался. Он держит лавку со снастями, зовёт соседей своей командой и не доверяет пиратам — слишком много было с ними встреч. Пустые дома на берегу напоминают ему брошенные суда. Он с приливниками: море всегда приносит новое, и не всё новое — беда.",
+    "en": "A storm blew the old fisherman here; by his own account, he never meant to come. He keeps a tackle shop, calls his neighbours his crew and does not trust pirates, having run into far too many of them. The empty houses on the shore remind him of abandoned vessels. He stands with the Tiders: the sea always brings something new, and not everything new is a disaster."
+   },
+   "findHint": {
+    "ru": "Приходит, когда спасённый мальчишка-рыбак уже живёт в городе, а жителей набралось не меньше пяти.",
+    "en": "He arrives once the rescued Angler lives in town and there are at least five town residents."
+   },
+   "epilogue": {
+    "ru": "Старый рыбак научил мальчишку вязать узлы, а мальчишка научил старика не ворчать хотя бы по утрам. «Большая рыба всё ещё где-то там, {player}. Но теперь мне есть кому её показать», — говорит он. Водолаза он по-прежнему уважает больше всех на берегу.",
+    "en": "The old fisherman taught the boy to tie knots, and the boy taught the old man not to grumble, at least in the mornings. “The big one is still out there somewhere, {player}. But now I have someone to show it to,” he says. He still respects the Diverman more than anyone else on the shore."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Присмотри за мальчиком",
+     "kind": "Observe",
+     "description": {
+      "ru": "Мальчишка-рыбак опять крутится у воды один. Старый рыбак просит побыть рядом и присмотреть, чтобы тот не попал в беду, — только не мешай ему и не командуй.",
+      "en": "The young Angler is hanging around the water alone again. The old fisherman asks you to stay close and make sure the boy stays out of trouble, without getting in his way or ordering him about."
+     },
+     "offer": {
+      "ru": "Мальчишка опять у воды без присмотра. Побудь рядом с ним, {player}, а я пока переберу снасти. Только не говори, что я просил.",
+      "en": "The lad's by the water with nobody watching again. Stay near him, {player}, while I sort my tackle. Just don't tell him I asked."
+     },
+     "complete": {
+      "ru": "Цел? Ну и славно. Он, конечно, скажет, что сам справился. Пусть говорит.",
+      "en": "In one piece? Good. He'll say he managed on his own, of course. Let him."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Секрет наживки",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Старый рыбак признаётся: на наживку он тайком берёт светящиеся грибы из сада Трюфеля. Тот ничего не знает. Решай, хранить ли секрет моряка, рассказать Трюфелю или уговорить старика платить за шляпки.",
+      "en": "The old fisherman confesses: he secretly takes glowing mushrooms from Truffle's garden for bait. Truffle knows nothing. Decide whether to keep the sailor's secret, tell Truffle, or talk the old man into paying for the caps."
+     },
+     "offer": {
+      "ru": "Скажу как своему, {player}: лучшая наживка растёт у Трюфеля. Я беру по шляпке, он не замечает. Ты ведь не станешь болтать?",
+      "en": "I'll tell you as one of the crew, {player}: the best bait grows in Truffle's garden. I take a cap here and there, he doesn't notice. You won't go blabbing, will you?"
+     },
+     "complete": {
+      "ru": "Ладно. Слово сказано, а слово моряка — как узел: развязать можно, но след останется.",
+      "en": "All right. The word is said, and a sailor's word is like a knot: you can untie it, but the mark stays."
+     },
+     "waiting": null,
+     "choices": {
+      "keep": {
+       "outcome": {
+        "ru": "Рыбак подмигивает и прячет шляпку в ящик со снастями. Трюфель по-прежнему пересчитывает грибы и по-прежнему сбивается.",
+        "en": "The fisherman winks and hides a cap in his tackle box. Truffle still counts his mushrooms and still loses count."
+       },
+       "lean": "none"
+      },
+      "tell": {
+       "outcome": {
+        "ru": "Трюфель долго молчит, потом пишет углём на шляпке: «взято рыбаком». Обиды нет — есть счёт, и его теперь помнят оба.",
+        "en": "Truffle is silent for a long time, then writes on a cap in charcoal: ‘taken by the fisherman.’ No grudge, only a tally, and now both of them remember it."
+       },
+       "lean": "archivists"
+      },
+      "trade": {
+       "outcome": {
+        "ru": "Рыбак ворчит, но носит Трюфелю червей в обмен на грядку под наживку. В саду появилась аккуратная полоска «для рыбы».",
+        "en": "The fisherman grumbles but brings Truffle worms in exchange for a bait patch. The garden now has a tidy strip ‘for the fish.’"
+       },
+       "lean": "gardeners"
+      }
+     }
+    },
+    {
+     "index": 2,
+     "titleRu": "Доски для лодки",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Шторм, занёсший старого рыбака сюда, забрал и его судно. Он хочет построить лодку, чтобы когда-нибудь вывезти мальчишку в открытое море. Принеси ему пальмовых досок с берега.",
+      "en": "The storm that brought the old fisherman here also took his vessel. He wants to build a boat so that one day he can take the boy out to open sea. Bring him palm planks from the shore."
+     },
+     "offer": {
+      "ru": "Моряк без судна — просто дед с удочкой. Пальма гнётся, да не ломается, — хорошее дерево для лодки. Натаскай досок, {player}.",
+      "en": "A sailor without a vessel is just an old man with a rod. Palm bends but doesn't break; good wood for a boat. Haul some planks over, {player}."
+     },
+     "complete": {
+      "ru": "Хватит на корпус. Мачту придумаем потом. Главное — мальчишке не говори, пусть будет сюрприз.",
+      "en": "Enough for the hull. We'll figure out the mast later. Just don't tell the boy; let it be a surprise."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Кровь в воде",
+     "kind": "Trial",
+     "description": {
+      "ru": "Старый рыбак хочет показать мальчишке заводи в джунглях, но там охотятся пираньи. Расправься с ними, ни разу не истекая кровью: одна рана зовёт всю стаю.",
+      "en": "The old fisherman wants to show the boy the jungle pools, but piranhas hunt there. Deal with them without ever bleeding: a single wound calls the whole school."
+     },
+     "offer": {
+      "ru": "Хочу свозить мальчишку к заводям в джунглях, да там пираньи. Разберись с ними, {player}, только береги шкуру: кровь в воде зовёт стаю.",
+      "en": "I'd like to take the lad to the jungle pools, but piranhas lurk there. Deal with them, {player}, but mind your hide: blood in the water calls the school."
+     },
+     "complete": {
+      "ru": "Ни царапины? Вот это по-моряцки. Теперь и мальчишку можно взять с собой.",
+      "en": "Not a scratch? Now that's seamanship. Now I can take the lad along."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 4,
+     "titleRu": "Наживка на большую рыбу",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Старый рыбак однажды видел большую рыбу с крыльями и с тех пор уверен, что клюёт она только на светящуюся улитку из грибных пещер. Поймай улитку сачком и принеси. Что скажешь Трюфелю — твоё дело.",
+      "en": "The old fisherman once saw a big fish with wings, and ever since he has been sure she bites only on a glowing snail from the mushroom caves. Catch one with a bug net and bring it. What you tell Truffle is your business."
+     },
+     "offer": {
+      "ru": "Я видел её, {player}: большая рыба, а у неё крылья. Клюёт только на светящуюся улитку, уж я-то знаю. Добудь одну — остальное море решит само.",
+      "en": "I saw her, {player}: a big fish, and she had wings. She bites only on a glowing snail, I'm sure of it. Get me one; the sea will decide the rest."
+     },
+     "complete": {
+      "ru": "Вот она, красавица. Закину её не сегодня — когда мальчишка подрастёт. Такую рыбу надо ловить вдвоём.",
+      "en": "There she is, a beauty. I won't cast her today, but when the boy is older. A fish like that is caught by two."
+     },
+     "waiting": null,
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "UnuBattleRods/Fishylady",
+   "force": "tiders",
+   "epithet": {
+    "ru": "Торговка с Рыбного рынка",
+    "en": "Trader from the Fish Market"
+   },
+   "quote": {
+    "ru": "Прилив приносит рыбу, рыба приносит покупателей. Остальное — бухгалтерия.",
+    "en": "The tide brings fish, the fish bring customers. The rest is bookkeeping."
+   },
+   "intro": {
+    "ru": "Рыбачка торговала на Рыбном рынке и видит в мире большой прилавок: чем больше воды, тем больше рыбы, а значит, и торговля бойчее. Пустые резиденции она мысленно уже сдала внаём. Её взгляд приливника прост: рост хорош, пока за него платят. Не любит она только тех, про кого не скажешь, человек это или машина.",
+    "en": "The Fishylady once traded at the Fish Market, and she sees the world as one big stall: more water means more fish, and more fish means brisker trade. In her head the empty residences are already rented out. Her Tider outlook is simple: growth is good as long as someone pays for it. The only people she dislikes are the ones you can't tell apart, man or machine."
+   },
+   "findHint": null,
+   "epilogue": {
+    "ru": "Рыбачка завела книгу долгов и вписала тебя первой строкой — на всякий случай, без суммы. «Рынок растёт, {player}, а с ним и город. Если море однажды договорит своё слово, я хочу стоять у прилавка, когда это случится». Сказано почти мечтательно — для неё дело неслыханное.",
+    "en": "The Fishylady has started a ledger of debts and put you on the very first line, just in case, with no sum. “The market is growing, {player}, and the town with it. If the sea ever finishes its word, I want to be standing at my stall when it happens.” She says it almost dreamily, which is unheard of for her."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Цена первой сделки",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Рыбачка предлагает первую сделку и даёт выбрать условия: взять скидку прямо сейчас или записаться в долг и потом вернуть больше. Для неё это разговор о том, во что ты веришь.",
+      "en": "The Fishylady offers a first deal and lets you choose the terms: take a discount right now, or take it on credit and pay back more later. To her, it is a conversation about what you believe in."
+     },
+     "offer": {
+      "ru": "Первая сделка — самая честная, {player}. Выбирай: скидка сейчас или долг под будущий улов?",
+      "en": "The first deal is the most honest one, {player}. Choose: a discount now, or credit against a future catch?"
+     },
+     "complete": {
+      "ru": "Сделка есть сделка. Запомни: я ничего не забываю, особенно цифры.",
+      "en": "A deal is a deal. Remember: I never forget anything, especially numbers."
+     },
+     "waiting": null,
+     "choices": {
+      "discount": {
+       "outcome": {
+        "ru": "Рыбачка отсчитывает скидку и фыркает: «Синица в руке. Разумно — море завтра может и передумать».",
+        "en": "The Fishylady counts out the discount and snorts: “A bird in the hand. Sensible; the sea might change its mind tomorrow.”"
+       },
+       "lean": "gardeners"
+      },
+      "credit": {
+       "outcome": {
+        "ru": "Она вписывает долг в книгу и довольно щурится: «Веришь в завтрашний улов? Тогда мы с тобой поладим».",
+        "en": "She writes the debt in her ledger and narrows her eyes with satisfaction: “You believe in tomorrow's catch? Then we'll get along.”"
+       },
+       "lean": "tiders"
+      }
+     }
+    },
+    {
+     "index": 1,
+     "titleRu": "Товар лицом",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Прилавку нужен товар, который видно издалека. Принеси Рыбачке тунцов: крупная рыба на витрине зазывает покупателей лучше любого крикуна.",
+      "en": "The stall needs goods that can be seen from afar. Bring the Fishylady some tuna: big fish on display draw customers better than any barker."
+     },
+     "offer": {
+      "ru": "Покупатель смотрит глазами. Принеси мне тунцов покрупнее — будет чем похвастаться на витрине.",
+      "en": "Customers buy with their eyes. Bring me some big tuna; I'll have something to show off on the counter."
+     },
+     "complete": {
+      "ru": "Вот это товар! Цену подниму, а тебе — скидка постоянного поставщика.",
+      "en": "Now that's merchandise! I'm raising the price, and you get a regular supplier's discount."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Ящик с прилива",
+     "kind": "Expedition",
+     "description": {
+      "ru": "Рыбачка придумала новый товар: нераспечатанные ящики, выловленные в море. Покупатели платят за тайну больше, чем за содержимое. Выуди ей морской ящик — и не вздумай открывать.",
+      "en": "The Fishylady has invented a new product: unopened crates fished out of the sea. Buyers pay more for the mystery than for the contents. Fish her up an ocean crate, and don't you dare open it."
+     },
+     "offer": {
+      "ru": "Рыба — это еда, а ящик со дна — это история. Истории продаются дороже. Выуди мне морской ящик, {player}, целый, с печатью прилива.",
+      "en": "A fish is food, but a crate from the deep is a story. Stories sell for more. Fish me up an ocean crate, {player}, whole, with the tide's seal on it."
+     },
+     "complete": {
+      "ru": "Тяжёлый. Звенит? Не говори! Не хочу знать — так он стоит втрое больше. Держи секстант: тот, кто торгует приливом, должен знать луну.",
+      "en": "Heavy. Does it jingle? Don't tell me! I don't want to know; that way it's worth three times as much. Take this sextant: whoever trades in tides should know the moon."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Чайки у прилавка",
+     "kind": "Observe",
+     "description": {
+      "ru": "С берегового прилавка Рыбачки пропадает товар: чайки утаскивают рыбу прямо с витрины. Понаблюдай за ними, не убивая, — крови у прилавка она не потерпит, а знать, куда улетает выручка, хочет.",
+      "en": "Stock keeps vanishing from the Fishylady's beach stall: gulls snatch fish right off the counter. Watch them without killing: she won't have blood at her stall, but she wants to know where her takings fly off to."
+     },
+     "offer": {
+      "ru": "Чайки — худшие покупатели: берут без спроса и не платят. Последи за ними, {player}. Только не стреляй — распугаешь мне честных клиентов.",
+      "en": "Gulls are the worst customers: they take without asking and never pay. Watch them, {player}. Just don't shoot; you'll scare off my honest clients."
+     },
+     "complete": {
+      "ru": "К рыбаку на причал? Ну конечно. Старик подкармливает их моими же окунями. Ладно, запишу ему в долг.",
+      "en": "To the fisherman's pier? Of course. The old man feeds them my own bass. Fine, I'll put it on his tab."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 4,
+     "titleRu": "Рынок растёт",
+     "kind": "Delayed",
+     "description": {
+      "ru": "Рыбачка вложила выручку в новый товар и пустила слух о своём прилавке. Теперь остаётся ждать, когда о нём заговорят по всему берегу. Загляни через несколько дней.",
+      "en": "The Fishylady has put her earnings into new stock and spread the word about her stall. Now all that's left is to wait until the whole shore is talking about it. Drop by in a few days."
+     },
+     "offer": {
+      "ru": "Деньги вложены, слух пущен. Теперь ждём. Хорошая торговля как прилив: его не поторопишь.",
+      "en": "The money's invested, the word is out. Now we wait. Good trade is like the tide: you can't rush it."
+     },
+     "complete": {
+      "ru": "Пришли даже с края мира! Рынок растёт, {player}, а значит, растёт и всё остальное.",
+      "en": "They've come from the very edge of the world! The market is growing, {player}, and that means everything else is growing too."
+     },
+     "waiting": {
+      "ru": "Рыбачка пересчитывает выручку и поглядывает на дорогу: слух о прилавке ещё идёт по берегу.",
+      "en": "The Fishylady counts her takings and keeps glancing at the road: word of her stall is still travelling along the shore."
+     },
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "CalValEX/JellyPriestNPC",
+   "force": "archivists",
+   "epithet": {
+    "ru": "Скульптор Водной элементали",
+    "en": "Sculptor of the Water Elemental"
+   },
+   "quote": {
+    "ru": "Я строю святилище для той, кто, быть может, уже не помнит своего имени.",
+    "en": "I am building a shrine for one who may no longer remember her own name."
+   },
+   "intro": {
+    "ru": "Жрица медуз помнит море другим — тёплым, людным и красивым — и ваяет статуи, чтобы этот образ не растворился в воде. Она служит Водной элементали и поднялась к берегу в поисках идола тех давних времён. Пустые резиденции ей по душе: в них можно ставить святилища. Она с архивистами — забыть красоту для неё хуже, чем её разрушить.",
+    "en": "The Jelly Priestess remembers the sea as it once was — warm, crowded and beautiful — and sculpts statues so that the image does not dissolve in the water. She serves the Water Elemental and has risen to the shore in search of an idol from those distant days. She likes the empty residences: shrines can be raised in them. She sides with the Archivists, for to her, forgetting beauty is worse than destroying it."
+   },
+   "findHint": {
+    "ru": "Её находят в Серном море после того, как отступит первый уровень Кислотного дождя. Не пугайся пут: жрица будет рада свободе.",
+    "en": "She is found in the Sulphurous Sea once the first tier of the Acid Rain is over. Don't be alarmed by her bonds: the priestess will be glad to be free."
+   },
+   "epilogue": {
+    "ru": "Святилище освящено, и жрица впервые за долгое время не строит, а просто сидит рядом с ним. «Идол старых времён почувствует это место, {player}. Может, не сразу: вода передаёт вести медленно». По ночам она смотрит на луну, словно та напоминает ей о ком-то, — и больше не говорит, о ком.",
+    "en": "The shrine is consecrated, and for the first time in a long while the priestess is not building but simply sitting beside it. “The idol of old will sense this place, {player}. Maybe not at once: water carries news slowly.” At night she watches the moon as if it reminds her of someone, and she no longer says of whom."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Сёстры-медузы",
+     "kind": "Observe",
+     "description": {
+      "ru": "Жрица хочет знать, как живут её дальние родичи, синие медузы. Побудь рядом с ними и понаблюдай, не трогая: для неё это не охота, а встреча с семьёй.",
+      "en": "The priestess wants to know how her distant kin, the blue jellyfish, are living. Stay near them and watch without touching: to her this is not a hunt but a family visit."
+     },
+     "offer": {
+      "ru": "Синие медузы мне почти сёстры, хоть и не умеют держать резец. Посмотри на них за меня, {player}, только не обижай.",
+      "en": "The blue jellyfish are nearly sisters to me, even if they can't hold a chisel. Watch them for me, {player}, but don't hurt them."
+     },
+     "complete": {
+      "ru": "Плавают так же, как в моём детстве? Ох. Я скучаю по тому дому сильнее, чем признаюсь.",
+      "en": "They swim just like in my childhood? Oh. I miss that home more than I let on."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Коралл для святилища",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Для первого святилища Водной элементали жрице нужен коралл. Собери его у моря и принеси: из живого камня воды она вырежет основание.",
+      "en": "For the first shrine to the Water Elemental the priestess needs coral. Gather it by the sea and bring it to her: she will carve the base from the water's living stone."
+     },
+     "offer": {
+      "ru": "Святилище начинается с основания, а основание — с коралла. Принеси его мне, и я начну работу.",
+      "en": "A shrine begins with its base, and the base begins with coral. Bring it to me and I'll start work."
+     },
+     "complete": {
+      "ru": "Чудесный материал! Только никому не давай ломать мои заготовки, хорошо?",
+      "en": "Wonderful material! Just don't let anyone break my pieces, all right?"
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Имя идола",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Жрица почти закончила статую идола, но не знает, какое имя вырезать на постаменте. Ты можешь назвать имя из старых песен или промолчать и дать имени вернуться самому.",
+      "en": "The priestess has nearly finished the idol's statue, but she does not know which name to carve on the pedestal. You may speak the name from the old songs, or stay silent and let the name return on its own."
+     },
+     "offer": {
+      "ru": "Амидиас помнит старые песни, но говорит загадками. А ты, {player}? Ты знаешь, как её звали?",
+      "en": "Amidias remembers the old songs, but he speaks in riddles. And you, {player}? Do you know what she was called?"
+     },
+     "complete": {
+      "ru": "Решено. Резец не дрожит — значит, верно.",
+      "en": "It's decided. The chisel isn't trembling, so it must be right."
+     },
+     "waiting": null,
+     "choices": {
+      "name": {
+       "outcome": {
+        "ru": "Ты произносишь: «Анахита приливов». Жрица замирает, а потом вырезает буквы так бережно, будто боится их разбудить.",
+        "en": "You say: “Anahita of the Tides.” The priestess goes still, then carves the letters so gently, as if afraid of waking them."
+       },
+       "lean": "archivists"
+      },
+      "silent": {
+       "outcome": {
+        "ru": "Ты молчишь. Жрица кивает и оставляет постамент гладким: «Пусть море само скажет её имя, когда будет готово».",
+        "en": "You stay silent. The priestess nods and leaves the pedestal smooth: “Let the sea speak her name itself, when it is ready.”"
+       },
+       "lean": "tiders"
+      }
+     }
+    },
+    {
+     "index": 3,
+     "titleRu": "Дар для идола",
+     "kind": "Expedition",
+     "description": {
+      "ru": "Идолу нужен дар, который отдало само море. Жрица просит выловить розовую жемчужину — редкую, тёплого цвета зари над старым царством.",
+      "en": "The idol needs a gift the sea itself has given up. The priestess asks you to fish up a pink pearl: rare, the warm colour of dawn over the old realm."
+     },
+     "offer": {
+      "ru": "Дар идолу нельзя купить — его должна отдать вода. Выуди розовую жемчужину, и я положу её к подножию статуи.",
+      "en": "A gift for the idol cannot be bought; the water has to give it. Fish up a pink pearl and I'll lay it at the foot of the statue."
+     },
+     "complete": {
+      "ru": "Розовая, как рассвет над водой. Она бы улыбнулась. Я почти уверена, что улыбнулась бы.",
+      "en": "Pink as dawn over the water. She would smile. I'm almost sure she would smile."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 4,
+     "titleRu": "Стражи святилища",
+     "kind": "GatherEnv",
+     "description": {
+      "ru": "Святилище Водной элементали готово, но жрица уверена: идол не придёт в пустой храм. Поставь рядом с её домом статуи — пусть камень сторожит то, что вода может забыть.",
+      "en": "The shrine of the Water Elemental is ready, but the priestess is sure the idol will not come to an empty temple. Set statues near her home: let stone guard what the water might forget."
+     },
+     "offer": {
+      "ru": "Святилище без стражей — просто красивая лужа. Поставь три статуи, {player}, любые, лишь бы целые. И никого с бомбами рядом!",
+      "en": "A shrine without guardians is just a pretty puddle. Set three statues, {player}, any kind, as long as they're whole. And nobody with bombs nearby!"
+     },
+     "complete": {
+      "ru": "Теперь здесь есть кому помнить. Слышишь? Вода у святилища стала тише. Так тихо бывает, когда кто-то прислушивается.",
+      "en": "Now there is someone here to remember. Hear that? The water by the shrine has grown quieter. It gets this quiet when someone is listening."
+     },
+     "waiting": null,
+     "choices": null
+    }
+   ]
+  }
+ ]
+}

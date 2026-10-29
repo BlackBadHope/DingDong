@@ -17,6 +17,6 @@ public sealed partial class DingDongQuestLifecycleProbeCommand : ModCommand
 	internal const string ProbeIdentity = "00112233445566778899aabbccddeeff";
 	public override string Command => "dingdongquestprobe";
 	public override CommandType Type => CommandType.Console;
-	public override string Usage => "dingdongquestprobe lifecycle";
+	public override string Usage => "dingdongquestprobe lifecycle|forms";
 	public override string Description => "Runs an isolated dedicated-server quest acceptance, completion, reward and persistence probe.";
 }

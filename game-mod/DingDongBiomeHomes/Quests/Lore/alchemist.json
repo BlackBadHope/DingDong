@@ -1,0 +1,1122 @@
+{
+ "format": "dingdong-lore-node-v1",
+ "node": "alchemist",
+ "nodePage": {
+  "title": {
+   "ru": "Лавки и колбы",
+   "en": "Shops and Flasks"
+  },
+  "body": {
+   "ru": "Самая большая модовая слобода мира — мастерские и лавки, выросшие вокруг алхимии. Здесь варят, гранят, чертят, паяют и настраивают, а по вечерам спорят так, будто мир — семейное дело.\n\nАлхимик и Варщица когда-то учились у одного котла и до сих пор ухаживают за живым каждый по-своему; их сын, Юный химик, ищет собственный путь. Архитектора подозревают в постройке пустых резиденций — он всё отрицает, но улики копятся. Изобретатель доводит вещи до ума, Ювелир и Музыкант хотят, чтобы блеск и звук расходились шире, а Оператор слушает эфир, в котором звучит шум без источника.",
+   "en": "The largest modded quarter of the world — workshops and shops that grew up around alchemy. Here people brew, cut, draft, solder and tune, and in the evenings they argue as if the world were a family business.\n\nThe Alchemist and the Brewer once learned at the same kettle and still tend the living each in their own way; their son, the Young Brewer, is looking for a path of his own. The Architect is suspected of building the empty residences — he denies everything, but the clues keep piling up. The Tinkerer brings things to perfection, the Jeweler and the Musician want shine and sound to carry wider, and the Operator listens to an ether where a noise with no source keeps sounding."
+  }
+ },
+ "residents": [
+  {
+   "npcKey": "AlchemistNPCLite/Alchemist",
+   "force": "gardeners",
+   "epithet": {
+    "ru": "Садовник склянок",
+    "en": "Gardener of vials"
+   },
+   "quote": {
+    "ru": "Зелье — это уход за живым. Перестанешь ухаживать — и живое уйдёт.",
+    "en": "A potion is care for the living. Stop caring, and the living leave."
+   },
+   "intro": {
+    "ru": "Алхимик варит снадобья в лесной оранжерее-аптеке и говорит о них как о саде: подрезать горечь, укрепить силу, не дать отвару перебродить. В молодости он учился ремеслу бок о бок с Варщицей, и прошлое у них общее, хоть вспоминать его вслух он не любит. Пустые резиденции его тревожат: дом без хозяина — как грядка без садовника, зарастёт чем попало. Садовники для него не партия, а здравый смысл.",
+    "en": "The Alchemist brews remedies in a forest glasshouse apothecary and speaks of them like a garden: prune the bitterness, strengthen the virtue, never let a decoction turn. In his youth he learned the craft side by side with the Brewer, and they share a past he rarely speaks of aloud. The empty residences trouble him: a house without a keeper is a bed without a gardener, and anything will grow there. To him the Gardeners are not a faction but common sense."
+   },
+   "findHint": {
+    "ru": "Приходит после победы над Глазом Ктулху. Ищи его там, где пахнет травами, — в лесной оранжерее-аптеке.",
+    "en": "Arrives once the Eye of Cthulhu is defeated. Look for him where it smells of herbs — in the forest glasshouse apothecary."
+   },
+   "epilogue": {
+    "ru": "Настойка недели удалась, и Алхимик впервые ставит на полку две склянки вместо одной — вторую для Варщицы. «Мы с ней ухаживаем за одним садом, просто с разных концов», — говорит он и тут же делает вид, что очень занят. В его рабочем журнале появилась строка: «{player} — помощник, которому можно доверить огонь под котлом».",
+    "en": "The tincture of the week turned out well, and for the first time the Alchemist puts two vials on the shelf instead of one — the second is for the Brewer. “She and I tend the same garden, just from different ends,” he says, and at once pretends to be very busy. A new line has appeared in his work log: “{player} — a helper who can be trusted with the fire under the kettle.”"
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Травы для настоек",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Засушенные запасы Алхимика выдохлись, а без живой травы зелье лечит вполсилы. Собери свежие дневные цветы и принеси их в аптеку для лечебных настоек.",
+      "en": "The Alchemist's dried stores have lost their strength, and without living herbs a potion heals only by half. Gather fresh day-blooming flowers and bring them to the apothecary for healing tinctures."
+     },
+     "offer": {
+      "ru": "Травы, {player}, — первое лекарство. Принеси мне свежие цветы, пока солнце их не закрыло.",
+      "en": "Herbs, {player}, are the first medicine. Bring me fresh flowers before the sun closes them."
+     },
+     "complete": {
+      "ru": "Чувствуешь запах? Вот это сила. Засушенное оставим для учебников.",
+      "en": "Smell that? That is strength. We'll leave the dried stuff for textbooks."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Грядка лекаря",
+     "kind": "GatherEnv",
+     "description": {
+      "ru": "Травы надо растить у котла, а не искать по всему лесу. Алхимик просит устроить грядку лекаря: поставь ящики для растений, в которых будут расти его лечебные травы.",
+      "en": "Herbs should grow by the kettle, not be hunted across the whole forest. The Alchemist asks you to set up a healer's bed: place planter boxes where his medicinal herbs can grow."
+     },
+     "offer": {
+      "ru": "Сад, за которым не ухаживают, вымирает. Поставь ящики для трав — будем растить лекарства у порога.",
+      "en": "A garden nobody tends dies out. Set up planter boxes — we'll grow medicine right at the doorstep."
+     },
+     "complete": {
+      "ru": "Ровные, светлые, на своих местах. Теперь травы будут расти там, где я их жду.",
+      "en": "Even, bright, each in its place. Now the herbs will grow where I expect them."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Сад без садовника",
+     "kind": "Visit",
+     "description": {
+      "ru": "Алхимик хочет, чтобы ты увидел, во что превращается рост, за которым никто не ухаживает. Побудь в джунглях: там всё растёт как хочет — и всё кусается.",
+      "en": "The Alchemist wants you to see what growth becomes when nobody tends it. Spend time in the jungle: everything there grows as it pleases — and everything bites."
+     },
+     "offer": {
+      "ru": "Грядка у порога — это забота. Джунгли — то же самое, только брошенное. Сходи и посмотри, {player}.",
+      "en": "A bed by the door is care. The jungle is the same thing, abandoned. Go and see, {player}."
+     },
+     "complete": {
+      "ru": "Видел? Сила там та же, что в моих склянках, только никто её не подрезал. Варщица назвала бы это свободой.",
+      "en": "You saw? The same strength as in my vials, only nobody pruned it. The Brewer would call that freedom."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Старое пламя",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Вечером Алхимик вспоминает сырую пещеру, где учился в молодости вместе с подругой, и обрывает себя на полуслове. Реши, расспросить ли его о прошлом с Варщицей или дать говорить работе.",
+      "en": "In the evening the Alchemist recalls the damp cave where he trained in his youth with a friend, and breaks off mid-sentence. Decide whether to ask about his past with the Brewer or let the work speak."
+     },
+     "offer": {
+      "ru": "Старые дни... Неважно. Ты ведь не за историями сюда заглядываешь. Или как раз за ними?",
+      "en": "The old days... Never mind. You don't drop by for stories. Or is that exactly why?"
+     },
+     "complete": {
+      "ru": "Ладно. Сказанного не вернёшь, а несказанное пусть пока полежит.",
+      "en": "Fine. What's said can't be taken back, and what's unsaid can wait a while."
+     },
+     "waiting": null,
+     "choices": {
+      "ask": {
+       "outcome": {
+        "ru": "Алхимик рассказывает: они с Варщицей учились у одного котла и спорили, можно ли сберечь живое, не запирая его в склянке. Этот спор он не хочет забыть.",
+        "en": "The Alchemist tells you: he and the Brewer learned at one kettle and argued whether the living can be kept without sealing it in a vial. He doesn't want to forget that argument."
+       },
+       "lean": "archivists"
+      },
+      "work": {
+       "outcome": {
+        "ru": "Алхимик с облегчением кивает и ставит новую колбу на огонь. «Правильно. Прошлое — сорняк: дашь ему волю, и он задушит грядку».",
+        "en": "The Alchemist nods with relief and sets a new flask on the fire. “Right. The past is a weed: give it free rein and it chokes the bed.”"
+       },
+       "lean": "gardeners"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Настойка недели",
+     "kind": "Delayed",
+     "description": {
+      "ru": "Алхимик варит настойку из трав своей грядки и ставит рядом вторую склянку — для кого, не говорит. Настой должен дойти без спешки; загляни через пару дней.",
+      "en": "The Alchemist brews a tincture from the herbs of his own bed and sets a second vial beside it — he won't say who it's for. It must steep unhurried; come back in a couple of days."
+     },
+     "offer": {
+      "ru": "Терпение, {player}: сын говорит, это моё любимое слово. Крышку не трогать.",
+      "en": "Patience, {player}: my son says it's my favourite word. Don't touch the lid."
+     },
+     "complete": {
+      "ru": "Готово. Цвет глубокий, запах честный. Вторую склянку... отнеси Варщице. Скажи, что сама выросла.",
+      "en": "Done. Deep colour, honest scent. The second vial... take it to the Brewer. Tell her it grew by itself."
+     },
+     "waiting": {
+      "ru": "Настойка зреет в тёмном углу аптеки. Рядом стоит вторая склянка, пока пустая.",
+      "en": "The tincture steeps in a dark corner of the apothecary. A second vial stands beside it, still empty."
+     },
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "AlchemistNPCLite/Brewer",
+   "force": "gardeners",
+   "epithet": {
+    "ru": "Хозяйка медного котла",
+    "en": "Mistress of the copper kettle"
+   },
+   "quote": {
+    "ru": "Без смеха брага киснет, а люди — тем более.",
+    "en": "Without laughter the mash turns sour — and people even more so."
+   },
+   "intro": {
+    "ru": "Варщица держит пивоварню с медным котлом и варит зелья на весёлую голову: ей кажется, что смех помогает живому не хуже трав. С Алхимиком они когда-то учились вместе, и она до сих пор не упускает случая его поддеть. Пустые резиденции она зовёт «бутылями без пробок»: пока там никто не живёт, всё хорошее из них выдыхается. Садовников она поддерживает, но мир предпочитает подрезать шуткой, а не ножницами.",
+    "en": "The Brewer runs a brewery with a copper kettle and brews potions in high spirits: she believes laughter helps the living as much as herbs do. She and the Alchemist once trained together, and she still never misses a chance to tease him. She calls the empty residences “bottles without corks”: while nobody lives there, everything good leaks out of them. She sides with the Gardeners, but prefers to prune the world with a joke rather than shears."
+   },
+   "findHint": {
+    "ru": "Приходит после победы над Глазом Ктулху. Её лесную пивоварню легко узнать по запаху солода и звону бутылей.",
+    "en": "Arrives once the Eye of Cthulhu is defeated. Her forest brewery is easy to spot by the smell of malt and the clink of bottles."
+   },
+   "epilogue": {
+    "ru": "Фирменный рецепт удался, и Варщица разливает его по двум кружкам — себе и Алхимику, хоть он и ворчит. «Мы оба ухаживаем за живым, — говорит она. — Он хмурится, я смеюсь, а растёт у нас одинаково». Рецепт она записала в семейную книгу и подписала: «Проверено на {player}».",
+    "en": "The signature brew turned out well, and the Brewer pours it into two mugs — one for herself and one for the Alchemist, grumble as he may. “We both tend the living,” she says. “He frowns, I laugh, and it grows the same for both of us.” She wrote the recipe into the family book and signed it: “Tested on {player}.”"
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Бутыли и пробки",
+     "kind": "Deliver",
+     "description": {
+      "ru": "У Варщицы опять кончились бутыли: всё сваренное разошлось по соседям, а тара назад не вернулась. Принеси пустые бутылки, чтобы ей было во что разливать зелья.",
+      "en": "The Brewer has run out of bottles again: everything she brewed went to the neighbours, and the bottles never came back. Bring empty bottles so she has something to pour her potions into."
+     },
+     "offer": {
+      "ru": "Бутыли, {player}! Пустые, целые, любые. Свари хоть море — без тары оно утечёт в землю.",
+      "en": "Bottles, {player}! Empty, whole, any kind. Brew a whole sea — without bottles it just soaks into the ground."
+     },
+     "complete": {
+      "ru": "Звенят! Лучше любой арфы. Теперь мне есть во что лить.",
+      "en": "Hear them clink! Better than any harp. Now I've got something to pour into."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Грибы для браги",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Для новой браги Варщице нужны светящиеся грибы: от них зелье мягко мерцает и, по её словам, поднимает настроение. Собери их в грибных пещерах и принеси на пивоварню.",
+      "en": "For a new mash the Brewer needs glowing mushrooms: they make a potion shimmer softly and, she claims, lift the mood. Gather them in the mushroom caves and bring them to the brewery."
+     },
+     "offer": {
+      "ru": "Грибы, которые светятся сами по себе, — вот где настоящая алхимия. Нарви мне их, да покрупнее.",
+      "en": "Mushrooms that glow on their own — now that's real alchemy. Pick me some, and the bigger the better."
+     },
+     "complete": {
+      "ru": "Ох, как светят! Алхимик скажет, что это баловство. Тем лучше.",
+      "en": "Oh, look at them glow! The Alchemist will call it frivolous. All the better."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Свет на запах",
+     "kind": "Observe",
+     "description": {
+      "ru": "Варщица уверена: брага из светящихся грибов манит всё живое. Ночью понаблюдай вблизи за светлячком и не лови его — пусть сам решит, куда лететь.",
+      "en": "The Brewer is sure a mash of glowing mushrooms draws everything living. At night, watch a firefly up close and don't catch it — let it choose where to fly."
+     },
+     "offer": {
+      "ru": "Грибная брага светится, светлячки светятся — родня! Проверь, летят ли они на свет. Только без сачка!",
+      "en": "The mushroom mash glows, fireflies glow — they're kin! See if they fly to the light. And no bug net!"
+     },
+     "complete": {
+      "ru": "Прилетел и кружит? Ха! Живое тянется к живому. Алхимик скажет «совпадение» — пусть говорит.",
+      "en": "It came and circled? Ha! The living reach for the living. The Alchemist will say “coincidence” — let him."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Подколка",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Варщица рассказывает про Алхимика очередную смешную историю и ждёт, чью сторону ты займёшь. Реши, посмеяться ли вместе с ней или заступиться за Алхимика.",
+      "en": "The Brewer tells yet another funny story about the Alchemist and waits to see whose side you take. Decide whether to laugh along with her or stand up for the Alchemist."
+     },
+     "offer": {
+      "ru": "А знаешь, как он однажды сварил зелье от икоты и потом икал неделю? Ну, смейся же!",
+      "en": "Did you know he once brewed a hiccup cure and then hiccuped for a week? Come on, laugh!"
+     },
+     "complete": {
+      "ru": "Вот и поговорили. С тобой, по крайней мере, не скучно.",
+      "en": "Well, that was a talk. At least you're never boring."
+     },
+     "waiting": null,
+     "choices": {
+      "laugh": {
+       "outcome": {
+        "ru": "Варщица хохочет так, что звенят бутыли. «Смех — тоже рост: пусть всё бродит, как бродит». Алхимик за стеной фыркает, но не уходит.",
+        "en": "The Brewer laughs so hard the bottles ring. “Laughter is growth too: let everything ferment as it will.” Behind the wall the Alchemist snorts, but doesn't leave."
+       },
+       "lean": "tiders"
+      },
+      "defend": {
+       "outcome": {
+        "ru": "Варщица на миг становится серьёзной. «Правильно, береги его. Мы этот характер вместе растили». В её голосе больше тепла, чем насмешки.",
+        "en": "For a moment the Brewer turns serious. “Good, look after him. We grew that temper together.” There is more warmth in her voice than mockery."
+       },
+       "lean": "gardeners"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Огонь под медным котлом",
+     "kind": "Trial",
+     "description": {
+      "ru": "Фирменному рецепту Варщицы нужен жар из самых недр. Спустись в Преисподнюю и разбей лавовых слизней, ни разу не загоревшись: смелость, по её словам, — тоже ингредиент.",
+      "en": "The Brewer's signature recipe needs heat from the very depths. Go down to the Underworld and burst lava slimes without catching fire once: courage, she says, is an ingredient too."
+     },
+     "offer": {
+      "ru": "Он говорит — терпение, я говорю — смелость. Принеси мне жар Преисподней, {player}, и не обожгись!",
+      "en": "He says patience, I say courage. Bring me the heat of the Underworld, {player}, and don't get burned!"
+     },
+     "complete": {
+      "ru": "Ни подпалины! Котёл гудит, брага поёт. Вот теперь рецепт вырос, а не выдернут.",
+      "en": "Not a scorch mark! The kettle hums, the mash sings. Now the recipe has grown, not been yanked out."
+     },
+     "waiting": null,
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "AlchemistNPCLite/Jeweler",
+   "force": "tiders",
+   "epithet": {
+    "ru": "Огранщик блеска",
+    "en": "Cutter of shine"
+   },
+   "quote": {
+    "ru": "Камень растёт в цене, пока переходит из рук в руки. Как и мир.",
+    "en": "A stone grows in value as it passes from hand to hand. So does the world."
+   },
+   "intro": {
+    "ru": "Ювелир гранит самоцветы в своём ателье и считает Торговца почти двойником: оба уверены, что ценность рождается в обмене. Ему нравится, что мир стал больше — больше жил, больше кладов, больше покупателей. Пустые резиденции он видит витринами, выставленными до открытия ярмарки, и спокойно ждёт, кто придёт за товаром. Приливники для него — честные коммерсанты будущего.",
+    "en": "The Jeweler cuts gems in his atelier and considers the Merchant almost his double: both believe value is born in exchange. He likes that the world has grown — more veins, more hoards, more buyers. He sees the empty residences as display windows set out before the fair opens, and waits calmly to see who comes to buy. To him the Tiders are the honest merchants of the future."
+   },
+   "findHint": {
+    "ru": "Приходит после победы над Глазом Ктулху. Его лесное ателье легко найти по блеску витрин и фонтану у входа.",
+    "en": "Arrives once the Eye of Cthulhu is defeated. His forest atelier is easy to find by its gleaming windows and the fountain at the door."
+   },
+   "epilogue": {
+    "ru": "Оправа готова, и Ювелир впервые не называет цену. «Есть вещи, которые дорожают, пока их не продают», — говорит он, протягивая кольцо. Он уверен: мир тоже ещё не выставлен на продажу целиком, и самое ценное в нём пока лежит неогранённым — на дне, на краю, в глубине.",
+    "en": "The setting is ready, and for the first time the Jeweler names no price. “Some things grow dearer as long as they stay unsold,” he says, holding out the ring. He is certain the world isn't fully on sale yet either, and its most precious part still lies uncut — on the seabed, at the edge, in the depths."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Сырьё для огранки",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Ювелиру нужно сырьё, чтобы снова открыть мастерскую: без камней его резцы ржавеют от безделья. Добудь аметисты под землёй и принеси их для огранки.",
+      "en": "The Jeweler needs raw stones to reopen his workshop: without gems his cutters rust from idleness. Mine amethysts underground and bring them in for cutting."
+     },
+     "offer": {
+      "ru": "Начнём с простого. Аметист — камень скромный, но честный. Принеси мне несколько, а я покажу, во что они вырастут.",
+      "en": "Let's start simple. Amethyst is a modest stone, but an honest one. Bring me a few and I'll show you what they grow into."
+     },
+     "complete": {
+      "ru": "Неплохая порода. Видишь, как играет свет? А ведь вчера это был просто камень.",
+      "en": "Decent stock. See how the light plays? Yesterday it was just a rock."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Клад из глубин",
+     "kind": "Expedition",
+     "description": {
+      "ru": "Ювелир хочет кольцо, которое никто не ковал на заказ, — найденное в старом тайнике этого мира. Отыщи его в сундуках и кладах, что лежат здесь с тех пор, как мир сложился.",
+      "en": "The Jeweler wants a ring nobody forged to order — one found in an old cache of this world. Seek it in the chests and hoards that have lain here since the world took shape."
+     },
+     "offer": {
+      "ru": "Купленное кольцо — товар. Найденное — история. Мне нужна история, {player}: ищи в старых тайниках.",
+      "en": "A bought ring is merchandise. A found one is a story. I need a story, {player}: search the old caches."
+     },
+     "complete": {
+      "ru": "Вот это вещь! Его прятал кто-то, кто ждал, что мир станет больше. И дождался.",
+      "en": "Now that's a piece! Someone hid it expecting the world to grow larger. And it did."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Камень на лапках",
+     "kind": "Observe",
+     "description": {
+      "ru": "Говорят, в пещерах выросшего мира бегают зверьки из самоцветов. Ювелир хочет знать, сколько стоит камень, который нельзя продать. Найди аметистовую белку и понаблюдай, не трогая.",
+      "en": "They say little creatures made of gems run through the caves of the grown world. The Jeweler wants to know what a stone is worth if it can't be sold. Find an amethyst squirrel and watch it without touching."
+     },
+     "offer": {
+      "ru": "Живой аметист, {player}! Не лови — пойманный, он просто товар. Посмотри, как он блестит на бегу.",
+      "en": "A living amethyst, {player}! Don't catch it — caught, it's just merchandise. Watch how it shines on the run."
+     },
+     "complete": {
+      "ru": "Бегает? Значит, цена у него есть, а покупателя нет. Странное чувство. Мне... нравится.",
+      "en": "It runs? Then it has a price but no buyer. Strange feeling. I... like it."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Цена блеска",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Ювелир предлагает тебе кольцо и называет цену с улыбкой человека, который ждёт торга. Реши, торговаться ли до последней монеты или заплатить, сколько он просит.",
+      "en": "The Jeweler offers you a ring and names a price with the smile of someone expecting to haggle. Decide whether to bargain to the last coin or pay what he asks."
+     },
+     "offer": {
+      "ru": "Красивое, правда? Цена... скажем так, цена у него есть. Что скажешь?",
+      "en": "Beautiful, isn't it? The price... let's just say it has one. What do you say?"
+     },
+     "complete": {
+      "ru": "Сделка есть сделка. Приятно иметь дело с тем, кто понимает блеск.",
+      "en": "A deal is a deal. It's a pleasure doing business with someone who understands shine."
+     },
+     "waiting": null,
+     "choices": {
+      "haggle": {
+       "outcome": {
+        "ru": "Ювелир торгуется с наслаждением и уступает ровно столько, сколько собирался. «Цена должна двигаться, иначе она мертва, — говорит он. — Как море».",
+        "en": "The Jeweler haggles with relish and gives way exactly as much as he planned. “A price must move, or it's dead,” he says. “Like the sea.”"
+       },
+       "lean": "tiders"
+      },
+      "pay": {
+       "outcome": {
+        "ru": "Ювелир удивлённо поднимает бровь и бережно заворачивает кольцо. «Ты платишь за форму, которую уже не нужно исправлять. Это редкость».",
+        "en": "The Jeweler raises an eyebrow in surprise and wraps the ring with care. “You're paying for a form that needs no more fixing. That's rare.”"
+       },
+       "lean": "gardeners"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Не на продажу",
+     "kind": "Delayed",
+     "description": {
+      "ru": "Ювелир закончил оправу и впервые не выставил её в витрину. Он хочет проверить, дорожает ли вещь, пока её никто не покупает. Оставь кольцо лежать пару дней.",
+      "en": "The Jeweler has finished the setting and, for the first time, hasn't put it in the window. He wants to test whether a thing grows dearer while nobody buys it. Leave the ring be for a couple of days."
+     },
+     "offer": {
+      "ru": "Без ценника, {player}. Пусть полежит. Если я прав, через пару дней ему не будет цены.",
+      "en": "No price tag, {player}. Let it lie. If I'm right, in a couple of days it'll be priceless."
+     },
+     "complete": {
+      "ru": "Три покупателя — и всем отказ. Держи. Некоторые вещи дорожают, пока их не продают.",
+      "en": "Three buyers, and I turned them all away. Here. Some things grow dearer as long as they stay unsold."
+     },
+     "waiting": {
+      "ru": "Кольцо лежит на бархате без ценника. Ювелир отгоняет покупателей.",
+      "en": "The ring lies on velvet with no price tag. The Jeweler shoos the buyers away."
+     },
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "AlchemistNPCLite/Operator",
+   "force": "archivists",
+   "epithet": {
+    "ru": "Слушающая эфир",
+    "en": "Listener to the ether"
+   },
+   "quote": {
+    "ru": "В эфире есть шум, у которого нет источника. Я записываю его. Кто-то должен.",
+    "en": "There is noise in the ether with no source. I record it. Someone has to."
+   },
+   "intro": {
+    "ru": "Оператор — киборг-связистка, что держит телеграфную станцию с вышкой и обсерваторией. Она ведёт журналы всех сигналов мира и недавно стала слышать в эфире шум без передатчика, будто мир разговаривает сам с собой. Пустые резиденции для неё — несверенные записи: построены, но не внесены ни в один журнал. Архивисты близки ей по самому устройству: забыть — значит потерять данные.",
+    "en": "The Operator is a cyborg who keeps a telegraph exchange with a mast and an observatory. She logs every signal in the world, and lately she has begun to hear noise in the ether with no transmitter, as if the world were talking to itself. To her the empty residences are unreconciled records: built, yet entered in no log. The Archivists suit her by her very design: to forget is to lose data."
+   },
+   "findHint": {
+    "ru": "Появляется после победы над Пожирателем миров или Мозгом Ктулху. Ищи в лесу телеграфную станцию с высокой вышкой.",
+    "en": "Appears after the Eater of Worlds or the Brain of Cthulhu is defeated. Look in the forest for a telegraph exchange with a tall mast."
+   },
+   "epilogue": {
+    "ru": "Журнал наблюдений закрыт, и Оператор позволяет его прочесть. Шум в эфире повторяется ритмично, как дыхание, и сильнее всего звучит со стороны глубокого океана. «Это не помехи, — говорит она. — Это черновик. Мир проговаривает то, чего ещё не сказал». В графе «Свидетель» стоит имя: {player}.",
+    "en": "The observation log is closed, and the Operator lets you read it. The noise in the ether repeats rhythmically, like breathing, and is loudest from the direction of the deep ocean. “It isn't interference,” she says. “It's a draft. The world is rehearsing what it hasn't said yet.” The “Witness” field bears a name: {player}."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Провод и стекло",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Оператору нужен провод, чтобы протянуть новую линию от станции к вышке: старая сеть рвётся, и сигналы теряются по дороге. Принеси провод для новых каналов связи.",
+      "en": "The Operator needs wire to run a new line from the exchange to the mast: the old network keeps breaking, and signals get lost on the way. Bring wire for new communication channels."
+     },
+     "offer": {
+      "ru": "Мне необходим провод. Без линии сигнал уходит в никуда, а терять данные я не люблю.",
+      "en": "I require wire. Without a line the signal goes nowhere, and I do not like losing data."
+     },
+     "complete": {
+      "ru": "Линия протянута. Потери снижены до допустимых. Благодарю.",
+      "en": "Line installed. Losses reduced to acceptable levels. Thank you."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Сигнал с берега",
+     "kind": "Visit",
+     "description": {
+      "ru": "Самый странный шум Оператор ловит со стороны моря. Ей нужно, чтобы кто-то побыл на океанском берегу и послужил живой антенной, пока станция пишет сигнал без помех.",
+      "en": "The Operator catches the strangest noise from the direction of the sea. She needs someone to stay on the ocean shore and serve as a living antenna while the exchange records the signal cleanly."
+     },
+     "offer": {
+      "ru": "Иди к океану и оставайся там. Ты — антенна, {player}. Это не оскорбление, это функция.",
+      "en": "Go to the ocean and stay there. You are the antenna, {player}. That is not an insult, it is a function."
+     },
+     "complete": {
+      "ru": "Запись получена. Источник шума не установлен. Направление — море. Глубже, чем видно с берега.",
+      "en": "Recording received. Noise source not identified. Bearing: the sea. Deeper than can be seen from shore."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Проверка источника",
+     "kind": "Observe",
+     "description": {
+      "ru": "Оператор исключает версии одну за другой. Дельфины в океане щёлкают и свистят — возможно, шум в эфире от них. Понаблюдай за дельфином вблизи и не причиняй ему вреда.",
+      "en": "The Operator rules out hypotheses one by one. Dolphins in the ocean click and whistle — perhaps the noise in the ether is theirs. Watch a dolphin up close and do it no harm."
+     },
+     "offer": {
+      "ru": "Гипотеза: биологический источник. Дельфин. Подойди и слушай, {player}. Стрелять — нарушение протокола.",
+      "en": "Hypothesis: biological source. Dolphin. Approach and listen, {player}. Shooting is a protocol violation."
+     },
+     "complete": {
+      "ru": "Щелчки записаны. Частота не совпадает. Источник шума — не живое существо. Это... хуже.",
+      "en": "Clicks recorded. Frequency mismatch. The noise source is not a living creature. That is... worse."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Кто боится железа",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Оператор признаётся, что некоторые жители её боятся, и спрашивает, кем ты её видишь. Реши, сказать ли, что видишь в ней человека, или спросить, каково это — быть машиной.",
+      "en": "The Operator admits that some residents are afraid of her and asks how you see her. Decide whether to say you see the person in her or to ask what it's like to be a machine."
+     },
+     "offer": {
+      "ru": "Один из жителей отходит, когда я приближаюсь. Мне это... неприятно. Как ты меня классифицируешь?",
+      "en": "One of the residents steps away when I approach. I find that... unpleasant. How do you classify me?"
+     },
+     "complete": {
+      "ru": "Ответ сохранён. Я перечитаю его ещё раз. Это не сбой.",
+      "en": "Answer saved. I will read it again. This is not a malfunction."
+     },
+     "waiting": null,
+     "choices": {
+      "human": {
+       "outcome": {
+        "ru": "Оператор долго молчит. «Неожиданный ответ. Я сохраню его отдельно от рабочих журналов — там, где храню своё».",
+        "en": "The Operator is silent for a long time. “An unexpected answer. I will store it apart from the work logs — where I keep my own things.”"
+       },
+       "lean": "none"
+      },
+      "machine": {
+       "outcome": {
+        "ru": "«Машина не забывает, — отвечает Оператор. — Это и дар, и груз. Каждый сигнал этого мира хранится во мне, даже те, что лучше бы стереть».",
+        "en": "“A machine does not forget,” the Operator replies. “It is both a gift and a burden. Every signal of this world is kept in me, even those better erased.”"
+       },
+       "lean": "archivists"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Журнал наблюдений",
+     "kind": "Delayed",
+     "description": {
+      "ru": "Оператор ставит станцию на непрерывную запись: чтобы понять шум, его нужно долго слушать. Оставь журнал наблюдений заполняться и вернись, когда он будет готов.",
+      "en": "The Operator sets the exchange to continuous recording: to understand the noise, one has to listen for a long time. Leave the observation log to fill up and come back when it's ready."
+     },
+     "offer": {
+      "ru": "Запись запущена. Не выключай станцию. Не говори громко рядом с вышкой.",
+      "en": "Recording started. Do not switch off the exchange. Do not speak loudly near the mast."
+     },
+     "complete": {
+      "ru": "Журнал заполнен. Шум повторяется. В нём есть ритм. Ритм — это почти слово.",
+      "en": "Log complete. The noise repeats. It has a rhythm. A rhythm is almost a word."
+     },
+     "waiting": {
+      "ru": "Станция пишет эфир. Стрелки дрожат: шум идёт со стороны глубокого моря.",
+      "en": "The exchange records the ether. The needles tremble: the noise comes from the deep sea."
+     },
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "AlchemistNPCLite/Architect",
+   "force": "gardeners",
+   "epithet": {
+    "ru": "Тот, кто чертит формы",
+    "en": "The one who draws forms"
+   },
+   "quote": {
+    "ru": "Я строю, но этих домов не строил. Хотя швы у них... подозрительно знакомые.",
+    "en": "I build, but I did not build those houses. Though their seams look... suspiciously familiar."
+   },
+   "intro": {
+    "ru": "Архитектор держит чертёжную гильдию и уверен, что у мира, как у дома, должен быть план. Садовники считают его своим: он строит формы, в которых живому удобно расти. Многие подозревают, что именно он возвёл 61 пустую резиденцию — слишком уж ровно они стоят. Архитектор отмахивается и смеётся, но всё чаще замолкает, разглядывая их фундаменты.",
+    "en": "The Architect runs a drafting guildhall and is sure the world, like a house, should have a plan. The Gardeners count him as one of their own: he builds the forms in which living things grow comfortably. Many suspect he is the one who raised the 61 empty residences — they stand far too neatly. He waves it off and laughs, yet more and more often falls silent while studying their foundations."
+   },
+   "findHint": {
+    "ru": "Приходит, когда в мире поселятся хотя бы трое горожан: строителю нужны заказчики. Его чертёжная гильдия с башней стоит в лесу.",
+    "en": "Arrives once at least three townsfolk have settled in the world: a builder needs clients. His drafting guildhall with a tower stands in the forest."
+   },
+   "epilogue": {
+    "ru": "Чертёж мечты высох, и на его полях проступили пометки, которых Архитектор не помнит: размеры, совпадающие с пустыми резиденциями. Почерк похож на его собственный, только моложе. «Совпадение», — говорит он и прячет лист не в шкаф, а под подушку. Признания нет. Но и спокойствия у него больше нет.",
+    "en": "The dream blueprint has dried, and notes have surfaced in its margins that the Architect doesn't remember making: measurements that match the empty residences. The handwriting resembles his own, only younger. “Coincidence,” he says, and hides the sheet not in a cupboard but under his pillow. There is no confession. But there is no peace for him either."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Камень на фундамент",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Архитектору нужен камень на фундамент нового дома: без основы любой план — просто рисунок. Добудь и принеси ему побольше обычного камня.",
+      "en": "The Architect needs stone for the footing of a new house: without a base, any plan is just a drawing. Mine and bring him plenty of ordinary stone."
+     },
+     "offer": {
+      "ru": "Сначала фундамент, {player}, потом мечты. Тащи камень — побольше и попрочнее.",
+      "en": "Foundation first, {player}, dreams later. Haul stone — lots of it, and solid."
+     },
+     "complete": {
+      "ru": "Хороший камень, плотный, без трещин. Такой же лежит под пустыми резиденциями... Это я так, к слову.",
+      "en": "Good stone, dense, no cracks. The same kind lies under the empty residences... Just mentioning it."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Разметка участка",
+     "kind": "GatherEnv",
+     "description": {
+      "ru": "Прежде чем строить, Архитектор размечает участок светом: факелы показывают границы и углы будущего дома. Расставь факелы, чтобы обозначить контур постройки.",
+      "en": "Before building, the Architect marks out the plot with light: torches show the borders and corners of the future house. Place torches to outline the building."
+     },
+     "offer": {
+      "ru": "Расставь факелы по углам. Свет — лучшая линейка: сразу видно, где кривизна.",
+      "en": "Put torches at the corners. Light is the best ruler: you see every crooked line at once."
+     },
+     "complete": {
+      "ru": "Ровно. Странно ровно — точь-в-точь шаг, как у тех пустых домов. Ну, хороший шаг у всех одинаковый.",
+      "en": "Straight. Oddly straight — exactly the spacing of those empty houses. Well, good spacing is the same for everyone."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Чужая кладка",
+     "kind": "Visit",
+     "description": {
+      "ru": "В Преисподней стоят разрушенные дома из обсидиана — тоже построенные будто «под кого-то». Архитектор хочет сравнить швы. Побудь среди руин и запомни, как сложены стены.",
+      "en": "Ruined obsidian houses stand in the Underworld — also built as if “for someone”. The Architect wants to compare the seams. Spend time among the ruins and remember how the walls are laid."
+     },
+     "offer": {
+      "ru": "Не спрашивай зачем. Просто посмотри на кладку внизу и скажи, похожа ли она на... ну, ты понял.",
+      "en": "Don't ask why. Just look at the masonry down there and tell me whether it looks like... well, you know."
+     },
+     "complete": {
+      "ru": "Тот же шаг кирпича. Тот же шов. Кто-то строил и там, и здесь. Не я. Наверное, не я.",
+      "en": "Same brick spacing. Same seam. Someone built both there and here. Not me. Probably not me."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Форма или функция",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Архитектор спорит сам с собой над новым чертежом и просит тебя рассудить. Реши, что важнее для дома: красота формы или польза для тех, кто в нём живёт.",
+      "en": "The Architect is arguing with himself over a new blueprint and asks you to settle it. Decide what matters more in a house: the beauty of its form or its use to those who live in it."
+     },
+     "offer": {
+      "ru": "Красиво или удобно — вечный спор. Скажи, что для тебя важнее, а я пока помолчу.",
+      "en": "Beautiful or comfortable — the eternal argument. Tell me what matters more to you, and I'll keep quiet for once."
+     },
+     "complete": {
+      "ru": "Записал на полях. Чертёж запомнит, даже если я забуду.",
+      "en": "Noted in the margin. The blueprint will remember even if I forget."
+     },
+     "waiting": null,
+     "choices": {
+      "beauty": {
+       "outcome": {
+        "ru": "Архитектор доволен: «Форма держит мир, как изгородь держит сад». Он стирает лишние линии, и чертёж становится строже.",
+        "en": "The Architect is pleased: “Form holds the world the way a hedge holds a garden.” He erases the extra lines, and the blueprint grows stricter."
+       },
+       "lean": "gardeners"
+      },
+      "use": {
+       "outcome": {
+        "ru": "«Дом, который служит, можно достраивать, — задумчиво говорит Архитектор. — Жильцов становится больше, и дом растёт вместе с ними».",
+        "en": "“A house that serves can be built onto,” the Architect says thoughtfully. “The tenants multiply, and the house grows with them.”"
+       },
+       "lean": "tiders"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Проект мечты",
+     "kind": "Delayed",
+     "description": {
+      "ru": "Архитектор закончил чертёж своей мечты, но тушь должна высохнуть, а план — отлежаться. Оставь лист сохнуть и загляни в гильдию через несколько дней.",
+      "en": "The Architect has finished the blueprint of his dreams, but the ink must dry and the plan must rest. Leave the sheet to dry and drop by the guildhall in a few days."
+     },
+     "offer": {
+      "ru": "Не трогай лист, пока тушь не высохнет. Хорошему плану нужно отлежаться.",
+      "en": "Don't touch the sheet until the ink dries. A good plan needs time to rest."
+     },
+     "complete": {
+      "ru": "Высох. Только вот этих пометок на полях я не ставил... Или ставил? Неважно. Не смотри так.",
+      "en": "Dry. Only I didn't make these notes in the margins... Or did I? Never mind. Don't look at me like that."
+     },
+     "waiting": {
+      "ru": "Чертёж сохнет на столе гильдии. На полях понемногу проступают линии.",
+      "en": "The blueprint is drying on the guildhall table. Lines slowly surface in the margins."
+     },
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "AlchemistNPCLite/Musician",
+   "force": "tiders",
+   "epithet": {
+    "ru": "Голос, которому тесно",
+    "en": "A voice that feels cramped"
+   },
+   "quote": {
+    "ru": "Музыка не должна кончаться у стены. Пусть звучит до самого края мира — и дальше.",
+    "en": "Music shouldn't end at a wall. Let it sound to the very edge of the world — and beyond."
+   },
+   "intro": {
+    "ru": "Музыкант играет в лесном концертном зале и слышит песню во всём: в траве, камнях, озёрах и ветре. Мир стал больше, а значит, музыке есть где развернуться, — и это Музыканта по-настоящему радует. Пустые резиденции для него — тишина между нотами, которую рано или поздно заполнит мелодия. С Приливниками его роднит одно желание: чтобы звук шёл шире.",
+    "en": "The Musician plays in a woodland concert hall and hears a song in everything: grass, stones, lakes and wind. The world has grown, which means music has room to unfold — and that truly delights the Musician. To them the empty residences are the silence between notes that a melody will fill sooner or later. One wish binds the Musician to the Tiders: for sound to carry wider."
+   },
+   "findHint": {
+    "ru": "Приходит после победы над Скелетроном. Лесной концертный зал Музыканта слышно раньше, чем видно.",
+    "en": "Arrives once Skeletron is defeated. The Musician's woodland concert hall can be heard before it is seen."
+   },
+   "epilogue": {
+    "ru": "Новая баллада готова, и Музыкант исполняет её не в зале, а под открытым небом, чтобы звук ушёл к самому краю мира. В припеве есть строка о путнике по имени {player}, которого мир «не дописал». «Песни тоже растут, — говорит Музыкант. — Эта вырастет уже без меня».",
+    "en": "The new ballad is ready, and the Musician performs it not in the hall but under the open sky, so the sound can travel to the very edge of the world. The refrain has a line about a traveller named {player}, whom the world “left unwritten.” “Songs grow too,” says the Musician. “This one will keep growing without me.”"
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Кто поёт первым",
+     "kind": "Observe",
+     "description": {
+      "ru": "Прежде чем писать мелодию, Музыкант слушает тех, кто поёт без нот. Понаблюдай вблизи за птицей в лесу и не спугни её: в её песне спрятан мотив, которого не хватает балладе.",
+      "en": "Before writing a melody, the Musician listens to those who sing without notes. Watch a bird up close in the forest and don't scare it: its song hides the motif the ballad lacks."
+     },
+     "offer": {
+      "ru": "Птицы пели этот мир раньше нас. Посиди рядом с одной, {player}, и запомни, с какой ноты она начинает.",
+      "en": "Birds were singing this world before us. Sit near one, {player}, and remember which note it starts on."
+     },
+     "complete": {
+      "ru": "С ми! Конечно, с ми. Мир начинается с высокой ноты — я так и знал.",
+      "en": "E! Of course, E. The world starts on a high note — I knew it."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Голос прибоя",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Музыкант хочет, чтобы звук шёл дальше стен, а дальше всех звучит море. Собери на берегу ракушки: в каждой спрятан шум прибоя, и из них выйдет инструмент для края мира.",
+      "en": "The Musician wants sound to carry beyond walls, and nothing carries farther than the sea. Gather shells on the shore: each hides the noise of the surf, and together they'll make an instrument for the edge of the world."
+     },
+     "offer": {
+      "ru": "Приложи ракушку к уху — слышишь? Это море репетирует. Принеси мне таких, {player}, разных.",
+      "en": "Hold a shell to your ear — hear it? That's the sea rehearsing. Bring me some, {player}, all kinds."
+     },
+     "complete": {
+      "ru": "Каждая гудит по-своему! Вместе — целый хор. Этот звук дойдёт до самого горизонта.",
+      "en": "Each one hums its own way! Together, a whole choir. This sound will reach the horizon."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Эхо в пещерах",
+     "kind": "Visit",
+     "description": {
+      "ru": "Музыкант проверяет акустику подземелий: эхо там отвечает дольше, чем наверху. Побудь под землёй и прислушайся — говорят, пещеры иногда возвращают ноту, которую никто не играл.",
+      "en": "The Musician is testing the acoustics below: echoes answer longer there than up top. Spend time underground and listen — they say the caves sometimes return a note nobody played."
+     },
+     "offer": {
+      "ru": "Спустись и спой что-нибудь, {player}. Неважно что. Мне нужно знать, что пещеры споют в ответ.",
+      "en": "Go down and sing something, {player}. Anything. I need to know what the caves sing back."
+     },
+     "complete": {
+      "ru": "Лишняя нота? Низкая, без источника... Оператор говорила о таком шуме. Значит, мир тоже поёт.",
+      "en": "An extra note? Low, with no source... The Operator spoke of a noise like that. So the world sings too."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Для кого музыка",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Музыкант не может решить, для кого писать дальше: для шумных площадей или для одного слушателя. Помоги выбрать, для кого должна звучать музыка.",
+      "en": "The Musician can't decide whom to write for next: noisy town squares or a single listener. Help choose who the music should be for."
+     },
+     "offer": {
+      "ru": "Площадь или один человек? Толпа шумит, один — слышит. Как думаешь, для кого музыка?",
+      "en": "A square or one person? A crowd makes noise; one person listens. Who do you think music is for?"
+     },
+     "complete": {
+      "ru": "Решено. Следующая песня будет именно такой.",
+      "en": "Settled. The next song will be exactly that."
+     },
+     "waiting": null,
+     "choices": {
+      "crowd": {
+       "outcome": {
+        "ru": "Музыкант сияет. «Шире! Пусть играет на каждой площади, у каждого берега. Музыке нельзя жить в шкатулке».",
+        "en": "The Musician beams. “Wider! Let it play in every square, on every shore. Music can't live in a box.”"
+       },
+       "lean": "tiders"
+      },
+      "one": {
+       "outcome": {
+        "ru": "Музыкант неожиданно серьёзнеет. «Песня для одного запоминается навсегда. Её не перекричать — её можно только сохранить».",
+        "en": "The Musician turns unexpectedly serious. “A song for one is remembered forever. It can't be shouted down — only kept.”"
+       },
+       "lean": "archivists"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Новая баллада",
+     "kind": "Delayed",
+     "description": {
+      "ru": "Баллада готова, но Музыкант не станет исполнять её второй раз: пусть разойдётся сама. Подожди пару дней и проверь, начнут ли жители напевать её без него.",
+      "en": "The ballad is finished, but the Musician won't perform it twice: let it spread on its own. Wait a couple of days and see whether the residents start humming it without him."
+     },
+     "offer": {
+      "ru": "Я спел её один раз. Дальше — не моя работа. Песня, которая растёт, сама найдёт дорогу.",
+      "en": "I sang it once. The rest isn't my job. A song that grows will find its own way."
+     },
+     "complete": {
+      "ru": "Слышишь? Это Варщица напевает. Неправильно, с ошибкой — и прекрасно. Песня ушла от меня.",
+      "en": "Hear that? The Brewer is humming it. Wrong, with a slip, and wonderful. The song has left me."
+     },
+     "waiting": {
+      "ru": "Обрывки баллады слышны то у одной резиденции, то у другой.",
+      "en": "Snatches of the ballad drift from one residence, then another."
+     },
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "AlchemistNPCLite/Tinkerer",
+   "force": "gardeners",
+   "epithet": {
+    "ru": "Мастер доводки",
+    "en": "Master of fine-tuning"
+   },
+   "quote": {
+    "ru": "Любая вещь хочет стать лучше. Моё дело — помочь ей и вовремя остановиться.",
+    "en": "Every thing wants to become better. My job is to help it — and to stop in time."
+   },
+   "intro": {
+    "ru": "Изобретатель собирает аксессуары в часовой мастерской и любит доводить вещи до ума: подтянуть, смазать, подогнать. Почти всю жизнь он прожил с сестрой в холодных краях и привык чинить всё сам. Пустые резиденции он считает механизмом без завода: собран хорошо, но не запущен. Среди Садовников он тот, кто спрашивает, где кончается доводка и начинается переделка.",
+    "en": "The Tinkerer builds accessories in a clockwork shed and loves bringing things to perfection: tighten, oil, adjust. He spent most of his life with his sister in cold lands and is used to fixing everything himself. He sees the empty residences as a mechanism that was never wound: well assembled, but never set going. Among the Gardeners he is the one who asks where fine-tuning ends and remaking begins."
+   },
+   "findHint": {
+    "ru": "Приходит после победы над Глазом Ктулху. Его часовую мастерскую в лесу выдают тиканье и запах масла.",
+    "en": "Arrives once the Eye of Cthulhu is defeated. His clockwork shed in the forest gives itself away by ticking and the smell of oil."
+   },
+   "epilogue": {
+    "ru": "Механизм с секретом готов, и Изобретатель наконец объясняет: секрет в том, что в нём нет ни одной лишней детали. «Каждую деталь можно улучшить, — говорит он, — но однажды вещь должна просто начать работать». Механизм он дарит {player} и впервые не тянется следом за отвёрткой.",
+    "en": "The mechanism with a secret is ready, and the Tinkerer finally explains: the secret is that it has not a single unnecessary part. “Every part can be improved,” he says, “but one day a thing simply has to start working.” He gives the mechanism to {player}, and for the first time doesn't reach after it with a screwdriver."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Металлолом в дело",
+     "kind": "Deliver",
+     "description": {
+      "ru": "В мастерской Изобретателя скопился хлам, и ему нужен металл, чтобы превратить его во что-то полезное. Принеси железные слитки — из них выйдут детали для новых механизмов.",
+      "en": "Junk has piled up in the Tinkerer's workshop, and he needs metal to turn it into something useful. Bring iron bars — they'll become parts for new mechanisms."
+     },
+     "offer": {
+      "ru": "Металлолом — это детали, которые ещё не нашли своё место. Принеси железо, и мы их пристроим.",
+      "en": "Scrap is just parts that haven't found their place yet. Bring iron, and we'll put them to work."
+     },
+     "complete": {
+      "ru": "Хорошие слитки, ровные. Получится цепь, а может, и что поинтереснее.",
+      "en": "Good bars, nice and even. This will make a chain — or maybe something more interesting."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Ничего лишнего",
+     "kind": "Expedition",
+     "description": {
+      "ru": "Изобретатель ищет вещь, в которой нет ни одной лишней детали, и уверен, что такая лежит в старом сундуке мира. Найди аглет в тайнике — купленный или собранный не подойдёт.",
+      "en": "The Tinkerer is looking for a thing with not a single unnecessary part, and is sure one lies in an old chest of the world. Find an aglet in a cache — a bought or crafted one won't do."
+     },
+     "offer": {
+      "ru": "Аглет, {player}. Кусочек металла на шнурке. Глупость? Нет — совершенство. Ищи в старых сундуках.",
+      "en": "An aglet, {player}. A bit of metal on a lace. Silly? No, perfection. Search the old chests."
+     },
+     "complete": {
+      "ru": "Смотри: ни убавить, ни прибавить. Кто-то знал, когда остановиться. Мне бы так.",
+      "en": "Look: nothing to take away, nothing to add. Someone knew when to stop. I wish I did."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Испытание жаром",
+     "kind": "Trial",
+     "description": {
+      "ru": "Полжизни Изобретатель провёл с сестрой в холодных краях и знает, что мороз делает с металлом. Жар — другое дело. Сразись с адскими нетопырями в Преисподней и ни разу не загорись.",
+      "en": "The Tinkerer spent half his life with his sister in cold lands and knows what frost does to metal. Heat is another matter. Fight hellbats in the Underworld without catching fire once."
+     },
+     "offer": {
+      "ru": "Холод я проверял много зим. Теперь — жар. Если вспыхнешь, деталь не прошла испытание.",
+      "en": "I tested cold for many winters. Now, heat. If you go up in flames, the part failed the test."
+     },
+     "complete": {
+      "ru": "Ни копоти, ни трещины. Сестра бы не поверила. Записываю в журнал испытаний.",
+      "en": "No soot, no cracks. My sister wouldn't believe it. Going in the test log."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Идеальная сборка",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Изобретатель часами возится с почти готовым механизмом и сам не знает, когда остановиться. Помоги ему решить: улучшать дальше или признать, что вещь уже закончена.",
+      "en": "The Tinkerer has been fiddling with a nearly finished mechanism for hours and can't tell when to stop. Help him decide: keep improving, or admit the thing is already finished."
+     },
+     "offer": {
+      "ru": "Ещё один винтик — и будет идеально. Или нет? Скажи честно, я уже сам не вижу.",
+      "en": "One more screw and it'll be perfect. Or not? Be honest, I can't tell anymore."
+     },
+     "complete": {
+      "ru": "Ладно. Отложу отвёртку. Пока что.",
+      "en": "All right. I'll put the screwdriver down. For now."
+     },
+     "waiting": null,
+     "choices": {
+      "improve": {
+       "outcome": {
+        "ru": "Глаза Изобретателя загораются. «Значит, предела нет! Улучшать, расширять, пробовать снова — и пусть вещь растёт».",
+        "en": "The Tinkerer's eyes light up. “So there's no limit! Improve, expand, try again — and let the thing grow.”"
+       },
+       "lean": "tiders"
+      },
+      "enough": {
+       "outcome": {
+        "ru": "Изобретатель с облегчением откладывает инструмент. «Закончено. Хороший садовник знает, когда убрать ножницы».",
+        "en": "The Tinkerer sets his tools down with relief. “Finished. A good gardener knows when to put the shears away.”"
+       },
+       "lean": "gardeners"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Механизм с секретом",
+     "kind": "Delayed",
+     "description": {
+      "ru": "Механизм собран, и самое трудное теперь не для механизма. Изобретатель дал слово пару дней не трогать его отвёрткой. Загляни и проверь, сдержал ли он слово.",
+      "en": "The mechanism is assembled, and the hardest part now isn't for the mechanism. The Tinkerer has promised not to touch it with a screwdriver for a couple of days. Drop by and see if he kept his word."
+     },
+     "offer": {
+      "ru": "Спрячь отвёртку, {player}. Подальше. И не говори мне куда.",
+      "en": "Hide the screwdriver, {player}. Far away. And don't tell me where."
+     },
+     "complete": {
+      "ru": "Тикает! Ровно, без единого сбоя. Я не тронул его ни разу. Почти ни разу.",
+      "en": "It's ticking! Steady, without a hitch. I didn't touch it once. Almost not once."
+     },
+     "waiting": {
+      "ru": "Механизм тикает на верстаке. Изобретатель сидит на своих руках.",
+      "en": "The mechanism ticks on the workbench. The Tinkerer is sitting on his hands."
+     },
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "AlchemistNPCLite/YoungBrewer",
+   "force": "unassigned",
+   "epithet": {
+    "ru": "Ученик на распутье",
+    "en": "An apprentice at the crossroads"
+   },
+   "quote": {
+    "ru": "Папа говорит — терпение, мама говорит — смелость. А я хочу понять, что говорю я.",
+    "en": "Dad says patience, Mom says courage. I want to figure out what I say."
+   },
+   "intro": {
+    "ru": "Юный химик — сын Алхимика и Варщицы, выросший среди котлов и склянок. Он любит лес, терпеть не может куртки и мечтает сварить зелье, которое не удаётся родителям. Спор сил он слышит за ужином каждый вечер, но своего ответа у него пока нет. Пустые резиденции его не пугают: он уверен, что одна из них однажды станет его собственной лабораторией.",
+    "en": "The Young Brewer is the son of the Alchemist and the Brewer, raised among kettles and vials. He loves the forest, can't stand jackets, and dreams of brewing a potion his parents can't manage. He hears the forces argue over dinner every evening, but has no answer of his own yet. The empty residences don't scare him: he is sure one of them will someday become his very own laboratory."
+   },
+   "findHint": {
+    "ru": "Приходит, когда мир переходит в хардмод: раньше родители его не отпускают. Живёт в травяном домике в лесу.",
+    "en": "Arrives once the world enters hardmode: his parents won't let him go any earlier. He lives in a herb cottage in the forest."
+   },
+   "epilogue": {
+    "ru": "Первая собственная настойка Юного химика вышла мутной, кривой — и работающей. Родители спорят, чья это заслуга, а он смеётся: «Моя. И немножко {player}». Теперь он знает, что путь — тоже материал: из него варят так же, как из трав, и каждый варит по-своему.",
+    "en": "The Young Brewer's first brew of his own came out cloudy, lopsided — and working. His parents argue over whose credit it is, and he laughs: “Mine. And a little bit {player}'s.” Now he knows a path is material too: you brew with it just as with herbs, and everyone brews it their own way."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Мерцающий корень",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Родители наконец отпустили Юного химика за порог. Первое поручение — мерцающий корень для отцовских настоек: он растёт в темноте пещер и светится, когда его не ждёшь. Помоги собрать: провалить первое дело стыдно.",
+      "en": "His parents have finally let the Young Brewer out the door. His first errand is blinkroot for his father's tinctures: it grows in the dark of the caves and glows when you least expect it. Help him: failing the very first job would be embarrassing."
+     },
+     "offer": {
+      "ru": "Папа сказал: мерцающий корень, пять штук! Одному страшно... то есть скучно. Пойдёшь, {player}?",
+      "en": "Dad said: blinkroot, five of them! Alone it's scary... I mean boring. Coming, {player}?"
+     },
+     "complete": {
+      "ru": "Мерцает! Папа скажет «молодец», мама — «маловато». Это одно и то же.",
+      "en": "It blinks! Dad will say “well done,” Mom will say “a bit small.” That means the same thing."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Смотри и учись",
+     "kind": "Observe",
+     "description": {
+      "ru": "Родители велели Юному химику учиться у тех, кто знает мир. Понаблюдай вместе с ним за Гидом — как тот говорит, что советует, на что смотрит, — и не мешай ему.",
+      "en": "His parents told the Young Brewer to learn from those who know the world. Watch the Guide together with him — how he speaks, what he advises, what he looks at — without getting in his way."
+     },
+     "offer": {
+      "ru": "Папа говорит: смотри и учись. Давай посмотрим на Гида — он про всех всё знает.",
+      "en": "Dad says: watch and learn. Let's watch the Guide — he knows everything about everyone."
+     },
+     "complete": {
+      "ru": "Он даже не заметил, что мы смотрели! Я запомнил три совета. Ну, два с половиной.",
+      "en": "He didn't even notice us watching! I memorised three tips. Well, two and a half."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Без куртки",
+     "kind": "Trial",
+     "description": {
+      "ru": "Юный химик терпеть не может куртки и пошёл в снега без неё — доказать, что справится. Помоги ему разбить ледяных слизней и ни разу не продрогнуть до озноба, иначе мама узнает.",
+      "en": "The Young Brewer can't stand jackets and went into the snow without one, to prove he can handle it. Help him beat ice slimes without getting chilled once, or Mom will find out."
+     },
+     "offer": {
+      "ru": "Куртки — для трусов. Ну, или для тех, кто мёрзнет. Мы ведь не будем мёрзнуть, правда, {player}?",
+      "en": "Jackets are for cowards. Or for people who get cold. We won't get cold, right, {player}?"
+     },
+     "complete": {
+      "ru": "Ни разу не продрог! Я же говорил. Только маме не рассказывай, что я чихнул.",
+      "en": "Not chilled once! Told you. Just don't tell Mom I sneezed."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Чей путь",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Юный химик признаётся: родители тянут его каждый в свою сторону, и он не знает, чей путь выбрать. Реши, посоветовать ли держаться наставников или подтолкнуть его к собственной дороге.",
+      "en": "The Young Brewer admits his parents each pull him their own way, and he doesn't know whose path to choose. Decide whether to advise him to stay with his mentors or push him toward a road of his own."
+     },
+     "offer": {
+      "ru": "Папа хочет, чтобы я был как он, мама — как она. А мне как быть? Скажи честно.",
+      "en": "Dad wants me to be like him, Mom wants me like her. What am I supposed to do? Tell me honestly."
+     },
+     "complete": {
+      "ru": "Спасибо. Я подумаю. Взрослые всегда так говорят, а я правда подумаю.",
+      "en": "Thanks. I'll think about it. Grown-ups always say that, but I really will."
+     },
+     "waiting": null,
+     "choices": {
+      "master": {
+       "outcome": {
+        "ru": "Юный химик кивает: «Значит, сначала научусь у папы и мамы, а потом решу сам». Родители впервые за неделю ни о чём не спорят.",
+        "en": "The Young Brewer nods: “So first I learn from Dad and Mom, and then I decide for myself.” For the first time in a week his parents argue about nothing."
+       },
+       "lean": "gardeners"
+      },
+      "own": {
+       "outcome": {
+        "ru": "Юный химик загорается: «Своё зелье, свой рецепт, своя дорога!» Родители переглядываются — тревожно и немного гордо.",
+        "en": "The Young Brewer lights up: “My own potion, my own recipe, my own road!” His parents exchange a look — worried, and a little proud."
+       },
+       "lean": "tiders"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Своя рыба, свой рецепт",
+     "kind": "Expedition",
+     "description": {
+      "ru": "Юный химик хочет сварить то, чего не умеют родители: в рецептах семьи нет ни одной рыбы. Помоги ему выудить ледяного малька в снежных водах — там, где он уже бывал без куртки.",
+      "en": "The Young Brewer wants to brew something his parents can't: not one family recipe uses fish. Help him catch a frost minnow in the snowy waters, where he has already been without a jacket."
+     },
+     "offer": {
+      "ru": "Папа — травы, мама — грибы. А я — рыба! Никто в семье так не варил. Поймаешь, {player}?",
+      "en": "Dad does herbs, Mom does mushrooms. I'll do fish! Nobody in the family brews like that. Will you catch one, {player}?"
+     },
+     "complete": {
+      "ru": "Мутно, криво — и работает! Это моё зелье. Моё! А пустую резиденцию я займу под лабораторию.",
+      "en": "Cloudy, lopsided, and it works! This is my potion. Mine! And I'm taking an empty residence for my lab."
+     },
+     "waiting": null,
+     "choices": null
+    }
+   ]
+  }
+ ]
+}

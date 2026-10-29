@@ -47,6 +47,23 @@ internal static partial class NpcQuestNetwork
 		packet.Send();
 	}
 
+	// Abandon needs no proximity: the performer may give up from anywhere in the book.
+	internal static void RequestQuestAbandon(string npcKey)
+	{
+		if (Main.netMode == NetmodeID.SinglePlayer)
+		{
+			NpcQuestSystem.HandleAbandon(Main.LocalPlayer, npcKey);
+			return;
+		}
+
+		if (Main.netMode != NetmodeID.MultiplayerClient || !NpcTownManifest.TryGet(npcKey, out _))
+			return;
+		ModPacket packet = DingDongBiomeHomes.Instance.GetPacket();
+		packet.Write((byte)DingDongPacketKind.QuestAbandonRequest);
+		packet.Write(npcKey);
+		packet.Send();
+	}
+
 	internal static void RequestFlagClaim(int tileX, int tileY)
 	{
 		if (Main.netMode == NetmodeID.SinglePlayer)

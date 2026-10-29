@@ -52,12 +52,17 @@ internal static partial class NpcQuestSystem
             { progress.Progress = Math.Min(definition.Goal, progress.Progress + 15); record = true; }
 			else if (definition.Kind == ResidentQuestKind.Observe && progress.Progress < definition.Goal && ObservedTargetNearby(player, definition))
 			{ progress.Progress = Math.Min(definition.Goal, progress.Progress + 15); record = true; }
-			else if (definition.Kind == ResidentQuestKind.Delayed && progress.Progress < definition.Goal)
-			{ progress.Progress = Math.Min(definition.Goal, progress.Progress + 15); record = progress.Progress >= definition.Goal || progress.Progress % 900 == 0; }
+			// Delayed advances on the world clock (NpcQuestWorldLedger.AdvanceDelayed), not here.
+			else if (definition.Kind == ResidentQuestKind.Trial && progress.Progress > 0 && progress.Progress < definition.Goal && TrialStateViolated(player, definition))
+			{
+				// Trial failure: the forbidden state was taken, the count starts over.
+				progress.Progress = 0; record = true;
+				QuestNotice.Send(player, QuestNoticeKind.TrialFailed, npcKey, definition.Variant);
+			}
 			else if (definition.Kind == ResidentQuestKind.GatherEnv && progress.Progress < definition.Goal)
 			{
-				int count = Math.Min(definition.Goal, CountGatheredTiles(player, npcKey, definition));
-				if (count != progress.Progress) { progress.Progress = count; record = true; if (count >= definition.Goal) Notify(player, "Mods.DingDongBiomeHomes.Quests.ObjectiveReady", ResidentName(npcKey)); }
+				int count = GatherProgress(player, npcKey, definition, progress);
+				if (count != progress.Progress) { progress.Progress = count; record = true; if (count >= definition.Goal) QuestNotice.Send(player, QuestNoticeKind.ObjectiveReady, npcKey, definition.Variant); }
 			}
 			else if (definition.Kind == ResidentQuestKind.BannerCollection)
 			{

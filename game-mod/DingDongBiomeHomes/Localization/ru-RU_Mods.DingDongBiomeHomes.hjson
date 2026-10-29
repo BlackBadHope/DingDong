@@ -13,6 +13,7 @@ AutoUncraft: {
 	ShowList: Показать и изменить список авторазборки
 	Preview: "Разбор {0} вернёт до: {1}"
 	RatioHint: Применяется коэффициент возврата Lans и случайное округление.
+	PreviewTitle: Разбор вернёт до:
 	Title: Авторазборка ({0} правил)
 	EditHint: Добавьте через слот; нажмите на предмет в списке, чтобы убрать.
 	SafetyHint: Только список; избранное защищено. Нет места — разборка ждёт.
@@ -74,7 +75,7 @@ WorldCreation: {
 
 	// 28.10: "First Word" backdrop of the world-generation screen.
 	Backdrop: {
-		Title: Первое Слово
+		Title: Первое слово было
 		Subtitle: Мир произносится…
 		Line0: Вначале было слово. Оно было коротким — и мир был мал.
 		Line1: Мир меняется, потому что хочет стать лучше. Но кто решает, что значит «лучше»?
@@ -97,7 +98,7 @@ WorldCreation: {
 
 		{0}
 
-		Свободная ОЗУ и доступный лимит выделения памяти Windows — разные ограничения. Закройте ненужные приложения или проверьте настройки файла подкачки Windows, затем повторите попытку либо выберите меньший мир. Ding Dong не изменял файл подкачки и не закрывал приложения.
+		Свободная память и объём, который Windows ещё может выделить, — разные ограничения. Закройте ненужные приложения или проверьте настройки виртуальной памяти Windows, затем повторите попытку либо выберите меньший мир. Ding Dong не менял системные настройки и не закрывал приложения.
 		'''
 }
 
@@ -1451,11 +1452,11 @@ Configs: {
 	}
 
 	RandomTileBudgetConfig: {
-		// DisplayName: Random Tile Budget Config
+		DisplayName: Рост расширенного мира
 
 		AutoNormalizeExpandedWorldGrowth: {
-			// Label: Auto Normalize Expanded World Growth
-			// Tooltip: ""
+			Label: Автоматически выравнивать рост расширенного мира
+			Tooltip: ""
 		}
 	}
 }
@@ -1470,8 +1471,8 @@ Projectiles: {
 	AccessoryEchoProjectile.DisplayName: Эхо аксессуара
 	SynergyArmorPulseProjectile.DisplayName: Импульс резонансной брони
 	FishingSpineProjectile.DisplayName: Рыбий шип
-	// BrineSpine.DisplayName: Brine Spine
-	// TidebreakerLance.DisplayName: Tidebreaker Lance
+	BrineSpine.DisplayName: Солевой шип
+	TidebreakerLance.DisplayName: Копьё волнолома
 }
 
 SynergyArmor: {

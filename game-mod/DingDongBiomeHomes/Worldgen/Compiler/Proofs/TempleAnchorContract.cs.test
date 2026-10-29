@@ -1,0 +1,35 @@
+using DingDongBiomeHomes.Worldgen.Compiler;
+
+internal static class TempleAnchorFixture
+{
+	internal static void Verify(Action<bool, string> require)
+	{
+		var altar = new WorldCompilerRect(100, 200, 3, 2);
+		var cells = new HashSet<(int, int)>();
+		for (int x = altar.X; x < altar.Right; x++)
+		for (int y = altar.Y; y < altar.Bottom; y++) cells.Add((x, y));
+		bool Tile(int x, int y) => cells.Contains((x, y));
+		require(!WorldCompilerAltarContract.Valid(altar, 0, 0, Tile), "Unpublished altar accepted.");
+		require(WorldCompilerAltarContract.Valid(altar, 100, 200, Tile), "Actual altar not available to consumers.");
+		require(!WorldCompilerAltarContract.Valid(altar, 101, 200, Tile), "Compatibility changed altar coordinates unnoticed.");
+		cells.Remove((102, 201));
+		require(!WorldCompilerAltarContract.Valid(altar, 100, 200, Tile), "Compatibility removed altar tile unnoticed.");
+		cells.Add((102, 201));
+		require(WorldCompilerAltarContract.Valid(altar, 100, 200, Tile), "Stable altar rejected after compatibility.");
+		string runtime = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "../Runtime"));
+		string passes = File.ReadAllText(Path.Combine(runtime, "DingDongWorldCompilerSystem.Passes.cs"));
+		int prepare = passes.IndexOf("private void PrepareContracts(");
+		int decorate = passes.IndexOf("private void GenerateDecorations(");
+		string prepareBody = passes[prepare..decorate];
+		int protect = prepareBody.IndexOf("WorldCompilerWorldContracts.Prepare(Plan)");
+		int place = prepareBody.IndexOf("WorldCompilerProgressionObjects.Place(Plan)");
+		int validate = prepareBody.IndexOf("WorldCompilerProgressionObjects.ValidateAnchor(");
+		int publish = prepareBody.IndexOf("RunExtensions(WorldCompilerExtensionPhase.AfterWorldContracts)");
+		require(protect >= 0 && protect < place && place < validate && validate < publish,
+			"Actual producer must follow reservations and precede compatibility consumers.");
+		require(!passes[decorate..].Contains("WorldCompilerProgressionObjects.Place(Plan)"), "Late duplicate placement.");
+		string tasks = File.ReadAllText(Path.Combine(runtime, "DingDongWorldCompilerSystem.Tasks.cs"));
+		require(tasks.IndexOf("\"DingDong Compiler: World Contracts\"") < tasks.IndexOf("tasks.Add(WrapCompatibility("),
+			"Compatibility executes before native landmark publication.");
+	}
+}

@@ -1,0 +1,841 @@
+{
+ "format": "dingdong-lore-node-v1",
+ "node": "arts",
+ "nodePage": {
+  "title": {
+   "ru": "Краски и память",
+   "en": "Colours and Memory"
+  },
+  "body": {
+   "ru": "Мир недавно стал больше, и кто-то должен решать, как он выглядит и каким его запомнят. Этим заняты шестеро. Художник пишет виды, пока их не переписал следующий рассвет. Портной хранит в ткани старую беду данжа. Трактирщик сравнивает наш мир с теми, откуда пришёл. Стилистка подстригает и укладывает — по-садовничьи, с любовью к форме. Тусовщица и Красильщик уверены, что праздник и цвет не помещаются в одну резиденцию: им положено расти и расходиться до самых краёв.\n\nЗдесь спорят не мечами, а кистями, лентами и кружками. Но каждый выбор — что оставить на память, а что отпустить — мир слышит так же отчётливо, как любое другое слово.",
+   "en": "The world has recently grown larger, and someone has to decide how it looks and how it will be remembered. Six residents have taken up the task. The Painter captures views before the next dawn rewrites them. The Clothier keeps the Dungeon's old misfortune woven into his cloth. The Tavernkeep compares our world with the ones he came from. The Stylist trims and shapes like a gardener, with a love of form. The Party Girl and the Dye Trader insist that celebration and colour cannot fit inside one residence: they are meant to grow and spread all the way to the edges.\n\nHere the arguments are made not with swords but with brushes, ribbons and mugs. Yet every choice of what to keep as a memory and what to let go is heard by the world as clearly as any other word."
+  }
+ },
+ "residents": [
+  {
+   "npcKey": "Terraria/Painter",
+   "force": "archivists",
+   "epithet": {
+    "ru": "Тот, кто успевает до перемен",
+    "en": "The one who paints before the change"
+   },
+   "quote": {
+    "ru": "Пишу быстро. Мир здесь имеет привычку меняться, пока сохнет краска.",
+    "en": "I paint fast. This world has a habit of changing while the paint dries."
+   },
+   "intro": {
+    "ru": "Художник уверен, что мир позирует ему неохотно: стоит отвернуться — и холм уже не тот, а берег отодвинулся ещё на сотню шагов. Поэтому он пишет быстро и складывает этюды стопками, как другие складывают дрова. Пустые резиденции его не пугают: он хочет успеть нарисовать их, пока туда никто не въехал. Архивисты считают его своим; сам он отвечает, что просто не любит переделывать работу.",
+    "en": "The Painter is sure the world poses for him reluctantly: look away for a moment and the hill is different, the shore has moved another hundred paces. So he paints fast and stacks his studies like firewood. The empty residences do not frighten him; he simply wants to paint them before anyone moves in. The Archivists count him as one of their own; he says he just hates redoing his work."
+   },
+   "findHint": null,
+   "epilogue": {
+    "ru": "Последний холст высох, и Художник впервые не стал его переписывать. «Пусть мир меняется, — сказал он. — Теперь мне есть с чем сравнить». Его этюды, от рассветного кролика до морского горизонта, лежат в резиденции стопкой, и в углу каждого мелко подписано: «при участии {player}».",
+    "en": "The last canvas has dried, and for once the Painter did not paint over it. “Let the world change,” he said. “Now I have something to compare it with.” His studies, from the dawn bunny to the sea horizon, lie stacked in the residence, and in the corner of each one, in small letters: “with the help of {player}.”"
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Натура на рассвете",
+     "kind": "Observe",
+     "description": {
+      "ru": "Художнику нужна натура, которая не сбежит за край мира. Найди кролика и понаблюдай за ним вблизи, не причиняя вреда, — пусть мастер успеет схватить позу.",
+      "en": "The Painter needs a model that will not run off past the edge of the world. Find a bunny and watch it up close without harming it, so the master can catch the pose."
+     },
+     "offer": {
+      "ru": "Кролик — идеальная модель: молчит, не спорит и не требует гонорара. Посиди с ним рядом, {player}, а я сделаю набросок.",
+      "en": "A bunny is the perfect model: silent, never argues, never asks for a fee. Sit with it a while, {player}, and I'll make a sketch."
+     },
+     "complete": {
+      "ru": "Уши вышли чуть длиннее, чем в жизни. Это называется художественный замысел.",
+      "en": "The ears came out a little longer than in life. That's what we call artistic intent."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Чья это картина",
+     "kind": "Deliver",
+     "description": {
+      "ru": "В подземных домах висят картины, которые никто в городе не писал, — как резиденции, которые никто не строил. Художник хочет изучить мазок. Принеси ему одну такую картину.",
+      "en": "Paintings hang in the underground houses that no one in town painted, like the residences no one built. The Painter wants to study the brushwork. Bring him one such painting."
+     },
+     "offer": {
+      "ru": "Кто-то рисовал этот мир до меня, {player}. Принеси картину из подземелий — я узнаю руку.",
+      "en": "Someone painted this world before me, {player}. Bring me a painting from below — I'll know the hand."
+     },
+     "complete": {
+      "ru": "Быстрый мазок, как у меня. Только старше. Кто-то тоже спешил, пока мир не поменялся.",
+      "en": "Fast strokes, like mine. Only older. Someone else was rushing before the world could change."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Что рисовать",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Холст один, а видов много. Художник просит тебя решить, что сохранить на картине: прежний малый мир, пока его ещё помнят, или новые края, какими они стали.",
+      "en": "There is one canvas and many views. The Painter asks you to decide what the painting should keep: the old small world while it is still remembered, or the new edges as they are now."
+     },
+     "offer": {
+      "ru": "Холст у меня один, а миров — два: тот, что был, и тот, что есть. Выбирай, какой запомним.",
+      "en": "I have one canvas and two worlds: the one that was and the one that is. Choose which we remember."
+     },
+     "complete": {
+      "ru": "Решено. Грунтую холст — дальше дело кисти.",
+      "en": "Decided. I'm priming the canvas; the rest is up to the brush."
+     },
+     "waiting": null,
+     "choices": {
+      "old": {
+       "outcome": {
+        "ru": "«Малый мир, — кивает Художник. — Пока кто-то ещё помнит, где кончалась карта». Он пишет по памяти, щурясь, будто вспоминает чужой сон.",
+        "en": "“The small world,” the Painter nods. “While someone still remembers where the map ended.” He paints from memory, squinting as if recalling someone else's dream."
+       },
+       "lean": "archivists"
+      },
+      "new": {
+       "outcome": {
+        "ru": "«Новые края так новые края». Художник пишет берег, который ещё вчера был дальше, и смеётся: старое пусть хранит кто-нибудь другой.",
+        "en": "“New edges it is.” The Painter paints a shore that was farther away only yesterday and laughs: let someone else keep the old ones."
+       },
+       "lean": "tiders"
+      }
+     }
+    },
+    {
+     "index": 3,
+     "titleRu": "Пленэр у моря",
+     "kind": "Visit",
+     "description": {
+      "ru": "Художник хочет писать с натуры там, где мир раздвинулся сильнее всего. Проведи время у океана: он работает, а ты следишь, чтобы горизонт никуда не уплыл.",
+      "en": "The Painter wants to paint from life where the world has stretched the most. Spend time by the ocean: he works, and you make sure the horizon does not drift away."
+     },
+     "offer": {
+      "ru": "Море в этом мире длиннее, чем было. Хочу написать его, пока оно не стало ещё длиннее. Составишь компанию?",
+      "en": "The sea in this world is longer than it used to be. I want to paint it before it gets any longer. Will you keep me company?"
+     },
+     "complete": {
+      "ru": "Горизонт сдвинулся дважды, пока я писал. Пришлось нарисовать оба.",
+      "en": "The horizon moved twice while I was painting. I had to paint both."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 4,
+     "titleRu": "Холст сохнет",
+     "kind": "Delayed",
+     "description": {
+      "ru": "Картина закончена, но краскам нужно схватиться. Дай холсту несколько дней: Художник не позволит его трогать даже тебе.",
+      "en": "The painting is finished, but the paint needs to set. Give the canvas a few days; the Painter will not let anyone touch it, not even you."
+     },
+     "offer": {
+      "ru": "Не дыши на холст. И не смотри на него слишком пристально — от этого он сохнет дольше.",
+      "en": "Don't breathe on the canvas. And don't stare at it too hard; that makes it dry slower."
+     },
+     "complete": {
+      "ru": "Высох. Мир за окном уже чуть другой, а на холсте — тот самый. Этого я и добивался.",
+      "en": "Dry. The world outside is already a little different, but on the canvas it's the very same. That was the point."
+     },
+     "waiting": {
+      "ru": "Холст сохнет. Художник отгоняет от него даже мух.",
+      "en": "The canvas is drying. The Painter shoos away even the flies."
+     },
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "Terraria/Stylist",
+   "force": "gardeners",
+   "epithet": {
+    "ru": "Садовница причёсок",
+    "en": "A gardener of hairstyles"
+   },
+   "quote": {
+    "ru": "Всё растёт. Вопрос лишь в том, красиво ли оно растёт.",
+    "en": "Everything grows. The only question is whether it grows nicely."
+   },
+   "intro": {
+    "ru": "Стилистка смотрит на мир как на клиента в кресле: оброс, взъерошен, но поправим. Садовники ей близки не строгостью, а ножницами: подровнять, уложить, вовремя остановиться. Пустые резиденции она зовёт «незаписанными клиентами» и уже прикидывает, кому какую подобрать чёлку. О паутине, в которой её нашли, говорить не любит — разве что как о самой неудачной причёске в своей жизни.",
+    "en": "The Stylist sees the world as a client in her chair: overgrown and tousled, but fixable. She is close to the Gardeners not for their strictness but for their shears: trim, shape, and know when to stop. She calls the empty residences “clients without an appointment” and is already deciding who gets which fringe. She does not like to talk about the web she was found in, except as the worst hairdo of her life."
+   },
+   "findHint": {
+    "ru": "Стилистка запуталась в паутине паучьего гнезда где-то в пещерах. Найди её среди паучьих стен и поговори с ней, чтобы освободить.",
+    "en": "The Stylist is tangled in webs in a spider nest somewhere in the caves. Find her among the spider walls and speak to her to set her free."
+   },
+   "epilogue": {
+    "ru": "Краска схватилась, и Стилистка наконец довольна — не причёской, а тем, как держится форма. «Мир можно оставить расти, — говорит она, — если кто-то время от времени берёт ножницы». Её салон стал местом, куда приходят не за переменами, а за тем, чтобы перемены выглядели прилично.",
+    "en": "The dye has set, and the Stylist is finally satisfied, not with the hairdo itself but with how well the shape holds. “You can let the world grow,” she says, “as long as someone picks up the shears now and then.” Her salon has become the place people visit not for change, but to make change look presentable."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Шёлк для салона",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Стилистка открывает салон в новой резиденции и хочет, чтобы клиенты сидели на шёлке, а не на камне. Принеси ей шёлк — из него выйдут накидки и подушки для кресла.",
+      "en": "The Stylist is opening a salon in her new residence and wants clients to sit on silk, not stone. Bring her silk for capes and cushions for the chair."
+     },
+     "offer": {
+      "ru": "Салон без шёлка — просто цирюльня в пещере. А с пещерами у меня, знаешь ли, личные счёты.",
+      "en": "A salon without silk is just a barber's in a cave. And I have a personal grudge against caves, you know."
+     },
+     "complete": {
+      "ru": "Мягкий, гладкий, ни одной паутинки. Идеально.",
+      "en": "Soft, smooth, not a single cobweb. Perfect."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Перо гарпии",
+     "kind": "Observe",
+     "description": {
+      "ru": "Стилистке нужен образец для новой укладки — перья гарпии, взъерошенные небесным ветром. Понаблюдай за гарпией вблизи, не нападая, и запомни, как лежат её перья.",
+      "en": "The Stylist needs a model for a new style: harpy feathers ruffled by the sky wind. Watch a harpy up close without attacking it and remember how its feathers lie."
+     },
+     "offer": {
+      "ru": "У гарпий потрясающий объём. Никакого ухода — и такой результат! Посмотри на одну поближе, мне нужен образец.",
+      "en": "Harpies have amazing volume. No care at all, and look at the result! Take a closer look at one; I need a reference."
+     },
+     "complete": {
+      "ru": "Так вот как укладывает ветер. Беру на заметку, только без когтей.",
+      "en": "So that's how the wind styles hair. Noted, minus the talons."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Гнездо под ножницы",
+     "kind": "Hunt",
+     "description": {
+      "ru": "Стилистка не любит вспоминать паутину, в которой её нашли, но гнездо всё ещё там и путает каждого, кто зайдёт. Расчисти его от стенных ползунов: худшую причёску в жизни пора подстричь.",
+      "en": "The Stylist doesn't like recalling the web she was found in, but the nest is still there, tangling anyone who wanders in. Clear it of wall creepers: the worst hairdo of her life is due for a trim."
+     },
+     "offer": {
+      "ru": "Это гнездо держало меня за волосы, {player}. Сходи туда с ножницами. То есть с оружием.",
+      "en": "That nest held me by the hair, {player}. Go there with shears. I mean, with a weapon."
+     },
+     "complete": {
+      "ru": "Подровняли. Теперь там можно пройти и не испортить укладку. Форму, знаешь ли, надо держать.",
+      "en": "Trimmed. Now you can walk through without ruining your hair. Form must be kept, you know."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Стрижка по моде",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Мода в растущем мире меняется быстрее, чем отрастают волосы. Помоги Стилистке выбрать, что носить: прежний крой малого мира или то, чего здесь ещё никто не видел.",
+      "en": "Fashion in a growing world changes faster than hair grows. Help the Stylist choose what to wear: the old cut of the small world, or something no one here has seen yet."
+     },
+     "offer": {
+      "ru": "Сегодня в моём кресле ты. Как будем стричь: по-старому или так, чтобы ахнул весь мир?",
+      "en": "Today you're in my chair. How shall we cut: the old way, or so that the whole world gasps?"
+     },
+     "complete": {
+      "ru": "Готово. Не дёргайся, я ещё любуюсь.",
+      "en": "Done. Hold still, I'm still admiring it."
+     },
+     "waiting": null,
+     "choices": {
+      "classic": {
+       "outcome": {
+        "ru": "«Как в малом мире». Стилистка стрижёт аккуратно, по старому лекалу: форму стоит беречь, особенно когда всё вокруг меняется.",
+        "en": "“Like in the small world.” The Stylist cuts neatly, to the old pattern: form is worth preserving, especially when everything around is changing."
+       },
+       "lean": "gardeners"
+      },
+      "bold": {
+       "outcome": {
+        "ru": "Стилистка щёлкает ножницами смелее обычного. «Пусть растёт куда хочет — я потом подровняю». Такого здесь ещё не носили.",
+        "en": "The Stylist snips more boldly than usual. “Let it grow wherever it likes; I'll trim it later.” No one here has worn anything like it."
+       },
+       "lean": "tiders"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Краска схватилась",
+     "kind": "Delayed",
+     "description": {
+      "ru": "Окрашенным волосам нужен покой, чтобы цвет схватился. Подожди до следующего дня и не мочи голову — Стилистка проверит результат лично.",
+      "en": "Freshly dyed hair needs rest for the colour to set. Wait until the next day and keep your head dry; the Stylist will check the result herself."
+     },
+     "offer": {
+      "ru": "Цвет должен схватиться. До завтра не мочить, не трогать и не стоять под дождём. Это предписание стилиста.",
+      "en": "The colour has to set. Until tomorrow: no water, no touching, no standing in the rain. Stylist's orders."
+     },
+     "complete": {
+      "ru": "Держится! Ровно, ярко и ровно там, где я задумала. Вот что значит уход.",
+      "en": "It holds! Even, bright, and exactly where I meant it to be. That's what proper care looks like."
+     },
+     "waiting": {
+      "ru": "Краска схватывается. Стилистка просит не трогать волосы.",
+      "en": "The dye is setting. The Stylist asks you not to touch your hair."
+     },
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "Terraria/PartyGirl",
+   "force": "tiders",
+   "epithet": {
+    "ru": "Праздник, который не кончается",
+    "en": "A party that never ends"
+   },
+   "quote": {
+    "ru": "Если мир растёт, значит, у него день рождения. Каждый день!",
+    "en": "If the world keeps growing, it must be its birthday. Every day!"
+   },
+   "intro": {
+    "ru": "Тусовщица убеждена, что расширение мира — лучший повод для вечеринки за всю его историю. Новый берег? Торт. Новый край карты? Два торта. Приливники ценят её за то, что она не боится роста, а Садовники терпят, потому что конфетти после неё хотя бы разноцветное. Пустые резиденции она считает недоразумением: в доме, где никто не танцует, жить невозможно.",
+    "en": "The Party Girl is convinced that the world's expansion is the best excuse for a party in its entire history. A new shore? Cake. A new edge of the map? Two cakes. The Tiders value her for not fearing growth, and the Gardeners put up with her because at least her confetti is colourful. She considers the empty residences a misunderstanding: nobody can live in a house where no one dances."
+   },
+   "findHint": null,
+   "epilogue": {
+    "ru": "Утро после праздника вышло тихим, и Тусовщица призналась, что это её любимая часть. «Праздник — это не шум, а то, что потом вспоминают вместе». Конфетти так и осталось в щелях пола резиденции: она говорит, что это на память, и подметать запрещает.",
+    "en": "The morning after the party was quiet, and the Party Girl admitted it is her favourite part. “A party isn't the noise; it's what people remember together afterwards.” The confetti is still stuck between the floorboards of her residence: she says it's a keepsake and forbids anyone to sweep it up."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Запас конфетти",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Тусовщица готовит праздник в честь того, что мир стал больше, а запасы конфетти тают на глазах. Принеси ей конфетти: без него, по её словам, торжество не считается.",
+      "en": "The Party Girl is planning a celebration of the world getting bigger, and her confetti supply is melting away. Bring her confetti; without it, she says, a celebration does not count."
+     },
+     "offer": {
+      "ru": "{player}! Мир растёт, а у меня конфетти на донышке. Это катастрофа вселенского масштаба. Выручишь?",
+      "en": "{player}! The world is growing and I'm almost out of confetti. This is a disaster of cosmic proportions. Can you help?"
+     },
+     "complete": {
+      "ru": "Вот теперь можно жить! Одну горсть — сразу в воздух, для проверки.",
+      "en": "Now life is worth living! One handful straight into the air, just to test it."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Танцпол под шляпками",
+     "kind": "Visit",
+     "description": {
+      "ru": "Тусовщица ищет зал для следующей вечеринки: такой, что светится сам. Говорят, грибные пещеры сияют лучше любых гирлянд. Побудь там и проверь, годится ли зал.",
+      "en": "The Party Girl is looking for a hall for the next party: one that glows by itself. They say the mushroom caves outshine any garland. Spend time there and see if it'll do."
+     },
+     "offer": {
+      "ru": "Светящиеся грибы, {player}! Это же готовая дискотека, мир сам её нарядил. Сходи на разведку!",
+      "en": "Glowing mushrooms, {player}! It's a ready-made disco, the world decorated it itself. Go scout it out!"
+     },
+     "complete": {
+      "ru": "Сияет? Синим? Решено, следующий праздник — там. Мир растёт и сам вешает гирлянды!",
+      "en": "It glows? Blue? Settled, the next party's there. The world grows and hangs its own garlands!"
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Танцующие слаймы",
+     "kind": "Observe",
+     "description": {
+      "ru": "Тусовщица уверена, что слаймы танцуют, просто никто не смотрит внимательно. Понаблюдай за синим слаймом вблизи, не трогая его, — ей нужна новая хореография.",
+      "en": "The Party Girl is sure slimes dance; nobody just watches closely enough. Observe a blue slime up close without touching it; she needs new choreography."
+     },
+     "offer": {
+      "ru": "Слаймы прыгают в ритм. Я серьёзно! Посмотри на одного подольше и запомни движения.",
+      "en": "Slimes bounce to a beat. I'm serious! Watch one for a while and memorise the moves."
+     },
+     "complete": {
+      "ru": "Прыг, плюх, прыг… Гениально. Это будет танец сезона.",
+      "en": "Hop, splat, hop... Genius. This will be the dance of the season."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Повод для праздника",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Праздников много, а главный повод нужно выбрать один. Тусовщица просит решить, что важнее отпраздновать: каждое новое слово мира или людей, которые в нём живут.",
+      "en": "There are many parties, but the main reason must be chosen. The Party Girl asks you to decide what matters more to celebrate: every new word of the world, or the people who live in it."
+     },
+     "offer": {
+      "ru": "Тостов может быть сколько угодно, но главный — один. За что поднимем?",
+      "en": "There can be as many toasts as you like, but only one main one. What shall we raise our glasses to?"
+     },
+     "complete": {
+      "ru": "Решено! Записываю в программу вечера крупными буквами.",
+      "en": "Decided! Writing it into the evening's programme in big letters."
+     },
+     "waiting": null,
+     "choices": {
+      "growth": {
+       "outcome": {
+        "ru": "«За каждое новое слово мира!» Тусовщица поднимает кружку к горизонту, где берег опять чуть сдвинулся. Праздник будет расти вместе с ним.",
+        "en": "“To every new word of the world!” The Party Girl raises her mug to the horizon, where the shore has shifted again. The party will grow along with it."
+       },
+       "lean": "tiders"
+      },
+      "people": {
+       "outcome": {
+        "ru": "«За людей, а не за края». Тусовщица вдруг серьёзнеет: края подождут, сначала надо позаботиться о тех, кто уже здесь.",
+        "en": "“To people, not edges.” The Party Girl suddenly turns serious: the edges can wait; first we should take care of those who are already here."
+       },
+       "lean": "gardeners"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Утро после",
+     "kind": "Delayed",
+     "description": {
+      "ru": "Праздник отгремел, и теперь ему нужно отзвучать. Подожди до утра: Тусовщица уверена, что лучшие воспоминания складываются на следующий день.",
+      "en": "The party is over, and now it needs to fade out. Wait until morning; the Party Girl is sure the best memories take shape the next day."
+     },
+     "offer": {
+      "ru": "Всё, вечеринка окончена. Самое интересное — завтра, когда все начнут рассказывать, как было.",
+      "en": "That's it, the party's over. The best part is tomorrow, when everyone starts telling how it went."
+     },
+     "complete": {
+      "ru": "Утро! Голова гудит, зато все помнят одну и ту же историю. Значит, праздник удался.",
+      "en": "Morning! My head is buzzing, but everyone remembers the same story. That means the party was a success."
+     },
+     "waiting": {
+      "ru": "Праздник отзвучал. Тусовщица спит, и будить её не стоит.",
+      "en": "The party has faded out. The Party Girl is asleep; better not wake her."
+     },
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "Terraria/DyeTrader",
+   "force": "tiders",
+   "epithet": {
+    "ru": "Цвет, который уходит в путь",
+    "en": "Colour that takes to the road"
+   },
+   "quote": {
+    "ru": "Цвет не должен сидеть дома. Цвет должен путешествовать — как я.",
+    "en": "Colour shouldn't stay at home. Colour should travel, like I do."
+   },
+   "intro": {
+    "ru": "Красильщик пришёл издалека и, кажется, до сих пор считает, что он в пути. Краска, которая не расходится по миру, для него просто пятно. Новые края — новые оттенки: каждый расширившийся берег он встречает с флаконом и записной книжкой. Приливники видят в нём союзника, хотя сам он клянётся, что дружит только с выгодой и красотой. Пустые резиденции он, разумеется, предлагает перекрасить.",
+    "en": "The Dye Trader came from far away and still seems to think he is on the road. To him, a dye that does not spread across the world is just a stain. New edges mean new shades: he greets every widened shore with a vial and a notebook. The Tiders see him as an ally, though he swears he is only friends with profit and beauty. Naturally, he offers to repaint the empty residences."
+   },
+   "findHint": null,
+   "epilogue": {
+    "ru": "Чан настоялся, и Красильщик торжественно объявил новый оттенок — цвет мира, каким он стал. Название держит в секрете: говорит, что оно ещё растёт. Флаконы с этим цветом он раздаёт всем, кто идёт к краям, чтобы краска уходила дальше вместе с ними.",
+    "en": "The vat has steeped, and the Dye Trader solemnly announced a new shade: the colour of the world as it has become. He keeps its name a secret, saying it is still growing. He hands out vials of this colour to everyone heading for the edges, so the dye can travel farther with them."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Странные растения",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Красильщик ищет странные растения: они растут где придётся и дают краску, какой нет ни у кого. Принеси ему такие растения — он сам решит, какой цвет из них выжать.",
+      "en": "The Dye Trader is looking for strange plants: they grow wherever they please and yield dyes no one else has. Bring him some, and he will decide what colour to press out of them."
+     },
+     "offer": {
+      "ru": "Видел растение, которое будто само не знает, какого оно цвета? Неси мне. Неси всё, что найдёшь!",
+      "en": "Seen a plant that looks like it can't decide what colour it is? Bring it to me. Bring everything you find!"
+     },
+     "complete": {
+      "ru": "О-о, какой оттенок! Мир, похоже, сам не определился, а мы ему поможем.",
+      "en": "Ooh, what a shade! The world can't seem to make up its mind, so we'll help it."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Цвет морского дна",
+     "kind": "Expedition",
+     "description": {
+      "ru": "Красильщику нужен коралл, выросший сам, а не купленный в лавке: из такого выходит краска цвета морской глубины. Найди кораллы на дне у берега океана и принеси ему.",
+      "en": "The Dye Trader needs coral that grew on its own, not coral bought in a shop: that is what yields a dye the colour of the deep sea. Find coral on the seabed off the ocean shore and bring it to him."
+     },
+     "offer": {
+      "ru": "Говорят, у берега растёт коралл того самого оттенка, что был у моря до первого слова. Купленный не подойдёт — нужен со дна.",
+      "en": "They say coral grows by the shore in the very shade the sea had before the first word. Bought coral won't do; it has to come from the seabed."
+     },
+     "complete": {
+      "ru": "Глубже синего, темнее зелёного. Вот это я называю базовым тоном.",
+      "en": "Deeper than blue, darker than green. That's what I call a base tone."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Цвета пустыни",
+     "kind": "Visit",
+     "description": {
+      "ru": "Пустыня в расширенном мире переливается так, что Красильщик хочет запомнить каждый оттенок песка. Проведи время в пустыне и вернись с подробным рассказом.",
+      "en": "The desert of the expanded world shimmers so that the Dye Trader wants to remember every shade of sand. Spend time in the desert and come back with a detailed account."
+     },
+     "offer": {
+      "ru": "Пески теперь тянутся дальше, чем раньше, и цвет у них новый. Сходи посмотри, а потом расскажи мне всё в подробностях.",
+      "en": "The sands stretch farther than before, and their colour is new. Go and look, then tell me everything in detail."
+     },
+     "complete": {
+      "ru": "Охра, золото и что-то третье, чему ещё нет имени. Записал. Назову потом, когда мир разрешит.",
+      "en": "Ochre, gold, and a third thing that has no name yet. Noted. I'll name it later, when the world allows."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Чья палитра",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Красильщику пора выбрать, чему посвятить новую палитру. Реши вместе с ним, чьи краски взять с собой: моря, за которым будущее, или надёжной земли, которая уже есть.",
+      "en": "It is time for the Dye Trader to choose what his new palette will serve. Decide with him whose colours to take along: the sea's, where the future lies, or those of the reliable land already here."
+     },
+     "offer": {
+      "ru": "Палитра — не склад, всё не поместится. Что возьмём в дорогу, а что оставим?",
+      "en": "A palette isn't a warehouse; not everything fits. What do we take on the road, and what do we leave behind?"
+     },
+     "complete": {
+      "ru": "Выбор сделан. Остальные краски пусть ждут своего часа.",
+      "en": "The choice is made. The other colours can wait their turn."
+     },
+     "waiting": null,
+     "choices": {
+      "sea": {
+       "outcome": {
+        "ru": "«Море!» Красильщик отставляет землистые банки и обещает однажды выкрасить парус в цвет, который ещё не родился за горизонтом.",
+        "en": "“The sea!” The Dye Trader sets aside the earthy jars and promises one day to dye a sail in a colour not yet born beyond the horizon."
+       },
+       "lean": "tiders"
+      },
+      "land": {
+       "outcome": {
+        "ru": "«Земля так земля». Красильщик вздыхает, но бережно расставляет охру и умбру: то, что проверено, тоже стоит сберечь.",
+        "en": "“Land it is.” The Dye Trader sighs, but carefully arranges the ochre and umber: what has been proven is worth keeping too."
+       },
+       "lean": "gardeners"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Цвет, который ещё растёт",
+     "kind": "Delayed",
+     "description": {
+      "ru": "Новая краска в чане меняет оттенок каждый день — вслед за самим миром. Красильщик ждёт, пока цвет остановится на том, каким мир стал. Загляни через пару дней.",
+      "en": "The new dye in the vat shifts its shade every day, following the world itself. The Dye Trader waits for the colour to settle on what the world has become. Drop by in a couple of days."
+     },
+     "offer": {
+      "ru": "Не поднимай крышку. Цвет ещё догоняет мир, и я не хочу его спугнуть.",
+      "en": "Don't lift the lid. The colour is still catching up with the world, and I don't want to startle it."
+     },
+     "complete": {
+      "ru": "Остановился! Вот он — цвет мира, каким он стал. Имя? Пока секрет: он ещё растёт.",
+      "en": "It stopped! There it is, the colour of the world as it has become. Its name? A secret for now: it's still growing."
+     },
+     "waiting": {
+      "ru": "Краска в чане сегодня темнее, чем вчера. Красильщик записывает оттенок.",
+      "en": "The dye in the vat is darker today than yesterday. The Dye Trader notes the shade."
+     },
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "Terraria/Clothier",
+   "force": "archivists",
+   "epithet": {
+    "ru": "Тот, кто помнит проклятие",
+    "en": "The one who remembers the curse"
+   },
+   "quote": {
+    "ru": "Некоторые истории лучше зашить крепкой нитью.",
+    "en": "Some stories are best mended with a strong thread."
+   },
+   "intro": {
+    "ru": "Портной был Стариком у ворот данжа и долго не мог оттуда уйти: проклятие Скелетрона держало его крепче любой нити. Он помнит, что было до того, как мир заговорил, но вспоминает об этом неохотно, будто распарывает старый шов. В пустых резиденциях он видит дома, которые ждут хозяев, — как когда-то ждали его самого. Архивисты считают его главным свидетелем; сам он считает себя должником.",
+    "en": "The Clothier was the Old Man at the Dungeon gates, and for a long time he could not leave: Skeletron's curse held him tighter than any thread. He remembers what came before the world began to speak, but he recalls it reluctantly, as if unpicking an old seam. In the empty residences he sees homes waiting for their owners, the way his own once waited for him. The Archivists call him their key witness; he calls himself a debtor."
+   },
+   "findHint": {
+    "ru": "Старик ждёт у входа в данж. Освободи его от проклятия Скелетрона — после этого Портной вернётся в свою резиденцию.",
+    "en": "The Old Man waits at the Dungeon entrance. Break Skeletron's curse, and the Clothier will return to his residence."
+   },
+   "epilogue": {
+    "ru": "Примерка окончена, и Портной впервые за долгое время смотрит в зеркало без страха. Старый крой хранится в сундуке — не как память о проклятии, а как свидетельство того, что его можно пережить. «Спасибо, {player}, — говорит он. — Некоторые швы держатся, только если их кто-то видел».",
+    "en": "The fitting is over, and for the first time in years the Clothier looks in the mirror without fear. The old cut lies in a chest, not as a memento of the curse but as proof that it can be survived. “Thank you, {player},” he says. “Some seams only hold if someone has seen them.”"
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Паутина для нити",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Портной прядёт нить из паутины — привычка тех лет, когда больше ничего не было под рукой. Принеси ему паутину: из неё выйдет прочная нить для первой работы на новом месте.",
+      "en": "The Clothier spins thread from cobwebs, a habit from the years when nothing else was at hand. Bring him cobwebs; they will make strong thread for his first work in the new place."
+     },
+     "offer": {
+      "ru": "Паутина… В данже её было больше, чем воздуха. Тогда я её ненавидел, теперь пряду. Принесёшь?",
+      "en": "Cobwebs... There were more of them than air in the Dungeon. I hated them then; now I spin them. Will you bring some?"
+     },
+     "complete": {
+      "ru": "Крепкая. Из такой нити выйдет шов, который не разойдётся. Мне сейчас нужны именно такие.",
+      "en": "Strong. Thread like this makes a seam that won't split. That's exactly the kind I need now."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Чужой гардероб",
+     "kind": "Observe",
+     "description": {
+      "ru": "Скелеты в подземельях носят обрывки той же одежды, что когда-то шил Портной. Понаблюдай за скелетом вблизи, не вступая в бой: мастеру нужно вспомнить старый крой.",
+      "en": "The skeletons underground wear scraps of the same clothes the Clothier once sewed. Watch a skeleton up close without fighting it; the tailor needs to remember the old cut."
+     },
+     "offer": {
+      "ru": "Найди скелета и посмотри на его лохмотья. Не бей сразу. Мне нужно вспомнить, как это шили… и для кого.",
+      "en": "Find a skeleton and look at its rags. Don't strike right away. I need to remember how these were sewn... and for whom."
+     },
+     "complete": {
+      "ru": "Да. Тот самый крой. Я шил такие, когда ещё не знал, чем всё кончится.",
+      "en": "Yes. That very cut. I sewed those before I knew how it would all end."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Что помнит ткань",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "В старой ткани проклятие ещё живёт, как запах дыма. Портной просит решить: сохранить прежний крой как свидетельство того, что было, или перешить его и отпустить прошлое.",
+      "en": "The curse still lives in the old cloth, like the smell of smoke. The Clothier asks you to decide: keep the old cut as testimony of what happened, or recut it and let the past go."
+     },
+     "offer": {
+      "ru": "Этот лоскут видел данж изнутри. Сохранить его — значит помнить. Перешить — значит простить. Сам я выбрать не могу.",
+      "en": "This scrap has seen the Dungeon from the inside. Keeping it means remembering. Recutting it means forgiving. I can't choose by myself."
+     },
+     "complete": {
+      "ru": "Пусть будет так. Ножницы или сундук — я уважу это решение.",
+      "en": "So be it. Shears or chest, I will honour the decision."
+     },
+     "waiting": null,
+     "choices": {
+      "keep": {
+       "outcome": {
+        "ru": "Портной складывает лоскут вчетверо и убирает в сундук. «Пусть лежит. Если мир забудет, что было в данже, это повторится».",
+        "en": "The Clothier folds the scrap in four and puts it in a chest. “Let it rest there. If the world forgets what happened in the Dungeon, it will happen again.”"
+       },
+       "lean": "archivists"
+      },
+      "remake": {
+       "outcome": {
+        "ru": "Портной долго держит ножницы над тканью — и режет. Из старого кроя выходит что-то лёгкое, почти летнее. Прошлое не исчезло, но больше не душит.",
+        "en": "The Clothier holds the shears over the cloth for a long time, then cuts. The old pattern becomes something light, almost summery. The past has not vanished, but it no longer chokes him."
+       },
+       "lean": "gardeners"
+      }
+     }
+    },
+    {
+     "index": 3,
+     "titleRu": "Нить сильнее проклятия",
+     "kind": "Trial",
+     "description": {
+      "ru": "Портной шьёт одежду, которая больше никогда не узнает проклятия. Спустись в данж, где он провёл годы, и разбей проклятые черепа, ни разу не попав под их проклятие.",
+      "en": "The Clothier is sewing clothes that will never know a curse again. Go down into the Dungeon where he spent his years and smash cursed skulls without falling under their curse even once."
+     },
+     "offer": {
+      "ru": "Эти черепа кружили надо мной каждую ночь. Покажи, что их можно победить и остаться свободным.",
+      "en": "Those skulls circled over me every night. Show me they can be beaten and you can stay free."
+     },
+     "complete": {
+      "ru": "Ни следа проклятия. Значит, можно. Значит, и мне можно было... если бы я знал как.",
+      "en": "Not a trace of the curse. So it can be done. So it could have been done for me too... if only I had known how."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 4,
+     "titleRu": "Примерка",
+     "kind": "Delayed",
+     "description": {
+      "ru": "Наряд готов, но Портной не спешит с примеркой: ткани нужно улечься, а ему — решиться. Дай ему несколько дней, прежде чем он покажет работу.",
+      "en": "The outfit is ready, but the Clothier is in no hurry to try it on: the cloth needs to settle, and he needs to find his nerve. Give him a few days before he shows his work."
+     },
+     "offer": {
+      "ru": "Приходи через пару дней. Мне нужно привыкнуть к мысли, что я шью не для мёртвых.",
+      "en": "Come back in a couple of days. I need to get used to the idea that I'm not sewing for the dead."
+     },
+     "complete": {
+      "ru": "Сидит как влитое. Знаешь, я давно не шил ничего, в чём хочется жить.",
+      "en": "Fits perfectly. You know, it's been a long time since I sewed anything one would want to live in."
+     },
+     "waiting": {
+      "ru": "Портной сидит над нарядом и всё не решается его примерить.",
+      "en": "The Clothier sits over the outfit, still not daring to try it on."
+     },
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "Terraria/DD2Bartender",
+   "force": "archivists",
+   "epithet": {
+    "ru": "Гость из Этерии",
+    "en": "A guest from Etheria"
+   },
+   "quote": {
+    "ru": "Я видел много миров. Этот — первый, который растёт прямо у меня на глазах.",
+    "en": "I've seen many worlds. This is the first one to grow right before my eyes."
+   },
+   "intro": {
+    "ru": "Трактирщик пришёл из Этерии — мира, который пережил нашествие армии Старца и запомнил его навсегда. Он сравнивает наш мир с теми, что повидал, и ведёт им счёт, как кружкам за стойкой. Мир, который растёт сам по себе, кажется ему подозрительным; дома, построенные «под кого-то», — ещё подозрительнее. Архивисты ценят его как единственного свидетеля со стороны. Сам он просто наливает и слушает.",
+    "en": "The Tavernkeep came from Etheria, a world that survived the invasion of the Old One's Army and will never forget it. He compares our world with the others he has seen and keeps count of them like mugs behind the bar. A world that grows by itself seems suspicious to him; houses built “for someone” seem even more so. The Archivists value him as the only witness from outside. He just pours and listens."
+   },
+   "findHint": {
+    "ru": "Трактирщик лежит без сознания где-то на поверхности: дорога из Этерии далась ему нелегко. Найди его и поговори с ним, чтобы он пришёл в себя.",
+    "en": "The Tavernkeep lies unconscious somewhere on the surface; the road from Etheria was hard on him. Find him and talk to him to bring him round."
+   },
+   "epilogue": {
+    "ru": "Бочка дозрела, и Трактирщик наконец налил первую кружку — себе. «За мир, который ещё не решил, каким ему быть, — сказал он. — В Этерии такого не бывает: там всё уже было». Истории постояльцев теперь живут у его стойки, и {player} иногда слышит среди них свою.",
+    "en": "The barrel has matured, and the Tavernkeep finally poured the first mug, for himself. “To a world that hasn't decided what it wants to be yet,” he said. “That doesn't happen in Etheria; everything there has already happened.” The guests' stories now live at his bar, and sometimes {player} hears their own among them."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Бочка из здешнего дуба",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Этерианский эль спит только в бочке из дерева того мира, где его пьют. Трактирщик открывает стойку в новой резиденции, и ему нужен бочонок из здешней древесины.",
+      "en": "Etherian ale sleeps only in a cask made from the wood of the world that drinks it. The Tavernkeep is opening his bar in a new residence and needs a keg of local timber."
+     },
+     "offer": {
+      "ru": "Стойка есть, рецепт есть, а бочки нет. В Этерии за такое выгоняют из гильдии. Выручишь, {player}?",
+      "en": "I've got a bar, I've got a recipe, and no cask. In Etheria they'd throw you out of the guild for that. Help me out, {player}?"
+     },
+     "complete": {
+      "ru": "Здешний дуб, плотный. Эль в нём запомнит этот мир. Скоро увидишь.",
+      "en": "Local oak, dense. Ale in it will remember this world. You'll see soon."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Разведчик перед армией",
+     "kind": "Observe",
+     "description": {
+      "ru": "В Этерии Армию Старца всегда опережали разведчики. Трактирщик видел гоблинов на краях этого мира и хочет знать, не то же ли это начало. Понаблюдай за гоблином-разведчиком, не нападая.",
+      "en": "In Etheria, scouts always ran ahead of the Old One's Army. The Tavernkeep has seen goblins at the edges of this world and wants to know if it's the same beginning. Watch a goblin scout without attacking."
+     },
+     "offer": {
+      "ru": "Сначала приходит один. Смотрит, считает дома. Потом приходят все. Посмотри, что считает этот.",
+      "en": "First one comes. Looks, counts the houses. Then they all come. See what this one is counting."
+     },
+     "complete": {
+      "ru": "Считает пустые резиденции? Плохой знак. Налью тебе за счёт заведения — и буду держать дверь закрытой.",
+      "en": "Counting the empty residences? A bad sign. One on the house for you, and I'll keep the door shut."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Рассказ о дальней стране",
+     "kind": "Visit",
+     "description": {
+      "ru": "Снежные края напоминают Трактирщику дорогу, по которой он пришёл. Проведи время в снегах и вернись с рассказом — он сравнит его со своими воспоминаниями.",
+      "en": "The snowy lands remind the Tavernkeep of the road he came by. Spend time in the snow and come back with a story; he will compare it with his own memories."
+     },
+     "offer": {
+      "ru": "Расскажу тебе про дальнюю страну, но сначала сходи в снега. Хочу проверить, похожи ли они на мои.",
+      "en": "I'll tell you about a faraway land, but first go to the snow. I want to see if it's anything like mine."
+     },
+     "complete": {
+      "ru": "Похоже. Только у вас снег падает тише: его не топчут сапоги армии.",
+      "en": "Similar. Only your snow falls more quietly: no army's boots trample it."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Чьи истории",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Постояльцы рассказывают много, и Трактирщику пора решить, что с этим делать. Выбери: записать каждую историю, чтобы ничего не пропало, или отпустить их жить в пересказах.",
+      "en": "His guests tell a great deal, and it is time for the Tavernkeep to decide what to do with it all. Choose: write down every story so nothing is lost, or let them live on in retellings."
+     },
+     "offer": {
+      "ru": "Каждый вечер я слышу истории, которые никто не повторит. Записывать их или пусть гуляют сами по себе?",
+      "en": "Every evening I hear stories no one will ever repeat. Should I write them down, or let them wander on their own?"
+     },
+     "complete": {
+      "ru": "Ладно, так и сделаем. Кружка за решение — за счёт заведения.",
+      "en": "All right, that's how we'll do it. A mug for the decision, on the house."
+     },
+     "waiting": null,
+     "choices": {
+      "archive": {
+       "outcome": {
+        "ru": "Трактирщик достаёт толстую книгу. «Армия Старца не помнила, чьи дома жгла. Здесь так не будет». Каждая история получает свою страницу.",
+        "en": "The Tavernkeep pulls out a thick book. “The Old One's Army never remembered whose homes it burned. It won't be like that here.” Every story gets its own page."
+       },
+       "lean": "archivists"
+      },
+      "live": {
+       "outcome": {
+        "ru": "«Пусть гуляют». Трактирщик убирает перо: история, которую пересказывают, меняется и растёт, и, может быть, в этом её жизнь.",
+        "en": "“Let them wander.” The Tavernkeep puts away his quill: a story that is retold changes and grows, and perhaps that is what keeps it alive."
+       },
+       "lean": "tiders"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Бочка дозревает",
+     "kind": "Delayed",
+     "description": {
+      "ru": "Бочка особого эля должна дозреть, а такие вещи не терпят спешки. Подожди несколько дней: Трактирщик обещает открыть её, когда мир будет готов.",
+      "en": "A barrel of special ale has to mature, and such things cannot be rushed. Wait a few days; the Tavernkeep promises to open it when the world is ready."
+     },
+     "offer": {
+      "ru": "Этот эль я варю по этерийскому рецепту. Ему нужно время — как и миру, который будет его пить.",
+      "en": "I brew this ale to an Etherian recipe. It needs time, just like the world that will drink it."
+     },
+     "complete": {
+      "ru": "Дозрел! Пробуй первым. Ну, вторым — первую кружку я уже выпил, сам понимаешь, проверка.",
+      "en": "It's ready! You taste it first. Well, second: I already drank the first mug. Quality control, you understand."
+     },
+     "waiting": {
+      "ru": "Бочка дозревает. Трактирщик постукивает по ней и прислушивается.",
+      "en": "The barrel is maturing. The Tavernkeep taps it and listens."
+     },
+     "choices": null
+    }
+   ]
+  }
+ ]
+}

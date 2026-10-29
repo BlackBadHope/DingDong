@@ -1,0 +1,758 @@
+{
+ "format": "dingdong-lore-codex-v1",
+ "chapters": [
+  {
+   "id": "world",
+   "order": 1,
+   "title": {
+    "ru": "Мир",
+    "en": "The World"
+   }
+  },
+  {
+   "id": "forces",
+   "order": 2,
+   "title": {
+    "ru": "Силы",
+    "en": "The Forces"
+   }
+  },
+  {
+   "id": "arcs",
+   "order": 3,
+   "title": {
+    "ru": "Главная линия",
+    "en": "The Main Line"
+   }
+  },
+  {
+   "id": "finale",
+   "order": 4,
+   "title": {
+    "ru": "Финал",
+    "en": "The Finale"
+   }
+  },
+  {
+   "id": "places",
+   "order": 5,
+   "title": {
+    "ru": "Узлы",
+    "en": "Places"
+   }
+  }
+ ],
+ "entries": [
+  {
+   "id": "world.first-word",
+   "chapter": "world",
+   "order": 1,
+   "icon": "Book",
+   "title": {
+    "ru": "Первое слово",
+    "en": "The First Word"
+   },
+   "body": {
+    "ru": "Никто не помнит, как звучало первое слово, но все помнят, что было после. Мир, прежде маленький и тихий, начал переписывать сам себя: раздвинулся континент, за ним лёг океан, которого раньше не было, а у кромки суши встала Бездна. Гид считает, что слово было коротким, иначе мир не остановился бы у своих краёв. Торговец уверен, что это было обещание, Дриада — что предупреждение. Известно одно: мир меняется, потому что хочет стать лучше. Но кто определяет, что значит «лучше»? Эту летопись пишут те, кто пытается ответить, и ты, {player}, — тот, кого они слушают.",
+    "en": "No one remembers how the first word sounded, but everyone remembers what came after. The world, once small and quiet, began to rewrite itself: the continent stretched, an ocean that had never been there lay down beyond it, and the Abyss rose at the edge of the land. The Guide believes the word was short, or the world would not have stopped at its edges. The Merchant is sure it was a promise; the Dryad, a warning. One thing is known: the world changes because it wants to become better. But who decides what “better” means? This chronicle is written by those who try to answer, and you, {player}, are the one they listen to."
+   },
+   "lockedHint": {
+    "ru": "Открыто с самого начала.",
+    "en": "Open from the very start."
+   },
+   "unlock": {
+    "always": true
+   }
+  },
+  {
+   "id": "world.empty-houses",
+   "chapter": "world",
+   "order": 2,
+   "icon": "WoodenChair",
+   "title": {
+    "ru": "Пустые резиденции",
+    "en": "The Empty Residences"
+   },
+   "body": {
+    "ru": "Когда мир стал больше, в нём уже стояли дома. Шестьдесят одна резиденция — в лесу и в снегах, в джунглях и в пустыне, на берегу и глубоко под землёй. Сухие стены, ровные полы, двери, подогнанные под чей-то рост, будто их строили для определённых жильцов. Никто из жителей не признаётся, что строил их. Архитектора подозревают чаще других, но он только разводит руками. Садовники видят в домах приглашение к порядку, Приливники — обещание, что жителей станет больше, Архивисты — улику: кто-то заранее знал, кто придёт. Каждый житель, которого ты переселяешь в его резиденцию, делает этот вопрос чуть громче.",
+    "en": "When the world grew, the houses were already standing. Sixty-one residences — in forest and snow, in jungle and desert, on the shore and deep underground. Dry walls, level floors, doors fitted to someone's height, as if they had been built for particular tenants. None of the residents admits to building them. The Architect is suspected more than anyone, but he only spreads his hands. The Gardeners see the houses as an invitation to order, the Tiders as a promise that there will be more residents, the Archivists as evidence: someone knew in advance who would come. Every resident you move into their residence makes that question a little louder."
+   },
+   "lockedHint": {
+    "ru": "Открыто с самого начала.",
+    "en": "Open from the very start."
+   },
+   "unlock": {
+    "always": true
+   }
+  },
+  {
+   "id": "world.unwritten-one",
+   "chapter": "world",
+   "order": 3,
+   "icon": "MagicMirror",
+   "title": {
+    "ru": "Тот, кого не дописали",
+    "en": "The One Left Unwritten"
+   },
+   "body": {
+    "ru": "Жители называют тебя по имени — {player} — и это не простая вежливость. Мир переписал всех: у каждого жителя есть место, ремесло и сторона в споре. Только ты остался недописанным. У тебя нет резиденции, построенной заранее, и нет силы, к которой ты принадлежишь с рождения. Поэтому мир слушает именно тебя. Переселённый житель, выполненная просьба, выбор, сделанный вслух, — всё это слова, и мир их запоминает. Решения здесь общие для всего мира: кто бы ни пришёл сюда вместе с тобой, он услышит те же ответы и увидит те же последствия.",
+    "en": "The residents call you by name — {player} — and it is not mere politeness. The world rewrote everyone: each resident has a place, a craft and a side in the dispute. Only you were left unwritten. You have no residence built in advance and no force you belong to by birth. That is why the world listens to you. A resident moved home, a request fulfilled, a choice made aloud — all of these are words, and the world remembers them. Decisions here belong to the whole world: whoever comes here with you will hear the same answers and see the same consequences."
+   },
+   "lockedHint": {
+    "ru": "Открыто с самого начала.",
+    "en": "Open from the very start."
+   },
+   "unlock": {
+    "always": true
+   }
+  },
+  {
+   "id": "world.what-is-better",
+   "chapter": "world",
+   "order": 4,
+   "icon": "GoldenKey",
+   "title": {
+    "ru": "Что значит «лучше»",
+    "en": "What “Better” Means"
+   },
+   "body": {
+    "ru": "Три силы согласны, что мир должен стать лучше, и ни одна не согласна с другими в том, что это значит. Садовники говорят: лучше — значит ухоженнее; подрезать лишнее, закрепить удачные формы, остановить рост там, где он уродлив. Приливники говорят: лучше — значит больше; мир обязан говорить новые слова, даже если каждое из них ломает берега. Архивисты говорят: неважно, расти или подрезать, преступление одно — забыть, каким мир был. Ни одна из сил не зла. Но у каждой есть своя уродливая крайность: застывший сад, прилив, смывающий жителей, и архив, в котором запрещено жить.",
+    "en": "All three forces agree that the world must become better, and none of them agrees with the others on what that means. The Gardeners say: better means tended — trim the excess, fix the good shapes, stop growth where it turns ugly. The Tiders say: better means more — the world must keep speaking new words, even if each one breaks the shores. The Archivists say: growing or trimming does not matter; the only crime is to forget what the world was. None of the forces is evil. But each has its own ugly extreme: a frozen garden, a tide that washes residents away, and an archive in which living is forbidden."
+   },
+   "lockedHint": {
+    "ru": "Выполни три этапа любых историй жителей.",
+    "en": "Complete three stages of any residents' stories."
+   },
+   "unlock": {
+    "stages": 3
+   }
+  },
+  {
+   "id": "world.edges",
+   "chapter": "world",
+   "order": 5,
+   "icon": "Compass",
+   "title": {
+    "ru": "Края мира",
+    "en": "The Edges of the World"
+   },
+   "body": {
+    "ru": "У этого мира есть края, и жители относятся к ним по-разному. Подрывник хочет их раздвинуть, Пират — доплыть до них, Дриада — обнести живой изгородью. Гид объясняет просто: у слова есть конец, а произнесённое отвердевает. Мир был меньше, потому что первое слово было коротким, и он остановился там, где слово закончилось. За краем нет ни тьмы, ни пустоты — только то, что ещё не сказано. Садовников края успокаивают: значит, у сада есть ограда. Приливников они раздражают, как недочитанная страница. А Архивисты тщательно отмечают, где граница проходила вчера, чтобы завтра было с чем сравнить.",
+    "en": "This world has edges, and the residents feel differently about them. The Demolitionist wants to push them apart, the Pirate to sail to them, the Dryad to wall them with a living hedge. The Guide puts it simply: a word has an end, and what has been spoken hardens. The world was smaller because the first word was short, and it stopped where the word ended. Beyond the edge there is neither darkness nor void — only what has not yet been said. The edges calm the Gardeners: it means the garden has a fence. They irritate the Tiders like an unfinished page. And the Archivists carefully mark where the border ran yesterday, so that tomorrow there is something to compare."
+   },
+   "lockedHint": {
+    "ru": "Выполни десять этапов историй жителей.",
+    "en": "Complete ten stages of residents' stories."
+   },
+   "unlock": {
+    "stages": 10
+   }
+  },
+  {
+   "id": "world.words-accumulate",
+   "chapter": "world",
+   "order": 6,
+   "icon": "SpellTome",
+   "title": {
+    "ru": "Слова, которые копятся",
+    "en": "Words That Accumulate"
+   },
+   "body": {
+    "ru": "Каждое твоё дело мир слышит как слово. Сначала их немного, и они теряются в шуме ветра и прибоя. Но слов становится больше, и жители начинают замечать перемены: дома кажутся теплее, разговоры за ужином — громче, а споры о будущем — серьёзнее. Репутация в этом мире не принадлежит одному человеку: её делят все, кто здесь живёт, и всё сделанное записывается в общую книгу мира. Если ты уйдёшь, не закончив дела, оно не пропадёт — его подхватит тот, кто заговорит с жителем следом. Мир не торопит. Он просто запоминает, кто и что сказал.",
+    "en": "The world hears every deed of yours as a word. At first there are few, and they are lost in the noise of wind and surf. But the words multiply, and the residents begin to notice changes: houses feel warmer, supper talk grows louder, and arguments about the future grow more serious. Reputation in this world belongs to no single person: everyone who lives here shares it, and everything done is written into the world's common book. If you leave a task unfinished, it will not vanish — whoever speaks to the resident next will take it up. The world does not hurry. It simply remembers who said what."
+   },
+   "lockedHint": {
+    "ru": "Выполни двадцать пять этапов историй жителей.",
+    "en": "Complete twenty-five stages of residents' stories."
+   },
+   "unlock": {
+    "stages": 25
+   }
+  },
+  {
+   "id": "world.night-eye",
+   "chapter": "world",
+   "order": 7,
+   "icon": "Lens",
+   "title": {
+    "ru": "Ночь, когда мир смотрел",
+    "en": "The Night the World Watched"
+   },
+   "body": {
+    "ru": "Огромный глаз, что приходил по ночам, жители объясняют каждый на свой лад. Медсестра считает его болезнью мира — воспалением, которое нужно было вырезать. Оружейник называет его разведчиком: кто-то проверял, готовы ли мы к дальним дорогам. А Гид записал только одно: глаз смотрел на дома, а не на людей, будто пересчитывал резиденции. Теперь, когда он побеждён, ночи стали спокойнее, но разговоры — нет. Каждая сила видит в этой победе довод в свою пользу, и каждая спрашивает тебя, что ты увидел в нём сам.",
+    "en": "The huge eye that came at night is explained by every resident in their own way. The Nurse thinks it was a sickness of the world, an inflammation that had to be cut out. The Arms Dealer calls it a scout: someone was checking whether we were ready for long roads. The Guide wrote down only one thing: the eye looked at the houses, not at the people, as if it were counting the residences. Now that it is defeated, the nights are calmer, but the talk is not. Each force sees this victory as an argument in its favour, and each asks you what you saw in it yourself."
+   },
+   "lockedHint": {
+    "ru": "Одолей того, кто смотрит по ночам.",
+    "en": "Defeat the one who watches at night."
+   },
+   "unlock": {
+    "flag": "downedBoss1"
+   }
+  },
+  {
+   "id": "world.evil-spread",
+   "chapter": "world",
+   "order": 8,
+   "icon": "DemoniteBar",
+   "title": {
+    "ru": "Порча и Багрянец",
+    "en": "Corruption and Crimson"
+   },
+   "body": {
+    "ru": "Порча и Багрянец расползаются по земле, и споры о них самые громкие. Садовники видят в них сорняк, который надо выполоть, пока он не задушил сад. Приливники — уродливый, но всё же рост: мир пробует новые слова, и не все они красивы. Архивисты называют их шрамом — памятью о старой войне, которую мир не хочет забывать. Когда пал страж этой заразы, по-настоящему никто не праздновал. Дриада сказала, что победа над стражем ещё не исцеление, а жители узла, где до сих пор пахнет пеплом, лишь молча переглянулись.",
+    "en": "The Corruption and the Crimson creep across the land, and the arguments about them are the loudest. The Gardeners see a weed that must be pulled before it chokes the garden. The Tiders see ugly growth, but growth all the same: the world is trying new words, and not all of them are beautiful. The Archivists call them a scar, the memory of an old war the world does not want to forget. When the guardian of that blight fell, no one truly celebrated. The Dryad said that beating the guardian is not yet healing, and the residents of the place that still smells of ash only exchanged silent glances."
+   },
+   "lockedHint": {
+    "ru": "Одолей стража Порчи или Багрянца.",
+    "en": "Defeat the guardian of the Corruption or the Crimson."
+   },
+   "unlock": {
+    "flag": "downedBoss2"
+   }
+  },
+  {
+   "id": "world.ocean-unspoken",
+   "chapter": "world",
+   "order": 9,
+   "icon": "Seashell",
+   "title": {
+    "ru": "Непроизнесённый океан",
+    "en": "The Unspoken Ocean"
+   },
+   "body": {
+    "ru": "Глубокий океан напротив Бездны появился вместе с новыми краями мира. Жители побережья называют его непроизнесённой частью мира — тем, что мир только собирается сказать. Вода там ещё не решила, какой ей быть, а на дне лежат обрывки недописанных фраз: жемчуг, кости, обломки, у которых нет имени. Экспедиции туда похожи на чтение черновиков. Приливники мечтают дочитать их до конца, Архивисты — переписать, пока вода их не смыла, а Садовники советуют не трогать вовсе: черновик, по их словам, лучше оставить черновиком.",
+    "en": "The deep ocean opposite the Abyss appeared together with the world's new edges. The people of the shore call it the unspoken part of the world: what the world is only about to say. The water there has not yet decided what it should be, and on the bottom lie scraps of unfinished sentences — pearls, bones, wreckage with no name. Expeditions there are like reading drafts. The Tiders dream of reading them to the end, the Archivists of copying them before the water washes them away, and the Gardeners advise leaving them alone: a draft, they say, is best left a draft."
+   },
+   "lockedHint": {
+    "ru": "Пройди два этапа у морского короля или водолаза — или одолей стража Темницы.",
+    "en": "Finish two stages with the sea king or the diver, or defeat the Dungeon's guardian."
+   },
+   "unlock": {
+    "any": [
+     {
+      "flag": "downedBoss3"
+     },
+     {
+      "resident": {
+       "npcKey": "CalamityMod/SeaKing",
+       "stage": 2
+      }
+     },
+     {
+      "resident": {
+       "npcKey": "ThoriumMod/Diverman",
+       "stage": 2
+      }
+     }
+    ]
+   }
+  },
+  {
+   "id": "world.old-curse",
+   "chapter": "world",
+   "order": 10,
+   "icon": "Bone",
+   "title": {
+    "ru": "Старое проклятие",
+    "en": "The Old Curse"
+   },
+   "body": {
+    "ru": "Над Темницей долго висело проклятие, и Портной помнит его лучше всех: он носил его в себе, пока ты его не освободил. Старик у входа был не стражем, а пленником, а за стенами хранилось то, что мир предпочёл бы забыть. Архивисты считают, что именно поэтому Темницу нельзя разрушать: забыть беду — значит позволить ей повториться. Садовники предлагают замуровать проходы и посадить сверху сад. Приливники спускаются всё глубже, ведь там, где кончается проклятие, начинается добыча. Так или иначе, Темница открыта, и мир заметил, что ты не испугался.",
+    "en": "A curse hung over the Dungeon for a long time, and the Clothier remembers it best of all: he carried it inside himself until you set him free. The old man at the entrance was not a guard but a prisoner, and behind the walls lay what the world would rather forget. The Archivists believe this is exactly why the Dungeon must not be destroyed: to forget a disaster is to let it happen again. The Gardeners propose walling up the passages and planting a garden on top. The Tiders go ever deeper, for where the curse ends, the plunder begins. Either way, the Dungeon is open, and the world noticed that you were not afraid."
+   },
+   "lockedHint": {
+    "ru": "Сними проклятие со стража Темницы.",
+    "en": "Lift the curse from the Dungeon's guardian."
+   },
+   "unlock": {
+    "flag": "downedBoss3"
+   }
+  },
+  {
+   "id": "world.small-world",
+   "chapter": "world",
+   "order": 11,
+   "icon": "Paintbrush",
+   "title": {
+    "ru": "Малый мир",
+    "en": "The Small World"
+   },
+   "body": {
+    "ru": "Гид записал, каким был мир до первого слова, и теперь эти страницы можно прочесть. Малый мир умещался между двумя опушками, до края было полдня пути, а за краем не было ничего — ни тьмы, ни воды, только конец страницы. Жителей было мало, и все знали друг друга по именам. Дома никто не строил заранее: их ставили тогда, когда кто-то приходил. Архивисты называют эти записи главным сокровищем мира. Садовники читают их с тоской по прежнему порядку, Приливники — с удивлением: неужели здесь когда-то было так тесно?",
+    "en": "The Guide wrote down what the world was like before the first word, and now those pages can be read. The small world fit between two forest edges, the edge was half a day's walk away, and beyond it there was nothing — no darkness, no water, only the end of the page. There were few residents, and everyone knew each other by name. No one built houses in advance: they were raised when someone arrived. The Archivists call these notes the world's greatest treasure. The Gardeners read them longing for the old order, the Tiders in wonder: was it really ever this cramped here?"
+   },
+   "lockedHint": {
+    "ru": "Откроется, если Гид решит записать прошлое.",
+    "en": "Opens if the Guide decides to write down the past."
+   },
+   "unlock": {
+    "choice": {
+     "npcKey": "Terraria/Guide",
+     "stage": 2,
+     "id": "remember"
+    }
+   }
+  },
+  {
+   "id": "world.blank-page",
+   "chapter": "world",
+   "order": 12,
+   "icon": "Feather",
+   "title": {
+    "ru": "Чистая страница",
+    "en": "The Blank Page"
+   },
+   "body": {
+    "ru": "Гид отложил перо и оставил страницу о малом мире чистой. Говорят, с того дня новый мир стал увереннее: ему больше не с чем себя сравнивать. Тропы прежнего мира зарастают, и даже старожилы путаются, где раньше был край. Приливники считают это освобождением: прошлое больше не держит город на месте. Архивисты — потерей, которую уже не вернуть, и тайком записывают обрывки чужих воспоминаний. А чистая страница так и лежит на столе Гида. Иногда он подолгу смотрит на неё, будто ждёт, что мир сам что-нибудь на ней напишет.",
+    "en": "The Guide set down his pen and left the page about the small world blank. They say that from that day the new world grew more confident: it no longer has anything to compare itself with. The paths of the old world are overgrown, and even the oldest residents confuse where the edge used to be. The Tiders call it liberation: the past no longer holds the town in place. The Archivists call it a loss that can never be undone, and secretly write down scraps of other people's memories. And the blank page still lies on the Guide's desk. Sometimes he stares at it for a long time, as if waiting for the world to write something on it by itself."
+   },
+   "lockedHint": {
+    "ru": "Откроется, если Гид решит оставить прошлое прошлому.",
+    "en": "Opens if the Guide decides to leave the past to the past."
+   },
+   "unlock": {
+    "choice": {
+     "npcKey": "Terraria/Guide",
+     "stage": 2,
+     "id": "forget"
+    }
+   }
+  },
+  {
+   "id": "world.second-phrase",
+   "chapter": "world",
+   "order": 13,
+   "icon": "SoulofLight",
+   "title": {
+    "ru": "Вторая фраза",
+    "en": "The Second Phrase"
+   },
+   "body": {
+    "ru": "Когда пала стена плоти, мир сказал вторую фразу. По земле прошли две полосы, светлая и тёмная, и они растут, будто спорят между собой. Жители почувствовали это раньше, чем увидели: у Гида дрогнула рука над страницей, Дриада впервые за долгое время замолчала, а Подрывник радостно объявил, что края снова сдвинулись. Если первое слово создало мир, то вторая фраза задала вопрос: каким он будет дальше? С этого дня спор сил перестал быть застольным — каждая сторона знает, что мир слушает и готов отвечать.",
+    "en": "When the wall of flesh fell, the world spoke its second phrase. Two stripes ran across the land, one bright and one dark, and they grow as if arguing with each other. The residents felt it before they saw it: the Guide's hand trembled over the page, the Dryad fell silent for the first time in ages, and the Demolitionist cheerfully announced that the edges had moved again. If the first word created the world, the second phrase asked a question: what will it become next? From that day the dispute of the forces is no longer supper talk — every side knows the world is listening and ready to answer."
+   },
+   "lockedHint": {
+    "ru": "Одолей стену плоти.",
+    "en": "Defeat the wall of flesh."
+   },
+   "unlock": {
+    "flag": "hardMode"
+   }
+  },
+  {
+   "id": "world.iron-voices",
+   "chapter": "world",
+   "order": 14,
+   "icon": "Cog",
+   "title": {
+    "ru": "Железные голоса",
+    "en": "Iron Voices"
+   },
+   "body": {
+    "ru": "Механические чудовища заговорили железом. Механик и Стимпанкерша увидели в них работу мастера, который строил не для того, чтобы жить, а для того, чтобы побеждать. Садовники узнали в них порядок, доведённый до крайности: всё точно, всё выверено, и нет места ничему живому. Приливники — рост, которому некуда было расти, кроме разрушения. Архивисты разобрали обломки и записали каждую деталь. Сходятся все в одном: сделать мир «лучше» можно и так, но вряд ли кто-то захочет в таком мире жить.",
+    "en": "The mechanical monsters spoke in iron. The Mechanic and the Steampunker saw in them the work of a maker who built not in order to live, but in order to win. The Gardeners recognised order taken to its extreme: everything precise, everything calibrated, and no room for anything alive. The Tiders saw growth that had nowhere left to grow except into destruction. The Archivists took the wreckage apart and recorded every piece. Everyone agrees on one thing: the world could be made “better” this way too, but hardly anyone would want to live in it."
+   },
+   "lockedHint": {
+    "ru": "Одолей одного из механических боссов.",
+    "en": "Defeat one of the mechanical bosses."
+   },
+   "unlock": {
+    "flag": "downedMechBossAny"
+   }
+  },
+  {
+   "id": "world.jungle-flower",
+   "chapter": "world",
+   "order": 15,
+   "icon": "TempleKey",
+   "title": {
+    "ru": "Цветок, который сопротивлялся",
+    "en": "The Flower That Resisted"
+   },
+   "body": {
+    "ru": "Глубоко в джунглях рос цветок, который не хотел, чтобы его срывали. Когда он пал, Дриада долго молчала, а потом сказала, что сад умеет защищаться и что это тоже ответ на вопрос о лучшем. Знахарь напомнил о храме, путь к которому цветок охранял. Садовники заспорили между собой: одни говорили, что сорняк нужно было вырвать, другие — что это был садовник, а не сорняк. Приливники радовались новому пути. Архивисты зарисовали лепестки, пока те не увяли.",
+    "en": "Deep in the jungle grew a flower that did not want to be picked. When it fell, the Dryad was silent for a long time, then said that a garden knows how to defend itself, and that this too is an answer to the question of what is better. The Witch Doctor recalled the temple whose path the flower had guarded. The Gardeners argued among themselves: some said the weed had to be pulled, others that it was a gardener, not a weed. The Tiders rejoiced at a new road. The Archivists sketched the petals before they wilted."
+   },
+   "lockedHint": {
+    "ru": "Одолей цветок джунглей.",
+    "en": "Defeat the flower of the jungle."
+   },
+   "unlock": {
+    "flag": "downedPlantBoss"
+   }
+  },
+  {
+   "id": "world.lizard-temple",
+   "chapter": "world",
+   "order": 16,
+   "icon": "LihzahrdPowerCell",
+   "title": {
+    "ru": "Храм в джунглях",
+    "en": "The Jungle Temple"
+   },
+   "body": {
+    "ru": "Храм в джунглях стоял задолго до первого слова, и это единственные стены в мире, о которых точно известно, что их возвели не для нынешних жителей. Когда каменный страж храма пал, жители впервые задумались: если кто-то строил здесь раньше, не те ли руки строили и пустые резиденции? Архитектор, услышав это, обиделся всерьёз. Архивисты переписывают надписи со стен, хотя никто не может их прочесть. Садовники говорят, что храм — сад, переживший своих садовников. Приливники заметили другое: строители храма ушли, а мир продолжил расти без них.",
+    "en": "The jungle temple stood long before the first word, and its walls are the only ones in the world known for certain not to have been raised for the present residents. When the temple's stone guardian fell, the residents wondered for the first time: if someone built here before, were the same hands behind the empty residences? Hearing this, the Architect took real offence. The Archivists copy the inscriptions from the walls, though no one can read them. The Gardeners say the temple is a garden that outlived its gardeners. The Tiders noticed something else: the temple's builders left, and the world went on growing without them."
+   },
+   "lockedHint": {
+    "ru": "Одолей каменного стража храма.",
+    "en": "Defeat the temple's stone guardian."
+   },
+   "unlock": {
+    "flag": "downedGolemBoss"
+   }
+  },
+  {
+   "id": "world.moon-callers",
+   "chapter": "world",
+   "order": 17,
+   "icon": "FragmentSolar",
+   "title": {
+    "ru": "Те, кто звал луну",
+    "en": "Those Who Called the Moon"
+   },
+   "body": {
+    "ru": "У входа в Темницу молились люди в масках, и молились они не миру, а луне. Когда пал их предводитель, в небе встали четыре столпа, и жители впервые увидели, как мир спорит не с собой, а с чем-то извне. Волшебник сказал, что так звучит чужое слово — попытка переписать мир не изнутри, а сверху. Архивисты потребовали записать каждое заклинание культистов, чтобы его никогда не повторили. Садовники — запереть вход навсегда. А Приливники молчали дольше обычного: им впервые не понравился рост, которого никто из жителей не просил.",
+    "en": "Masked people prayed at the entrance to the Dungeon, and they prayed not to the world but to the moon. When their leader fell, four pillars rose in the sky, and the residents saw for the first time the world arguing not with itself but with something from outside. The Wizard said this is how a foreign word sounds: an attempt to rewrite the world not from within but from above. The Archivists demanded that every spell of the cultists be written down so that it would never be repeated. The Gardeners demanded the entrance be locked for good. And the Tiders were silent longer than usual: for the first time they disliked a growth that no resident had asked for."
+   },
+   "lockedHint": {
+    "ru": "Одолей предводителя культистов.",
+    "en": "Defeat the leader of the cultists."
+   },
+   "unlock": {
+    "flag": "downedAncientCultist"
+   }
+  },
+  {
+   "id": "world.moon-seal",
+   "chapter": "world",
+   "order": 18,
+   "icon": "LunarBar",
+   "title": {
+    "ru": "Печать луны",
+    "en": "The Moon Seal"
+   },
+   "body": {
+    "ru": "Существо с луны пало, и над миром повисла тишина, какой не было со времён первого слова. Жители говорят, что теперь печать держит не камень, а память: пока мир помнит эту битву, чужое слово не прозвучит снова. Гид записал её в последнюю главу и оставил следующую страницу пустой. Садовники считают, что теперь мир наконец можно привести в порядок. Приливники — что ему больше нечего бояться и можно расти дальше. Архивисты — что именно сейчас важнее всего ничего не забыть. Все они смотрят на тебя, {player}: тот, кто одолел луну, вправе сказать и следующее слово.",
+    "en": "The being from the moon fell, and a silence hung over the world such as there had not been since the first word. The residents say that now the seal is held not by stone but by memory: as long as the world remembers this battle, the foreign word will not sound again. The Guide wrote it into the last chapter and left the next page blank. The Gardeners believe the world can finally be put in order. The Tiders, that it has nothing left to fear and can keep growing. The Archivists, that right now the most important thing is to forget nothing. All of them look at you, {player}: whoever defeated the moon has the right to speak the next word too."
+   },
+   "lockedHint": {
+    "ru": "Одолей Лунного лорда.",
+    "en": "Defeat the Moon Lord."
+   },
+   "unlock": {
+    "flag": "downedMoonlord"
+   }
+  },
+  {
+   "id": "forces.gardeners",
+   "chapter": "forces",
+   "order": 1,
+   "icon": "StaffofRegrowth",
+   "title": {
+    "ru": "Садовники",
+    "en": "The Gardeners"
+   },
+   "body": {
+    "ru": "Для Садовников мир — это сад, а саду нужна рука. Подрезать лишнее, закрепить удачные формы, остановить рост там, где он уродлив, — вот их «лучше». Среди них лекари и мастера, кузнецы и стилисты, Дриада и Механик, Сборщик налогов и Алхимик. Садовники не любят спешки и не боятся краёв мира: ограда, по их словам, и делает сад садом. Больше всего они боятся следующего слова, которое может переписать всё ухоженное. Их крайность — застывший сад, где ничто не растёт, потому что всё уже подстрижено. Их надежда — мир, в котором у каждого жителя есть место и ничто не пропадает зря.",
+    "en": "To the Gardeners the world is a garden, and a garden needs a hand. Trim the excess, fix the good shapes, stop growth where it turns ugly — that is their “better”. Among them are healers and craftsmen, smiths and stylists, the Dryad and the Mechanic, the Tax Collector and the Alchemist. The Gardeners dislike haste and do not fear the edges of the world: a fence, they say, is what makes a garden a garden. What they fear most is the next word, which could rewrite everything they have tended. Their extreme is a frozen garden where nothing grows because everything is already trimmed. Their hope is a world where every resident has a place and nothing goes to waste."
+   },
+   "lockedHint": {
+    "ru": "Выполни три этапа у жителей-Садовников.",
+    "en": "Complete three stages with Gardener residents."
+   },
+   "unlock": {
+    "forceStages": {
+     "force": "gardeners",
+     "count": 3
+    }
+   }
+  },
+  {
+   "id": "forces.tiders",
+   "chapter": "forces",
+   "order": 2,
+   "icon": "Trident",
+   "title": {
+    "ru": "Приливники",
+    "en": "The Tiders"
+   },
+   "body": {
+    "ru": "Приливники уверены: лучше — значит больше. Мир не вправе останавливаться, он обязан говорить новые слова, даже если каждое из них ломает берега. Их тянет к океану, к Бездне и к самым краям карты. Среди них торговцы и моряки, Подрывник и Пират, Тусовщица и Киборг — все, кому тесно в одной резиденции. Приливники не презирают порядок, просто считают его временной остановкой в пути. Их крайность — прилив, который смывает жителей вместе с домами. Их надежда — мир, который никогда не закончится и в котором всегда будет куда идти.",
+    "en": "The Tiders are certain: better means more. The world has no right to stop; it must keep speaking new words, even if every one of them breaks the shores. They are drawn to the ocean, to the Abyss and to the very edges of the map. Among them are merchants and sailors, the Demolitionist and the Pirate, the Party Girl and the Cyborg — everyone who feels cramped in a single residence. The Tiders do not despise order; they simply see it as a rest stop on the road. Their extreme is a tide that washes residents away along with their houses. Their hope is a world that never ends and always has somewhere left to go."
+   },
+   "lockedHint": {
+    "ru": "Выполни три этапа у жителей-Приливников.",
+    "en": "Complete three stages with Tider residents."
+   },
+   "unlock": {
+    "forceStages": {
+     "force": "tiders",
+     "count": 3
+    }
+   }
+  },
+  {
+   "id": "forces.archivists",
+   "chapter": "forces",
+   "order": 3,
+   "icon": "BlackInk",
+   "title": {
+    "ru": "Архивисты",
+    "en": "The Archivists"
+   },
+   "body": {
+    "ru": "Архивистам всё равно, растёт мир или его подрезают. Преступление, по их словам, только одно — забыть, каким мир был. Они собирают свидетельства прежнего, малого мира: записи, карты, песни и имена. Среди них Гид и Волшебник, Художник и Портной, Зоолог и Оракул. К пустым резиденциям Архивисты относятся внимательнее всех: дом, построенный заранее, — это запись о будущем. Их крайность — архив, в котором запрещено жить: всё записано, и ничего не происходит. Их надежда — мир, который меняется, но помнит каждый свой шаг.",
+    "en": "The Archivists do not care whether the world grows or is trimmed. There is only one crime, they say: to forget what the world was. They gather testimony of the old, small world: records, maps, songs and names. Among them are the Guide and the Wizard, the Painter and the Clothier, the Zoologist and the Oracle. The Archivists pay closer attention to the empty residences than anyone: a house built in advance is a record of the future. Their extreme is an archive in which living is forbidden: everything is written down and nothing happens. Their hope is a world that changes but remembers every step it takes."
+   },
+   "lockedHint": {
+    "ru": "Выполни три этапа у жителей-Архивистов.",
+    "en": "Complete three stages with Archivist residents."
+   },
+   "unlock": {
+    "forceStages": {
+     "force": "archivists",
+     "count": 3
+    }
+   }
+  },
+  {
+   "id": "forces.tricksters",
+   "chapter": "forces",
+   "order": 4,
+   "icon": "WhoopieCushion",
+   "title": {
+    "ru": "Трикстеры",
+    "en": "The Tricksters"
+   },
+   "body": {
+    "ru": "Есть жители, которые в спор не вступают, а словно посмеиваются над ним. Мальчишка-рыбак, Санта, Тиран джунглей, семья Мутанта и Бельчонок говорят о мире так, будто уже знают концовку и из вежливости делают вид, что нет. Трикстеры не строят, не подрезают и не записывают — они проверяют правила на прочность. Их вопросы неудобны: если конец известен, зачем мир слушает {player}? Если «лучше» решают силы, кто решает за сами силы? Трикстеры не склоняют мир ни в одну сторону, но без них спор слишком быстро стал бы серьёзным, а серьёзный спор — опасным.",
+    "en": "Some residents do not join the dispute but seem to chuckle at it. The Angler, Santa, the jungle tyrant, the Mutant's family and the Squirrel speak of the world as if they already know the ending and politely pretend they do not. The Tricksters do not build, trim or record — they test the rules for strength. Their questions are awkward: if the end is known, why does the world listen to {player}? If the forces decide what is better, who decides for the forces? The Tricksters tip the world toward no side, but without them the dispute would turn serious far too quickly, and a serious dispute is a dangerous one."
+   },
+   "lockedHint": {
+    "ru": "Выполни два этапа у жителей-Трикстеров.",
+    "en": "Complete two stages with Trickster residents."
+   },
+   "unlock": {
+    "forceStages": {
+     "force": "tricksters",
+     "count": 2
+    }
+   }
+  },
+  {
+   "id": "forces.personal",
+   "chapter": "forces",
+   "order": 5,
+   "icon": "Heart",
+   "title": {
+    "ru": "Личные линии",
+    "en": "Personal Lines"
+   },
+   "body": {
+    "ru": "Не каждый житель выбрал сторону. Принцесса и Юный химик, ведьма, которая больше не служит, молчун из шахты, ведьма зелий, химик, переживший себя, и изгнанник с клинком живут своими историями. Они не служат ни саду, ни приливу, ни архиву, и потому их ответы на вопрос о лучшем самые личные: вернуть прежнее, принять новое, отпустить или просто остаться. Силы спорят за их голоса, но эти жители отвечают только тому, кто их выслушал. Для мира их истории значат не меньше главных: каждая из них — слово, которое никто не скажет за них.",
+    "en": "Not every resident has chosen a side. The Princess and the Young Brewer, the witch who serves no more, the silent one from the mine, the potion witch, the chemist who outlived himself and the exile with the blade live by their own stories. They serve neither garden, nor tide, nor archive, and so their answers to the question of what is better are the most personal: bring back what was, accept what is new, let go, or simply stay. The forces argue over their voices, but these residents answer only to the one who listened. To the world their stories matter no less than the main ones: each is a word no one else will say for them."
+   },
+   "lockedHint": {
+    "ru": "Выполни два этапа у жителей с личной линией.",
+    "en": "Complete two stages with residents on a personal line."
+   },
+   "unlock": {
+    "forceStages": {
+     "force": "unassigned",
+     "count": 2
+    }
+   }
+  },
+  {
+   "id": "arcs.act1",
+   "chapter": "arcs",
+   "order": 1,
+   "icon": "Torch",
+   "title": {
+    "ru": "Акт 1. Пустые дома",
+    "en": "Act 1. Empty Houses"
+   },
+   "body": {
+    "ru": "Главная линия этого мира держится на двадцати сюжетных жителях. Кто они, мир решил сам из тех, кто может в нём поселиться, и в каждом мире этот выбор свой. Первый акт начинается с пустых резиденций и первых встреч: жителей нужно найти, выручить, переселить и выслушать. Пока никто не говорит о силах вслух. Жители присматриваются к тебе так же, как ты к ним, и пытаются понять, кто ты: ещё один гость, которого мир переписал, или тот, кого он не дописал. Сюжетные жители отмечены в книге звездой — начни с них, если хочешь услышать главную историю раньше остальных.",
+    "en": "This world's main line rests on twenty story residents. The world chose them itself from those who can settle in it, and every world makes its own choice. The first act begins with empty residences and first meetings: the residents must be found, rescued, moved home and heard out. No one speaks of the forces aloud yet. The residents study you as closely as you study them, trying to understand who you are: one more guest the world rewrote, or the one it left unwritten. Story residents are marked with a star in the book — start with them if you want to hear the main story before the rest."
+   },
+   "lockedHint": {
+    "ru": "Открыто с самого начала.",
+    "en": "Open from the very start."
+   },
+   "unlock": {
+    "always": true
+   }
+  },
+  {
+   "id": "arcs.act2",
+   "chapter": "arcs",
+   "order": 2,
+   "icon": "BowlofSoup",
+   "title": {
+    "ru": "Акт 2. Голоса за ужином",
+    "en": "Act 2. Voices at Supper"
+   },
+   "body": {
+    "ru": "Когда сюжетные жители прошли пятнадцать этапов своих историй, спор сил вышел из-за прилавков и верстаков. Теперь о нём говорят за ужином — громко и с примерами. Садовники показывают на ухоженные дворы, Приливники — на новые дороги, Архивисты — на исписанные страницы. Каждый житель ждёт, что ты встанешь на его сторону, и каждый твой выбор в разговоре уже слышат все. В этом акте мир впервые отвечает: первые выборы склоняют силы, а резиденции, в которые вернулись жильцы, становятся доводами в споре.",
+    "en": "Once the story residents had finished fifteen stages of their stories, the dispute of the forces left the counters and workbenches. Now it is discussed at supper, loudly and with examples. The Gardeners point to tidy yards, the Tiders to new roads, the Archivists to filled pages. Every resident expects you to take their side, and everyone already hears each choice you make in conversation. In this act the world answers for the first time: the first choices tip the forces, and residences that have their tenants back become arguments in the dispute."
+   },
+   "lockedHint": {
+    "ru": "Пройди 15 этапов у сюжетных жителей.",
+    "en": "Finish 15 stages with story residents."
+   },
+   "unlock": {
+    "mainStages": 15
+   }
+  },
+  {
+   "id": "arcs.act3",
+   "chapter": "arcs",
+   "order": 3,
+   "icon": "DepthMeter",
+   "title": {
+    "ru": "Акт 3. Черновики мира",
+    "en": "Act 3. Drafts of the World"
+   },
+   "body": {
+    "ru": "Сорок сюжетных этапов — и мир начал показывать то, чего ещё не сказал. Истории жителей всё чаще уводят тебя из посёлка: в чужие биомы, к воде, под землю, к старым тайникам. Каждая возвращается с ответом и новым вопросом. Архивисты просят записывать, Приливники — идти дальше, Садовники — возвращаться вовремя. В этом акте становится ясно, что спор идёт не о прошлом, а о следующем слове: о том, что мир скажет, когда договорит нынешнее.",
+    "en": "Forty story stages, and the world began to show what it has not yet said. The residents' stories lead you away from the settlement more and more often: into other biomes, to the water, underground, to old caches. Each one comes back with an answer and a new question. The Archivists ask you to record, the Tiders to go further, the Gardeners to come back in time. In this act it becomes clear that the dispute is not about the past but about the next word: what the world will say once it finishes the present one."
+   },
+   "lockedHint": {
+    "ru": "Пройди 40 этапов у сюжетных жителей.",
+    "en": "Finish 40 stages with story residents."
+   },
+   "unlock": {
+    "mainStages": 40
+   }
+  },
+  {
+   "id": "arcs.act4",
+   "chapter": "arcs",
+   "order": 4,
+   "icon": "CrystalBall",
+   "title": {
+    "ru": "Акт 4. Цена лучшего",
+    "en": "Act 4. The Price of Better"
+   },
+   "body": {
+    "ru": "К семидесятому сюжетному этапу силы перестали спорить вежливо. В рассказах жителей всё отчётливее слышна крайность каждой из них: Садовники готовы обнести мир оградой, по траве за которой нельзя ступать, Приливники — отдать воде старые берега ради новых, Архивисты — запереть прошлое так, чтобы к нему никто не прикасался. Жители больше не спрашивают, на чьей ты стороне. Они спрашивают, что ты готов отдать за своё «лучше». Выборы этого акта весят больше прежних, а мир слушает внимательнее, чем когда-либо.",
+    "en": "By the seventieth story stage the forces had stopped arguing politely. The residents' stories make each force's extreme ever clearer: the Gardeners would fence the world in with grass no one may step on, the Tiders would give the old shores to the water for the sake of new ones, the Archivists would lock the past away so that no one touches it. The residents no longer ask whose side you are on. They ask what you are willing to give for your “better”. The choices of this act weigh more than before, and the world listens more closely than ever."
+   },
+   "lockedHint": {
+    "ru": "Пройди 70 этапов у сюжетных жителей.",
+    "en": "Finish 70 stages with story residents."
+   },
+   "unlock": {
+    "mainStages": 70
+   }
+  },
+  {
+   "id": "arcs.act5",
+   "chapter": "arcs",
+   "order": 5,
+   "icon": "FallenStar",
+   "title": {
+    "ru": "Акт 5. Следующее слово",
+    "en": "Act 5. The Next Word"
+   },
+   "body": {
+    "ru": "Все этапы главной линии пройдены. Сюжетные жители рассказали свои истории до конца, и мир затих, как перед вдохом. Теперь ему нужно следующее слово, и произнести его может только тот, кого он не дописал. Каким оно будет, решили не силы, а твои выборы: каждый ответ в разговоре склонял мир к саду, к приливу или к памяти. Если ни одна сторона не перевесила, мир услышит равновесие. Открой главу «Финал», чтобы узнать, что он скажет, {player}.",
+    "en": "Every stage of the main line is done. The story residents have told their stories to the end, and the world has gone quiet, as before a breath. Now it needs the next word, and only the one it left unwritten can speak it. What that word will be was decided not by the forces but by your choices: every answer in conversation tipped the world toward the garden, the tide or memory. If no side outweighed the others, the world will hear balance. Open the “Finale” chapter to learn what it will say, {player}."
+   },
+   "lockedHint": {
+    "ru": "Пройди все этапы главной линии.",
+    "en": "Finish every stage of the main line."
+   },
+   "unlock": {
+    "mainStages": 100
+   }
+  },
+  {
+   "id": "finale.gardeners",
+   "chapter": "finale",
+   "order": 1,
+   "icon": "Daybloom",
+   "title": {
+    "ru": "Слово «довольно»",
+    "en": "The Word “Enough”"
+   },
+   "body": {
+    "ru": "Мир сказал «довольно». Его края не сдвинулись, а стали оградой, увитой зеленью, и за ней наконец можно спокойно жить. Порча и Багрянец отступили к своим границам, дороги легли ровно, и в каждой резиденции горит свет. Садовники победили, но Дриада не празднует: она знает, что за садом нужно ухаживать каждый день и что мир, переставший расти, надо беречь вдвое внимательнее. Приливники с тоской смотрят на океан, Архивисты записывают, каким мир был до этой минуты. Ты сделал мир ухоженным. Осталось не дать ему застыть.",
+    "en": "The world said “enough”. Its edges did not move; they became a fence wound with greenery, and behind it one can finally live in peace. The Corruption and the Crimson retreated to their borders, the roads lay straight, and a light burns in every residence. The Gardeners won, but the Dryad does not celebrate: she knows a garden must be tended every day, and a world that has stopped growing must be guarded twice as carefully. The Tiders gaze longingly at the ocean, the Archivists record what the world was until this moment. You have made the world well-tended. What remains is to keep it from freezing."
+   },
+   "lockedHint": {
+    "ru": "Заверши главную линию, склонив мир к Садовникам.",
+    "en": "Finish the main line with the world leaning to the Gardeners."
+   },
+   "unlock": {
+    "lean": "gardeners"
+   }
+  },
+  {
+   "id": "finale.tiders",
+   "chapter": "finale",
+   "order": 2,
+   "icon": "NeptunesShell",
+   "title": {
+    "ru": "Слово «дальше»",
+    "en": "The Word “Further”"
+   },
+   "body": {
+    "ru": "Мир сказал «дальше». Его края дрогнули и разошлись, за океаном показалась новая земля, а Бездна стала чуть глубже. Приливники ликуют: мир не кончится, пока в нём есть кому идти. Подрывник уже чертит новые дороги, Пират поднимает паруса. Но вода прибывает и у старых берегов, и некоторым домам придётся отступить. Садовники молча укрепляют ограды, Архивисты торопливо переписывают то, что скоро смоет. Ты выбрал рост. Теперь мир будет говорить новые слова, и не все из них окажутся добрыми.",
+    "en": "The world said “further”. Its edges trembled and parted, new land appeared beyond the ocean, and the Abyss grew a little deeper. The Tiders rejoice: the world will not end while there is someone in it to walk on. The Demolitionist is already drawing new roads, the Pirate is raising sails. But the water is rising at the old shores too, and some houses will have to retreat. The Gardeners silently reinforce their fences, the Archivists hurriedly copy what will soon be washed away. You chose growth. Now the world will speak new words, and not all of them will be kind."
+   },
+   "lockedHint": {
+    "ru": "Заверши главную линию, склонив мир к Приливникам.",
+    "en": "Finish the main line with the world leaning to the Tiders."
+   },
+   "unlock": {
+    "lean": "tiders"
+   }
+  },
+  {
+   "id": "finale.archivists",
+   "chapter": "finale",
+   "order": 3,
+   "icon": "WorldGlobe",
+   "title": {
+    "ru": "Слово «помню»",
+    "en": "The Word “I Remember”"
+   },
+   "body": {
+    "ru": "Мир сказал «помню». Он не стал ни больше, ни меньше, но в нём проступило прежнее: старые тропы малого мира, имена, которых давно никто не произносил, первые дома у костра Гида. Архивисты получили то, о чём просили, — мир, который знает свою историю. Гид наконец закрыл книгу и сказал, что впервые не боится её потерять. Садовники ворчат, что память — тоже груз, Приливники — что с ней медленнее идти вперёд. Ты выбрал память. Теперь мир будет меняться, но никогда не забудет, каким он был и кто его слушал.",
+    "en": "The world said “I remember”. It grew neither larger nor smaller, but the old showed through it: the paths of the small world, names no one had spoken for ages, the first houses by the Guide's campfire. The Archivists got what they asked for: a world that knows its own history. The Guide finally closed his book and said that for the first time he is not afraid of losing it. The Gardeners grumble that memory is a burden too, the Tiders that it makes walking forward slower. You chose memory. Now the world will change, but it will never forget what it was and who listened to it."
+   },
+   "lockedHint": {
+    "ru": "Заверши главную линию, склонив мир к Архивистам.",
+    "en": "Finish the main line with the world leaning to the Archivists."
+   },
+   "unlock": {
+    "lean": "archivists"
+   }
+  },
+  {
+   "id": "finale.balance",
+   "chapter": "finale",
+   "order": 4,
+   "icon": "MagicConch",
+   "title": {
+    "ru": "Передача голоса",
+    "en": "Passing the Voice"
+   },
+   "body": {
+    "ru": "Мир промолчал, и это тоже был ответ. Ни сад, ни прилив, ни память не перевесили: твои выборы держали силы в равновесии до самого конца. Тогда мир сделал то, чего не ждал никто, — отдал свой голос. Теперь следующее слово скажет не он и не ты, а все жители вместе: каждый заселённый дом, каждая дописанная история, каждый спор за ужином. Садовники, Приливники и Архивисты впервые сели за один стол, ведь спорить теперь придётся не о мире, а внутри него. Трикстеры смеются: кажется, они знали это с самого начала.",
+    "en": "The world stayed silent, and that too was an answer. Neither garden, nor tide, nor memory outweighed the others: your choices kept the forces in balance to the very end. Then the world did what no one expected: it gave away its voice. Now the next word will be spoken neither by it nor by you, but by all the residents together: every house with its tenant, every finished story, every argument at supper. The Gardeners, the Tiders and the Archivists sat down at one table for the first time, for now they will have to argue not about the world but within it. The Tricksters laugh: it seems they knew this from the very start."
+   },
+   "lockedHint": {
+    "ru": "Заверши главную линию, не склонив мир ни к одной силе.",
+    "en": "Finish the main line without tipping the world to any force."
+   },
+   "unlock": {
+    "lean": "balance"
+   }
+  }
+ ]
+}

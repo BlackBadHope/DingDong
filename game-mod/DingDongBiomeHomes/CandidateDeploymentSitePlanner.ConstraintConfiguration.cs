@@ -51,7 +51,7 @@ public static partial class CandidateDeploymentSitePlanner
 	private const int ConstraintLayerRepairTimeLimitMilliseconds = 2000;
 	private const int ConstraintRepairTimeLimitMilliseconds = 5000;
 	private const int ConstraintRepairNeighborhoodTimeLimitMilliseconds = 2000;
-	private const int ConstraintHardSafetyFallbackTimeLimitMilliseconds = 25000;
+	private const int ConstraintHardSafetyFallbackTimeLimitMilliseconds = 90000;
 	private const int ConstraintHardSafetyFallbackRestartLimit = 8;
 	private const int ConstraintBeamWidth = 64;
 	private const int ConstraintBeamCandidateFanout = 16;
@@ -71,8 +71,8 @@ public static partial class CandidateDeploymentSitePlanner
 	private const int ConstraintSectorDownstreamTimeLimitMilliseconds = 4000;
 	private const int ConstraintSectorDownstreamTotalTimeLimitMilliseconds = 60000;
 	private const int ConstraintSurfaceLayerRepairTimeLimitMilliseconds = 20000;
-	private const int ConstraintSurfaceLayerExactTimeLimitMilliseconds = 12000;
-	private const int ConstraintHardSafetyCoordinatedPairCheckLimit = 10000000;
+	private const int ConstraintSurfaceLayerExactTimeLimitMilliseconds = 30000;
+	private const int ConstraintHardSafetyCoordinatedPairCheckLimit = 60000000;
 	private const int ConstraintHardSafetyConflictGroupVariableLimit = 16;
 	private const int ConstraintHardSafetyConflictGroupNodeLimit = 1000000;
 	private const int ConstraintHardSafetyPortCohortDomainLimit = 96;

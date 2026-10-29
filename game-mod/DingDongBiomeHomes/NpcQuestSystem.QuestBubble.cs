@@ -37,6 +37,9 @@ internal static partial class NpcQuestSystem
 		}
 
 		ResidentQuestDefinition definition = progress.Definition(identity);
+		if (progress.Paused) { text = Language.GetTextValue("Mods.DingDongBiomeHomes.QuestEngine.Bubble.Resume"); return true; }
+		if (!progress.IsAssignedTo(questPlayer.PersistentId)) { text = Language.GetTextValue("Mods.DingDongBiomeHomes.QuestEngine.Bubble.Busy", progress.AssignedName); return true; }
+		if (definition.StoryKey.Length > 0) { text = StoryBubbleText(player, definition, progress); return true; }
 		text = definition.Kind switch
 		{
 			ResidentQuestKind.SurveyOrigin when progress.Progress >= definition.Goal => Language.GetTextValue("Mods.DingDongBiomeHomes.Quests.ButtonTurnIn"),
@@ -56,5 +59,29 @@ internal static partial class NpcQuestSystem
 			ResidentQuestKind.ModProgression => Language.GetTextValue("Mods.DingDongBiomeHomes.Quests.ButtonProgression", definition.TargetName),
 			_ => Language.GetTextValue("Mods.DingDongBiomeHomes.Quests.ButtonAcceptContinued", progress.Completed + 1)};
 		return true;
+	}
+
+	// Authored First Word Was forms: turn-in when ready, the pending choice, else a compact count.
+	private static string StoryBubbleText(Player player, ResidentQuestDefinition definition, ResidentQuestProgress progress)
+	{
+		if (IsReady(player, definition, progress)) return Language.GetTextValue("Mods.DingDongBiomeHomes.Quests.ButtonTurnIn");
+		if (definition.Kind == ResidentQuestKind.DialogueChoice) return Language.GetTextValue("Mods.DingDongBiomeHomes.QuestEngine.Bubble.Choose");
+		(int current, int goal) = DisplayProgress(player, definition, progress);
+		string key = definition.Kind == ResidentQuestKind.Delayed ? "Waiting" : "Progress";
+		return Language.GetTextValue("Mods.DingDongBiomeHomes.QuestEngine.Bubble." + key, current, goal);
+	}
+
+	// Progress in the unit the player reads: seconds, days or items/creatures/tiles.
+	internal static (int Current, int Goal) DisplayProgress(Player viewer, ResidentQuestDefinition definition, ResidentQuestProgress progress)
+	{
+		int current = definition.Kind is ResidentQuestKind.DeliverSupplies or ResidentQuestKind.Expedition or ResidentQuestKind.BannerCollection
+			? QuestInventoryCount(viewer, definition, progress) : progress.Progress;
+		current = Math.Clamp(current, 0, definition.Goal);
+		return definition.Kind switch
+		{
+			ResidentQuestKind.Observe or ResidentQuestKind.VisitBiome when definition.StoryKey.Length > 0 => (current / 60, Math.Max(1, definition.Goal / 60)),
+			ResidentQuestKind.Delayed => (current / PersonalResidentQuestCatalog.TicksPerDay, Math.Max(1, definition.Goal / PersonalResidentQuestCatalog.TicksPerDay)),
+			_ => (current, definition.Goal)
+		};
 	}
 }

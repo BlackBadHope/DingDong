@@ -16,7 +16,11 @@ namespace DingDongBiomeHomes;
 // only draws cached values (no per-frame allocations).
 internal static class BookUiText
 {
-	internal static string Get(string key) => Language.GetTextValue("Mods.DingDongBiomeHomes.Book." + key);
+	private const string Prefix = "Mods.DingDongBiomeHomes.Book.";
+	internal static string Get(string key) => Language.GetTextValue(Prefix + key);
+	internal static string Format(string key, params object[] args) => Language.GetTextValue(Prefix + key, args);
+	/// <summary>Text for an optional key (per-resident fallbacks); empty when the key does not exist.</summary>
+	internal static string Optional(string key) => Language.Exists(Prefix + key) ? Language.GetTextValue(Prefix + key) : string.Empty;
 }
 
 /// <summary>Profession glyph shown in the right column of a resident row (reference: leaf, gear, coins, heart, paw...).</summary>
@@ -103,8 +107,8 @@ internal sealed class BookItemGlyph : UIElement
 		CalculatedStyle d = GetDimensions();
 		float room = Math.Max(1f, Math.Min(maxSize, Math.Min(d.Width, d.Height)));
 		float scale = Math.Min(2f, room / Math.Max(frame.Width, frame.Height));
-		using (BookPixelSampler.Use(batch))
-			batch.Draw(texture, d.Center(), frame, tint, 0f, frame.Size() * .5f, scale, SpriteEffects.None, 0f);
+		// Queued into the book list's single point-sampled pass (no SpriteBatch restart per glyph).
+		BookPixelSampler.Draw(batch, texture, d.Center(), frame, tint, frame.Size() * .5f, scale);
 		if (IsMouseHovering && !string.IsNullOrEmpty(hover))
 			Main.hoverItemName = hover;
 	}
@@ -113,24 +117,39 @@ internal sealed class BookItemGlyph : UIElement
 /// <summary>Head of the player who carries the quest; nothing is drawn when that player is offline.</summary>
 internal sealed class BookPlayerHead : UIElement
 {
+	private readonly int playerIndex;
 	private readonly string playerName;
-	internal BookPlayerHead(string playerName) { this.playerName = playerName ?? ""; IgnoresMouseInteraction = true; }
-
-	protected override void DrawSelf(SpriteBatch batch)
+	internal BookPlayerHead(int playerIndex)
 	{
-		if (playerName.Length == 0)
-			return;
-		Player owner = null;
+		this.playerIndex = playerIndex;
+		playerName = playerIndex >= 0 && playerIndex < Main.maxPlayers ? Main.player[playerIndex]?.name ?? string.Empty : string.Empty;
+		IgnoresMouseInteraction = true;
+	}
+
+	/// <summary>Index of the performer: matched by the persistent quest identity, by name only as a fallback.</summary>
+	internal static int Find(string persistentId, string name)
+	{
+		int byName = -1;
 		for (int i = 0; i < Main.maxPlayers; i++)
 		{
 			Player candidate = Main.player[i];
-			if (candidate != null && candidate.active && string.Equals(candidate.name, playerName, StringComparison.Ordinal))
-			{
-				owner = candidate;
-				break;
-			}
+			if (candidate == null || !candidate.active)
+				continue;
+			if (!string.IsNullOrEmpty(persistentId) && candidate.TryGetModPlayer(out NpcQuestPlayer quests) && quests.PersistentId == persistentId)
+				return i;
+			if (byName < 0 && !string.IsNullOrEmpty(name) && string.Equals(candidate.name, name, StringComparison.Ordinal))
+				byName = i;
 		}
-		if (owner == null)
+		return byName;
+	}
+
+	protected override void DrawSelf(SpriteBatch batch)
+	{
+		if (playerIndex < 0 || playerIndex >= Main.maxPlayers)
+			return;
+		Player owner = Main.player[playerIndex];
+		// The slot may have been reused by another player since the page was built.
+		if (owner == null || !owner.active || !string.Equals(owner.name, playerName, StringComparison.Ordinal))
 			return;
 		CalculatedStyle d = GetDimensions();
 		try
@@ -152,7 +171,9 @@ internal sealed class BookSlotRow : UIElement
 	private readonly BookText main;
 	private readonly BookText sub;
 	private readonly BookProgressBar bar;
-	internal BookSlotRow(UIElement icon, string mainText, float mainScale, string subText = null, float progress = -1f)
+	private readonly BookText count;
+	private readonly float countWidth;
+	internal BookSlotRow(UIElement icon, string mainText, float mainScale, string subText = null, float progress = -1f, string countText = null)
 	{
 		Width.Set(0, 1); Height.Set(Slot + 8f, 0); SetPadding(4f);
 		this.icon = icon;
@@ -165,6 +186,13 @@ internal sealed class BookSlotRow : UIElement
 			bar = new BookProgressBar(progress);
 			bar.Height.Set(14f, 0);
 			Append(bar);
+			if (!string.IsNullOrEmpty(countText))
+			{
+				// Reference: "4 / 6" sits to the right of the objective bar, not inside the sentence.
+				count = new BookText(countText, .86f, ResidentBookJournal.Ink) { SingleLine = true };
+				countWidth = FontAssets.MouseText.Value.MeasureString(countText).X * .86f + 8f;
+				Append(count);
+			}
 		}
 		if (!string.IsNullOrEmpty(subText))
 		{
@@ -180,7 +208,13 @@ internal sealed class BookSlotRow : UIElement
 		float y = 2f;
 		main.Left.Set(left, 0); main.Width.Set(-left - 4f, 1); main.Top.Set(y, 0); main.Recalculate();
 		y += main.GetOuterDimensions().Height + 4f;
-		if (bar != null) { bar.Left.Set(left, 0); bar.Width.Set(-left - 8f, 1); bar.Top.Set(y, 0); y += 20f; }
+		if (bar != null)
+		{
+			float right = count != null ? countWidth + 6f : 0f;
+			bar.Left.Set(left, 0); bar.Width.Set(-left - 8f - right, 1); bar.Top.Set(y, 0);
+			if (count != null) { count.Left.Set(-countWidth - 4f, 1); count.Width.Set(countWidth, 0); count.Top.Set(y - 6f, 0); }
+			y += 20f;
+		}
 		if (sub != null) { sub.Left.Set(left, 0); sub.Width.Set(-left - 4f, 1); sub.Top.Set(y, 0); sub.Recalculate(); y += sub.GetOuterDimensions().Height; }
 		float content = Math.Max(Slot, y);
 		icon.Top.Set((content - (Slot - 8f)) * .5f, 0);
@@ -215,5 +249,29 @@ internal sealed class BookStoryBadge : UIElement
 		var text = new BookText(BookUiText.Get(main ? "MainStory" : "SideStory"), .84f, main ? DingDongUiTheme.Gold : ResidentBookJournal.Muted);
 		text.Left.Set(left, 0); text.Top.Set(3f, 0); text.Width.Set(-left, 1);
 		Append(text);
+	}
+}
+
+/// <summary>Chapter heading of the quest page: target glyph, stage title and a "Этап N из M · форма" line.</summary>
+internal sealed class BookChapterTitle : UIElement
+{
+	private readonly QuestTargetIcon icon;
+	private readonly BookText title, sub;
+	internal BookChapterTitle(int itemType, int npcType, string titleText, string subText)
+	{
+		Width.Set(0, 1); Height.Set(48, 0);
+		icon = new QuestTargetIcon(itemType, npcType, 40); icon.Width.Set(42, 0); icon.Height.Set(42, 0); Append(icon);
+		title = new BookText(titleText, 1.2f, ResidentBookJournal.Ink) { SingleLine = true, MinScale = .9f }; title.Left.Set(50, 0); title.Width.Set(-50, 1); Append(title);
+		sub = new BookText(subText, .7f, ResidentBookJournal.Muted) { SingleLine = true }; sub.Left.Set(50, 0); sub.Width.Set(-50, 1); Append(sub);
+	}
+
+	public override void Recalculate()
+	{
+		base.Recalculate();
+		title.Top.Set(0, 0); title.Recalculate();
+		float y = title.GetOuterDimensions().Height;
+		sub.Top.Set(y, 0); sub.Recalculate();
+		Height.Set(Math.Max(46f, y + sub.GetOuterDimensions().Height + 2f), 0);
+		base.Recalculate();
 	}
 }

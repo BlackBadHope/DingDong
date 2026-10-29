@@ -15,9 +15,10 @@ using Terraria.ModLoader.IO;
 namespace DingDongBiomeHomes;
 public sealed partial class NpcQuestWorldLedger
 {
-	public override void OnWorldUnload() => Records.Clear();
+	public override void OnWorldUnload() { Records.Clear(); ClearShared(); }
 	public override void SaveWorldData(TagCompound tag)
 	{
+		SaveShared(tag);
 		tag["ResidentQuestLedgerVersion"] = SaveVersion;
 		tag["ResidentQuestLedger"] = Records.Select(pair =>
 		{

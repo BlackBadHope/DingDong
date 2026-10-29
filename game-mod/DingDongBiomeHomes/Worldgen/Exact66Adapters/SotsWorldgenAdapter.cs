@@ -35,6 +35,9 @@ internal static partial class SotsWorldgenAdapter
 			"SOTS.WorldgenHelpers.PyramidWorldgenHelper", "GenerateSOTSPyramid", true,
 			typeof(void), typeof(Mod), typeof(bool), typeof(int), typeof(int),
 			typeof(int), typeof(int));
+		MethodInfo pyramidSite = Exact66ProviderGate.Method(provider,
+			"SOTS.WorldgenHelpers.PyramidWorldgenHelper", "DeterminePyramidLocation", true,
+			typeof(void), typeof(int), typeof(int), typeof(int));
 		MethodInfo flattenEvilBiome = Exact66ProviderGate.Method(provider,
 			"SOTS.WorldgenHelpers.AbandonedVillageWorldgenHelper", "FlattenEvilBiome",
 			true, typeof(void), typeof(int));
@@ -49,6 +52,7 @@ internal static partial class SotsWorldgenAdapter
 		Exact66ProviderGate.AssertIl(generateSapphire, GenerateSapphireHash);
 		Exact66ProviderGate.AssertIl(generateOre, GenerateOreHash);
 		Exact66ProviderGate.AssertIl(flattenEvilBiome, FlattenEvilBiomeHash);
+		Exact66ProviderGate.AssertIl(pyramidSite, PyramidSiteHash);
 		SotsGemPlacement.Bind(generateTopaz, generateSapphire);
 		hooks.Add(new Exact66ActionDisposable(Reset));
 		hooks.Add(new ILHook(ores, PatchOres));
@@ -56,6 +60,7 @@ internal static partial class SotsWorldgenAdapter
 		hooks.Add(new ILHook(topaz, PatchTopaz));
 		hooks.Add(new ILHook(sapphire, PatchSapphire));
 		hooks.Add(new ILHook(pyramid, PatchPyramidWidthTable));
+		hooks.Add(new ILHook(pyramidSite, PatchPyramidOceanSite));
 		hooks.Add(new ILHook(flattenEvilBiome, PatchFlattenEvilBiomeIndex));
 		hooks.Add(new ILHook(outlineEvilBiome, PatchAbandonedVillageScan));
 		InstallAbandonedMineGuard(provider, hooks);

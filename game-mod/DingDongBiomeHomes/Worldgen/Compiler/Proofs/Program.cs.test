@@ -1,0 +1,70 @@
+using DingDongBiomeHomes.Worldgen.Compiler;
+using DingDongBiomeHomes.Worldgen.Compiler.Runtime;
+using Terraria;
+using Terraria.ID;
+
+int checks = 0;
+void Require(bool value, string text) { checks++; if (!value) throw new Exception(text); }
+TempleAnchorFixture.Verify(Require);
+Require(WorldCompilerChestPrimaryPolicy.Restore("jungle", 10, 52, 211, true), "Native FTW substitution not recognized.");
+Require(!WorldCompilerChestPrimaryPolicy.Restore("jungle", 10, 52, 211, false), "Non-FTW contents repaired.");
+Require(!WorldCompilerChestPrimaryPolicy.Restore("dungeon", 2, 52, 211, true), "Other chest family repaired.");
+Require(!WorldCompilerChestPrimaryPolicy.Restore("jungle", 1, 52, 211, true), "Wrong native style repaired.");
+Require(!WorldCompilerChestPrimaryPolicy.Restore("jungle", 10, 53, 211, true), "Unknown content mismatch repaired.");
+Require(!WorldCompilerChestPrimaryPolicy.Restore("jungle", 10, 52, 52, true), "Unchanged contents reported as repaired.");
+Require(!WorldCompilerChestPrimaryPolicy.Restore("jungle", 10, 52, 0, true), "Empty primary repaired.");
+var bands = new[] { new WorldCompilerBand(0, 1024, WorldCompilerBiome.TemperateForest) };
+var surface = WorldCompilerSurfaceProfile.Create(1024, 1200, 42, bands);
+WorldCompilerRoom[] rooms = [
+	new(0, WorldCompilerStructureKind.DungeonRoom, new(100, 350, 32, 24)),
+	new(1, WorldCompilerStructureKind.DungeonRoom, new(270, 420, 32, 24)),
+	new(2, WorldCompilerStructureKind.DungeonRoom, new(390, 345, 32, 24)),
+	new(3, WorldCompilerStructureKind.TempleRoom, new(700, 780, 44, 30)),
+	new(4, WorldCompilerStructureKind.TempleRoom, new(820, 880, 44, 30))];
+WorldCompilerCorridor[] corridors = [new(0, 1, 5), new(1, 2, 7), new(3, 4, 5)];
+WorldCompilerPlan Plan(int chunkWidth) => new(1024, 1200, 42, bands, surface,
+	WorldCompilerChunkPartitioner.Create(1024, chunkWidth), null,
+	new(rooms, corridors, 1), null, null, null, [], 1);
+bool Open(int x, int y) => !Main.tile[x, y].HasTile || Main.tile[x, y].TileType == TileID.Rope;
+
+string Raster(int chunkWidth)
+{
+	Main.tile = new();
+	WorldCompilerPlan plan = Plan(chunkWidth);
+	WorldCompilerRuntimeState.WorkIndex = WorldCompilerRuntimeWorkIndex.BuildStructures(plan);
+	WorldCompilerStructureRasterizer.Generate(plan);
+	foreach (WorldCompilerCorridor corridor in corridors)
+	{
+		var from = rooms[corridor.From]; var to = rooms[corridor.To];
+		Require(WorldCompilerPathContract.TryValidate(new(from.CenterX, from.CenterY,
+			to.CenterX, to.CenterY), Open, out var blocked), $"Door/elbow/room blocked {blocked.X},{blocked.Y}");
+	}
+	foreach (var access in WorldCompilerAccessPlan.Create(surface, rooms))
+		Require(WorldCompilerPathContract.TryValidate(new(access.X, access.Top,
+			access.TargetX, access.Bottom, true), Open, out var blocked), $"Access blocked {blocked.X},{blocked.Y}");
+	ulong hash = 1469598103934665603UL;
+	foreach (var pair in Main.tile.Cells.OrderBy(p => p.Key.X).ThenBy(p => p.Key.Y))
+	{
+		hash = (hash ^ (uint)pair.Key.X) * 1099511628211UL;
+		hash = (hash ^ (uint)pair.Key.Y) * 1099511628211UL;
+		hash = (hash ^ pair.Value.TileType ^ ((ulong)pair.Value.WallType << 16) ^
+			(pair.Value.HasTile ? 1UL << 40 : 0)) * 1099511628211UL;
+	}
+	return hash.ToString("X16");
+}
+Require(Raster(256) == Raster(41), "Chunk-width changed rasterized structure geometry.");
+var path = new WorldCompilerWalkPath(rooms[0].CenterX, rooms[0].CenterY, rooms[1].CenterX, rooms[1].CenterY);
+Main.tile[rooms[0].Bounds.Right - 1, rooms[0].CenterY].HasTile = true;
+Main.tile[rooms[0].Bounds.Right - 1, rooms[0].CenterY].TileType = TileID.BlueDungeonBrick;
+Require(!WorldCompilerPathContract.TryValidate(path, Open, out _), "Validator missed re-sealed original doorway.");
+Require(WorldCompilerPathContract.Connected(0, new[] { 0, 1, 2 }, new[] { (0, 1), (1, 2) }), "Connected graph rejected.");
+Require(!WorldCompilerPathContract.Connected(0, new[] { 0, 1, 2 }, new[] { (0, 1) }), "Disconnected graph accepted.");
+foreach (ulong seed in new ulong[] { 0, 1, 42, 12345, 0xD1A6D0A6B10C0DEUL })
+{
+	WorldCompilerPlan plan = WorldCompilerPlanBuilder.Build(28000, 7200, seed);
+	Require(plan.Structures.Rooms.Count(r => r.Kind == WorldCompilerStructureKind.HiveChamber) == 6, "Hive obligations missing.");
+	Require(plan.Structures.Rooms.Count(r => r.Kind == WorldCompilerStructureKind.EvilShrine) == 8, "Evil obligations missing.");
+	Require(plan.Structures.Rooms.Count(r => r.Kind == WorldCompilerStructureKind.UnderworldForge) == 12, "Forge obligations missing.");
+	Require(WorldCompilerAccessPlan.Create(plan.Surface, plan.Structures.Rooms).Length == 2, "Access obligations missing.");
+}
+Console.WriteLine($"DINGDONG_PROGRESSION_GEOMETRY_FIXTURE|verdict=PASS|checks={checks}|realRasterizer=True|chunkWidths=256,41|worldPlans=5|gameRuntime=False");

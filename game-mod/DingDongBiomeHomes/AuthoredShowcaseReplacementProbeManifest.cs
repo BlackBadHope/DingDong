@@ -25,5 +25,19 @@ public static class AuthoredShowcaseReplacementProbeManifest
 		int width,
 		int height,
 		AuthoredPlacementMode placementMode,
-		PresetRole roles) => PublicHomeReplacementCatalog.Create(id, width, height, placementMode, roles);
+		PresetRole roles) => new(
+		id,
+		$"Structures/PrivateHome/Aegis8Showcase/{fileName}.shstruct",
+		width,
+		height,
+		null,
+		0,
+		"TerraMonolith",
+		AuthoredPresetCatalog.Aegis8Source,
+		$"wld-sha256:{AuthoredPresetCatalog.Aegis8WorldSha256}",
+		AuthoredPresetCatalog.PrivateHomeLicense,
+		roles | PresetRole.PrivateHome,
+		placementMode,
+		false,
+		false);
 }

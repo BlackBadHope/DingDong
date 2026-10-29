@@ -17,12 +17,14 @@ using Terraria.UI;
 namespace DingDongBiomeHomes;
 internal sealed class QuestTargetIcon : UIElement
 {
-	private const float MaxIconSize = 44f;
+	private readonly float MaxIconSize;
+    private readonly bool upscale;
 	private readonly int itemType;
 	private readonly int npcType;
-	internal QuestTargetIcon(int itemType, int npcType)
+	internal QuestTargetIcon(int itemType, int npcType, float maxSize = 44f, bool upscale = false)
 	{
-		this.itemType = itemType;
+		this.MaxIconSize=maxSize;this.upscale=upscale;
+        this.itemType = itemType;
 		this.npcType = npcType;
 	}
 
@@ -41,10 +43,13 @@ internal sealed class QuestTargetIcon : UIElement
 		}
 		else if (npcType > NPCID.None && npcType < TextureAssets.Npc.Length)
 		{
+            if(!ResidentPortraitCatalog.TryFrame(npcType,out texture,out frame))
+            {
 			Main.instance.LoadNPC(npcType);
 			texture = TextureAssets.Npc[npcType].Value;
 			int frameCount = Math.Max(1, Main.npcFrameCount[npcType]);
 			frame = new Rectangle(0, 0, texture.Width, Math.Max(1, texture.Height / frameCount));
+            }
 			hoverText = ContentSamples.NpcsByNetId.TryGetValue(npcType, out NPC sample) ? sample.FullName : Lang.GetNPCNameValue(npcType);
 		}
 		else
@@ -56,9 +61,10 @@ internal sealed class QuestTargetIcon : UIElement
 		Vector2 center = new(dimensions.X + dimensions.Width * 0.5f, dimensions.Y + dimensions.Height * 0.5f);
 		Vector2 origin = new(frame.Width * 0.5f, frame.Height * 0.5f);
 		// Respect the actual slot (rewards are smaller than quest portraits); never upscale pixel art.
-		float available = Math.Max(1f, Math.Min(MaxIconSize, Math.Min(dimensions.Width, dimensions.Height) - 4f));
-		float scale = Math.Min(1f, Math.Min(available / frame.Width, available / frame.Height));
-		spriteBatch.Draw(texture, center, frame, Color.White, 0f, origin, scale, SpriteEffects.None, 0f);
+		float availableWidth = Math.Max(1f,Math.Min(MaxIconSize,dimensions.Width-4f));
+        float availableHeight = Math.Max(1f,Math.Min(MaxIconSize,dimensions.Height-4f));
+        float scale = Math.Min(upscale?4f:1f,Math.Min(availableWidth/frame.Width,availableHeight/frame.Height));
+		BookPixelSampler.Draw(spriteBatch, texture, center, frame, Color.White, origin, scale);
 		if (IsMouseHovering)
 			Main.hoverItemName = hoverText;
 	}

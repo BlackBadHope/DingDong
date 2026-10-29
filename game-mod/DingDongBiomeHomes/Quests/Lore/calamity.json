@@ -1,0 +1,977 @@
+{
+ "format": "dingdong-lore-node-v1",
+ "node": "calamity",
+ "nodePage": {
+  "title": {
+   "ru": "Пепел старой войны",
+   "en": "Ashes of the old war"
+  },
+  "body": {
+   "ru": "Задолго до того, как мир произнёс первое слово, над Террарией уже спорили, какой ей быть. Ярим называл это справедливостью, Провиденс — очищением, Дрейдон — прогрессом. Тот спор вели боги и их убийцы, и пеплом от него до сих пор пахнут Порча, Багрянец и отравленный берег у Бездны.\n\nЖители этого узла пережили ту войну или выросли в её тени. Архимаг когда-то служил Тирану советом и ушёл от него, Каламитас была его оружием, воровку разыскивают в семи городах, а Тиран джунглей громко передразнивает настоящего. Рядом с ними — ясновидящая, молчун из шахты и ведьма, которая рифмует рецепты ядов. Когда соседи спорят, подрезать мир, растить его или помнить, эти люди слушают молча: они уже видели, чем кончается, когда кто-то один решает, что значит «лучше». Их истории не о богах. Они о цене порядка, о взятом взаймы, о шутке над властью, о пророчестве, тишине и зелье, которое лучше не пить.",
+   "en": "Long before the world spoke its first word, Terraria was already being argued over. Yharim called it justice, Providence called it purification, Draedon called it progress. That argument was fought by gods and the ones who killed them, and its ash still lingers in the Corruption, the Crimson and the poisoned shore by the Abyss.\n\nThe residents of this node survived that war or grew up in its shadow. The Archmage once advised the Tyrant and walked away, Calamitas was his weapon, the thief is wanted in seven cities, and the Jungle Tyrant loudly mocks the real one. Beside them live a seer, a silent miner and a witch who rhymes her poison recipes. When the neighbours argue whether to prune the world, grow it or remember it, these people listen in silence: they have already seen how it ends when one person decides what “better” means. Their stories are not about gods. They are about the price of order, things borrowed, a joke at power’s expense, a prophecy, silence, and a potion best left undrunk."
+  }
+ },
+ "residents": [
+  {
+   "npcKey": "CalamityMod/Archmage",
+   "force": "gardeners",
+   "epithet": {
+    "ru": "Тот, кто знает цену порядку",
+    "en": "One who knows the price of order"
+   },
+   "quote": {
+    "ru": "Лёд хорош тем, что держит форму. И плох ровно тем же.",
+    "en": "Ice is good because it holds its shape. And bad for exactly the same reason."
+   },
+   "intro": {
+    "ru": "Пермафрост — архимаг, когда-то бывший советником Ярима и ушедший, когда справедливость Тирана стала тиранией. Годы во льду собственного замка научили его, что опасную силу можно сдержать, но платит за это всегда кто-то живой. Пустые резиденции его тревожат: дом, построенный «под кого-то», — это приглашение, и он хочет знать, чьё. В споре сил он садовник, но садовник усталый: подрезать, чтобы спасти, а не чтобы властвовать.",
+    "en": "Permafrost is an archmage who once advised Yharim and walked away when the Tyrant’s justice turned into tyranny. Years inside the ice of his own castle taught him that dangerous power can be contained, but someone living always pays for it. The empty residences worry him: a house built “for someone” is an invitation, and he wants to know whose. In the dispute of forces he is a gardener, but a tired one: prune to save, not to rule."
+   },
+   "findHint": {
+    "ru": "Приходит после победы над Криогеном. По его словам, он много лет провёл во льду собственного замка и отвык от солнца.",
+    "en": "Arrives after Cryogen is defeated. He says he spent many years inside the ice of his own castle and has grown unused to the sun."
+   },
+   "epilogue": {
+    "ru": "Кристалл в мастерской Пермафроста больше не растёт: архимаг остановил его сам, на той высоте, которую счёл честной. Порядок, сказал он {player}, — не то, что навязываешь миру, а то, за что сам готов платить. Теперь в тёплые дни он иногда открывает окно. Говорит, что для опытов. Каламитас уверяет, что такого не случалось много лет.",
+    "en": "The crystal in Permafrost’s workshop no longer grows: the archmage stopped it himself, at the height he judged honest. Order, he told {player}, is not something you impose on the world but something you are willing to pay for yourself. On warm days he now sometimes opens the window. For his experiments, he says. Calamitas insists that has not happened in years."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Лёд для опытов",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Здешнее солнце портит всё, что наколдовывает Пермафрост. Ему нужен настоящий, природный лёд, чтобы понять, как этот край держит холод без чужой магии.",
+      "en": "The sun here ruins everything Permafrost conjures. He needs real, natural ice to learn how this land holds the cold without anyone’s magic."
+     },
+     "offer": {
+      "ru": "Мои создания тают раньше, чем я успеваю их изучить. Принесите мне настоящего льда, {player}, — не наколдованного.",
+      "en": "My creations melt before I can study them. Bring me real ice, {player}, not the conjured kind."
+     },
+     "complete": {
+      "ru": "Плотный, без трещин. Значит, холод здесь ещё помнит, каким должен быть. Хорошо.",
+      "en": "Dense, without a crack. So the cold here still remembers what it ought to be. Good."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Тишина снегов",
+     "kind": "Visit",
+     "description": {
+      "ru": "Архимаг хочет знать, изменились ли снега после того, как мир вырос. Побудь в снежном краю подольше: там рост мира слышен яснее всего.",
+      "en": "The Archmage wants to know whether the snows changed after the world grew. Stay in the snowlands for a while: that is where the world’s growth is heard most clearly."
+     },
+     "offer": {
+      "ru": "В снегах мир говорит тише всего. Побудьте там и скажите мне, слышно ли, как он растёт.",
+      "en": "In the snow the world speaks most quietly. Spend some time there and tell me whether you can hear it growing."
+     },
+     "complete": {
+      "ru": "Слышно, значит. Лёд трещит не от мороза — его распирает изнутри. Этого я и боялся.",
+      "en": "So it can be heard. The ice is not cracking from frost; it is being pushed apart from within. That is what I feared."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Холодная голова",
+     "kind": "Trial",
+     "description": {
+      "ru": "Ледяных слизней когда-то зачаровал сам Пермафрост, чтобы спрятать силу тундры от Тирана. Теперь они бродят по снегам без хозяина. Разбей их и не дай их холоду сковать тебя ни разу.",
+      "en": "Permafrost himself once enchanted the ice slimes to hide the tundra's power from the Tyrant. Now they roam the snow masterless. Shatter them, and don't let their cold seize you even once."
+     },
+     "offer": {
+      "ru": "Это мои создания, {player}. Я спрятал их от Ярима и не прибрал за собой. Сдержать — значит не поддаться их холоду.",
+      "en": "These are my creations, {player}. I hid them from Yharim and never cleaned up after. To contain is to not yield to their cold."
+     },
+     "complete": {
+      "ru": "Холодная голова — редкость. У моей ученицы она тоже была. Надеюсь, тебе повезёт больше.",
+      "en": "A cool head is rare. My student had one too. I hope you fare better than she did."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Что заморозить",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Пермафрост однажды уже видел, как один человек решил за весь мир, что ему лучше. Теперь он спрашивает тебя, остановить ли рост мира, пока тот не сломал собственные берега.",
+      "en": "Permafrost has already seen one man decide for the whole world what was better for it. Now he asks you whether to halt the world’s growth before it breaks its own shores."
+     },
+     "offer": {
+      "ru": "Я могу сковать край мира льдом. Не навсегда, но надолго. Скажите честно: стоит ли?",
+      "en": "I can bind the edge of the world in ice. Not forever, but for a long time. Tell me honestly: should I?"
+     },
+     "complete": {
+      "ru": "Вы ответили. Я запомню и сам ответ, и то, как быстро вы решились.",
+      "en": "You have answered. I will remember both the answer and how quickly you gave it."
+     },
+     "waiting": null,
+     "choices": {
+      "freeze": {
+       "outcome": {
+        "ru": "Пермафрост кивает без радости: сдерживать так сдерживать. Но за каждый скованный берег, говорит он, заплатит тот, кто на нём жил.",
+        "en": "Permafrost nods without joy: containment it is. But every frozen shore, he says, will be paid for by whoever lived on it."
+       },
+       "lean": "gardeners"
+      },
+      "thaw": {
+       "outcome": {
+        "ru": "Архимаг долго молчит, потом гасит заклинание. Он не согласен, но уважает того, кто готов жить в растущем мире, а не в застывшем.",
+        "en": "The Archmage is silent for a long time, then lets the spell go out. He disagrees, but respects someone willing to live in a growing world rather than a frozen one."
+       },
+       "lean": "tiders"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Кристалл растёт",
+     "kind": "Delayed",
+     "description": {
+      "ru": "Архимаг вырастил кристалл, который покажет, как мир отозвался на твой ответ. Расти он будет не один день, а торопить лёд бесполезно.",
+      "en": "The Archmage has grown a crystal that will show how the world answered your choice. It will take more than a day to grow, and there is no hurrying ice."
+     },
+     "offer": {
+      "ru": "Кристалл покажет, что мир сделал с вашим словом. Ждите. Лёд не любит, когда его торопят.",
+      "en": "The crystal will show what the world did with your word. Wait. Ice does not like to be rushed."
+     },
+     "complete": {
+      "ru": "Вырос. Ровный, без единой трещины. Возьмите — и помните, что всякая ровность чего-то стоит.",
+      "en": "It has grown. Even, without a single crack. Take this, and remember that every kind of evenness costs something."
+     },
+     "waiting": {
+      "ru": "Кристалл растёт медленно и ровно. Пермафрост проверяет его каждое утро.",
+      "en": "The crystal grows slowly and evenly. Permafrost checks on it every morning."
+     },
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "CalamityMod/Bandit",
+   "force": "tiders",
+   "epithet": {
+    "ru": "Одалживает до самой смерти",
+    "en": "Borrows until her dying day"
+   },
+   "quote": {
+    "ru": "Всё на свете взято взаймы. Я просто единственная, кто говорит об этом честно.",
+    "en": "Everything in this world is on loan. I’m just the only one honest enough to say so."
+   },
+   "intro": {
+    "ru": "Воровка, которую разыскивают в семи городах-государствах, и, по её словам, совершенно зря: она ничего не крадёт, а лишь одалживает до конца жизни. Выросший мир для неё — непочатый склад: новые тайники, новые сундуки и новые хозяева, которые ещё не знают, что они хозяева. Пустые резиденции она осматривает первой. Приливница не по убеждению, а по ремеслу: чем больше мир, тем легче в нём исчезнуть.",
+    "en": "A thief wanted in seven city-states, and wrongly so, by her account: she never steals, she only borrows until the end of her life. The grown world is an untouched warehouse to her: new caches, new chests and new owners who do not yet know they own anything. She is the first to look over the empty residences. A tider by trade rather than conviction: the bigger the world, the easier it is to vanish in it."
+   },
+   "findHint": {
+    "ru": "Заглядывает в город после победы над Скелетроном, если у тебя в кармане звенит платиновая монета.",
+    "en": "Drops by the town after Skeletron is defeated, as long as a platinum coin is jingling in your pocket."
+   },
+   "epilogue": {
+    "ru": "Тайник воровки по-прежнему где-то за городом, и {player} по-прежнему не знает где. Зато теперь она оставляет на пороге то, что «нашла», и иногда это даже твоё. Розыск в семи городах никуда не делся, но здесь, кажется, её считают своей. Она делает вид, что ей всё равно, и у неё почти получается.",
+    "en": "The thief’s cache is still somewhere outside town, and {player} still does not know where. But now she leaves things she “found” on the doorstep, and sometimes they are even yours. The warrants in seven cities have not gone anywhere, yet here she seems to be counted as one of the town. She pretends not to care, and almost pulls it off."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Доля из тайника",
+     "kind": "Expedition",
+     "description": {
+      "ru": "Воровка уверена: в сундуках, которые мир разложил, когда вырос, лежит то, что никто ещё не успел присвоить. Добудь зелье для дыхания под водой именно из такого тайника — купленное или сваренное не считается.",
+      "en": "The thief is sure the chests the world scattered when it grew hold things nobody has claimed yet. Get a water-breathing potion from exactly such a cache; bought or brewed ones do not count."
+     },
+     "offer": {
+      "ru": "Мир вырос и разложил по углам сундуки, которые никому не принадлежат. Пока. Принеси мне долю из такого.",
+      "en": "The world grew and left chests in its corners that belong to no one. Yet. Bring me a cut from one of those."
+     },
+     "complete": {
+      "ru": "Ни одного отпечатка, кроме твоих. Свеженькое, как сам мир. Держи свою часть, я честная.",
+      "en": "Not a fingerprint on it but yours. Fresh as the world itself. Here’s your share; I’m an honest woman."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Долг",
+     "kind": "Hunt",
+     "description": {
+      "ru": "По ночам в округе бродят мертвецы, и воровка утверждает, что добрая половина из них ушла в могилу, не расплатившись с ней. Помоги ей закрыть старые счета.",
+      "en": "The dead walk the countryside at night, and the thief claims a good half of them went to their graves without settling up with her. Help her close the old accounts."
+     },
+     "offer": {
+      "ru": "Видишь того, в рваном камзоле? Должен мне. И вон тот тоже. Мёртвые — те же должники, просто неудобные.",
+      "en": "See that one in the torn coat? He owes me. That one too. The dead are debtors like anyone else, just inconvenient ones."
+     },
+     "complete": {
+      "ru": "Вот и в расчёте. С мёртвыми проще: они не жалуются страже ни в одном из семи городов.",
+      "en": "Now we’re square. The dead are easier: they don’t complain to the guards in any of the seven cities."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Чужая добыча",
+     "kind": "Observe",
+     "description": {
+      "ru": "Мёртвый шахтёр бродит по пещерам и до сих пор не вернул то, что выкопал. Воровка хочет узнать, где он прячет добычу. Проследи за ним вблизи и не поднимай оружия.",
+      "en": "A dead miner wanders the caves and still hasn't returned what he dug up. The thief wants to learn where he stashes it. Tail him up close and don't raise a weapon."
+     },
+     "offer": {
+      "ru": "Первое правило ремесла: смотри, не трогай. Этот покойник копил всю жизнь. Узнай где.",
+      "en": "First rule of the trade: look, don't touch. That dead man hoarded his whole life. Find out where."
+     },
+     "complete": {
+      "ru": "Ходит кругами и прячет всё в каску? Гениально. Я его почти уважаю.",
+      "en": "Walks in circles and hides it all in his helmet? Genius. I almost respect him."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Хранилище данжа",
+     "kind": "Expedition",
+     "description": {
+      "ru": "Самый старый замок мира — золотые сундуки данжа, которые не открывали с тех пор, как мир сложился. Воровка хочет большое дело: добудь вещь именно из такого сундука.",
+      "en": "The oldest lock in the world: the Dungeon's golden chests, unopened since the world took shape. The thief wants the big job: bring a thing taken from exactly such a chest."
+     },
+     "offer": {
+      "ru": "Мелочь была разминкой, {player}. Теперь — данж. Там лежит то, что веками никто не брал взаймы.",
+      "en": "The small stuff was a warm-up, {player}. Now, the Dungeon. Things there haven't been borrowed in centuries."
+     },
+     "complete": {
+      "ru": "Ох, тут больше, чем я рассчитывала. Гораздо больше. Нам надо поговорить.",
+      "en": "Oh, that's more than I counted on. Much more. We need to talk."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 4,
+     "titleRu": "Чьё золото",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Хранилище данжа дало больше, чем воровка рассчитывала, и ей вдруг нужен чужой совет. Реши, что делать с добычей: поделить честно или забрать всё, пока дают.",
+      "en": "The Dungeon vault gave more than the thief bargained for, and suddenly she needs someone else's advice. Decide what to do with the haul: split it fair, or take it all while it's offered."
+     },
+     "offer": {
+      "ru": "Здесь золота хватит на двоих. Или на одного, если не делиться. Говори прямо, {player}: что делаем?",
+      "en": "There's enough gold here for two. Or for one, if nobody shares. Tell me straight, {player}: what do we do?"
+     },
+     "complete": {
+      "ru": "Ладно. Посмотрим, кто из нас дольше проживёт с этим решением.",
+      "en": "Fine. We'll see which of us lives longer with that decision."
+     },
+     "waiting": null,
+     "choices": {
+      "split": {
+       "outcome": {
+        "ru": "Она дважды пересчитывает монеты и делит ровно пополам, ворча, что честный делёж — тот же порядок, только кошельку больнее.",
+        "en": "She counts the coins twice and splits them exactly in half, grumbling that a fair split is just order by another name, only harder on the purse."
+       },
+       "lean": "gardeners"
+      },
+      "take": {
+       "outcome": {
+        "ru": "Она сгребает всё в мешок и смеётся: мир растёт, золото в нём не кончится, а дают такое не каждый день.",
+        "en": "She sweeps it all into a sack and laughs: the world keeps growing, the gold will never run out, and chances like this are not offered every day."
+       },
+       "lean": "tiders"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "npcKey": "CalamityMod/BrimstoneWitch",
+   "force": "unassigned",
+   "epithet": {
+    "ru": "Ведьма, которая больше не служит",
+    "en": "The witch who serves no more"
+   },
+   "quote": {
+    "ru": "Я не прошу прощения. Я прошу времени, чтобы стать той, кого можно простить.",
+    "en": "I’m not asking for forgiveness. I’m asking for time to become someone who could be forgiven."
+   },
+   "intro": {
+    "ru": "Каламитас была главным оружием Ярима и ученицей Пермафроста, пока груз содеянного не оказался тяжелее приказов. Теперь она живёт в городе и пытается понять, кем быть без войны. Спор соседей о «лучшем» мире её пугает: однажды она уже жгла во имя чужого «лучше». Пустой дом для неё не загадка, а шанс, которого она, по собственному мнению, не заслужила.",
+    "en": "Calamitas was Yharim’s greatest weapon and Permafrost’s student, until the weight of what she had done grew heavier than her orders. Now she lives in town and is trying to work out who to be without a war. The neighbours’ argument about a “better” world frightens her: she has burned in the name of someone else’s “better” before. An empty house is no mystery to her, but a chance she does not believe she has earned."
+   },
+   "findHint": {
+    "ru": "Поселяется в городе после победы над Верховной ведьмой Каламитас. В старые покои Тирана она возвращаться не собирается.",
+    "en": "Settles in town after the Supreme Witch, Calamitas, is defeated. She has no intention of returning to the Tyrant’s old halls."
+   },
+   "epilogue": {
+    "ru": "Пепел остыл. Каламитас посадила у дома серные цветы и поливает их по утрам, ругаясь на каждый лепесток. Она не стала другой — она осталась собой, только без хозяина. Это не искупление, говорит она, и не прощение. Это просто первый год, когда никто не горел по её вине.",
+    "en": "The ash has cooled. Calamitas planted brimstone flowers by her house and waters them every morning, cursing at every petal. She has not become someone else; she has stayed herself, only without a master. It is not redemption, she says, and not forgiveness. It is simply the first year in which no one burned because of her."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Те, кто видел",
+     "kind": "Observe",
+     "description": {
+      "ru": "Каламитас не может вернуться к серным скалам: там бродят скриллары, духи погибших в её битве с элементалем. Побудь среди них и не бей — кто-то должен посмотреть на них без огня.",
+      "en": "Calamitas can't go back to the Brimstone Crag: scryllars roam there, spirits of those who died in her battle with the elemental. Stand among them and don't strike. Someone must look at them without fire."
+     },
+     "offer": {
+      "ru": "Я сжигала всё, на что смотрела. На них я смотреть не могу. Посмотри ты, {player}. Без огня.",
+      "en": "I burned everything I looked at. I can't look at them. You look, {player}. Without fire."
+     },
+     "complete": {
+      "ru": "Они просто ходят? Не мстят? Хуже, чем я думала. Месть была бы честнее.",
+      "en": "They just wander? No vengeance? Worse than I thought. Vengeance would be more honest."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Застывшая сера",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Ей нужен очаг, который удержит серное пламя и не выпустит его. Серный шлак — огонь, застывший навсегда; из него выйдет лучшая клетка для такого огня.",
+      "en": "She needs a hearth that will hold brimstone flame and never let it out. Brimstone slag is fire that set solid for good: the best cage for such a flame."
+     },
+     "offer": {
+      "ru": "Шлак со скал — это огонь, который сдался. Принеси его. Я сложу очаг, из которого мой огонь не уйдёт.",
+      "en": "Slag from the Crag is fire that gave up. Bring it. I'll build a hearth my flame can't escape."
+     },
+     "complete": {
+      "ru": "Холодный на ощупь, а внутри помнит всё. Как я. Спасибо.",
+      "en": "Cold to the touch, and it remembers everything inside. Just like me. Thank you."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Ловцы, которых она бросила",
+     "kind": "Trial",
+     "description": {
+      "ru": "Душеглоты — ранние ловцы душ, которых Каламитас призвала в бою с элементалем и не удержала. Разбей их, ни разу не загоревшись серным пламенем: победи её огонь без её огня.",
+      "en": "Soul slurpers are the early soul seekers Calamitas summoned against the elemental and failed to hold. Destroy them without once catching brimstone flame: beat her fire without her fire."
+     },
+     "offer": {
+      "ru": "Они мои. Сбежали, когда я ещё не умела держать поводок. Закончи это — и не загорись.",
+      "en": "They're mine. They slipped away before I learned to hold the leash. Finish it, and don't catch fire."
+     },
+     "complete": {
+      "ru": "Ни искры. Значит, можно. Жаль, никто не показал мне раньше, когда это ещё что-то меняло.",
+      "en": "Not a spark. So it can be done. I wish someone had shown me sooner, back when it could still have changed something."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Прощение",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Соседи шепчутся о том, кем она была, и Каламитас спрашивает прямо, как ты будешь к ней относиться. Правильного ответа здесь нет — есть только твой.",
+      "en": "The neighbours whisper about who she used to be, and Calamitas asks you outright how you will treat her. There is no right answer here, only yours."
+     },
+     "offer": {
+      "ru": "Все в городе знают, кем я была. Мне нужно знать, кем я буду для тебя. Отвечай честно, я пойму.",
+      "en": "Everyone in town knows what I was. I need to know what I’ll be to you. Answer honestly; I’ll understand."
+     },
+     "complete": {
+      "ru": "Ладно. Это честнее, чем я ожидала.",
+      "en": "All right. That’s more honest than I expected."
+     },
+     "waiting": null,
+     "choices": {
+      "forgive": {
+       "outcome": {
+        "ru": "Каламитас отворачивается, пряча лицо. Прошлое никуда не исчезает, но она впервые слышит, что оно — не приговор.",
+        "en": "Calamitas turns away so you cannot see her face. The past does not disappear, but for the first time she hears that it is not a sentence."
+       },
+       "lean": "none"
+      },
+      "watch": {
+       "outcome": {
+        "ru": "Она кивает почти с облегчением: присмотр — та же память, а помнить, кем она была, Каламитас и сама считает своим долгом.",
+        "en": "She nods, almost relieved: watchfulness is a kind of memory, and remembering what she was is a duty Calamitas has already taken on herself."
+       },
+       "lean": "archivists"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Пепел остывает",
+     "kind": "Delayed",
+     "description": {
+      "ru": "Каламитас гасит старый очаг, в котором держала пламя со времён войны. Пепел должен остыть сам: если его раздуть, всё начнётся снова.",
+      "en": "Calamitas puts out the old hearth where she has kept a flame since the war. The ash must cool on its own: fan it, and everything starts again."
+     },
+     "offer": {
+      "ru": "Я погасила последний огонь, который принесла с той войны. Не подходи пару дней. Пусть остынет сам.",
+      "en": "I’ve put out the last fire I brought back from that war. Stay away for a couple of days. Let it cool on its own."
+     },
+     "complete": {
+      "ru": "Остыл. Совсем. Я думала, будет больно, а стало просто тихо.",
+      "en": "It’s cold. Completely. I thought it would hurt. It just went quiet."
+     },
+     "waiting": {
+      "ru": "Пепел ещё тёплый. Каламитас сидит рядом и не прикасается к нему.",
+      "en": "The ash is still warm. Calamitas sits beside it and does not touch it."
+     },
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "CalValEX/Jharim",
+   "force": "tricksters",
+   "epithet": {
+    "ru": "Единственный настоящий тиран",
+    "en": "The one and only true tyrant"
+   },
+   "quote": {
+    "ru": "Склонись! Ну, хотя бы кивни. Ладно, просто не смейся. Хотя бы не так громко.",
+    "en": "Kneel! Well, at least nod. Fine, just don’t laugh. Or at least not so loudly."
+   },
+   "intro": {
+    "ru": "Джарим называет себя Великим Тираном джунглей и всерьёз считает Ярима жалким подражателем. Он громок, трусоват и абсурден, боится ведьмы, океана и почему-то Дрейдона, на которого кричит в небо. В споре сил он не участвует: он уверен, что все пустые резиденции построены для него, просто остальные жители об этом ещё не знают. Кривое зеркало любой власти: смотреть смешно, а потом почему-то не очень.",
+    "en": "Jharim calls himself the Great Jungle Tyrant and sincerely believes Yharim is a pathetic imitator. He is loud, cowardly and absurd, afraid of the witch, the ocean and, for some reason, Draedon, whom he shouts at the sky about. He takes no part in the dispute of forces: he is certain every empty residence was built for him and the other residents simply have not found out yet. A crooked mirror of all power: funny to look at, and then somehow less so."
+   },
+   "findHint": {
+    "ru": "Как он появляется в городе — секрет. Джарим называет это государственной тайной своей державы и, похоже, сам её не знает.",
+    "en": "How he turns up in town is a secret. Jharim calls it a state secret of his empire, and he does not seem to know it himself."
+   },
+   "epilogue": {
+    "ru": "Держава Джарима теперь занимает одну резиденцию, полторы грядки и яму, в которую он регулярно падает сам. Указы он вывешивает на дверях соседей, и соседи их коллекционируют. {player} числится в них то главным врагом, то почётным министром — смотря по погоде. Пожалуй, это самая безопасная власть в мире: над ней все смеются, и она это переживёт.",
+    "en": "Jharim’s empire now covers one residence, a garden bed and a half, and a pit he regularly falls into himself. He nails his decrees to the neighbours’ doors, and the neighbours collect them. {player} is listed in them as either arch-enemy or honorary minister, depending on the weather. It may be the safest power in the world: everyone laughs at it, and it will survive that."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Скипетр с жалом",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Джариму нужны жала шершней из джунглей — «для королевского скипетра». Скорее всего, для ловушки. Возможно, он и сам ещё не решил.",
+      "en": "Jharim needs hornet stingers from the jungle, “for the royal sceptre”. Most likely for a trap. Possibly he has not decided yet himself."
+     },
+     "offer": {
+      "ru": "Великий Тиран повелевает принести ему жала! Острые. Только не в руки, положи на стол. Осторожно!",
+      "en": "The Great Tyrant commands you to bring him stingers! Sharp ones. Not in my hands, put them on the table. Carefully!"
+     },
+     "complete": {
+      "ru": "Ай! Ой. Это была проверка верности. Ты справляешься, а я, кажется, укололся. Хьюк-хьюк.",
+      "en": "Ow! Oof. That was a test of loyalty. You’re passing it, and I think I pricked myself. Hyuck hyuck."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Охота в зарослях",
+     "kind": "Hunt",
+     "description": {
+      "ru": "Летучие мыши джунглей, по словам Джарима, шпионят на самозванца Ярима. Прореди их ряды, пока Тиран руководит операцией из-под кровати.",
+      "en": "The jungle bats, according to Jharim, are spies for that impostor Yharim. Thin their ranks while the Tyrant directs the operation from under his bed."
+     },
+     "offer": {
+      "ru": "Летучие мыши шпионят за мной для самозванца! Перебей их, а я буду командовать. Из укрытия. Стратегического.",
+      "en": "The bats are spying on me for the impostor! Wipe them out and I’ll give the orders. From cover. Strategic cover."
+     },
+     "complete": {
+      "ru": "Шпионская сеть разгромлена! Теперь Ярим ничего не узнает. Особенно про кровать.",
+      "en": "The spy ring is broken! Now Yharim will never find out a thing. Especially about the bed."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Ловушка на пиранью",
+     "kind": "Observe",
+     "description": {
+      "ru": "Джарим строит ловушку и хочет знать, как ведут себя пираньи. Понаблюдай за ними в водах джунглей, не трогая: Тиран назвал это научной экспедицией.",
+      "en": "Jharim is building a trap and wants to know how piranhas behave. Watch them in the jungle waters without touching them: the Tyrant has declared this a scientific expedition."
+     },
+     "offer": {
+      "ru": "Изучи пираний! Не лови, не бей — только смотри. Я бы сам, но вода на меня кричит. Всегда кричит.",
+      "en": "Study the piranhas! Don’t catch them, don’t hit them, just watch. I’d go myself, but the water yells at me. It always yells."
+     },
+     "complete": {
+      "ru": "Они кусаются? И всё? Тогда ловушка гениальна. Я положу их в… нет, это пока государственная тайна.",
+      "en": "They bite? That’s it? Then the trap is genius. I’ll put them in… no, that’s still a state secret."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Розыгрыш для города",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Тиран задумал объявить весь город своей державой и устроить жителям торжественную коронацию с сюрпризом. Реши, подыграть ли ему или остановить шутку, пока сюрприз никого не покалечил.",
+      "en": "The Tyrant plans to proclaim the whole town his empire and treat the residents to a solemn coronation with a surprise. Decide whether to play along or stop the joke before the surprise hurts someone."
+     },
+     "offer": {
+      "ru": "Сегодня ночью все проснутся подданными Джарима! Будут корона, указ и одна маленькая яма. Ты со мной?",
+      "en": "Tonight everyone will wake up as Jharim’s subjects! There’ll be a crown, a decree and one little pit. Are you with me?"
+     },
+     "complete": {
+      "ru": "Великий Тиран тебя услышал. И сделает по-своему. Хьюк-хьюк-хьюк!",
+      "en": "The Great Tyrant has heard you. And will do it his own way. Hyuck hyuck hyuck!"
+     },
+     "waiting": null,
+     "choices": {
+      "join": {
+       "outcome": {
+        "ru": "Город просыпается под указом о вечной власти Джарима и хохочет до обеда. Власть, над которой смеются, никому не страшна. Может, в этом и была шутка.",
+        "en": "The town wakes up under a decree of Jharim’s eternal rule and laughs until noon. Power that people laugh at frightens no one. Maybe that was the joke."
+       },
+       "lean": "tiders"
+      },
+      "stop": {
+       "outcome": {
+        "ru": "Ты засыпаешь яму до рассвета. Джарим дуется весь день, но коронует себя сам, при пустой площади, и никто не подворачивает ногу.",
+        "en": "You fill in the pit before dawn. Jharim sulks all day, but crowns himself in an empty square, and nobody twists an ankle."
+       },
+       "lean": "gardeners"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Ловушка сработает",
+     "kind": "Delayed",
+     "description": {
+      "ru": "Последняя ловушка Тирана взведена и ждёт ночи. Джарим уверен, что в неё попадётся самозванец Ярим. Подожди и узнай, кто попадётся на самом деле.",
+      "en": "The Tyrant’s last trap is set and waiting for night. Jharim is sure the impostor Yharim will fall into it. Wait and find out who actually does."
+     },
+     "offer": {
+      "ru": "Ловушка заряжена! Завтра в ней будет сидеть Ярим, и все узнают, кто здесь настоящий тиран!",
+      "en": "The trap is loaded! Tomorrow Yharim will be sitting in it, and everyone will know who the real tyrant is!"
+     },
+     "complete": {
+      "ru": "Это… не считается. Меня туда затянуло ветром. Вытащи Великого Тирана, и мы забудем этот день.",
+      "en": "This… doesn’t count. The wind blew me in. Pull the Great Tyrant out and we’ll forget this day ever happened."
+     },
+     "waiting": {
+      "ru": "Ловушка тихо ждёт. Джарим трижды её проверял и трижды едва не попался.",
+      "en": "The trap waits quietly. Jharim has checked it three times and nearly fallen in three times."
+     },
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "CalValEX/OracleNPC",
+   "force": "archivists",
+   "epithet": {
+    "ru": "Архив, который смотрит вперёд",
+    "en": "An archive that looks ahead"
+   },
+   "quote": {
+    "ru": "Гадаю раз в день, панк. Судьбе тоже нужен выходной.",
+    "en": "One reading a day, punk. Fate needs a day off too."
+   },
+   "intro": {
+    "ru": "Оракул — ясновидящая, которая собирает малых существ и подыскивает им дом, а за ней повсюду следует мягкое создание, сотворённое её собственной силой. Она помнит не только то, что было, но и то, что ещё случится, и записывает и то и другое. Пустые резиденции, говорит она, снились ей задолго до того, как мир вырос. В споре сил она архивистка: будущее для неё — та же память, только прочитанная с другого конца.",
+    "en": "The Oracle is a seer who collects little creatures and finds them homes, and wherever she goes, a soft creature made by her own power follows. She remembers not only what has been but also what is yet to happen, and writes down both. She says she dreamed of the empty residences long before the world grew. In the dispute of forces she is an archivist: to her, the future is just memory read from the other end."
+   },
+   "findHint": {
+    "ru": "Её тянет к тем, кто заботится о питомцах: возьми с собой питомца или светящегося спутника, и Оракул найдёт тебя сама.",
+    "en": "She is drawn to those who care for pets: bring a pet or a light pet along, and the Oracle will find you herself."
+   },
+   "epilogue": {
+    "ru": "Знамение сбылось, и Оракул записала его рядом с тем, что видела раньше. Теперь в её тетради две половины одной истории: что было и что будет. Чем закончится середина, она не говорит: дорог она видит несколько, а идти по одной из них всё равно {player}. Ей, по её словам, просто нравится смотреть.",
+    "en": "The omen came true, and the Oracle wrote it down beside what she had seen before. Now her notebook holds two halves of one story: what was and what will be. How the middle ends, she will not say: she sees more than one road, and it is {player} who has to walk one of them. She says she just likes to watch."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Совиный взгляд",
+     "kind": "Observe",
+     "description": {
+      "ru": "Оракулу приснилось, что грядущее первым видит тот, кто не спит ночью. Найди в ночном лесу сову и понаблюдай за ней вблизи, не тревожа: она тоже чья-то малышка.",
+      "en": "The Oracle dreamed that the future is first seen by whoever stays awake at night. Find an owl in the night forest and watch it up close without disturbing it: she's somebody's little one too."
+     },
+     "offer": {
+      "ru": "Совы видят завтра раньше нас, панк. Посиди рядом с одной. Только тихо — ТУБ ревнует.",
+      "en": "Owls see tomorrow before we do, punk. Sit by one. Quietly — TUB gets jealous."
+     },
+     "complete": {
+      "ru": "Повернула голову на восток? Так я и видела. Записываю.",
+      "en": "She turned her head east? Just as I saw it. Writing it down."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Дома для малышей",
+     "kind": "GatherEnv",
+     "description": {
+      "ru": "Оракул находит дом каждой мелкой твари и говорит, что видела пустые резиденции во сне задолго до роста мира. Посади у её дома саженцы: птицам и белкам тоже нужно, куда вернуться.",
+      "en": "The Oracle finds a home for every little creature, and says she dreamed of the empty residences long before the world grew. Plant saplings near her house: birds and squirrels need somewhere to come back to."
+     },
+     "offer": {
+      "ru": "Сначала дом, потом жилец — я это уже видела. Посади деревья, {player}, малыши найдутся сами.",
+      "en": "First the house, then the tenant: I've seen it already. Plant trees, {player}, and the little ones will find them."
+     },
+     "complete": {
+      "ru": "Вот. Ещё никто не прилетел, а дома уже ждут. Знакомо, правда?",
+      "en": "There. Nobody has flown in yet, and the homes are already waiting. Sounds familiar, doesn't it?"
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Звёздная пыль",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Для гадания Оракулу нужны упавшие звёзды — куски неба, которые мир уронил сам. Собери их по ночам и принеси ей.",
+      "en": "For her reading the Oracle needs fallen stars, pieces of sky the world dropped on its own. Gather them at night and bring them to her."
+     },
+     "offer": {
+      "ru": "Упавшие звёзды — это то, что небо не удержало. Собери мне таких. Буду читать по ним, как по книге.",
+      "en": "Fallen stars are what the sky couldn’t hold on to. Gather some for me. I’ll read them like a book."
+     },
+     "complete": {
+      "ru": "Тёплые ещё. В каждой — кусочек того, что будет. Не подглядывай!",
+      "en": "Still warm. Each one holds a little piece of what’s coming. No peeking!"
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Что сказано",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Оракул увидела, что мир заговорит снова, но не знает, стоит ли говорить об этом вслух. Реши, рассказать ли городу или оставить пророчество в её записях.",
+      "en": "The Oracle has seen that the world will speak again, but does not know whether to say it aloud. Decide whether to tell the town or leave the prophecy in her notes."
+     },
+     "offer": {
+      "ru": "Мир скажет новое слово, {player}. Я видела. Вопрос в другом: нужно ли, чтобы это знали все?",
+      "en": "The world will say a new word, {player}. I’ve seen it. The question is whether everyone needs to know."
+     },
+     "complete": {
+      "ru": "Как скажешь. Я видела и такой ответ. Я вообще много чего видела.",
+      "en": "As you say. I saw that answer too. I’ve seen a lot of things."
+     },
+     "waiting": null,
+     "choices": {
+      "tell": {
+       "outcome": {
+        "ru": "Оракул рассказывает городу о новом слове. Кто-то пугается, кто-то начинает ждать. Мир, которому дали знать заранее, растёт смелее.",
+        "en": "The Oracle tells the town about the new word. Some are frightened, some begin to wait. A world that has been told in advance grows more boldly."
+       },
+       "lean": "tiders"
+      },
+      "keep": {
+       "outcome": {
+        "ru": "Пророчество ложится в её тетрадь рядом с другими. Не всё увиденное нужно раздавать: иногда лучшее, что можно сделать с будущим, — сберечь его.",
+        "en": "The prophecy goes into her notebook beside the others. Not everything seen needs handing out: sometimes the best thing to do with the future is to keep it safe."
+       },
+       "lean": "archivists"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Знамение сбывается",
+     "kind": "Delayed",
+     "description": {
+      "ru": "Оракул назвала день, когда знамение сбудется. Ждать придётся не одну ночь, но пропустить его, как она обещает, невозможно.",
+      "en": "The Oracle has named the day the omen will come true. It will take more than one night, but missing it, she promises, is impossible."
+     },
+     "offer": {
+      "ru": "Через несколько дней всё сбудется. Не спрашивай, что именно. Не люблю портить сюрпризы.",
+      "en": "In a few days it’ll all come true. Don’t ask what exactly. I hate spoiling surprises."
+     },
+     "complete": {
+      "ru": "Сбылось. Как всегда — чуть иначе, чем я сказала, но ровно так, как я видела.",
+      "en": "It came true. As always, a little differently from how I said it, but exactly the way I saw it."
+     },
+     "waiting": {
+      "ru": "Оракул смотрит в небо и что-то пересчитывает на пальцах. Говорит, что ещё рано.",
+      "en": "The Oracle stares at the sky and counts something on her fingers. She says it is too early yet."
+     },
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "miningcracks_take_on_luiafk/Deeps",
+   "force": "unassigned",
+   "epithet": {
+    "ru": "Тот, кто молчит в шахте",
+    "en": "The one who keeps silent in the mine"
+   },
+   "quote": {
+    "ru": "… (молча кивает и стучит киркой по стене)",
+    "en": "… (nods silently and taps the wall with his pickaxe)"
+   },
+   "intro": {
+    "ru": "Дипс не говорит. Ни имени, ни прошлого, ни ответа на вопросы — только «…» и кирка, с которой он не расстаётся с утра до ночи. Соседи спорят, какой силе он служит, а он просто уходит всё глубже. Пустые резиденции его не удивляют: кажется, он и сам ждал места, где ничего не придётся объяснять. Всё, что о нём известно, известно по тому, что он делает.",
+    "en": "Deeps does not speak. No name, no past, no answers to questions: only “…” and the pickaxe he never puts down from morning till night. The neighbours argue over which force he serves, and he simply goes deeper. The empty residences do not surprise him: it seems he too was waiting for a place where nothing would need explaining. Everything known about him is known from what he does."
+   },
+   "findHint": null,
+   "epilogue": {
+    "ru": "Шахта Дипса осела и затихла. Он поднялся наверх, сел на пороге своей резиденции и впервые смотрел не под ноги, а на небо. Он так ничего и не сказал. Но соседи заметили, что теперь он оставляет у их дверей по фонарю — на случай, если им тоже придётся спускаться.",
+    "en": "Deeps’s mine has settled and gone quiet. He came up, sat on the doorstep of his residence and, for the first time, looked at the sky instead of at his feet. He still said nothing. But the neighbours noticed that he now leaves a lantern at each of their doors, in case they ever have to go down too."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Верёвка вниз",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Дипс молча кладёт перед тобой пустой моток и показывает на шахту, уходящую вглубь. Ему нужна верёвка, чтобы спуститься туда, куда не ведёт ни одна лестница. Зачем — не объясняет.",
+      "en": "Deeps silently sets an empty coil before you and points at a shaft sinking deep. He needs rope to go down where no ladder leads. Why, he doesn't explain."
+     },
+     "offer": {
+      "ru": "… (Дипс кладёт пустой моток к твоим ногам и кивает в сторону шахты.)",
+      "en": "… (Deeps sets an empty coil at your feet and nods towards the shaft.)"
+     },
+     "complete": {
+      "ru": "… (Дипс дёргает верёвку, проверяя узел, и впервые коротко кивает тебе.)",
+      "en": "… (Deeps tugs the rope to test the knot and, for the first time, gives you a short nod.)"
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Фонари в штреке",
+     "kind": "GatherEnv",
+     "description": {
+      "ru": "В шахте Дипса темно, а сам он, похоже, видит во тьме лучше, чем следовало бы. Расставь факелы, чтобы по его следам мог пройти кто-нибудь ещё.",
+      "en": "Deeps’s mine is dark, and he seems to see in the dark better than he should. Set torches along the way so that someone else could follow in his footsteps."
+     },
+     "offer": {
+      "ru": "… (Дипс протягивает связку факелов и указывает вниз, в темноту.)",
+      "en": "… (Deeps holds out a bundle of torches and points down into the dark.)"
+     },
+     "complete": {
+      "ru": "… (Дипс проходит по освещённому штреку и впервые оглядывается назад.)",
+      "en": "… (Deeps walks the lit drift and, for the first time, looks back.)"
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Шорох внизу",
+     "kind": "Observe",
+     "description": {
+      "ru": "Внизу что-то роет, и Дипс замирает каждый раз, как слышит этот звук. Понаблюдай за гигантским червём вблизи и не убивай его: Дипс хочет знать, роет ли тут кто-то так же, как он.",
+      "en": "Something digs down below, and Deeps freezes every time he hears it. Watch a giant worm up close and don't kill it: Deeps wants to know whether anyone here digs the way he does."
+     },
+     "offer": {
+      "ru": "… (Дипс прикладывает ухо к стене, потом показывает туда, откуда идёт скрежет.)",
+      "en": "… (Deeps presses his ear to the wall, then points to where the grinding comes from.)"
+     },
+     "complete": {
+      "ru": "… (Дипс выдыхает. Всего лишь червь. Он смотрит ему вслед почти с завистью.)",
+      "en": "… (Deeps exhales. Only a worm. He watches it go with something like envy.)"
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Как глубоко",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Шахта Дипса дошла до места, где камень звучит иначе, будто под ним что-то сказано. Он кладёт перед тобой кирку: решай, копать ли дальше.",
+      "en": "Deeps’s mine has reached a place where the stone sounds different, as if something has been said beneath it. He lays the pickaxe before you: you decide whether to dig on."
+     },
+     "offer": {
+      "ru": "… (Дипс кладёт кирку между вами и ждёт.)",
+      "en": "… (Deeps lays the pickaxe between you and waits.)"
+     },
+     "complete": {
+      "ru": "… (Дипс поднимает кирку и делает так, как вы решили.)",
+      "en": "… (Deeps picks up the pickaxe and does as you decided.)"
+     },
+     "waiting": null,
+     "choices": {
+      "deeper": {
+       "outcome": {
+        "ru": "Дипс копает до глубокой ночи. Камень под киркой звенит, как чей-то голос, и Дипс впервые улыбается.",
+        "en": "Deeps digs until deep into the night. The stone rings under the pickaxe like someone’s voice, and for the first time Deeps smiles."
+       },
+       "lean": "tiders"
+      },
+      "stop": {
+       "outcome": {
+        "ru": "Дипс опускает кирку и долго стоит у края. Потом ставит у обрыва фонарь и уходит наверх, не оглядываясь.",
+        "en": "Deeps lowers the pickaxe and stands at the edge for a long time. Then he sets a lantern by the drop and climbs up without looking back."
+       },
+       "lean": "gardeners"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Шахта оседает",
+     "kind": "Delayed",
+     "description": {
+      "ru": "После твоего решения шахта должна осесть. Дипс сидит у входа и ждёт, пока камень затихнет; поторопить его невозможно.",
+      "en": "After your decision the mine has to settle. Deeps sits at the entrance and waits for the stone to go quiet; there is no hurrying it."
+     },
+     "offer": {
+      "ru": "… (Дипс садится у входа в шахту и жестом просит вас подождать.)",
+      "en": "… (Deeps sits down at the mine entrance and gestures for you to wait.)"
+     },
+     "complete": {
+      "ru": "… (Дипс поднимается, отряхивает колени и протягивает вам то, что шахта отдала напоследок.)",
+      "en": "… (Deeps gets up, brushes off his knees and hands you what the mine gave up at the last.)"
+     },
+     "waiting": {
+      "ru": "Из шахты доносится глухой стук оседающего камня. Дипс не двигается.",
+      "en": "The dull knock of settling stone comes up from the mine. Deeps does not move."
+     },
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "WeaponEnchantments/Witch",
+   "force": "unassigned",
+   "epithet": {
+    "ru": "Подрезает мир зельями",
+    "en": "She prunes the world with potions"
+   },
+   "quote": {
+    "ru": "Сорняки — в котёл, цветы — туда же: мир без лишнего куда изящней даже!",
+    "en": "Weeds into the pot, the flowers too: a world with nothing extra, clean and new!"
+   },
+   "intro": {
+    "ru": "Ведьма говорит стихами и честно признаётся, что не понимает, что такое этика. Её алхимия работает, и это пугает сильнее всего: она тоже хочет, чтобы мир стал ухоженнее, только подрезает его ядом и котлом. Дриаду она считает наивной: зло, по её мнению, пустило корни навсегда. Пустая резиденция для неё — лаборатория, а спор сил — любопытный рецепт.",
+    "en": "The Witch speaks in rhyme and openly admits she does not understand what ethics are. Her alchemy works, and that is the most frightening part: she too wants the world to be better tended, only she prunes it with poison and a cauldron. She thinks the Dryad naive: evil, in her view, has put down roots for good. An empty residence is a laboratory to her, and the dispute of forces an intriguing recipe."
+   },
+   "findHint": null,
+   "epilogue": {
+    "ru": "Сорняки выкипели, и Ведьма разлила отвар по флаконам с аккуратными этикетками. На одних написано «для сада», на других — «для соседей», и разница между ними, уверяет она, только в дозировке. В кровавую луну она иногда извиняется за прошлое. В остальные ночи сочиняет новые рецепты в рифму.",
+    "en": "The weeds have boiled down, and the Witch has poured the brew into flasks with neat labels. Some say “for the garden”, others “for the neighbours”, and the only difference between them, she assures you, is the dose. During a blood moon she sometimes apologises for her past. On every other night she writes new recipes in rhyme."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Ингредиенты",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Ведьме нужен мертвоцвет — трава, что растёт в порченых землях и в недобрые ночи. Из него, говорит она, получается всё самое интересное.",
+      "en": "The Witch needs deathweed, the herb that grows in blighted lands and on ill-omened nights. Everything interesting, she says, starts with it."
+     },
+     "offer": {
+      "ru": "Принеси мне мертвоцвет — без него рецепта нет! Чем мрачнее грядка та, тем вкуснее темнота.",
+      "en": "Bring me deathweed, fresh and grim — every recipe starts with him! Pick it where the soil is sour: darker beds make sweeter power."
+     },
+     "complete": {
+      "ru": "Ах, какой отличный яд — каждый лепесток мне рад! Скоро в котелке моём мир немного подстрижём.",
+      "en": "What a lovely little bane, every petal wild and vain! In my kettle, by and by, we will prune the world, you and I."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Котёл кипит",
+     "kind": "Observe",
+     "description": {
+      "ru": "Котёл Ведьмы закипает только под чужим взглядом, и лучше всего — под взглядом демонических глаз. Ночью побудь рядом с ними, не сбивая: пусть смотрят, пока варево доходит.",
+      "en": "The Witch’s cauldron only boils under someone’s gaze, and best of all under the gaze of demon eyes. At night, stay near them without striking them down: let them stare while the brew comes along."
+     },
+     "offer": {
+      "ru": "Мой котёл кипит, когда кто-то глядит. Отыщи глаза в ночи — и просто помолчи!",
+      "en": "My cauldron only boils when someone stares. Find the eyes that roam the night, and stand and watch, but do not fight!"
+     },
+     "complete": {
+      "ru": "Пузыри пошли, пар поднялся до луны! Глаз глядел, котёл кипел — вот и весь удел.",
+      "en": "Bubbles rising, steam up to the moon! The eye kept watch, the pot kept tune."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Рыба из гнили",
+     "kind": "Expedition",
+     "description": {
+      "ru": "Ведьма в восторге от скверны: там, где земля сгнила, клюёт лучшая рыба для зелий. Выуди в порченых водах эбонкоя или гемопиранью — купленная рыба её котлу не годится.",
+      "en": "The Witch adores the blight: where the land has rotted, the best fish for potions bites. Catch an ebonkoi or a hemopiranha in tainted waters. Bought fish won't do for her cauldron."
+     },
+     "offer": {
+      "ru": "Где вода черна, как ночь, рыба мне сумеет помочь! Удочку бери скорей — из гнилья тащи друзей!",
+      "en": "Where the water's black as night, there the fish will bite just right! Take your rod and off you go, fish me friends from rot below!"
+     },
+     "complete": {
+      "ru": "Чешуя черна, как грех, — твой улов чудесней всех! Гнев и ярость — в котелок: вот и славный вышел прок!",
+      "en": "Scales as dark as any sin, what a catch you've hauled in! Wrath and rage go in the pot: what a lovely little lot!"
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Чары",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Ведьма готова зачаровать оружие и спрашивает, сколько силы в него влить. Реши, что важнее: мощь любой ценой или мера, которую выдержит мир.",
+      "en": "The Witch is ready to enchant a weapon and asks how much power to pour in. Decide what matters more: strength at any cost, or a measure the world can bear."
+     },
+     "offer": {
+      "ru": "Чары сварены почти — выбери, куда идти: силу дать без всякой меры или меру — для примера?",
+      "en": "The charm is almost done, my dear, so tell me which way we should steer: power poured without restraint, or a measure, prim and quaint?"
+     },
+     "complete": {
+      "ru": "Слово сказано — и в чан! Поглядим, чей вышел план.",
+      "en": "Said and done, into the pot! Now we’ll see whose plan it got."
+     },
+     "waiting": null,
+     "choices": {
+      "power": {
+       "outcome": {
+        "ru": "Ведьма вливает в чары всё, что есть, и котёл трескается от натуги. Сила будет. Что она сломает по дороге, Ведьму не волнует.",
+        "en": "The Witch pours everything she has into the charm, and the cauldron cracks from the strain. There will be power. What it breaks along the way does not concern her."
+       },
+       "lean": "tiders"
+      },
+      "balance": {
+       "outcome": {
+        "ru": "Ведьма отмеряет чары по капле и ворчит, что мера — скучнейший из рецептов. Но рецепт работает, и мир его выдерживает. Пока.",
+        "en": "The Witch measures the charm drop by drop, grumbling that moderation is the dullest of recipes. But the recipe works, and the world can bear it. For now."
+       },
+       "lean": "gardeners"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Прополка",
+     "kind": "Hunt",
+     "description": {
+      "ru": "Ведьма решила прополоть мир по-своему: что кусается — в котёл, а что останется, станет садом. Выкоси людоедов в джунглях; доза, говорит она, решает, лекарство это или яд.",
+      "en": "The Witch has decided to weed the world her own way: whatever bites goes in the pot, and whatever's left becomes a garden. Mow down man eaters in the jungle; the dose, she says, decides if it's medicine or poison."
+     },
+     "offer": {
+      "ru": "Сорняк — в котёл, и цветы туда же: мир без лишнего станет краше! Людоедов в джунглях выполи живо — и сад мой будет чист и красив!",
+      "en": "Weeds go in the pot, the flowers too, a world with nothing extra, clean and new! Go weed the jungle's biters out, and watch my garden sprout!"
+     },
+     "complete": {
+      "ru": "Срезано, сложено, в котле кипит! Для сада — капля, для соседей — две. Шучу. Почти.",
+      "en": "Cut and stacked, the pot's a-boil! A drop for the garden, two for the neighbours. Joking. Mostly."
+     },
+     "waiting": null,
+     "choices": null
+    }
+   ]
+  }
+ ]
+}

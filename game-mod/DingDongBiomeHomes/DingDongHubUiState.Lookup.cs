@@ -24,10 +24,36 @@ internal sealed partial class DingDongHubUiState
 			Refresh(resetScroll: true);
 	}
 
+	private void SelectChronicle(string id)
+	{
+		selectedChronicle = id;
+		Refresh(resetScroll: false);
+	}
+
+	private void SelectResidence(int reviewId)
+	{
+		selectedResidence = reviewId;
+		Refresh(resetScroll: false);
+	}
+
+	private void SelectHelp(int topic)
+	{
+		selectedHelp = topic;
+		Refresh(resetScroll: false);
+	}
+
+	/// <summary>Opens the quest page of a resident (from the residents tab).</summary>
+	internal void ShowResidentQuests(string npcKey)
+	{
+		bookJournal ??= new ResidentBookJournal();
+		SelectTab(DingDongHubTab.Quests);
+		bookJournal.SelectResident(npcKey);
+	}
+
 	internal void SelectDamagePage(DamageGuidePageId page)
 	{
 		selectedDamagePage = page;
 		if (selectedTab == DingDongHubTab.Combat && contentList != null)
-			Refresh(resetScroll: true);
+			Refresh(resetScroll: false); // keep the chapter index where the player clicked
 	}
 }

@@ -26,13 +26,6 @@ public static partial class DingDongAuthoredStructureLoader
 		if (plans.TryGetValue(resourcePath, out StructureWritePlan cached))
 			return cached;
 		StructureWritePlan plan = BuildWritePlan(data, integrateNaturalBoundary);
-		if (PublicHomeReplacementCatalog.IsProcedural(resourcePath))
-		{
-			if (!PublicHomeReplacementCatalog.TryResolve(resourcePath, out AuthoredPreset publicPreset))
-				throw new InvalidDataException($"Unknown public home write plan: {resourcePath}.");
-			PublicHomeReplacementPlan publicPlan = new(publicPreset.Id, publicPreset.Width, publicPreset.Height, publicPreset.PlacementMode);
-			plan = plan with { TerrainAnchorY = publicPlan.GroundY };
-		}
 		if (resourcePath == AuthoredSourceContext.JungleResource)
 		{
 			ValidateRestoredSourceContext(data, plan);

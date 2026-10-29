@@ -1,0 +1,702 @@
+{
+ "format": "dingdong-lore-node-v1",
+ "node": "fargo",
+ "nodePage": {
+  "title": {
+   "ru": "Те, кто видел конец",
+   "en": "Those Who Saw the End"
+  },
+  "body": {
+   "ru": "Садовники, Приливники и Архивисты спорят, каким должен стать мир. Семья Мутанта в этом споре не участвует: они говорят о мире так, будто уже дочитали его до последней страницы и теперь из вежливости делают вид, что не знают концовки.\n\nМутант торгует призывами — то есть началами чужих битв. Девиантт знает, как выиграть каждую из них, и берёт за подсказку плату страданием. Выродокк отменяет то, что уже началось, и никому не рассказывает о своих поражениях. Рядом с ними прижились дровосек, который рубит лес, чтобы тот рос снова, и Бельчонок, который говорит только писком — почти всегда.\n\nОни не строили пустых резиденций и не спорят о том, кто их строил. Их вопрос другой и неудобнее прочих: если конец уже известен, зачем мир всё ещё слушает {player}?",
+   "en": "Gardeners, Tiders and Archivists argue over what the world should become. The Mutant's family takes no part in that argument: they talk about the world as if they had already read it to the last page and are only pretending, out of politeness, not to know the ending.\n\nThe Mutant sells summons — the beginnings of other people's battles. Deviantt knows how to win each of them and charges for her advice in suffering. Abominationn cancels what has already begun and tells no one about his defeats. Beside them live a lumberjack who fells the forest so it can grow again, and a Squirrel who speaks only in squeaks — almost always.\n\nThey did not build the empty residences and do not argue about who did. Their question is different, and more awkward than the rest: if the ending is already known, why does the world still listen to {player}?"
+  }
+ },
+ "residents": [
+  {
+   "npcKey": "Fargowiltas/Mutant",
+   "force": "tricksters",
+   "epithet": {
+    "ru": "Продавец начал",
+    "en": "Seller of Beginnings"
+   },
+   "quote": {
+    "ru": "Конец я уже видел. Начала — продаю. Тебе какое?",
+    "en": "I've already seen the end. Beginnings, I sell. Which one do you want?"
+   },
+   "intro": {
+    "ru": "Мутант ведёт себя так, будто мир для него — дочитанная книга, а сам он лишь задержался у последней страницы. Он продаёт призывы боссов, то есть чужие начала, и не встаёт ни на одну сторону: «Лучше? Лучше для кого?» Пустая резиденция его не удивляет — он заселяется, как в номер, забронированный задолго до постройки. Ему интересно одно: зачем {player} вообще слушает этот мир.",
+    "en": "The Mutant acts as if the world were a book he has already finished and he has merely lingered at the last page. He sells boss summons — other people's beginnings — and takes no side: “Better? Better for whom?” The empty residence does not surprise him; he moves in like a guest whose room was booked long before it was built. Only one thing interests him: why {player} listens to this world at all."
+   },
+   "findHint": {
+    "ru": "Приходит в мир после победы над любым боссом — будто ждал, пока кто-нибудь начнёт.",
+    "en": "Arrives once any boss has been defeated — as if he were waiting for someone to begin."
+   },
+   "epilogue": {
+    "ru": "Мутант больше не спрашивает, зачем {player} слушает мир. Он говорит, что видел не одну концовку и все они были чужими, а эту, кажется, ещё никто не дописал. «Теперь всё в твоих руках, — повторяет он без улыбки. — Только не говори мне, что ты с этим сделаешь. Хочу узнать сам».",
+    "en": "The Mutant no longer asks why {player} listens to the world. He says he has seen more than one ending and every one belonged to someone else — but this one, it seems, nobody has finished writing yet. “It's all in your hands now,” he repeats, without a grin. “Just don't tell me what you'll do with it. I want to find out myself.”"
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Что дальше?",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Мутант задаёт вопрос, с которого, по его словам, начинается любой мир: зачем {player} вообще его слушает. Реши, спросить ли его в ответ, чем всё закончится.",
+      "en": "The Mutant asks the question he claims every world begins with: why does {player} listen to it at all? Decide whether to ask him in return how it all ends."
+     },
+     "offer": {
+      "ru": "Все слушают мир, потому что он громкий. А ты, {player}? Ты зачем слушаешь? Подумай. Я подожду — ждать конца я умею.",
+      "en": "Everyone listens to the world because it's loud. What about you, {player}? Why do you listen? Think it over. I'll wait — I'm good at waiting for endings."
+     },
+     "complete": {
+      "ru": "Ответ так себе, зато честный. С честных я беру меньше. Держи — на случай, если захочется оказаться где-нибудь ещё.",
+      "en": "Not a great answer, but an honest one. I charge honest folk less. Here — in case you ever want to be somewhere else."
+     },
+     "waiting": null,
+     "choices": {
+      "ask": {
+       "outcome": {
+        "ru": "Мутант долго смотрит на тебя всеми глазами сразу. «Хорошо. Всё закончится. Это всё, что тебе можно знать». Он явно доволен собой.",
+        "en": "The Mutant studies you with every eye at once for a long moment. “Fine. It ends. That's all you're allowed to know.” He is clearly pleased with himself."
+       },
+       "lean": "none"
+      },
+      "refuse": {
+       "outcome": {
+        "ru": "«Не спрашиваешь? Редкость». Мутант впервые выглядит удивлённым и прячет это за смешком. «Ладно. Значит, концовку ещё можно испортить».",
+        "en": "“Not asking? That's rare.” For the first time the Mutant looks surprised, and hides it behind a snort. “Fine. Then the ending can still be ruined.”"
+       },
+       "lean": "none"
+      }
+     }
+    },
+    {
+     "index": 1,
+     "titleRu": "Разминка",
+     "kind": "Hunt",
+     "description": {
+      "ru": "Мутант считает, что, прежде чем покупать чужие начала, нужно размяться на чём-нибудь попроще. Выследи ночью летающих демонических глаз — мир смотрит на тебя слишком пристально.",
+      "en": "Before buying anyone's beginnings, the Mutant says, you should warm up on something simpler. Hunt down the flying Demon Eyes at night — the world has been staring at you a little too hard."
+     },
+     "offer": {
+      "ru": "Видишь, как они пялятся на тебя по ночам? Это мир подглядывает в твои черновики. Закрой ему побольше глаз — для разминки.",
+      "en": "See how they stare at you at night? That's the world peeking at your drafts. Close as many of its eyes as you can — just to warm up."
+     },
+     "complete": {
+      "ru": "Неплохо. В гляделки я всегда выигрываю, но ты хотя бы моргаешь последним. Почти.",
+      "en": "Not bad. I always win staring contests, but at least you blink last. Almost."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Принеси вызов, не бросив его",
+     "kind": "Expedition",
+     "description": {
+      "ru": "Мутант продаёт призывы, но этот хочет увидеть сделанным твоими руками. Изготовь корону слизней и принеси её, не призвав босса: начало ценно, пока его не потратили.",
+      "en": "The Mutant sells summons, but this one he wants to see made by your own hands. Craft a Slime Crown and bring it without summoning the boss: a beginning is worth something only until it's spent."
+     },
+     "offer": {
+      "ru": "Купить корону у меня может любой. Сделай свою и не надевай её на слизня. Купленную я узнаю: я помню каждую, что продал.",
+      "en": "Anyone can buy a crown from me. Make your own and don't put it on a slime. I'd know a bought one: I remember every crown I've sold."
+     },
+     "complete": {
+      "ru": "Своими руками — и не потрачено. Хорошая корона. Я её, конечно, перепродам: начала — мой товар.",
+      "en": "Handmade, and still unspent. Good crown. I'll resell it, of course — beginnings are my trade."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Кто носит куклу",
+     "kind": "Observe",
+     "description": {
+      "ru": "Мутант давно гадает, почему столько тварей таскают странную синюю куклу. Спустись в Преисподнюю и понаблюдай за демоном с куклой, не убивая его: откуда берутся начала, которыми он торгует?",
+      "en": "The Mutant has long wondered why so many creatures carry a weird blue doll. Go down to the Underworld and watch a doll-carrying demon without killing it: where do the beginnings he sells come from?"
+     },
+     "offer": {
+      "ru": "Почему они все таскают эту синюю куклу? Мир, наверное, никогда не узнает. А ты узнай. Смотри на демона, не бей. Начала не любят спешки.",
+      "en": "Why do they all carry that blue doll? The world may never know. But you could. Watch the demon, don't hit it. Beginnings don't like being rushed."
+     },
+     "complete": {
+      "ru": "Бережёт её, как билет. Так я и думал: начало носят те, кто сам его никогда не начнёт. Держи куклу — эту я не продаю.",
+      "en": "He guards it like a ticket. Just as I thought: beginnings are carried by those who'll never begin them. Take the doll — this one's not for sale."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 4,
+     "titleRu": "Вторая фраза",
+     "kind": "Hunt",
+     "description": {
+      "ru": "Мутант продаёт любые начала, кроме одного — того, что меняет весь мир. Брось куклу в лаву и одолей Стену плоти: пусть мир скажет вторую фразу по твоему слову, а не по чужому.",
+      "en": "The Mutant sells every beginning but one — the one that changes the whole world. Throw the doll into the lava and defeat the Wall of Flesh: let the world speak its second phrase at your word, not someone else's."
+     },
+     "offer": {
+      "ru": "Это начало я не продаю — его начинают сами. Кукла у тебя, лава внизу. Только не говори, зачем ты это делаешь. Хочу угадать.",
+      "en": "This beginning I don't sell — you start it yourself. You have the doll, the lava's below. Just don't tell me why you're doing it. I want to guess."
+     },
+     "complete": {
+      "ru": "Мир заговорил снова — громче, чем я помнил. Не угадал я, зачем ты слушаешь. Держи следующее начало. Конец, похоже, ещё не дописан.",
+      "en": "The world spoke again — louder than I remember. I didn't guess why you listen. Take the next beginning. The ending, it seems, isn't written yet."
+     },
+     "waiting": null,
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "Fargowiltas/Deviantt",
+   "force": "tricksters",
+   "epithet": {
+    "ru": "Сестра, знающая все тактики",
+    "en": "The Sister Who Knows Every Tactic"
+   },
+   "quote": {
+    "ru": "Страдание — лучший учитель. А я — второй лучший, и беру дешевле.",
+    "en": "Suffering is the best teacher. I'm the second best, and I'm cheaper."
+   },
+   "intro": {
+    "ru": "Девиантт — сестра Мутанта и Выродокка и самая громкая в семье. Она знает, как победить любого, кто когда-либо приходил в этот мир, и охотно расскажет — за плату и с издёвкой. Её подсказки всегда верны и всегда колют. Спор сил она называет «очень милым» — тем тоном, каким говорят о драке котят: «Пусть дерутся. Победит тот, кто лучше подготовился».",
+    "en": "Deviantt is the Mutant's and Abominationn's sister, and the loudest of the family. She knows how to defeat anyone who has ever come into this world and will gladly tell you — for a fee, and with a smirk. Her advice is always right and always stings. She calls the forces' quarrel “very cute,” the way people talk about kittens fighting: “Let them. Whoever prepared better wins.”"
+   },
+   "findHint": {
+    "ru": "Появляется после того, как в мире убито какое-нибудь редкое существо. Она почует это первой.",
+    "en": "Appears after some rare creature has been slain in the world. She'll sense it first."
+   },
+   "epilogue": {
+    "ru": "Девиантт признаётся, что всегда знала, чем кончится каждая битва, и это было скучно. С {player} всё иначе: подсказки работают, но {player} всё равно делает по-своему. «Это ужасно, — радостно говорит она. — Продолжай. Буду продавать тебе страдание со скидкой».",
+    "en": "Deviantt admits she always knew how every battle would end, and it was boring. With {player} it's different: the advice works, yet {player} still does things their own way. “It's awful,” she says happily. “Keep going. I'll sell you suffering at a discount.”"
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Что-то грызунье",
+     "kind": "Observe",
+     "description": {
+      "ru": "Девиантт уверяет, что видела под землёй «что-то грызунье», и требует разведки. Найди пещерную мышь и понаблюдай за ней вблизи, не трогая, — для тактики, конечно. Вовсе не потому, что ей страшно.",
+      "en": "Deviantt swears she saw “something rodent-y” underground and demands reconnaissance. Find a cave mouse and watch it up close without touching it — for tactics, of course. Not at all because she's scared."
+     },
+     "offer": {
+      "ru": "{player}! Я видела что-то грызунье! У тебя ведь нет нашествия хомяков? Нет?! Сходи посмотри. Это разведка. Я не боюсь. Иди уже!",
+      "en": "{player}! I saw something rodent-y! You don't have a hamster infestation, do you? Do you?! Go take a look. It's recon. I'm not scared. Just go!"
+     },
+     "complete": {
+      "ru": "Просто мышь? Точно? Ладно. Разведка — тоже тактика. Держи зелье вони — вдруг грызуны вернутся. И не спрашивай, откуда оно у меня.",
+      "en": "Just a mouse? You're sure? Fine. Recon is a tactic too. Take this stink potion — in case the rodents come back. And don't ask where I got it."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Принять страдание",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Девиантт предлагает сделку в своём духе: принять страдание как учителя — и получить скидку. Выбери, согласиться с её философией или вежливо отказаться и от того, и от другого.",
+      "en": "Deviantt offers a deal in her own style: accept suffering as your teacher — and get a discount. Choose whether to sign up for her philosophy or politely turn down both."
+     },
+     "offer": {
+      "ru": "У меня есть предложение, от которого больно отказываться! Буквально. Считай боль уроком — и я сброшу цену. Ну? Ну? Ну?",
+      "en": "I've got an offer that hurts to refuse! Literally. Count the pain as a lesson and I'll knock the price down. Well? Well? Well?"
+     },
+     "complete": {
+      "ru": "Решение принято, сделка закрыта, а ты всё ещё на ногах. Держи пару зелий — и не спрашивай, что в них на самом деле.",
+      "en": "Decision made, deal closed, and you're still standing. Take a couple of potions — and don't ask what's really in them."
+     },
+     "waiting": null,
+     "choices": {
+      "embrace": {
+       "outcome": {
+        "ru": "«Ура! Новый страдалец!» Девиантт хлопает в ладоши и куда-то записывает тебя мелким почерком. Скидку она обещает «потом».",
+        "en": "“Yay! A new sufferer!” Deviantt claps and writes you down somewhere in tiny letters. The discount, she promises, comes “later.”"
+       },
+       "lean": "none"
+      },
+      "decline": {
+       "outcome": {
+        "ru": "«Вежливый отказ? От обоих?» Девиантт обиженно надувается, но в глазах — уважение. «Ладно. Страдание всё равно найдёт тебя само».",
+        "en": "“A polite no? To both?” Deviantt pouts, but there's respect in her eyes. “Fine. Suffering will find you on its own anyway.”"
+       },
+       "lean": "none"
+      }
+     }
+    },
+    {
+     "index": 2,
+     "titleRu": "Узор короля",
+     "kind": "Observe",
+     "description": {
+      "ru": "Девиантт знает тактику на любого босса и начинает с самого толстого. Вызови Короля слизней и продержись рядом с ним, не добивая, — пусть узор его прыжков сам отпечатается в памяти.",
+      "en": "Deviantt knows a tactic for every boss and starts with the fattest. Summon the King Slime and stay near him without finishing him off — let the pattern of his jumps imprint itself on your memory."
+     },
+     "offer": {
+      "ru": "Совет первый: не стой выше короля слизней, он злится. Совет второй: смотри, как он прыгает. Не бей! Тридцать секунд. Я засекаю.",
+      "en": "Tip one: don't stay above the slime king, it makes him mad. Tip two: watch how he jumps. Don't hit! Thirty seconds. I'm timing it."
+     },
+     "complete": {
+      "ru": "Видишь узор? Прыжок, прыжок, телепорт. Теперь добивай, если хочешь, — ты уже победил. Держи капюшон ниндзя: тот тоже сначала смотрел.",
+      "en": "See the pattern? Jump, jump, teleport. Finish him if you like — you've already won. Take the ninja's hood: he watched first too."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Жарче, чем в прошлый раз",
+     "kind": "Trial",
+     "description": {
+      "ru": "Девиантт клянётся, что Преисподняя стала жарче, чем в её прошлый визит. Перебей адских нетопырей так, чтобы ни разу не загореться: кто подготовился лучше, тот и победил.",
+      "en": "Deviantt swears the Underworld has got hotter since her last visit. Kill the hellbats without catching fire even once: whoever prepared better wins."
+     },
+     "offer": {
+      "ru": "Внизу стало жарче, чем я помню! Нетопыри там поджигают всё, что движется. Не гори. Подготовься. А не подготовишься — я посмеюсь.",
+      "en": "It's hotter down there than I remember! The bats set fire to anything that moves. Don't burn. Prepare. And if you don't — I'll laugh."
+     },
+     "complete": {
+      "ru": "Ни ожога! Скучно, зато правильно. Держи обсидиановый череп — говорят, талисман от сгорания заживо. Мне не нужен, я уже не совсем человек.",
+      "en": "Not a single burn! Boring, but right. Take the obsidian skull — they say it's a charm against burning alive. I don't need it, I'm not quite human anymore."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 4,
+     "titleRu": "Редкость для редкой",
+     "kind": "Hunt",
+     "description": {
+      "ru": "«Чем больше редкого ты убьёшь, тем больше я продам». Девиантт клянётся, что в пещерах бродит Тим — колдун, которого почти никто не видел. Найди его и одолей: редкость за редкость.",
+      "en": "“The more rare things you kill, the more I sell.” Deviantt swears Tim roams the caves, a wizard almost nobody has ever seen. Find him and defeat him: a rarity for a rarity."
+     },
+     "offer": {
+      "ru": "Редкие вещи любят редких людей. Я — редкая, ты — почти. Внизу ходит колдун в дурацкой шляпе. Найди его. Потом о скидке.",
+      "en": "Rare things love rare people. I'm rare; you're nearly there. There's a wizard in a silly hat down below. Find him. Then discounts."
+     },
+     "complete": {
+      "ru": "Та-дам! Редкость повержена, а я уже чую следующую. Держи посох — страдает пусть кто-нибудь другой. Скидка? Потом. Всегда потом.",
+      "en": "Ta-da! A rarity down, and I can already smell the next one. Take the staff — let someone else do the suffering. The discount? Later. Always later."
+     },
+     "waiting": null,
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "Fargowiltas/Abominationn",
+   "force": "tricksters",
+   "epithet": {
+    "ru": "Тот, кто отменяет",
+    "en": "The One Who Cancels"
+   },
+   "quote": {
+    "ru": "Событие? Какое событие? Его не было. И моего поражения тоже не было.",
+    "en": "An event? What event? It never happened. Neither did my defeat."
+   },
+   "intro": {
+    "ru": "Выродокк — брат Мутанта, с косой, приросшей к руке, и чужими крыльями за спиной. Он умеет отменять события — нашествия, тревожные луны — и так же легко «отменяет» собственные поражения: о них просто не говорят. Архивисты зовут это преступлением против памяти, он — милосердием. Вечерами он читает древнюю классику и пишет стихи о неизбежном роке.",
+    "en": "Abominationn is the Mutant's brother, with a scythe grown into his arm and someone else's wings on his back. He can cancel events — invasions, ominous moons — and just as easily “cancels” his own defeats: they simply go unmentioned. The Archivists call it a crime against memory; he calls it mercy. In the evenings he reads the ancient classics and writes poems about impending doom."
+   },
+   "findHint": {
+    "ru": "Приходит, когда отбито нашествие гоблинов. Говорит, что был на той битве, — но не признаётся, на чьей стороне.",
+    "en": "Arrives once the Goblin Army has been driven off. Claims he was at that battle — but won't say on whose side."
+   },
+   "epilogue": {
+    "ru": "Выродокк долго молчит, а потом признаётся: он отменил много дурных ночей, но одну так и не смог — ту, которую помнит сам. «Стирать легко, — говорит он. — Трудно решить, что стоит оставить. Это, пожалуй, решать тебе. Только архивистам не говори, что я так сказал».",
+    "en": "Abominationn is silent for a long while, then admits it: he has cancelled many bad nights, but one he never could — the one he remembers himself. “Erasing is easy,” he says. “Deciding what's worth keeping is hard. I suppose that's yours to decide. Just don't tell the Archivists I said so.”"
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Вечер поэзии",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Выродокк считает себя поэтом мирового уровня и предлагает прочесть поэму о неизбежном роке. Реши, выслушать её до конца или честно предложить вместо неё партию в пинг-понг.",
+      "en": "Abominationn considers himself a world-class poet and offers to recite his poem of impending doom. Decide whether to hear it to the end or honestly suggest a game of ping pong instead."
+     },
+     "offer": {
+      "ru": "Садись. Это поэма о роке, который грядёт. Она длинная. Половину я вычеркнул, а вторую половину отменил. Осталось лучшее.",
+      "en": "Sit. This is a poem about the doom that approaches. It's long. Half of it I struck out, and the other half I cancelled. Only the best remains."
+     },
+     "complete": {
+      "ru": "Публика бывает разной, но эта хотя бы честная. Держи книги. В них тоже кто-то кого-то побеждает — и никто ничего не отменяет.",
+      "en": "Audiences vary, but this one at least was honest. Take these books. In them, too, someone defeats someone — and nobody cancels anything."
+     },
+     "waiting": null,
+     "choices": {
+      "listen": {
+       "outcome": {
+        "ru": "Поэма оказывается короткой: всё страшное Выродокк из неё вычеркнул. «Рок грядёт, — заключает он. — Но позже». Он явно ждёт аплодисментов.",
+        "en": "The poem turns out short: he has struck out everything frightening in it. “Doom approaches,” he concludes. “But later.” He is clearly waiting for applause."
+       },
+       "lean": "none"
+      },
+      "honest": {
+       "outcome": {
+        "ru": "«Пинг-понг?» Выродокк молча откладывает свиток и достаёт ракетки. Через час он проигрывает и объявляет, что партии не было.",
+        "en": "“Ping pong?” Abominationn silently sets the scroll aside and pulls out the paddles. An hour later he loses and announces the game never happened."
+       },
+       "lean": "none"
+      }
+     }
+    },
+    {
+     "index": 1,
+     "titleRu": "Крылья как у меня",
+     "kind": "Hunt",
+     "description": {
+      "ru": "Выродокк неохотно вспоминает, откуда у него крылья: прежний владелец был не в восторге. Поднимись высоко в небо и сбей гарпий — он хочет, чтобы и у тебя была своя история о крыльях.",
+      "en": "Abominationn reluctantly recalls where his wings came from: their previous owner was not thrilled. Climb high into the sky and bring down harpies — he wants you to have a story about wings too."
+     },
+     "offer": {
+      "ru": "Крылья? Достались по случаю. Прежний хозяин о том случае до сих пор жалеет. Поднимись к гарпиям — пусть у тебя тоже будет неловкая история.",
+      "en": "The wings? They came my way by chance. Their previous owner still regrets that chance. Go up to the harpies — you should have an awkward story of your own."
+     },
+     "complete": {
+      "ru": "Перья. Много перьев. Теперь ты понимаешь, почему я об этом не рассказываю. Держи — может, когда-нибудь пригодятся в полёте.",
+      "en": "Feathers. Lots of feathers. Now you see why I don't talk about it. Keep them — they might help you fly someday."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "На чьей стороне",
+     "kind": "Observe",
+     "description": {
+      "ru": "Гоблины вернулись, и с ними колдуны, швыряющие сгустки хаоса. Выродокк был на той битве и не говорит, на чьей стороне. Понаблюдай за гоблином-колдуном вблизи и не бей первым: реши сам, на чьей ты.",
+      "en": "The goblins have returned, bringing sorcerers who hurl balls of chaos. Abominationn was at that battle and won't say on whose side. Watch a goblin sorcerer up close and don't strike first: decide for yourself whose side you are on."
+     },
+     "offer": {
+      "ru": "Гоблины снова у ворот. Я был на той битве. На чьей стороне — не спрашивай. Отменять не буду. Посмотри на их колдуна и не бей.",
+      "en": "The goblins are at the gates again. I was at that battle. Whose side? Don't ask. I won't cancel it. Look at their sorcerer and don't strike."
+     },
+     "complete": {
+      "ru": "Смотрел и не бил. Значит, мне нечего отменять. Держи свечу покоя — она отменяет понемногу и никому об этом не рассказывает.",
+      "en": "You watched and didn't strike. So I've nothing to cancel. Take this peace candle: it cancels a little at a time and never tells anyone."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Окунь на удочку",
+     "kind": "Expedition",
+     "description": {
+      "ru": "Выродокк недавно взялся за рыбалку и уверен: причинять страдания — одно, а поймать настоящего окуня — совсем другое. Налови окуней удочкой и принеси ему: купленная рыба не считается.",
+      "en": "Abominationn has recently taken up fishing and is sure that inflicting suffering is one thing, but catching a real bass is something else entirely. Catch bass with a rod and bring them to him: bought fish don't count."
+     },
+     "offer": {
+      "ru": "Страдания, рок, битвы — ерунда. А тебе доводилось вытащить настоящего окуня? Вот это подвиг. Иди к воде, и только с удочкой.",
+      "en": "Suffering, doom, battles — trifles. But have you ever landed a real bass? Now that's a feat. Go to the water, and use a rod."
+     },
+     "complete": {
+      "ru": "Хорошие окуни. Один даже тянет на рекорд. Если кто спросит — ловил я. Этот разговор я отменяю.",
+      "en": "Good bass. One even looks like a record. If anyone asks, I caught them. I'm cancelling this conversation."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 4,
+     "titleRu": "Ночь, которую не отменить",
+     "kind": "Hunt",
+     "description": {
+      "ru": "Выродокк признаётся: одну кровавую ночь он так и не смог отменить. В следующую кровавую луну закинь удочку в море и одолей Дредноутилуса — пусть эта ночь закончится победой, а не отменой.",
+      "en": "Abominationn admits there is one blood-red night he could never cancel. On the next blood moon cast a line into the sea and defeat the Dreadnautilus — let this night end in victory, not cancellation."
+     },
+     "offer": {
+      "ru": "Кровавая луна. Я могу её отменить. Не стану. Иди к морю, закинь удочку и вытащи то, что я однажды не вытащил. Косу я подержу.",
+      "en": "A blood moon. I could cancel it. I won't. Go to the sea, cast a line and haul out what I once couldn't. I'll hold the scythe."
+     },
+     "complete": {
+      "ru": "Ты дождался рассвета. Я так не умел. Держи кровавую слезу: однажды сам решишь, какую ночь начать, а какую оставить. Архивистам — ни слова.",
+      "en": "You made it to dawn. I never could. Take this bloody tear: someday you'll decide which night to begin and which to keep. Not a word to the Archivists."
+     },
+     "waiting": null,
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "Fargowiltas/LumberJack",
+   "force": "tiders",
+   "epithet": {
+    "ru": "Рубит, чтобы росло",
+    "en": "Fells So It Grows"
+   },
+   "quote": {
+    "ru": "Срубил — посади. Посадил — подожди. Дождался — руби снова. Вот и весь круговорот.",
+    "en": "Fell it — plant it. Plant it — wait. Done waiting? Fell it again. That's the whole cycle."
+   },
+   "intro": {
+    "ru": "Дровосек попал в этот мир буквально — свалился с дерева, которое кто-то рубил слишком усердно. Он верит, что лес становится лучше, когда растёт заново, и потому рубит без жалости и сажает без устали. Приливникам он близок: рост, по его мнению, нельзя остановить — только перезапустить. С дриадой они спорят и дружат: он рубит, она сажает. О мировом древе он говорит так, будто видел его сам.",
+    "en": "The lumberjack arrived in this world quite literally — he fell out of a tree someone was chopping too eagerly. He believes a forest gets better when it grows back, so he fells without pity and replants without rest. He leans toward the Tiders: growth, in his view, can't be stopped — only restarted. He and the Dryad argue and get along: he chops, she plants. He talks about the world tree as if he'd seen it himself."
+   },
+   "findHint": {
+    "ru": "Может выпасть из дерева, когда в мире срублено очень много древесины — сотни брёвен. Руби и поглядывай вверх.",
+    "en": "May drop out of a tree once a great deal of wood has been chopped in the world — hundreds of logs. Keep chopping, and glance up now and then."
+   },
+   "epilogue": {
+    "ru": "Дровосек вручает {player} топор, который, кажется, умеет разговаривать, и просит беречь его лучше, чем сам он берёг леса. «Мир растёт, потому что кто-то рубит, — говорит он. — И потому что кто-то потом сажает. Ты умеешь и то и другое. Не забывай про второе».",
+    "en": "The lumberjack hands {player} an axe that seems able to talk and asks them to take better care of it than he ever took of the forests. “The world grows because someone chops,” he says. “And because someone plants afterward. You can do both. Don't forget the second part.”"
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Посади, что срубил",
+     "kind": "GatherEnv",
+     "description": {
+      "ru": "Дровосек начинает знакомство с правила, которое считает святым: каждый срубленный ствол должен вернуться ростком. Посади саженцы деревьев неподалёку, чтобы лес вокруг рос снова.",
+      "en": "The lumberjack opens with a rule he holds sacred: every trunk felled must return as a sprout. Plant tree saplings nearby so the forest around you grows again."
+     },
+     "offer": {
+      "ru": "Первое правило дровосека: срубил — посади. Второе правило: смотри первое. Бери желуди и иди сажать. Деревья любят, когда их ждут.",
+      "en": "Lumberjack rule one: fell it, plant it. Rule two: see rule one. Grab some acorns and go plant. Trees like being waited for."
+     },
+     "complete": {
+      "ru": "Ровные, живые, с будущим! Через пару лет я их срублю — и снова посажу. Держи желуди про запас: круговорот не ждёт.",
+      "en": "Straight, alive, full of future! In a few years I'll fell them — and plant again. Have some acorns for later: the cycle doesn't wait."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Знаток всех пород",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Дровосек судит о новом мире по древесине. Принеси ему брёвна из разных краёв — бореальные, пальмовые, красное дерево, эбеновые или теневые: по кольцам он прочтёт, как растут края мира.",
+      "en": "The lumberjack judges the new world by its wood. Bring him logs from its far corners — boreal, palm, mahogany, ebonwood or shadewood: from the rings he'll read how the world's edges grow."
+     },
+     "offer": {
+      "ru": "Я знаток всех пород. Почти. Мир вырос, а я не все края обошёл. Неси дерево отовсюду — кроме династического, оно ненастоящее.",
+      "en": "I'm an expert in every kind of wood. Almost. The world grew, and I haven't walked all of it. Bring wood from everywhere — except dynasty wood, that ain't real."
+     },
+     "complete": {
+      "ru": "Кольца широкие — края растут быстрее середины! Я так и знал. Держи зелье строителя: растущему миру нужны быстрые руки.",
+      "en": "Wide rings — the edges grow faster than the middle! I knew it. Take this builder potion: a growing world needs quick hands."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Пепельная роща",
+     "kind": "Trial",
+     "description": {
+      "ru": "В Преисподней дровосек нашёл странные пепельные деревья — хрупкие и горячие. Огненные бесы швыряют в них пламя ради забавы. Разгони бесов, ни разу не загоревшись: после пожара лес снова не вырастает.",
+      "en": "In the Underworld the lumberjack found strange ashy trees, fragile and hot. Fire imps hurl flames at them for fun. Drive the imps off without catching fire once: after a fire, a forest doesn't grow back."
+     },
+     "offer": {
+      "ru": "Внизу растут пепельные деревья! Хрупкие, горячие, но живые. А бесы лупят по ним огнём. Разгони их и не вспыхни: пожар — не рубка.",
+      "en": "There are ash trees growing down below! Fragile, hot, but alive. And imps keep pelting them with fire. Drive them off and don't go up in flames: a fire isn't a felling."
+     },
+     "complete": {
+      "ru": "Ни искры! Держи пепельной древесины — горячо держать, зато история какая. Даже в пекле лес растёт, если его не сжечь.",
+      "en": "Not a spark! Have some ash wood — hot to hold, but what a story. Even in the inferno a forest grows, if nobody burns it."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Мировое древо",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Дровосек всерьёз рассказывает о мировом древе — дереве, из которого будто бы вырос сам этот мир. Реши, пообещать ли ему найти древо или сказать, что это лишь байки лесорубов.",
+      "en": "The lumberjack earnestly tells of the world tree — the tree this very world supposedly grew from. Decide whether to promise to find it, or tell him it's just a lumberjack's tale."
+     },
+     "offer": {
+      "ru": "Знаешь про мировое древо? Говорят, мир вырос из него, как ветка. А края мира — просто места, куда ветка ещё не дотянулась.",
+      "en": "Know about the world tree? They say the world grew out of it like a branch. And the edges of the world are just where the branch hasn't reached yet."
+     },
+     "complete": {
+      "ru": "Ну вот, теперь и у тебя есть своё мнение о мировом древе. Держи жемчужное дерево — оно растёт там, где мир заговорил по-новому.",
+      "en": "There, now you have your own opinion about the world tree. Take some pearlwood — it grows where the world began to speak in a new way."
+     },
+     "waiting": null,
+     "choices": {
+      "seek": {
+       "outcome": {
+        "ru": "Дровосек сияет и хлопает тебя по плечу так, что звенит в ушах. «Я знал! Где-то у края мира оно ещё растёт. Найдёшь — не руби. Сначала позови меня».",
+        "en": "The lumberjack beams and claps you on the shoulder hard enough to ring your ears. “I knew it! It's still growing out by the world's edge. Find it — don't chop it. Call me first.”"
+       },
+       "lean": "tiders"
+      },
+      "tale": {
+       "outcome": {
+        "ru": "«Байки, значит?» Дровосек не обижается, только щурится на горизонт. «Байки тоже растут. Особенно когда их кто-то пересказывает».",
+        "en": "“A tale, huh?” The lumberjack isn't offended; he just squints at the horizon. “Tales grow too. Especially when someone keeps retelling them.”"
+       },
+       "lean": "none"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Лучший друг дровосека",
+     "kind": "Delayed",
+     "description": {
+      "ru": "Дровосек исчезает за домом и что-то мастерит, никого не подпуская близко. Подожди несколько дней, пока он закончит: лучший друг дровосека, говорит он, не должен рождаться впопыхах.",
+      "en": "The lumberjack disappears behind the house and builds something, letting no one near. Wait a few days for him to finish: a lumberjack's best friend, he says, shouldn't be born in a hurry."
+     },
+     "offer": {
+      "ru": "У каждого дровосека должен быть лучший друг. Своего я тебе не отдам, а вот нового… Дай мне время. Хорошие вещи растут медленно.",
+      "en": "Every lumberjack needs a best friend. I won't give you mine, but a new one… Give me time. Good things grow slowly."
+     },
+     "complete": {
+      "ru": "Знакомься: она немного болтлива, зато рубит как песня. Обращайся с ней бережно — и с лесом тоже.",
+      "en": "Meet her: a bit chatty, but she chops like a song. Treat her kindly — and the forest too."
+     },
+     "waiting": {
+      "ru": "Из-за дома доносятся стук топора и чей-то второй голос. Дровосек уверяет, что говорит сам с собой.",
+      "en": "From behind the house come the knock of an axe and a second voice. The lumberjack insists he's talking to himself."
+     },
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "Fargowiltas/Squirrel",
+   "force": "tricksters",
+   "epithet": {
+    "ru": "Говорит только писком",
+    "en": "Speaks Only in Squeaks"
+   },
+   "quote": {
+    "ru": "*писк* *пауза* *очень многозначительный писк*",
+    "en": "*squeak* *pause* *a very meaningful squeak*"
+   },
+   "intro": {
+    "ru": "Бельчонок приходит к тем, кто носит при себе его сородича в цилиндре, и, похоже, считает это приглашением. Он говорит только писком, грызёт желуди и смотрит на спор сил так, будто давно знает, чем он кончится. Мутант и его родня обращаются с ним подчёркнуто вежливо — на всякий случай. В кровавую луну его писк ненадолго становится словами, и лучше бы их никто не слышал.",
+    "en": "The Squirrel comes to those who carry one of his kin in a top hat, and apparently takes that as an invitation. He speaks only in squeaks, gnaws acorns, and watches the forces' quarrel as if he has long known how it ends. The Mutant and his kin treat him with pointed politeness — just in case. On a blood moon his squeaking briefly turns into words, and it would be better if no one heard them."
+   },
+   "findHint": {
+    "ru": "Носи в инвентаре белку в цилиндре — и Бельчонок придёт сам, как к старому знакомому.",
+    "en": "Carry a Top Hat Squirrel in your inventory, and the Squirrel will come on his own, as if to an old friend."
+   },
+   "epilogue": {
+    "ru": "Бельчонок оставляет у двери {player} цилиндр — аккуратно, как визитную карточку. Выродокк, увидев это, бледнеет и вспоминает, что кто-то из семьи однажды уже обернулся белкой. Мутант делает вид, что не понимает, о чём речь. Бельчонок грызёт жёлудь. *писк*",
+    "en": "The Squirrel leaves a top hat at {player}'s door — neatly, like a calling card. Seeing it, Abominationn goes pale and recalls that someone in the family once turned into a squirrel. The Mutant pretends not to know what he means. The Squirrel gnaws an acorn. *squeak*"
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Свои",
+     "kind": "Observe",
+     "description": {
+      "ru": "Бельчонок настойчиво пищит в сторону леса, где шуршат обычные белки. Похоже, он просит понаблюдать за его сородичами, не трогая их, — и увидеть в них что-то своё.",
+      "en": "The Squirrel squeaks insistently toward the woods where ordinary squirrels rustle. It seems he wants you to watch his kin without touching them — and see something familiar in them."
+     },
+     "offer": {
+      "ru": "*писк* *тычет лапкой в сторону леса* *писк-писк* *строго смотрит на ваше оружие*",
+      "en": "*squeak* *points a paw toward the woods* *squeak-squeak* *glares sternly at your weapon*"
+     },
+     "complete": {
+      "ru": "*довольный писк* *кланяется так низко, что чуть не падает* *писк*",
+      "en": "*pleased squeak* *bows so low he nearly topples over* *squeak*"
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Запасы",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Бельчонок показывает пустое дупло и выразительно вздыхает: зима в этом мире, по его мнению, может прийти когда угодно. Собери желуди и принеси ему на запас.",
+      "en": "The Squirrel shows you an empty hollow and sighs meaningfully: winter in this world, he believes, may come at any moment. Gather acorns and bring them to him for his stores."
+     },
+     "offer": {
+      "ru": "*показывает пустое дупло* *тяжёлый вздох* *писк* *изображает, как дрожит от холода*",
+      "en": "*shows an empty hollow* *heavy sigh* *squeak* *mimes shivering from the cold*"
+     },
+     "complete": {
+      "ru": "*прячет желуди быстрее, чем вы успеваете моргнуть* *писк!* *вручает вам тыквенные семечки с видом мецената*",
+      "en": "*hides the acorns faster than you can blink* *squeak!* *hands you pumpkin seeds with the air of a patron*"
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Тропы кроны",
+     "kind": "Expedition",
+     "description": {
+      "ru": "Бельчонок живёт в кронах и знает, что деревья дарят тем, кто их потрясёт. Потряси деревья и собери плоды, упавшие сверху. Он проверит каждый, будто ищет среди них письмо.",
+      "en": "The Squirrel lives in the treetops and knows what trees give to those who shake them. Shake the trees and gather the fruit that falls from above. He'll inspect each one as if looking for a letter."
+     },
+     "offer": {
+      "ru": "*стучит по стволу* *показывает вверх* *трясёт лапками воображаемое дерево* *писк!* *выжидающе смотрит*",
+      "en": "*knocks on a trunk* *points up* *shakes an imaginary tree with both paws* *squeak!* *looks at you expectantly*"
+     },
+     "complete": {
+      "ru": "*перебирает плоды, один откладывает и долго нюхает* *писк* *вручает вам крюк с беличьим хвостом*",
+      "en": "*sorts the fruit, sets one aside and sniffs it for a long time* *squeak* *hands you a hook with a squirrel's tail*"
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "*писк?*",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Однажды Бельчонок пищит особенно долго и серьёзно — будто рассказывает что-то важное о мире. Реши, вежливо кивнуть, сделав вид, что всё поняли, или прислушаться по-настоящему.",
+      "en": "One day the Squirrel squeaks especially long and seriously — as if telling you something important about the world. Decide whether to nod politely as if you understood, or to truly listen."
+     },
+     "offer": {
+      "ru": "*писк* *писк* *долгая пауза* *писк, полный значения* *ждёт ответа*",
+      "en": "*squeak* *squeak* *a long pause* *a squeak full of meaning* *waits for an answer*"
+     },
+     "complete": {
+      "ru": "*коротко пищит, будто ставит точку* *протягивает вам шампунь для зверьков* *многозначительно смотрит*",
+      "en": "*a short squeak, like a full stop* *hands you a bottle of critter shampoo* *gives you a meaningful look*"
+     },
+     "waiting": null,
+     "choices": {
+      "nod": {
+       "outcome": {
+        "ru": "Бельчонок кивает в ответ — так же вежливо и так же ничего не понимая. Кажется, вы оба довольны разговором.",
+        "en": "The Squirrel nods back — just as politely, and understanding just as little. You both seem satisfied with the conversation."
+       },
+       "lean": "none"
+      },
+      "listen": {
+       "outcome": {
+        "ru": "Ты прислушиваешься, и на миг среди писка проступает тихий, совсем не беличий голос: «Ещё рано». Бельчонок тут же делает вид, что это был писк.",
+        "en": "You listen closely, and for a moment a quiet, not at all squirrel-like voice surfaces among the squeaks: “Not yet.” The Squirrel at once pretends it was a squeak."
+       },
+       "lean": "none"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Тайна белки",
+     "kind": "Delayed",
+     "description": {
+      "ru": "Бельчонок обещает раскрыть свою тайну, но только тем, кто умеет ждать. Наберись терпения на несколько дней — и не тревожь его дупло, даже если оттуда доносится что-то странное.",
+      "en": "The Squirrel promises to reveal his secret, but only to those who can wait. Be patient for a few days — and don't disturb his hollow, even if strange sounds come from it."
+     },
+     "offer": {
+      "ru": "*прижимает лапку к губам* *шёпотом: писк* *скрывается в дупле и задёргивает вход листом*",
+      "en": "*presses a paw to his lips* *whispers: squeak* *vanishes into the hollow and draws a leaf across the entrance*"
+     },
+     "complete": {
+      "ru": "*вылезает из дупла в крошечном цилиндре* *снимает его и торжественно вручает вам* *писк*",
+      "en": "*climbs out of the hollow in a tiny top hat* *takes it off and solemnly presents it to you* *squeak*"
+     },
+     "waiting": {
+      "ru": "Из дупла доносятся шорох, стук и что-то похожее на смешок. Бельчонок занят и просит не беспокоить.",
+      "en": "Rustling, tapping and something like a chuckle come from the hollow. The Squirrel is busy and asks not to be disturbed."
+     },
+     "choices": null
+    }
+   ]
+  }
+ ]
+}

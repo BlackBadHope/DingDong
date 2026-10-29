@@ -1,0 +1,53 @@
+using System.Collections.Concurrent;
+
+namespace Terraria
+{
+	internal sealed class Tile
+	{
+		internal bool HasTile = true;
+		internal ushort TileType = ID.TileID.Stone, WallType;
+		internal byte LiquidAmount;
+		internal void ClearEverything() { HasTile = false; TileType = WallType = 0; LiquidAmount = 0; }
+	}
+	internal sealed class TileMap
+	{
+		internal readonly ConcurrentDictionary<(int X, int Y), Tile> Cells = new();
+		internal Tile this[int x, int y] => Cells.GetOrAdd((x, y), _ => new Tile());
+	}
+	internal static class Main { internal static TileMap tile = new(); }
+}
+namespace Terraria.ID
+{
+	internal static class TileID
+	{
+		internal const ushort Stone = 1, Dirt = 2, Grass = 3, BlueDungeonBrick = 4,
+			LihzahrdBrick = 5, WoodBlock = 6, Hive = 7, ObsidianBrick = 8,
+			Mudstone = 9, MushroomGrass = 10, Rope = 11, SandstoneBrick = 12;
+	}
+	internal static class WallID
+	{
+		internal const ushort None = 0, Stone = 1, Wood = 2, BlueDungeonUnsafe = 3,
+			LihzahrdBrickUnsafe = 4, HiveUnsafe = 5, ObsidianBrickUnsafe = 6,
+			MudstoneBrick = 7, MushroomUnsafe = 8, CaveUnsafe = 9, SandstoneBrick = 10;
+	}
+}
+namespace Microsoft.Xna.Framework
+{
+	internal readonly record struct Rectangle(int X, int Y, int Width, int Height);
+}
+namespace Terraria.WorldBuilding
+{
+	internal sealed class StructureMap
+	{
+		internal void AddProtectedStructure(Microsoft.Xna.Framework.Rectangle area, int padding) { }
+	}
+	internal static class GenVars { internal static readonly StructureMap structures = new(); }
+}
+namespace DingDongBiomeHomes.Worldgen.Compiler.Runtime
+{
+	internal static class WorldCompilerRuntimeState { internal static WorldCompilerRuntimeWorkIndex WorkIndex; }
+	internal static class WorldCompilerExecutionPolicy
+	{
+		internal static readonly ParallelOptions ParallelOptions = new() { MaxDegreeOfParallelism = 3 };
+	}
+}

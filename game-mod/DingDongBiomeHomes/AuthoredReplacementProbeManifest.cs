@@ -42,5 +42,19 @@ public static class AuthoredReplacementProbeManifest
 		int width,
 		int height,
 		PresetRole roles,
-		AuthoredPlacementMode placementMode = AuthoredPlacementMode.SurfaceStructure) => PublicHomeReplacementCatalog.Create(id, width, height, placementMode, roles);
+		AuthoredPlacementMode placementMode = AuthoredPlacementMode.SurfaceStructure) => new(
+		id,
+		$"Structures/PrivateHome/GnorpBuilder/{fileName}.shstruct",
+		width,
+		height,
+		null,
+		0,
+		"Korlex",
+		Source,
+		$"tmod-sha256:{PackageSha256}",
+		License,
+		roles | PresetRole.PrivateHome,
+		placementMode,
+		false,
+		false);
 }

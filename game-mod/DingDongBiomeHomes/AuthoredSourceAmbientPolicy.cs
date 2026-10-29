@@ -72,8 +72,6 @@ internal static class AuthoredSourceAmbientPolicy
 
 	private static bool IsTarget(AuthoredPreset preset)
 	{
-		// Public replacements retain the assignment ID, not the old monolith geometry.
-		if (PublicHomeReplacementCatalog.IsProcedural(preset.ResourcePath)) return false;
 		if (preset.Id != PresetId) return false;
 		if (preset.ResourcePath != ResourcePath || preset.Width != 190 || preset.Height != 160)
 			throw new InvalidDataException("Huadiao ambient policy requires the unchanged 190x160 reviewed source.");

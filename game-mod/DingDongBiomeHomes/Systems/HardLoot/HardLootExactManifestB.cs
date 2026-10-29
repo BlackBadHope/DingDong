@@ -26,6 +26,6 @@ internal static class HardLootExactManifestB
 		new("NoFishingQuests", "3.2.0.5", "9beba5b8-97f4-4a4a-b8c9-c3a013b1c2e1"),
 		new("OmniSwing", "4.0.0", "0e47b741-5a9b-4817-a193-9be51e4508b2"),
 		new("OneStopNPCShop", "1.3.0.6", "a8a30c32-b096-4f1e-bbc0-6bce78d43787"),
-		new("OreExcavator", "0.8.9", "2264ffea-9709-46d9-a20a-7ed1b662afeb")
+		new("OreExcavator", "0.8.9", "73612310-4899-4197-8f28-613c3ee9a082")
 	];
 }

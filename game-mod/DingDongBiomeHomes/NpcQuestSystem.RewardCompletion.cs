@@ -19,15 +19,28 @@ internal static partial class NpcQuestSystem
 	{
 		if (!NpcTownManifest.TryGet(npcKey, out NpcTownIdentity identity))
 			return;
+		if (!progress.Active || !progress.IsAssignedTo(questPlayer.PersistentId)) return;
+		ResidentQuestDefinition definition = progress.Definition(identity);
+		int completedQuest = progress.ActiveQuestId;
 		bool unlockedTrust = progress.Completed < required;
 		int reward = progress.RewardCopper;
 		int rewardDifficulty = progress.DifficultyRank;
+		if (definition.Kind == ResidentQuestKind.DialogueChoice && definition.StoryKey.Length > 0)
+		{
+			// The pick was recorded when it was made and outlives the stage: it is the world's
+			// answer for the codex and finales. A stage without a recorded pick is reset on
+			// load (ReconcileLoadedChoices); the marker below only guards odd states.
+			if (!NpcQuestWorldLedger.TryGetChoice(npcKey, definition.Variant, out _))
+				NpcQuestWorldLedger.RecordChoice(npcKey, definition.Variant, NpcQuestWorldLedger.LegacyChoice);
+		}
 		progress.Completed = Math.Min(int.MaxValue - 1, progress.Completed + 1);
 		progress.ClearActive();
 		NpcQuestWorldLedger.Record(player, npcKey, progress);
 		int totalCompleted = questPlayer.CurrentCompletedTotal();
-		QuestRewardReceipt receipt = QuestRewardBalance.Grant(player, identity, reward, rewardDifficulty, totalCompleted);
-		Notify(player, "Mods.DingDongBiomeHomes.Quests.RewardGranted", QuestRewardBalance.FormatCoins(receipt.CopperValue), receipt.CacheCount, Lang.GetItemNameValue(receipt.CacheItemType), receipt.ThemedItemCount, Lang.GetItemNameValue(receipt.ThemedItemType));
+		QuestRewardReceipt receipt = definition.StoryKey.Length > 0 ? QuestRewardBalance.GrantPersonal(player, definition, reward) : QuestRewardBalance.Grant(player, identity, reward, rewardDifficulty, totalCompleted);
+		NpcQuestWorldLedger.RecordCompletion(npcKey, completedQuest, player, receipt);
+		if (definition.StoryKey.Length > 0) QuestNotice.Send(player, QuestNoticeKind.Completed, npcKey, definition.Variant, reward);
+        else Notify(player, "Mods.DingDongBiomeHomes.Quests.RewardGranted", QuestRewardBalance.FormatCoins(receipt.CopperValue), receipt.CacheCount, Lang.GetItemNameValue(receipt.CacheItemType), receipt.ThemedItemCount, Lang.GetItemNameValue(receipt.ThemedItemType));
 		if (receipt.MilestoneBonus)
 			Notify(player, "Mods.DingDongBiomeHomes.Quests.RewardStreak", totalCompleted);
 		if (unlockedTrust && progress.Completed >= required)

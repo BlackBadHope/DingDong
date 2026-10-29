@@ -42,16 +42,16 @@ internal static class QuestJournalContent
 			bool ready = NpcQuestSystem.IsReady(player, definition, progress);
 			if (ready)
 				readyCount++;
-			string objective = NpcQuestSystem.ObjectiveText(player, definition, progress);
+			string objective = NpcQuestSystem.ObjectiveText(player, definition, progress)+"\n"+progress.AssignedName;
 			if (ready)
 				objective += "\n" + Language.GetTextValue("Mods.DingDongBiomeHomes.Quests.Journal.ReturnToResident", NpcQuestSystem.ResidentName(npcKey));
 			else if (NpcQuestSystem.UsesResidenceMap(definition.Kind))
 				objective += "\n" + Language.GetTextValue("Mods.DingDongBiomeHomes.Quests.Journal.MapHint");
 			int trustRequired = ResidentTrustPolicy.RequiredQuests(identity);
 			string trust = Language.GetTextValue("Mods.DingDongBiomeHomes.Quests.Journal.Trust", ResidentTrustPolicy.Percent(progress, identity), progress.Completed, trustRequired);
-			string body = Language.GetTextValue("Mods.DingDongBiomeHomes.Quests.Journal.EntryBody", objective, ready ? Language.GetTextValue("Mods.DingDongBiomeHomes.Quests.Journal.Ready") : Language.GetTextValue("Mods.DingDongBiomeHomes.Quests.Journal.InProgress"), QuestRewardBalance.FormatBundle(progress.RewardCopper, progress.DifficultyRank), NpcQuestSystem.DifficultyName(progress.DifficultyRank), trust);
+			string body = Language.GetTextValue("Mods.DingDongBiomeHomes.Quests.Journal.EntryBody", objective, ready ? Language.GetTextValue("Mods.DingDongBiomeHomes.Quests.Journal.Ready") : Language.GetTextValue("Mods.DingDongBiomeHomes.Quests.Journal.InProgress"), QuestRewardBalance.FormatBundle(definition, progress.RewardCopper, progress.DifficultyRank), NpcQuestSystem.DifficultyName(progress.DifficultyRank), trust);
 			(int iconItemType, int iconNpcType) = ResolveIcon(definition);
-			entries.Add(new QuestJournalEntry(NpcQuestSystem.ResidentName(npcKey), body, ready, iconItemType, iconNpcType, QuestRewardBalance.CacheItemType(progress.DifficultyRank)));
+			entries.Add(new QuestJournalEntry(NpcQuestSystem.ResidentName(npcKey), body, ready, iconItemType, iconNpcType, definition.StoryKey.Length>0?definition.RewardItemType:QuestRewardBalance.CacheItemType(progress.DifficultyRank)));
 		}
 
 		entries = entries.OrderByDescending(entry => entry.Ready).ThenBy(entry => entry.Resident, StringComparer.CurrentCulture).ToList();

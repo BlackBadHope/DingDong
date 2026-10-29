@@ -17,6 +17,7 @@ public sealed partial class NpcQuestPlayer
 {
 	internal ResidentQuestProgress Get(string npcKey)
 	{
+		if (Main.netMode != NetmodeID.MultiplayerClient) return NpcQuestWorldLedger.GetShared(npcKey);
 		string key = ComposeKey(CurrentWorldKey(), npcKey);
 		if (!progressByWorldAndNpc.TryGetValue(key, out ResidentQuestProgress progress))
 		{
@@ -29,6 +30,11 @@ public sealed partial class NpcQuestPlayer
 
 	internal bool TryGetActive(out string npcKey, out ResidentQuestProgress progress)
 	{
+        if (Main.netMode != NetmodeID.MultiplayerClient)
+        {
+            var active = NpcQuestWorldLedger.SharedSnapshot(false).FirstOrDefault(p => p.Progress.Active);
+            npcKey = active.NpcKey ?? string.Empty; progress = active.Progress; return progress != null;
+        }
 		string prefix = CurrentWorldKey() + KeySeparator;
 		foreach ((string key, ResidentQuestProgress value)in progressByWorldAndNpc)
 		{
@@ -47,24 +53,28 @@ public sealed partial class NpcQuestPlayer
 
 	internal IReadOnlyList<(string NpcKey, ResidentQuestProgress Progress)> CurrentActiveRecords()
 	{
+		if (Main.netMode != NetmodeID.MultiplayerClient) return NpcQuestWorldLedger.SharedSnapshot(false).Where(p => p.Progress.Active).ToArray();
 		string prefix = CurrentWorldKey() + KeySeparator;
 		return progressByWorldAndNpc.Where(pair => pair.Key.StartsWith(prefix, StringComparison.Ordinal) && pair.Value.Active).Select(pair => (pair.Key[prefix.Length..], pair.Value)).OrderBy(pair => pair.Item1, StringComparer.Ordinal).ToArray();
 	}
 
 	internal IReadOnlyList<(string NpcKey, ResidentQuestProgress Progress)> CurrentSnapshot()
 	{
+		if (Main.netMode != NetmodeID.MultiplayerClient) return NpcQuestWorldLedger.SharedSnapshot();
 		string prefix = CurrentWorldKey() + KeySeparator;
 		return progressByWorldAndNpc.Where(pair => pair.Key.StartsWith(prefix, StringComparison.Ordinal)).Select(pair => (pair.Key[prefix.Length..], pair.Value.Clone())).OrderBy(pair => pair.Item1, StringComparer.Ordinal).ToArray();
 	}
 
 	internal bool TryGetCurrent(string npcKey, out ResidentQuestProgress progress)
 	{
+		if (Main.netMode != NetmodeID.MultiplayerClient) return NpcQuestWorldLedger.TryGetShared(npcKey, out progress);
 		string key = ComposeKey(CurrentWorldKey(), npcKey);
 		return progressByWorldAndNpc.TryGetValue(key, out progress);
 	}
 
 	internal int CurrentCompletedTotal()
 	{
+		if (Main.netMode != NetmodeID.MultiplayerClient) return (int)Math.Min(int.MaxValue,NpcQuestWorldLedger.SharedSnapshot(false).Sum(p => (long)p.Progress.Completed));
 		string prefix = CurrentWorldKey() + KeySeparator;
 		long total = progressByWorldAndNpc.Where(pair => pair.Key.StartsWith(prefix, StringComparison.Ordinal)).Sum(pair => (long)Math.Max(0, pair.Value.Completed));
 		return (int)Math.Min(int.MaxValue, total);

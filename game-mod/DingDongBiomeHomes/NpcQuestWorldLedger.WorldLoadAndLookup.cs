@@ -18,9 +18,13 @@ public sealed partial class NpcQuestWorldLedger
 	public override void LoadWorldData(TagCompound tag)
 	{
 		Records.Clear();
+		LoadShared(tag);
 		int version = tag.GetInt("ResidentQuestLedgerVersion");
 		if ((version < 1 || version > SaveVersion) || !tag.ContainsKey("ResidentQuestLedger"))
+		{
+			ReconcileLoadedChoices();
 			return;
+		}
 		foreach (TagCompound entry in tag.GetList<TagCompound>("ResidentQuestLedger"))
 		{
 			string ownerId = entry.GetString("OwnerId");
@@ -65,11 +69,13 @@ public sealed partial class NpcQuestWorldLedger
 				loaded.NormalizeLoaded(loadedIdentity, ownerId);
 			Records[Compose(ownerId, npcKey)] = loaded;
 		}
+		MigrateLegacyRecords();
+		ReconcileLoadedChoices();
 	}
 
 	internal static bool TryRead(string ownerId, string npcKey, out ResidentQuestProgress progress)
 	{
-		if (Records.TryGetValue(Compose(ownerId, npcKey), out ResidentQuestProgress stored))
+		if (Shared.TryGetValue(npcKey, out ResidentQuestProgress stored) || Records.TryGetValue(Compose(ownerId, npcKey), out stored))
 		{
 			progress = stored.Clone();
 			return true;

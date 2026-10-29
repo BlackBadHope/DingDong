@@ -26,7 +26,8 @@ public sealed partial class NpcResidenceWorldSystem
 			SpawnAnchor = new Point(211, 212),
 			DestinationHome = new Point(303, 404),
 			FailureReason = "contract-roundtrip",
-			Revision = 42
+			Revision = 42,
+			OriginReleased = true
 		};
 		using MemoryStream stream = new();
 		using (BinaryWriter writer = new(stream, System.Text.Encoding.UTF8, leaveOpen: true))
@@ -39,7 +40,7 @@ public sealed partial class NpcResidenceWorldSystem
 		ResidentEscortState actual;
 		using (BinaryReader reader = new(stream, System.Text.Encoding.UTF8, leaveOpen: true))
 			actual = ReadState(reader);
-		bool pass = stream.Position == stream.Length && string.Equals(actual.NpcKey, expected.NpcKey, StringComparison.Ordinal) && actual.Stage == expected.Stage && string.Equals(actual.OwnerId, expected.OwnerId, StringComparison.Ordinal) && actual.OwnerPlayerIndex == expected.OwnerPlayerIndex && actual.FlagPosition.Equals(expected.FlagPosition) && actual.OriginHome == expected.OriginHome && actual.SpawnAnchor == expected.SpawnAnchor && actual.DestinationHome == expected.DestinationHome && string.Equals(actual.FailureReason, expected.FailureReason, StringComparison.Ordinal) && actual.Revision == expected.Revision;
+		bool pass = stream.Position == stream.Length && string.Equals(actual.NpcKey, expected.NpcKey, StringComparison.Ordinal) && actual.Stage == expected.Stage && string.Equals(actual.OwnerId, expected.OwnerId, StringComparison.Ordinal) && actual.OwnerPlayerIndex == expected.OwnerPlayerIndex && actual.FlagPosition.Equals(expected.FlagPosition) && actual.OriginHome == expected.OriginHome && actual.SpawnAnchor == expected.SpawnAnchor && actual.DestinationHome == expected.DestinationHome && string.Equals(actual.FailureReason, expected.FailureReason, StringComparison.Ordinal) && actual.Revision == expected.Revision && actual.OriginReleased == expected.OriginReleased;
 		if (!pass)
 		{
 			failure = $"escort-state-roundtrip:{stream.Position}/{stream.Length}";

@@ -12,6 +12,9 @@ using Terraria.ModLoader.IO;
 namespace DingDongBiomeHomes;
 public sealed partial class DingDongQuestLifecycleProbeCommand
 {
+	// The lifecycle resident walks its whole personal story (every stage: accept -> objective
+	// -> turn in -> inventory reward -> ledger), then must refuse a further stage. Every other
+	// resident completes its first stage. The ledger then round-trips through a save tag.
 	internal static string RunProbe(Mod mod, string worldFile)
 	{
 		List<string> failures;
@@ -21,13 +24,15 @@ public sealed partial class DingDongQuestLifecycleProbeCommand
 		NpcTownIdentity identity;
 		NpcQuestPlayer questPlayer;
 		int accepted, completed, gated, rewards, residentsAccepted, residentsCompleted, residentRewards;
-		bool milestoneBonus, journalAccepted, journalReady;
-		InitializeLifecycleProbe(out failures, out ledger, out player, out npc, out identity, out questPlayer, out accepted, out completed, out gated, out rewards, out milestoneBonus, out journalAccepted, out journalReady, out residentsAccepted, out residentsCompleted, out residentRewards);
-		for (int cycle = 0; cycle < 5; cycle++)
+		bool storyComplete, journalAccepted, journalReady;
+		InitializeLifecycleProbe(out failures, out ledger, out player, out npc, out identity, out questPlayer, out accepted, out completed, out gated, out rewards, out storyComplete, out journalAccepted, out journalReady, out residentsAccepted, out residentsCompleted, out residentRewards);
+		int stages = StoryLength(identity.NpcKey);
+		Expect(failures, "story-length", stages > 0);
+		for (int cycle = 0; cycle < stages; cycle++)
 		{
 			InteractWithSyntheticResident(player, npc);
 			ResidentQuestProgress progress = questPlayer.Get(identity.NpcKey);
-			Expect(failures, $"accept-{cycle + 1}", progress.Active && progress.Completed == cycle && progress.ActiveGoal > 0 && progress.RewardCopper > 0);
+			Expect(failures, $"accept-{cycle + 1}", progress.Active && progress.Completed == cycle && progress.ActiveVariant == cycle && progress.ActiveGoal > 0 && progress.RewardCopper > 0);
 			if (!progress.Active)
 				break;
 			accepted++;
@@ -35,33 +40,37 @@ public sealed partial class DingDongQuestLifecycleProbeCommand
 			journalAccepted |= acceptedSnapshot.Entries.Any(entry => !entry.Ready);
 			int rewardCopper, rewardDifficulty;
 			QuestJournalSnapshot readySnapshot;
+			ResidentQuestDefinition definition = progress.Definition(identity);
 			gated = AdvanceObjectiveAndVerifyGate(failures, player, npc, identity, questPlayer, gated, cycle, progress, out rewardCopper, out rewardDifficulty, out readySnapshot);
 			journalReady |= readySnapshot.Entries.Any(entry => entry.Ready);
-			int cacheType = QuestRewardBalance.CacheItemType(rewardDifficulty);
-			bool[] itemsBeforeReward = CaptureActiveItems();
-			InteractWithSyntheticResident(player, npc);
+			bool rewardNow = TurnInAndVerifyReward(player, npc, questPlayer, definition, rewardCopper, rewardDifficulty, out string rewardDetail);
 			ResidentQuestProgress turnedIn = questPlayer.Get(identity.NpcKey);
-			List<Item> rewardDrops = NewWorldItems(itemsBeforeReward);
-			long coinDelta = CoinValue(rewardDrops);
-			int cacheDelta = rewardDrops.Where(item => item.type == cacheType).Sum(item => item.stack);
-			VerifyRewardAndLedger(failures, identity, ref completed, ref rewards, ref milestoneBonus, cycle, rewardCopper, turnedIn, rewardDrops, coinDelta, cacheDelta);
+			VerifyRewardAndLedger(failures, identity, ref completed, ref rewards, cycle, turnedIn, rewardNow, rewardDetail);
+			foreach (Item item in player.inventory)
+				item.TurnToAir();
 		}
 
-		RunAllResidents(player, npc, questPlayer, failures, ref residentsAccepted, ref residentsCompleted, ref residentRewards);
+		RunAllResidents(player, npc, questPlayer, identity.NpcKey, failures, ref residentsAccepted, ref residentsCompleted, ref residentRewards, ref storyComplete);
 		TagCompound persisted = new();
 		ledger.SaveWorldData(persisted);
+		Expect(failures, "ledger-version<=2", persisted.GetInt("SharedResidentQuestVersion") <= 2);
 		questPlayer.ReplaceCurrentSnapshot(Array.Empty<(string NpcKey, ResidentQuestProgress Progress)>());
 		ledger.LoadWorldData(persisted);
 		NpcQuestWorldLedger.BindPlayer(player, allowLocalImport: false);
 		bool persistence = NpcTownManifest.All.All(candidate =>
 		{
 			ResidentQuestProgress reloaded = questPlayer.Get(candidate.NpcKey);
-			int expectedCompleted = string.Equals(candidate.NpcKey, identity.NpcKey, StringComparison.Ordinal) ? 6 : 1;
-			return !reloaded.Active && reloaded.Completed == expectedCompleted;
+			return !reloaded.Active && reloaded.Completed == ExpectedCompleted(candidate.NpcKey, identity.NpcKey);
 		});
-		string summary = BuildLifecycleProbeSummary(mod, worldFile, failures, player, npc, accepted, completed, gated, rewards, residentsAccepted, residentsCompleted, residentRewards, milestoneBonus, journalAccepted, journalReady, persistence);
+		string summary = BuildLifecycleProbeSummary(mod, worldFile, failures, player, npc, stages, accepted, completed, gated, rewards, residentsAccepted, residentsCompleted, residentRewards, storyComplete, journalAccepted, journalReady, persistence);
 		player.active = false;
 		npc.active = false;
 		return summary;
 	}
+
+	internal const string LifecycleResidentKey = "Terraria/Guide";
+
+	// The lifecycle resident finished its whole story; every other resident its first stage.
+	internal static int ExpectedCompleted(string npcKey, string lifecycleKey = LifecycleResidentKey) =>
+		string.Equals(npcKey, lifecycleKey, StringComparison.Ordinal) ? StoryLength(npcKey) : 1;
 }

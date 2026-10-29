@@ -1,0 +1,956 @@
+{
+ "format": "dingdong-lore-node-v1",
+ "node": "town",
+ "nodePage": {
+  "title": {
+   "ru": "Первые дома",
+   "en": "The First Houses"
+  },
+  "body": {
+   "ru": "Город начался не с жителей, а с домов. Когда мир стал больше, у костра Гида уже стояли стены, крыши и двери — ровные, сухие, будто кто-то заранее знал, сколько здесь будет постояльцев. Гид пришёл первым и первым начал записывать. За ним потянулись те, кто торгует, лечит, чинит и взрывает: Торговец и Медсестра, Оружейник и Подрывник, а потом Гоблин-изобретатель и Механик, которых пришлось выручать из пещер и подземелья.\n\nЗдесь спор сил звучит негромко — за ужином, у прилавка, над верстаком. Одни хотят, чтобы город рос к океану и краям, другие — чтобы в нём наконец навели порядок, а Гид просит об одном: ничего не забыть. Но под каждым разговором лежит вопрос, который никто не задаёт вслух: кто построил эти дома и для кого?",
+   "en": "The town began not with residents but with houses. When the world grew larger, walls, roofs and doors already stood around the Guide’s campfire, straight and dry, as if someone had known in advance how many lodgers there would be. The Guide came first and was the first to start writing. After him came those who trade, heal, mend and blast: the Merchant and the Nurse, the Arms Dealer and the Demolitionist, and later the Goblin Tinkerer and the Mechanic, who had to be rescued from the caverns and the Dungeon.\n\nHere the argument between the forces is quiet: over supper, at the counter, above the workbench. Some want the town to grow toward the ocean and the edges, others want order at last, and the Guide asks for one thing only: forget nothing. But beneath every conversation lies a question no one asks aloud: who built these houses, and for whom?"
+  }
+ },
+ "residents": [
+  {
+   "npcKey": "Terraria/Guide",
+   "force": "archivists",
+   "epithet": {
+    "ru": "Первый голос мира",
+    "en": "The world’s first voice"
+   },
+   "quote": {
+    "ru": "Я помню, где кончался мир. Теперь он кончается дальше — и я хочу знать почему.",
+    "en": "I remember where the world used to end. Now it ends farther away, and I want to know why."
+   },
+   "intro": {
+    "ru": "Гид был здесь раньше всех и помнит малый мир — тот, что умещался между двумя опушками. Он знает рецепт почти любой вещи, но не знает главного: откуда взялись пустые дома, стоящие так, будто их ждали. Он не выбирает между ростом и порядком. Он записывает — и считает, что забыть прежний мир хуже, чем его потерять.",
+    "en": "The Guide was here before anyone else and remembers the small world, the one that fit between two forest edges. He knows the recipe for nearly anything, but not the one thing that matters: where the empty houses came from, standing as if they had been expecting someone. He does not choose between growth and order. He writes things down, and believes that forgetting the old world is worse than losing it."
+   },
+   "findHint": null,
+   "epilogue": {
+    "ru": "Гид закрыл первый том летописи и не стал ставить точку. «Следующее слово скажет не мир и не я, — решил он. — Но кто бы его ни сказал, оно должно лечь рядом с первым. Иначе мы снова не узнаем, кто строил дома». Теперь в конце хроники он оставляет пустую строку и подпись под ней: {player}.",
+    "en": "The Guide closed the first volume of the chronicle and did not put a full stop at the end. “The next word will not be spoken by the world or by me,” he decided. “But whoever speaks it, it must be written beside the first. Or we will never learn who built the houses.” Now he leaves an empty line at the end of the chronicle, signed beneath: {player}."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Первый свидетель",
+     "kind": "Observe",
+     "description": {
+      "ru": "Гид хочет понять, бродили ли ночные мертвецы по малому миру или пришли вместе с новыми краями. Найди зомби и понаблюдай за ним, не поднимая оружия: свидетель полезнее трофея.",
+      "en": "The Guide wants to know whether the night’s dead walked the small world too, or arrived with the new edges. Find a zombie and watch it without raising a weapon: a witness is worth more than a trophy."
+     },
+     "offer": {
+      "ru": "Не убивай его сразу, {player}. Посмотри, куда он идёт и откуда. Мёртвые тоже кое-что помнят.",
+      "en": "Don’t kill it right away, {player}. Watch where it walks and where it came from. The dead remember things too."
+     },
+     "complete": {
+      "ru": "Он шёл к пустым домам. Странно… Спасибо, что не спешил. Ты смотришь так, как должен смотреть летописец.",
+      "en": "It was walking toward the empty houses. Strange… Thank you for not rushing. You look at things the way a chronicler should."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Перья для летописи",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Летопись растёт быстрее, чем Гид успевает её вести, и старое перо совсем истёрлось. Ему нужны новые, а лучшие роняют гарпии на небесных островах. Принеси перья: чем выше они летали, тем дальше видели.",
+      "en": "The chronicle grows faster than the Guide can keep it, and his old quill is worn to nothing. He needs new ones, and the harpies of the sky islands drop the best. Bring feathers: the higher they flew, the farther they saw."
+     },
+     "offer": {
+      "ru": "Моё перо помнит только малый мир. Принеси новые, {player}, с той высоты, куда раньше никто не поднимался.",
+      "en": "My quill only remembers the small world. Bring me new ones, {player}, from heights no one used to reach."
+     },
+     "complete": {
+      "ru": "Новые перья пишут иначе, шире, будто им тесно на странице. Я отмечу, что их принёс ты.",
+      "en": "New quills write differently, wider, as if the page were too small for them. I will note that you were the one who brought them."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Что было раньше",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Гид впервые решается записать всё, что помнит о малом мире, — и сомневается: не держит ли память город на месте? Помоги ему решить, писать о прошлом или оставить страницу чистой.",
+      "en": "For the first time the Guide means to write down everything he remembers of the small world, and he hesitates: does memory hold the town in place? Help him decide whether to write the past or leave the page blank."
+     },
+     "offer": {
+      "ru": "Я помню мир, где до края было полдня пути. Записать это — или пусть уходит? Скажи честно, что думаешь.",
+      "en": "I remember a world where the edge was half a day’s walk away. Should I write it down, or let it go? Tell me honestly."
+     },
+     "complete": {
+      "ru": "Решено. Чернила не спрашивают, правильно ли, — они просто остаются. Спасибо, что решал вместе со мной.",
+      "en": "It is decided. Ink does not ask whether it is right; it simply stays. Thank you for deciding this with me."
+     },
+     "waiting": null,
+     "choices": {
+      "remember": {
+       "outcome": {
+        "ru": "Гид пишет до рассвета: тропы, которых больше нет, и край, за которым не было ничего. О малом мире он теперь говорит спокойнее, будто поставил его на полку.",
+        "en": "The Guide writes until dawn: paths that are gone, and an edge with nothing beyond it. He speaks of the small world more calmly now, as if he had finally shelved it."
+       },
+       "lean": "archivists"
+      },
+      "forget": {
+       "outcome": {
+        "ru": "Гид откладывает перо. «Пусть новый мир сам себя запишет», — говорит он, но долго смотрит на чистую страницу. О пустых домах он теперь спрашивает реже.",
+        "en": "The Guide sets down his pen. “Let the new world write itself,” he says, yet he stares at the blank page for a long time. He asks about the empty houses less often now."
+       },
+       "lean": "tiders"
+      }
+     }
+    },
+    {
+     "index": 3,
+     "titleRu": "Край леса",
+     "kind": "Visit",
+     "description": {
+      "ru": "Раньше лес кончался там, где кончался мир. Гид просит пожить в лесу подольше и почувствовать, где он обрывается теперь, — чтобы понять, что изменилось.",
+      "en": "The forest used to end where the world ended. The Guide asks you to spend a good while in the forest and feel where it breaks off now, so he can understand what has changed."
+     },
+     "offer": {
+      "ru": "Иди в лес и побудь там подольше. Мне нужно знать, похож ли он ещё на тот, что я помню.",
+      "en": "Go into the forest and stay there a while. I need to know whether it still resembles the one I remember."
+     },
+     "complete": {
+      "ru": "Деревья выше, тропы длиннее, а птицы те же. Значит, мир не переписали — его дописали. Это важная разница.",
+      "en": "Taller trees, longer paths, but the same birds. So the world was not rewritten; it was continued. That is an important difference."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 4,
+     "titleRu": "Чернила сохнут",
+     "kind": "Delayed",
+     "description": {
+      "ru": "Свежие записи должны высохнуть, прежде чем Гид перевернёт страницу. Дай ему время: летопись не терпит спешки, а то, что в ней проступит, может удивить его самого.",
+      "en": "The fresh entries must dry before the Guide can turn the page. Give him time: a chronicle does not tolerate haste, and what surfaces in it may surprise even him."
+     },
+     "offer": {
+      "ru": "Теперь ждём. Пока чернила сохнут, я перечитаю всё с начала — вдруг увижу то, чего не замечал.",
+      "en": "Now we wait. While the ink dries, I will reread everything from the start. Perhaps I will see what I missed."
+     },
+     "complete": {
+      "ru": "Высохло. И знаешь… на последней странице проступило слово, которого я не писал. Я оставлю его как есть.",
+      "en": "It is dry. And you know… a word has surfaced on the last page that I never wrote. I will leave it as it is."
+     },
+     "waiting": {
+      "ru": "Чернила сохнут. Гид перелистывает летопись с самого начала.",
+      "en": "The ink is drying. The Guide leafs through the chronicle from the very beginning."
+     },
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "Terraria/Merchant",
+   "force": "tiders",
+   "epithet": {
+    "ru": "Купец растущего мира",
+    "en": "Trader of a growing world"
+   },
+   "quote": {
+    "ru": "Хорошее дело начинается с честной сделки.",
+    "en": "A good venture begins with an honest deal."
+   },
+   "intro": {
+    "ru": "Торговец пришёл, едва у города завелись первые монеты, и сразу понял: чем больше мир, тем больше в нём покупателей. Пустые резиденции его не пугают — он видит в них будущие лавки и новых соседей. Но за каждой удачной сделкой он слышит тот же вопрос, что и все: кто заплатил за эти стены?",
+    "en": "The Merchant arrived as soon as the town had its first coins, and understood at once: the bigger the world, the more customers it holds. The empty residences do not frighten him; he sees future shops and new neighbours in them. Yet behind every good deal he hears the same question as everyone else: who paid for these walls?"
+   },
+   "findHint": null,
+   "epilogue": {
+    "ru": "Торговец пересчитал выручку и вдруг отложил монеты. «Мир — тоже сделка, — сказал он. — Он даёт нам дома, мы ему — жизнь в них. Пусть следующее слово будет честным, чтобы ни одна сторона не осталась в убытке». С тобой он больше не торгуется из-за мелочей.",
+    "en": "The Merchant counted his takings and suddenly set the coins aside. “The world is a deal too,” he said. “It gives us houses, we give it life inside them. Let the next word be honest, so neither side ends up at a loss.” He no longer haggles with you over trifles."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Оценка",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Прежде чем открыть лавку, Торговец хочет знать, что этот мир считает ценным. Принеси ему самоцветы из пещер, любые: он честно их оценит и по ним поймёт, богат ли мир, ставший больше.",
+      "en": "Before opening his stall, the Merchant wants to know what this world considers valuable. Bring him gems from the caves, any kind: he will appraise them honestly and judge from them whether the bigger world is rich."
+     },
+     "offer": {
+      "ru": "Хорошее дело начинается с честной оценки. Принеси камни из глубины, {player}, и посмотрим, сколько стоит новый мир.",
+      "en": "A good venture begins with an honest appraisal. Bring me stones from the deep, {player}, and we'll see what the new world is worth."
+     },
+     "complete": {
+      "ru": "Чистые, крупные, и лежали неглубоко. Мир не просто вырос, он вырос богатым. Держи шлем: тому, кто копает, нужен свет.",
+      "en": "Clean, large, and not buried deep. The world didn't just grow; it grew rich. Take this helmet: a digger needs light."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Груз с дальнего берега",
+     "kind": "Expedition",
+     "description": {
+      "ru": "Торговец слышал, что на дальнем берегу море выносит диковины, которых никто ещё не продавал. Ему нужна морская звезда, найденная в самом мире, — не купленная и не сделанная руками.",
+      "en": "The Merchant has heard that on the far shore the sea washes up curiosities nobody has sold yet. He needs a starfish found in the world itself, not bought and not made by hand."
+     },
+     "offer": {
+      "ru": "Мне нужна морская звезда с настоящего берега. Не из чужой лавки — я должен знать, что море правда там.",
+      "en": "I need a starfish from a real shore. Not from someone else’s shop; I have to know the sea is really out there."
+     },
+     "complete": {
+      "ru": "Солёная, настоящая. Значит, берег есть, а за берегом — новые покупатели. Я уже прикидываю, во что обойдётся дорога.",
+      "en": "Salty and real. So the shore exists, and beyond the shore, new customers. I’m already working out what the road will cost."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Стервятники над трактом",
+     "kind": "Hunt",
+     "description": {
+      "ru": "Караванный путь к морю идёт через пустыню, которую Торговец терпеть не может, и над трактом уже кружат стервятники. Для обоза это дурной знак и прямой убыток: они рвут тюки на лету. Разгони их, чтобы караван прошёл.",
+      "en": "The caravan road to the sea runs through the desert, which the Merchant cannot stand, and vultures already circle over it. For a wagon train that is a bad omen and a straight loss: they tear bales open in flight. Drive them off so the caravan can pass."
+     },
+     "offer": {
+      "ru": "Пустыня, {player}. Ненавижу её: песок в сапогах и стервятники над головой. Но короче пути к морю нет. Расчисти небо над трактом.",
+      "en": "The desert, {player}. I hate it: sand in my boots and vultures overhead. But there's no shorter road to the sea. Clear the sky over the road."
+     },
+     "complete": {
+      "ru": "Небо чистое, значит, дорога окупится. Чистая дорога — половина прибыли. Вторую половину я заработаю сам, партнёр.",
+      "en": "Clear sky, so the road will pay for itself. A clear road is half the profit. I'll earn the other half myself, partner."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Цена роста",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Торговец стоит перед выбором, о котором спорит весь город: тянуть лавку к океану, где новые деньги и новые опасности, или остаться там, где его знают. Он хочет услышать тебя.",
+      "en": "The Merchant faces the choice the whole town argues about: move the stall toward the ocean, with new money and new dangers, or stay where people know him. He wants to hear you."
+     },
+     "offer": {
+      "ru": "Есть место у самого моря. Там я заработаю втрое — или потеряю всё. Что скажешь, стоит рост такой цены?",
+      "en": "There’s a spot right by the sea. I could earn three times as much there, or lose everything. Is growth worth that price?"
+     },
+     "complete": {
+      "ru": "Ладно, по рукам. Решение — тоже товар, и за это я заплачу без торга.",
+      "en": "All right, it’s a deal. A decision is merchandise too, and I’ll pay for this one without haggling."
+     },
+     "waiting": null,
+     "choices": {
+      "expand": {
+       "outcome": {
+        "ru": "Торговец заказывает доски для новой лавки на берегу. О краях мира он теперь говорит как о рынках — и всё чаще смотрит на горизонт.",
+        "en": "The Merchant orders planks for a new stall on the shore. He talks about the world’s edges as markets now, and looks at the horizon more and more often."
+       },
+       "lean": "tiders"
+      },
+      "stay": {
+       "outcome": {
+        "ru": "Торговец остаётся у старого прилавка и снижает цены для соседей. «Корни дороже ветра», — говорит он, и в лавке теперь всегда кто-то есть.",
+        "en": "The Merchant stays at his old counter and lowers his prices for the neighbours. “Roots are worth more than wind,” he says, and there is always someone in the shop now."
+       },
+       "lean": "gardeners"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Караван возвращается",
+     "kind": "Delayed",
+     "description": {
+      "ru": "Караван ушёл по расчищенному пути, и вернуться ему предстоит своим ходом. Торговец просит подождать: по возвращении станет ясно, окупилась ли дорога к краям.",
+      "en": "The caravan has set off along the cleared road and must make its own way back. The Merchant asks you to wait: its return will show whether the road to the edges has paid off."
+     },
+     "offer": {
+      "ru": "Караван в пути. Подождём — дорога сама скажет, верно ли мы считали.",
+      "en": "The caravan is on its way. Let’s wait; the road itself will tell us whether we counted right."
+     },
+     "complete": {
+      "ru": "Вернулись все, и с товаром, какого я в жизни не видел. Мир щедрее, чем я думал. Это — тебе, без наценки.",
+      "en": "Everyone came back, with goods I’ve never seen in my life. The world is more generous than I thought. This is yours, no markup."
+     },
+     "waiting": {
+      "ru": "Караван в пути. По вечерам Торговец выходит встречать его на дорогу.",
+      "en": "The caravan is on its way. Every evening the Merchant walks out to the road to meet it."
+     },
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "Terraria/Nurse",
+   "force": "gardeners",
+   "epithet": {
+    "ru": "Хранительница палаты",
+    "en": "Keeper of the ward"
+   },
+   "quote": {
+    "ru": "Возвращайся целым. Об остальном позабочусь я.",
+    "en": "Come back in one piece. I will take care of the rest."
+   },
+   "intro": {
+    "ru": "Медсестра лечит всех, кто приходит, и всегда берёт плату — бинты не растут на деревьях. Мир, ставший больше, для неё означает одно: больше ран. Пустые дома она превратила бы в палаты, а края заперла бы на ключ. Ей по душе порядок: чистые простыни, ровный свет и правила, которые соблюдают.",
+    "en": "The Nurse treats everyone who comes to her, and always takes payment; bandages don’t grow on trees. A bigger world means one thing to her: more wounds. She would turn the empty houses into wards and lock the edges with a key. She likes order: clean sheets, steady light and rules that people follow."
+   },
+   "findHint": null,
+   "epilogue": {
+    "ru": "Медсестра сняла с двери табличку с ценами — не навсегда, но надолго. «Пусть мир скажет следующее слово шёпотом, — решила она. — Тихо и бережно, чтобы никого не задело. А если заденет, я рядом». Для тебя у неё теперь всегда найдётся свободная койка.",
+    "en": "The Nurse took the price list off her door: not forever, but for a long while. “Let the world speak its next word in a whisper,” she decided. “Quietly and carefully, so no one gets hurt. And if someone does, I’ll be close by.” There is always a free bed for you now."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Койки для палаты",
+     "kind": "GatherEnv",
+     "description": {
+      "ru": "Медсестра давно хочет превратить пустые дома в палаты, и начинать нужно с главного, с коек. Поставь кровати рядом с её резиденцией: раненым нужно где-то лежать, а не ждать на пороге.",
+      "en": "The Nurse has long wanted to turn the empty houses into wards, and that starts with the essentials: beds. Place beds near her residence; the wounded need somewhere to lie down instead of waiting on the doorstep."
+     },
+     "offer": {
+      "ru": "Две койки, {player}. Простые, деревянные, ровно у стены. Палата без коек — просто комната, где пахнет бинтами.",
+      "en": "Two beds, {player}. Plain wooden ones, square against the wall. A ward without beds is just a room that smells of bandages."
+     },
+     "complete": {
+      "ru": "Стоят ровно, простыни чистые. Ты аккуратен, а это редкость среди тех, кто ко мне попадает.",
+      "en": "Standing straight, clean sheets. You're careful, which is rare among the people who end up here."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Травы и бинты",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Медсестре нужны травы для отваров и примочек. Дневоцвет растёт под солнцем и лучше других унимает боль — собери его, пока она готовит чистые бинты.",
+      "en": "The Nurse needs herbs for tinctures and compresses. Daybloom grows under the sun and soothes pain better than most; gather it while she prepares clean bandages."
+     },
+     "offer": {
+      "ru": "Мне нужны дневоцветы. Срывай бережно, с корешком, — сухие стебли мне ни к чему.",
+      "en": "I need dayblooms. Pick them gently, root and all; dry stalks are no use to me."
+     },
+     "complete": {
+      "ru": "Свежие, ровные. Из них выйдет отвар на неделю. А ведь ты и сам умеешь заботиться.",
+      "en": "Fresh and even. That’s a week of tincture. You know, you’re rather good at taking care of things yourself."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Без царапины",
+     "kind": "Trial",
+     "description": {
+      "ru": "Медсестре надоело лечить тех, кто дерётся небрежно. Она хочет увидеть, что ты справишься с шипастыми слизнями джунглей и не получишь ни одной ядовитой царапины, — тогда она перестанет за тебя бояться.",
+      "en": "The Nurse is tired of treating people who fight carelessly. She wants to see you deal with spiked jungle slimes without a single poisoned scratch; then she can stop being afraid for you."
+     },
+     "offer": {
+      "ru": "Докажи, что можешь драться и не нахвататься шипов. Я устала тратить на тебя бинты и противоядие.",
+      "en": "Prove you can fight without collecting spikes. I'm tired of spending bandages and antidote on you."
+     },
+     "complete": {
+      "ru": "Ни одной открытой раны. Так и держи. Может, я даже перестану высматривать тебя в окно по ночам.",
+      "en": "Not a single open wound. Keep it that way. Maybe I’ll even stop watching for you at the window at night."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Чей порядок",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "В палату приходят и те, кому нечем платить, и те, кто не слушает указаний. Медсестра впервые сомневается, чему служит её порядок, и просит тебя рассудить.",
+      "en": "Some who come to the ward cannot pay, and some will not follow instructions. For the first time the Nurse wonders what her order is for, and asks you to judge."
+     },
+     "offer": {
+      "ru": "Пришёл раненый — без денег и без терпения. Пущу без очереди — рухнет порядок. Не пущу — рухнет он. Как быть?",
+      "en": "A wounded man came in, with no money and no patience. If I take him first, order collapses. If I don’t, he does. What should I do?"
+     },
+     "complete": {
+      "ru": "Хорошо. Я запомню, что мы решили вместе. Порядок, который никто не может объяснить, — уже не порядок.",
+      "en": "All right. I’ll remember we decided this together. Order that nobody can explain isn’t order any more."
+     },
+     "waiting": null,
+     "choices": {
+      "rules": {
+       "outcome": {
+        "ru": "Медсестра вешает над дверью правила палаты и требует их соблюдать. Жалоб стало больше, зато ран без присмотра — меньше.",
+        "en": "The Nurse hangs the ward rules over the door and insists they be followed. There are more complaints now, but fewer wounds left untended."
+       },
+       "lean": "gardeners"
+      },
+      "mercy": {
+       "outcome": {
+        "ru": "Медсестра принимает раненого без очереди и без платы. На её столе теперь лежит тетрадь долгов, которые она не собирается взыскивать.",
+        "en": "The Nurse takes the wounded man first, and for free. A ledger of debts now lies on her desk, debts she has no intention of collecting."
+       },
+       "lean": "none"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Выздоровление",
+     "kind": "Delayed",
+     "description": {
+      "ru": "Тот, кого вы лечили вместе, должен встать на ноги сам. Медсестра просит не торопить выздоровление: забота — это ещё и умение ждать.",
+      "en": "The one you treated together must get back on his feet by himself. The Nurse asks you not to rush the recovery: care is also the skill of waiting."
+     },
+     "offer": {
+      "ru": "Теперь ему нужен покой, а нам — терпение. Не заглядывай каждую минуту, ладно?",
+      "en": "Now he needs rest, and we need patience. Don’t peek in every minute, all right?"
+     },
+     "complete": {
+      "ru": "Встал и ушёл своими ногами. Ради этого я здесь. И ради того, чтобы ты возвращался целым.",
+      "en": "He got up and walked out on his own. That’s what I’m here for. That, and making sure you come back in one piece."
+     },
+     "waiting": {
+      "ru": "Больной спит. Медсестра поправляет одеяло и гасит лишний свет.",
+      "en": "The patient is asleep. The Nurse straightens the blanket and dims the extra light."
+     },
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "Terraria/ArmsDealer",
+   "force": "tiders",
+   "epithet": {
+    "ru": "Оружие для дальних дорог",
+    "en": "Arms for the long road"
+   },
+   "quote": {
+    "ru": "Большой мир — большие расстояния. А расстояния лучше всего сокращает хороший ствол.",
+    "en": "A big world means long distances. And nothing shortens a distance like a good barrel."
+   },
+   "intro": {
+    "ru": "Оружейник уверен, что миру незачем бояться роста — нужно лишь быть готовым к тому, что выйдет из-за горизонта. Он продаёт пули и стволы всем, кто идёт к краям, и сам не прочь туда наведаться. Пустые резиденции он называет заставами и шутит, что их строили под гарнизон. Шутит не слишком весело.",
+    "en": "The Arms Dealer is sure the world has no reason to fear growth; it only has to be ready for whatever steps over the horizon. He sells bullets and barrels to anyone heading for the edges, and would not mind a trip there himself. He calls the empty residences outposts and jokes that they were built for a garrison. The joke is not a cheerful one."
+   },
+   "findHint": null,
+   "epilogue": {
+    "ru": "Оружейник разобрал найденный ствол, почистил и продавать не стал. «Пусть мир говорит следующее слово громко, — решил он. — Мы встретим его стоя и с запасом патронов. Рост — это не страшно. Страшно — не успеть». Ствол он повесил над дверью с биркой «{player}».",
+    "en": "The Arms Dealer stripped the barrel you found, cleaned it, and did not sell it. “Let the world speak its next word loudly,” he decided. “We will meet it on our feet with plenty of rounds. Growth isn’t frightening. Being too slow is.” He hung the barrel above his door with a tag that reads “{player}”."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Движущиеся мишени",
+     "kind": "Hunt",
+     "description": {
+      "ru": "Оружейник не продаёт ствол, пока не увидит, как покупатель стреляет. По мертвякам попадёт любой: они идут прямо на тебя. А демонические глаза кружат и ныряют. Сбей их, и он поверит, что рука у тебя не дрогнет.",
+      "en": "The Arms Dealer won't sell a barrel until he has seen how the buyer shoots. Anyone can hit the walking dead; they come straight at you. Demon eyes circle and dive: bring them down, and he'll believe your hand won't shake on the long road."
+     },
+     "offer": {
+      "ru": "Мертвяки для новичков. Глаза в ночном небе для стрелков. Сбей несколько, {player}, а я посмотрю, как ты ведёшь цель.",
+      "en": "The walking dead are for beginners. Eyes in the night sky are for marksmen. Bring a few down, {player}, and I'll watch how you lead your target."
+     },
+     "complete": {
+      "ru": "Упреждение верное, патронов ушло мало. С тобой можно иметь дело. Держи, на следующую ночь.",
+      "en": "Good lead, few rounds wasted. I can do business with you. Here, for the next night out."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Порох для склада",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Склад Оружейника пустеет быстрее, чем растут дороги. Бомбы — самый простой запас пороха, который можно разобрать на заряды: принеси их, и он снова снарядит стрелков.",
+      "en": "The Arms Dealer’s stockroom empties faster than the roads grow. Bombs are the simplest store of powder that can be broken down into charges; bring some and he can arm his shooters again."
+     },
+     "offer": {
+      "ru": "Мне нужен порох, а у Подрывника очередь. Принеси бомбы — я сам разберусь, что куда.",
+      "en": "I need powder, and the Demolitionist has a queue. Bring me bombs and I’ll sort out what goes where."
+     },
+     "complete": {
+      "ru": "Сложены аккуратно, фитили сухие. Ты либо очень осторожен, либо очень везуч. Мне подходит и то и другое.",
+      "en": "Neatly packed, fuses dry. You’re either very careful or very lucky. Either suits me."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Чистый выстрел",
+     "kind": "Trial",
+     "description": {
+      "ru": "В подземных снегах носятся ледяные летучие мыши, и от их холода стынут пальцы. Оружейник хочет, чтобы ты стрелял чисто: уложил их и не дал себя заморозить. Дальние походы прощают немногое.",
+      "en": "Ice bats tear through the underground snow, and their cold numbs the fingers. The Arms Dealer wants a clean job: put them down without letting them freeze you. Long journeys forgive very little."
+     },
+     "offer": {
+      "ru": "Внизу, в снегах, ледяные мыши. Сделай дело и не окоченей — проверим твою выдержку.",
+      "en": "There are ice bats down in the snow. Do the job without freezing stiff; let's test your nerve."
+     },
+     "complete": {
+      "ru": "Ствол сухой, мушка чистая. Вот это выстрел, а не пальба наугад.",
+      "en": "Dry barrel, clean sight. That's a shot, not a guess."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Кому продавать",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Чем больше мир, тем больше незнакомцев приходит к прилавку Оружейника. Он спорит сам с собой: продавать ли оружие всякому, кто идёт к краям, или только тем, кого знает.",
+      "en": "The bigger the world, the more strangers come to the Arms Dealer’s counter. He argues with himself: sell arms to anyone heading for the edges, or only to people he knows?"
+     },
+     "offer": {
+      "ru": "Вчера пришёл чужак, заплатил золотом и не назвал имени. Мир растёт, и таких будет больше. Продавать им?",
+      "en": "Yesterday a stranger came in, paid in gold, and gave no name. The world is growing; there will be more like him. Do I sell to them?"
+     },
+     "complete": {
+      "ru": "Решено так решено. Если ошиблись, хоть узнаем, в чём. Спасибо, что не отмолчался.",
+      "en": "Decided is decided. If we’re wrong, at least we’ll learn how. Thanks for not keeping quiet."
+     },
+     "waiting": null,
+     "choices": {
+      "anyone": {
+       "outcome": {
+        "ru": "Оружейник открывает склад для всех, кто идёт к краям. Покупателей заметно прибавилось, а он завёл журнал, где отмечает тех, кто не вернулся.",
+        "en": "The Arms Dealer opens his stockroom to everyone bound for the edges. Customers have multiplied, and he now keeps a log of the ones who never came back."
+       },
+       "lean": "tiders"
+      },
+      "vetted": {
+       "outcome": {
+        "ru": "Оружейник вешает над прилавком список знакомых имён. Чужаки уходят ни с чем, город спит спокойнее, хотя торговля идёт медленнее.",
+        "en": "The Arms Dealer hangs a list of familiar names above his counter. Strangers leave empty-handed and the town sleeps easier, though trade is slower."
+       },
+       "lean": "gardeners"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Ствол из тайника",
+     "kind": "Expedition",
+     "description": {
+      "ru": "Оружейник слышал о старом дробовике, который мир спрятал в одном из своих тайников задолго до прихода жителей. Найди его сам — Оружейник хочет знать, кто стрелял здесь до нас.",
+      "en": "The Arms Dealer has heard of an old shotgun the world hid in one of its caches long before any residents arrived. Find it yourself; he wants to know who was shooting here before us."
+     },
+     "offer": {
+      "ru": "Где-то в старом тайнике лежит дробовик, которого я не продавал. Принеси — хочу посмотреть на клеймо.",
+      "en": "Somewhere in an old cache lies a shotgun I never sold. Bring it to me; I want to see the maker’s mark."
+     },
+     "complete": {
+      "ru": "Клейма нет. Ни мастера, ни года — будто его не сделали, а сказали. Ладно. Стреляет он всё равно отлично.",
+      "en": "No mark. No maker, no year, as if it was not made but spoken. Fine. It still shoots beautifully."
+     },
+     "waiting": null,
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "Terraria/Demolitionist",
+   "force": "tiders",
+   "epithet": {
+    "ru": "Тот, кто раздвигает края",
+    "en": "The one who pushes the edges"
+   },
+   "quote": {
+    "ru": "Если мир упёрся в стену, значит, стене пора подвинуться.",
+    "en": "If the world has run into a wall, then the wall had better move."
+   },
+   "intro": {
+    "ru": "Подрывник — гном, который любит громкие решения и не доверяет тихим. Он уверен, что мир вырос от хорошего взрыва и вырастет снова, если не жалеть пороха. Пустые дома он хвалит за крепкие стены и втайне проверял, выдержат ли они заряд. Выдержали. Это его и тревожит.",
+    "en": "The Demolitionist is a dwarf who loves loud solutions and distrusts quiet ones. He is sure the world grew from a good blast and will grow again if nobody skimps on powder. He praises the empty houses for their sturdy walls, and secretly tested whether they could take a charge. They could. That is what worries him."
+   },
+   "findHint": null,
+   "epilogue": {
+    "ru": "Подрывник спрятал последний ящик динамита под кровать и долго на него смотрел. «Следующее слово — это взрыв, — решил он. — Но хороший подрывник знает, когда поджигать фитиль, а когда нет». Этому он научился вместе с тобой и теперь доверяет тебе поджигать первым.",
+    "en": "The Demolitionist pushed his last crate of dynamite under the bed and stared at it for a long time. “The next word is a blast,” he decided. “But a good demolitionist knows when to light the fuse and when not to.” He learned that alongside you, and now he trusts you to light the first one."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Гель для запала",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Подрывнику нужен гель для медленных запалов: с ним фитиль горит ровно и не плюётся искрами. Без хорошего запала любой взрыв — просто шум.",
+      "en": "The Demolitionist needs gel for slow fuses: with it, a fuse burns evenly and doesn’t spit sparks. Without a good fuse, any blast is just noise."
+     },
+     "offer": {
+      "ru": "Гель, побольше геля! Хороший запал — как хорошая борода: длинный и не вспыхивает раньше времени.",
+      "en": "Gel, lots of gel! A good fuse is like a good beard: long, and never catching fire too early."
+     },
+     "complete": {
+      "ru": "Тянется, липнет, горит ровно — отличный гель. Будет тебе за это что-нибудь громкое.",
+      "en": "Stretches, sticks, burns evenly: excellent gel. You’ll get something loud for this."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Освети штрек",
+     "kind": "GatherEnv",
+     "description": {
+      "ru": "Подрывник ведёт новый штрек туда, где земли раньше не было. Прежде чем закладывать заряды, он хочет видеть каждую трещину, — развесь вдоль прохода факелы.",
+      "en": "The Demolitionist is driving a new tunnel into ground that did not exist before. Before setting charges he wants to see every crack, so line the passage with torches."
+     },
+     "offer": {
+      "ru": "В темноте я взрывать не стану, я не самоубийца. Освети штрек до самого конца, не ленись.",
+      "en": "I won’t blast in the dark, I’m not mad. Light the tunnel all the way to the end, and don’t slack off."
+     },
+     "complete": {
+      "ru": "Светло как днём. Теперь видно, где порода новая, а где старая. Новой, знаешь ли, подозрительно много.",
+      "en": "Bright as day. Now I can see which rock is new and which is old. There’s suspiciously much of the new, you know."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Не опали бороду",
+     "kind": "Trial",
+     "description": {
+      "ru": "Подрывник ведёт штрек к самой Преисподней, а там бесы швыряются огнём. Он просит их разогнать, но так, чтобы ты сам не загорелся: огонь рядом с зарядами — последнее, что ему нужно.",
+      "en": "The Demolitionist is driving a tunnel down to the Underworld, where imps hurl fire about. He asks you to drive them off without catching fire yourself: fire near the charges is the last thing he needs."
+     },
+     "offer": {
+      "ru": "Внизу огненные бесы, а у меня там динамит. Разгони их — и чтоб ни искры на тебе, ясно?",
+      "en": "There are fire imps down there, and my dynamite is there too. Clear them out, and not a single spark on you, understood?"
+     },
+     "complete": {
+      "ru": "Чисто, и ты не дымишься. Борода цела, шахта цела — лучший день за неделю.",
+      "en": "Clean, and you’re not smoking. Beard intact, mine intact: best day this week."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Куда ведёт шахта",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Штрек упёрся в гладкую стену, которой нет ни на одной карте, — будто здесь кончается сказанное. Подрывник спорит, взорвать ли «стену» края и бурить вниз дальше или запечатать пролом.",
+      "en": "The tunnel has hit a smooth wall that appears on no map, as if this is where the spoken part ends. The Demolitionist argues over whether to blast the edge’s “wall” and drill deeper or seal the breach."
+     },
+     "offer": {
+      "ru": "За этой стеной ничего не звенит, понимаешь? Ни пустоты, ни породы. Я могу её взорвать. Но стоит ли?",
+      "en": "Nothing rings behind that wall, you see? No hollow, no rock. I can blow it up. But should I?"
+     },
+     "complete": {
+      "ru": "Ну вот и решили. Чтоб ты знал: я бы спорил с любым, кроме тебя.",
+      "en": "Well, that’s settled. Just so you know: I’d argue with anyone but you."
+     },
+     "waiting": null,
+     "choices": {
+      "deeper": {
+       "outcome": {
+        "ru": "Подрывник закладывает заряд, и стена поддаётся. За ней — свежая, ещё тёплая порода. Он бурит дальше, а по ночам прислушивается к земле.",
+        "en": "The Demolitionist sets the charge, and the wall gives way. Behind it lies fresh rock, still warm. He keeps drilling, and at night he listens to the ground."
+       },
+       "lean": "tiders"
+      },
+      "seal": {
+       "outcome": {
+        "ru": "Подрывник замуровывает пролом и вешает табличку «Не трогать». Впервые он отказался от взрыва — и сам не понимает, почему ему спокойнее.",
+        "en": "The Demolitionist walls up the breach and hangs a “Do not touch” sign. For the first time he has turned down a blast, and he can’t say why it feels calmer."
+       },
+       "lean": "gardeners"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Кто грызёт штрек",
+     "kind": "Hunt",
+     "description": {
+      "ru": "Пыль осела, и в тишине Подрывник услышал то, чего боялся: кто-то грызёт свежую породу. Гигантские черви прокладывают ходы прямо там, где он решал, взрывать или запечатывать. Выследи их, пока они не обрушили шахту.",
+      "en": "The dust settled, and in the quiet the Demolitionist heard what he feared: something is gnawing the fresh rock. Giant worms are boring tunnels right where he chose whether to blast or to seal. Hunt them down before they bring the mine down."
+     },
+     "offer": {
+      "ru": "Слышишь? Скрип-скрип. Это не порода садится, это черви жрут мою шахту. Найди их, {player}. Тут поможет только громкое решение.",
+      "en": "Hear that? Scritch-scritch. That's not the rock settling; that's worms eating my mine. Find them, {player}. Only a loud solution will do here."
+     },
+     "complete": {
+      "ru": "Тихо. Всё стоит, ничего не рухнуло, даже я удивлён. Держи скарабеев: они бьют только в одну сторону. Хороший подрывник знает, в какую.",
+      "en": "Quiet. Everything's standing, nothing caved in; even I'm surprised. Take these scarab bombs: they blast one way only. A good demolitionist knows which way."
+     },
+     "waiting": null,
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "Terraria/GoblinTinkerer",
+   "force": "gardeners",
+   "epithet": {
+    "ru": "Мастер перековки",
+    "en": "Master of reforging"
+   },
+   "quote": {
+    "ru": "Каждую неисправность можно превратить в изобретение.",
+    "en": "Every malfunction can become an invention."
+   },
+   "intro": {
+    "ru": "Гоблина-изобретателя ты нашёл связанным в пещерах. Он не похож на сородичей из гоблинской армии: они ломают, он чинит. В городе он перековывает чужое оружие и снаряжение, доводя вещи до ума. Для него мир — механизм, который недавно перебрали и собрали заново, и, похоже, кое-какие детали поставили не на место.",
+    "en": "You found the Goblin Tinkerer tied up in the caverns. He is nothing like his kin in the goblin army: they break things, he mends them. In town he reforges other people’s weapons and gear, bringing things up to scratch. To him the world is a machine that was recently taken apart and put back together, and it seems a few parts went back in the wrong place."
+   },
+   "findHint": null,
+   "epilogue": {
+    "ru": "Гоблин повесил над наковальней табличку: «Перековано — не значит сломано». «Миру не нужно новое слово, — решил он. — Нужно точное: подтянуть, смазать, поставить на место». Твоё снаряжение он теперь осматривает без просьбы и почти без наценки.",
+    "en": "The Goblin hung a sign over his anvil: “Reforged doesn’t mean broken.” “The world doesn’t need a new word,” he decided. “It needs a precise one: tighten, oil, set in place.” He now looks over your gear without being asked, and with almost no markup."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Цепи для верстака",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Верстак Гоблина держится на честном слове, а честное слово плохо держит наковальню. Ему нужны цепи — закрепить станок, чтобы перековка шла ровно.",
+      "en": "The Goblin’s workbench is held together by a promise, and a promise holds an anvil poorly. He needs chains to secure it so his reforging comes out true."
+     },
+     "offer": {
+      "ru": "Принеси цепей, дружище. Верстак шатается, а на шатком верстаке и молоток врёт.",
+      "en": "Bring me chains, friend. The bench wobbles, and on a wobbly bench even the hammer lies."
+     },
+     "complete": {
+      "ru": "Держит намертво! Вот теперь можно работать по-настоящему. Заходи — перекую тебе что-нибудь со скидкой.",
+      "en": "Rock solid! Now I can do some real work. Drop by and I’ll reforge something for you at a discount."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Разведчик на окраине",
+     "kind": "Observe",
+     "description": {
+      "ru": "У окраины бродит гоблин-разведчик. Гоблину важно понять, чего его сородичи ищут в новом мире, — понаблюдай за разведчиком, не спугнув и не убив его.",
+      "en": "A goblin scout is prowling the outskirts. The Goblin needs to understand what his kin are looking for in the new world; watch the scout without scaring it off or killing it."
+     },
+     "offer": {
+      "ru": "Там, у края, наш разведчик. Не трогай его, просто посмотри, что он ищет. Мне… важно знать.",
+      "en": "Out by the edge there’s one of our scouts. Don’t touch him, just watch what he’s looking for. It… matters to me."
+     },
+     "complete": {
+      "ru": "Он искал дома. Такие же, как наши. Значит, не только мы их заметили. Спасибо, что не стал стрелять.",
+      "en": "He was looking for houses. Just like ours. So we’re not the only ones who noticed them. Thank you for not shooting."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Воры среди своих",
+     "kind": "Hunt",
+     "description": {
+      "ru": "Разведчик искал дома, и гоблинская армия пришла за ними. Гоблин не хочет, чтобы ты трогал разведчиков, но воры — другое дело: они уносят и ломают всё, что он чинит. Когда армия подойдёт, выследи гоблинов-воров.",
+      "en": "The scout was looking for houses, and the goblin army has come for them. The Goblin doesn't want the scouts hurt, but thieves are another matter: they carry off and break everything he mends. When the army comes, hunt down the goblin thieves."
+     },
+     "offer": {
+      "ru": "Разведчики пусть смотрят. А воров не жалей, дружище. Они ломают, я чиню, и мне надоело чинить за ними.",
+      "en": "Scouts can look all they like. But don't spare the thieves, friend. They break, I mend, and I'm sick of mending after them."
+     },
+     "complete": {
+      "ru": "Ушли ни с чем. Раньше я бы расстроился, что дрался со своими. А теперь думаю: свои — это те, кто чинит.",
+      "en": "They left empty-handed. I used to feel bad about fighting my own. Now I think my own are the ones who mend."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Чинить или менять",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "К Гоблину несут вещи, которые проще выбросить, чем починить. Перековка может сохранить старое или заменить его лучшим — и он хочет решить, каким мастером ему быть в этом мире.",
+      "en": "People bring the Goblin things that are easier to throw away than to fix. Reforging can preserve the old or replace it with something better, and he wants to decide what kind of craftsman to be in this world."
+     },
+     "offer": {
+      "ru": "Вот меч, весь в зазубринах. Могу перековать — и он останется собой. Могу переплавить в новый, получше. Что скажешь?",
+      "en": "Here’s a sword, notched all over. I can reforge it and it stays itself. Or I can melt it down into a new, better one. What do you say?"
+     },
+     "complete": {
+      "ru": "Хорошо. Мастер без принципа — просто молоток. Теперь принцип у меня есть, и дал мне его ты.",
+      "en": "Good. A craftsman without a principle is just a hammer. Now I have one, and you gave it to me."
+     },
+     "waiting": null,
+     "choices": {
+      "mend": {
+       "outcome": {
+        "ru": "Гоблин перековывает старый меч, сохранив каждую зарубку на рукояти. Теперь он охотнее берётся за починку, чем за новое, и уверяет, что вещи ему благодарны.",
+        "en": "The Goblin reforges the old sword, keeping every notch on the hilt. He now prefers mending to making new, and insists that things are grateful to him for it."
+       },
+       "lean": "gardeners"
+      },
+      "replace": {
+       "outcome": {
+        "ru": "Гоблин переплавляет меч и куёт новый, острее прежнего. В перековке он стал смелее — и всё чаще говорит, что мир тоже можно разобрать и собрать лучше.",
+        "en": "The Goblin melts down the sword and forges a new, sharper one. He has grown bolder at the anvil, and says more and more often that the world could be taken apart and rebuilt better too."
+       },
+       "lean": "tiders"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Свой клинок",
+     "kind": "Expedition",
+     "description": {
+      "ru": "Гоблин решил, каким мастером быть, и хочет проверить это на вещи, в которой есть твои руки. Выкуй меч сам, не покупая и не находя. Он доведёт его до ума и повесит над наковальней, чтобы помнить, с чего начинал.",
+      "en": "The Goblin has decided what kind of craftsman to be, and wants to test it on something with your hands in it. Forge a sword yourself, not bought and not found. He will bring it up to scratch and hang it over his anvil, to remember where he started."
+     },
+     "offer": {
+      "ru": "Принеси меч, который сковал сам, дружище. Кривой — не беда. Главное, чтобы в нём были твои руки, а не чужие.",
+      "en": "Bring me a sword you forged yourself, friend. Crooked is fine. What matters is that it has your hands in it, not someone else's."
+     },
+     "complete": {
+      "ru": "Зарубки твои, баланс мой. Повешу над наковальней. Перековать не значит сломать, с миром то же самое. Держи пояс: инструмент должен быть под рукой.",
+      "en": "Your notches, my balance. It goes over the anvil. Reforged doesn't mean broken, and the same goes for the world. Take this belt: tools should be close at hand."
+     },
+     "waiting": null,
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "Terraria/Mechanic",
+   "force": "gardeners",
+   "epithet": {
+    "ru": "Хозяйка проводов",
+    "en": "Keeper of the wires"
+   },
+   "quote": {
+    "ru": "Хорошая схема работает тихо. Если всё гремит — где-то ошибка.",
+    "en": "A good circuit works quietly. If everything rattles, there is a mistake somewhere."
+   },
+   "intro": {
+    "ru": "Механик провела в подземелье больше времени, чем хотела бы вспоминать, — ты вывел её оттуда, и с тех пор она не выносит хаоса. В городе она тянет провода, ставит рычаги и любит, когда всё работает предсказуемо. Мир, выросший без чертежа, её раздражает: она бы с радостью нашла того, кто строил эти дома, и спросила, где схема.",
+    "en": "The Mechanic spent more time in the Dungeon than she cares to remember; you got her out, and ever since she cannot stand chaos. In town she runs wires, fits levers and likes everything to work predictably. A world that grew without a blueprint irritates her: she would gladly find whoever built these houses and ask where the schematic is."
+   },
+   "findHint": null,
+   "epilogue": {
+    "ru": "Механик начертила схему города — каждый дом, каждый провод, каждую пустую резиденцию. «Пусть следующее слово будет как чертёж, — решила она. — Продуманным заранее и без лишних деталей». Схему она отдала тебе: говорит, ты единственный, кто в ней не запутается.",
+    "en": "The Mechanic drew up a schematic of the town: every house, every wire, every empty residence. “Let the next word be like a blueprint,” she decided. “Thought out in advance, with no extra parts.” She gave the schematic to you; she says you are the only one who won’t get lost in it."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Проволока для цепи",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Механик хочет протянуть первую цепь через город, но у неё кончилась проволока. Принеси её — без проводов ни один рычаг не превратится в порядок.",
+      "en": "The Mechanic wants to run the first circuit through town, but she is out of wire. Bring her some; without wires, no lever ever turns into order."
+     },
+     "offer": {
+      "ru": "Мне нужна проволока. Много. Город без проводов — просто куча домов, которые ничего друг о друге не знают.",
+      "en": "I need wire. Lots of it. A town without wires is just a pile of houses that know nothing about each other."
+     },
+     "complete": {
+      "ru": "Отличная проволока, ровная. Теперь дома смогут хоть что-то сказать друг другу. Начало положено.",
+      "en": "Excellent wire, nice and even. Now the houses can say at least something to each other. It’s a start."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Рычаги по местам",
+     "kind": "GatherEnv",
+     "description": {
+      "ru": "Проволока есть, рычаги тоже, те самые, что Механик отдала тебе. Теперь их нужно поставить там, где город сможет ими пользоваться. Установи рычаги у её резиденции: каждый узел схемы должен включаться рукой, а не случаем.",
+      "en": "There's wire now, and levers too, the very ones the Mechanic gave you. Now they must go where the town can use them. Install levers by her residence: every junction in the circuit should switch on by hand, not by chance."
+     },
+     "offer": {
+      "ru": "Три рычага, {player}. Ставь ровно, на уровне руки. Если рычаг не найти в темноте, это плохой рычаг.",
+      "en": "Three levers, {player}. Mount them level, at hand height. If you can't find a lever in the dark, it's a bad lever."
+     },
+     "complete": {
+      "ru": "Щёлк, щёлк, щёлк, все три отвечают. Ты работаешь аккуратно, в подземелье мне таких помощников не хватало.",
+      "en": "Click, click, click: all three respond. You work neatly; I could have used a helper like you in the Dungeon."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Ритм ловушки",
+     "kind": "Observe",
+     "description": {
+      "ru": "Механик помнит, как ловушки подземелья срабатывали в такт шагам злых костей, что сторожили её все эти годы. Спустись в подземелье и понаблюдай за ними, не трогая: она хочет понять ритм того механизма.",
+      "en": "The Mechanic remembers how the Dungeon's traps fired in time with the steps of the angry bones that guarded her all those years. Go down into the Dungeon and watch them without touching them: she wants to learn the rhythm of that machinery."
+     },
+     "offer": {
+      "ru": "Злые кости внизу ходят по кругу, как по схеме. Я слишком долго слушала их шаги. Понаблюдай за одним. Не бей, просто запомни такт.",
+      "en": "The angry bones down there walk in circles, as if following a diagram. I listened to their steps for far too long. Watch one; don't hit it, just memorise the beat."
+     },
+     "complete": {
+      "ru": "Значит, ритм есть. Кто-то же его задал… Ладно, встрою его в свои ловушки. Пусть хоть раз этот такт работает на меня.",
+      "en": "So there is a rhythm. Someone must have set it… All right, I'll build it into my traps. Let that beat work for me for once."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Чьи провода",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Проводов теперь хватит на многое, но не на всё. Механик решает, тянуть ли свет по всему городу, где каждый будет зависеть от её схемы, или оставить сеть только для своего дома.",
+      "en": "There is wire enough for a lot now, but not for everything. The Mechanic must decide whether to light the whole town, leaving everyone dependent on her circuit, or keep the network for her own house."
+     },
+     "offer": {
+      "ru": "Могу провести свет всему городу. Но тогда каждая поломка — моя забота, навсегда. Стоит ли?",
+      "en": "I can wire light to the whole town. But then every breakdown is my problem, forever. Is it worth it?"
+     },
+     "complete": {
+      "ru": "Хорошо, так и сделаем. Схема без решения — просто картинка. Теперь у неё есть смысл.",
+      "en": "Fine, that’s how we’ll do it. A schematic without a decision is just a picture. Now it means something."
+     },
+     "waiting": null,
+     "choices": {
+      "share": {
+       "outcome": {
+        "ru": "Механик тянет провода от дома к дому, и по вечерам город загорается разом. Ночами она теперь чинит чужие рычаги — и, кажется, довольна.",
+        "en": "The Mechanic runs wires from house to house, and in the evenings the whole town lights up at once. She spends her nights fixing other people’s levers now, and seems content."
+       },
+       "lean": "gardeners"
+      },
+      "own": {
+       "outcome": {
+        "ru": "Механик замыкает сеть на своём доме и вешает замок на щиток. Соседи ворчат, а у неё впервые за долгое время выдался свободный вечер.",
+        "en": "The Mechanic closes the circuit on her own house and padlocks the switchboard. The neighbours grumble, but for the first time in ages she has a free evening."
+       },
+       "lean": "none"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Снять проклятие",
+     "kind": "Trial",
+     "description": {
+      "ru": "Одна линия схемы ведёт обратно в подземелье, где Механик была пленницей. Проклятые черепа до сих пор сковывают руки всем, кто туда заходит. Очисть от них трассу и не дай себя проклясть: руки мастера должны быть свободны.",
+      "en": "One line of the schematic leads back into the Dungeon, where the Mechanic was a prisoner. Cursed skulls still bind the hands of anyone who goes in. Clear them from the route without being cursed yourself: a craftsman's hands must stay free."
+     },
+     "offer": {
+      "ru": "Последний участок идёт через подземелье. Черепа там проклинают руки: ни рычаг не дёрнуть, ни провод не зачистить. Убери их и не дай себя сковать.",
+      "en": "The last stretch runs through the Dungeon. The skulls there curse your hands: you can't pull a lever or strip a wire. Clear them out, and don't let them bind you."
+     },
+     "complete": {
+      "ru": "Линия чистая, ток идёт ровно, даже там, внизу. Столько лет я не могла там пошевелить рукой… Держи. Дальше дорога будет короче.",
+      "en": "The line is clean and the current runs steady, even down there. For years I couldn't move a hand in that place… Here. The road ahead just got shorter."
+     },
+     "waiting": null,
+     "choices": null
+    }
+   ]
+  }
+ ]
+}

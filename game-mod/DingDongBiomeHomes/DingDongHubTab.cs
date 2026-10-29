@@ -19,5 +19,7 @@ internal enum DingDongHubTab
 	Quests,
 	Combat,
 	Residences,
-	Help
+	Help,
+	// Lore codex (owner item 11, "Летопись"); appended so stored tab values keep their meaning.
+	Chronicle
 }

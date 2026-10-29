@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TmlTargetsPath Condition="'$(TmlTargetsPath)' == '' and Exists('..\tModLoader.targets')">..\tModLoader.targets</TmlTargetsPath>
-    <TmlTargetsPath Condition="'$(TmlTargetsPath)' == '' and '$(TML_HOME)' != ''">$(TML_HOME)/tMLMod.targets</TmlTargetsPath>
+    <TmlTargetsPath Condition="'$(TmlTargetsPath)' == ''">D:\SteamLibrary\steamapps\common\tModLoader\tMLMod.targets</TmlTargetsPath>
   </PropertyGroup>
 
   <Import Project="$(TmlTargetsPath)" />

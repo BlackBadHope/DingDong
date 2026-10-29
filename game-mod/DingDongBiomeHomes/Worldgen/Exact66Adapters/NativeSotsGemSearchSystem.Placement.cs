@@ -16,10 +16,16 @@ public sealed partial class NativeSotsGemSearchSystem
 		if (calamity) right = !right;
 		Mod.Logger.Info($"DINGDONG_NATIVE_GEM_START|gem=Amber|right={right}|bottom={Main.maxTilesY - 50}");
 		if (!SotsAmberAnchorSearch.TryFind(Main.maxTilesX, Main.maxTilesY - 50,
-			right, IsSand, IsWater, out int x, out int y))
-			throw new InvalidOperationException(
-				$"SOTS Amber: no water-over-sand vault anchor on {(right ? "right" : "left")} coast at actual depth {Main.maxTilesY}. Search terminated; no structure skipped.");
+			right, IsSand, IsWater, out int x, out int y) &&
+			!SotsAmberAnchorSearch.TryFind(Main.maxTilesX, Main.maxTilesY - 50,
+				right, IsSand, IsWater, out x, out y, span: Main.maxTilesX / 6))
+		{
+			// V03 29.10: a missing anchor must not abort a 30-minute world; the gap is logged loudly.
+			Mod.Logger.Error($"DINGDONG_NATIVE_GEM_SKIPPED|gem=Amber|reason=no-water-over-sand-anchor|side={(right ? "right" : "left")}|depth={Main.maxTilesY}|elapsedMs={clock.ElapsedMilliseconds}");
+			return;
+		}
 		Mod.Logger.Info($"DINGDONG_NATIVE_GEM_ANCHOR|gem=Amber|x={x}|y={y}|searchMs={clock.ElapsedMilliseconds}");
+		OceanExpeditions.OceanForeignFootprint.AmberAnchor = new(x, y); // V03 29.10: intended sea-water vault.
 		amber(x, y); // Original authored SOTS structure, not a surrogate.
 		Mod.Logger.Info($"DINGDONG_NATIVE_GEM_END|gem=Amber|elapsedMs={clock.ElapsedMilliseconds}");
 	}

@@ -1,0 +1,840 @@
+{
+ "format": "dingdong-lore-node-v1",
+ "node": "nature",
+ "nodePage": {
+  "title": {
+   "ru": "Сад и перепись",
+   "en": "Garden and Census"
+  },
+  "body": {
+   "ru": "Там, где мир разросся быстрее всего, живут те, кто умеет ждать. Дриада решает, где мир надо подрезать. Трюфель разводит сад в темноте пещер. Гольфист мечтает о газоне без единой лишней травинки. Знахарь хранит обряды старшего народа джунглей, Зоолог ведёт перепись всего, что бегает, летает и плавает. А мальчишка-рыбак ловит рыбу и задания — ради самого улова.\n\nДля этого узла рост — не метафора. Новые склоны прорастают, новые звери появляются раньше, чем им дали имена. Садовники хотят, чтобы рост знал меру, архивисты — чтобы его хотя бы записали. Кто окажется прав, решит не лес, а твои слова.",
+   "en": "Where the world grew fastest live those who know how to wait. The Dryad decides where the world must be pruned. Truffle tends a garden in the dark of the caves. The Golfer dreams of a lawn without a single stray blade. The Witch Doctor keeps the rites of the jungle's elder people, and the Zoologist keeps a census of everything that runs, flies and swims. And the fisher boy catches fish and errands alike, just for the catch.\n\nFor this node, growth is no metaphor. New slopes sprout, and new beasts appear before anyone has named them. The gardeners want growth to know its measure; the archivists want it at least written down. Who is right will be decided not by the forest, but by your words."
+  }
+ },
+ "residents": [
+  {
+   "npcKey": "Terraria/Dryad",
+   "force": "gardeners",
+   "epithet": {
+    "ru": "Садовница мира",
+    "en": "Gardener of the World"
+   },
+   "quote": {
+    "ru": "Лес живёт, пока о нём заботятся. Помоги мне сохранить его.",
+    "en": "The forest lives while someone cares for it. Help me preserve it."
+   },
+   "intro": {
+    "ru": "Дриада старше большинства деревьев и первой заметила, что мир стал больше. Для неё расширение — не чудо, а неподстриженный сад: новые склоны голы, новые леса растут вкривь. Пустые резиденции она считает грядками, которые кто-то вскопал, но не засеял. Среди садовников её слово весомее всех: она решает, где мир надо подрезать.",
+    "en": "The Dryad is older than most trees, and she was the first to notice the world had grown. To her the expansion is no miracle but an untended garden: bare new slopes, new forests growing crooked. She sees the empty residences as beds someone dug and never sowed. Among the gardeners her word weighs most: she decides where the world must be pruned."
+   },
+   "findHint": {
+    "ru": "Дриада странствует по джунглям: днём наверху, ночью в пещерах. После первой победы над боссом она вернётся в резиденцию.",
+    "en": "The Dryad wanders the Jungle: surface by day, caves by night. She returns to her residence after the first boss defeat."
+   },
+   "epilogue": {
+    "ru": "Сад, выращенный руками {player}, выдержал свой сезон. Дриада больше не говорит «мой лес» — теперь она говорит «наш». Она по-прежнему решает, где мир надо подрезать, но перед каждым срезом спрашивает себя, кто будет жить в тени этой ветки. Её страница в «Летописи» открыта: садовница согласилась, чтобы о её саде помнили.",
+    "en": "The garden {player} raised has weathered its season. The Dryad no longer says “my forest”; now she says “ours”. She still decides where the world must be pruned, but before every cut she asks who will live in the shade of that branch. Her page in the Chronicle is open: the gardener has agreed that her garden be remembered."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Саженцы",
+     "kind": "GatherEnv",
+     "description": {
+      "ru": "Новые склоны мира голы: земля есть, а корней нет. Посади саженцы, чтобы молодая почва держалась и не осыпалась при следующем слове мира.",
+      "en": "The world's new slopes are bare: there is soil but no roots. Plant saplings so the young ground holds together and does not slide away at the world's next word."
+     },
+     "offer": {
+      "ru": "Мир разросся, а лес за ним не успел. Посади саженцы, {player}, — я покажу, где земля ждёт.",
+      "en": "The world grew, and the forest could not keep up. Plant saplings, {player}; I'll show you where the ground is waiting."
+     },
+     "complete": {
+      "ru": "Чувствуешь? Корни уже ищут друг друга. Значит, этот склон останется.",
+      "en": "Do you feel it? The roots are already reaching for each other. This slope will stay."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Дом старших дриад",
+     "kind": "Expedition",
+     "description": {
+      "ru": "Живые деревья мира выросли ещё до первого слова — в них жили сёстры Дриады. Загляни в такое дерево и вынеси то, что осталось в его тайнике: не купленное и не сделанное, а найденное.",
+      "en": "The world's living trees grew before the first word; the Dryad's sisters once lived in them. Go inside such a tree and bring out what was left in its cache: not bought, not made, but found."
+     },
+     "offer": {
+      "ru": "Когда-то в каждом живом дереве жила дриада. Теперь там только тайники. Принеси мне то, что они оставили, {player}.",
+      "en": "Once a dryad lived in every living tree. Now only their caches remain. Bring me what they left behind, {player}."
+     },
+     "complete": {
+      "ru": "Посох с зябликом… Сестра всегда пела по утрам. Пусть хотя бы птица выйдет в новый лес.",
+      "en": "A staff with a finch... My sister always sang in the mornings. Let at least the bird go out into the new forest."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Свет, которого не сеяли",
+     "kind": "Visit",
+     "description": {
+      "ru": "Мир, переписывая себя, вырастил под землёй целые поля светящихся грибов. Дриада не сажала ни одного. Побудь на грибном поле и узнай, растёт ли этот свет так же жадно, как скверна.",
+      "en": "As the world rewrote itself, it grew whole fields of glowing mushrooms underground. The Dryad planted not one of them. Spend time in a mushroom field and learn whether that light grows as greedily as corruption."
+     },
+     "offer": {
+      "ru": "Скверну я узнаю по запаху. А этот свет? Его тоже никто не сеял. Постой среди грибов, {player}, и скажи мне, сорняк ли это.",
+      "en": "Rot I know by its smell. But this light? No one sowed that either. Stand among the mushrooms, {player}, and tell me whether it is a weed."
+     },
+     "complete": {
+      "ru": "Значит, и свет растёт без спроса. Красиво… и всё же за край ему без меня не шагнуть.",
+      "en": "So light grows without asking too. Beautiful... and still, it will not step past the edge without me."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Где кончается сад",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Лес перешагнул туда, где раньше был край мира. Дриада не хочет решать одна, подрезать его или оставить расти. Скажи ей, где кончается сад.",
+      "en": "The forest has stepped past where the edge of the world used to be. The Dryad will not decide alone whether to prune it or let it grow. Tell her where the garden ends."
+     },
+     "offer": {
+      "ru": "Ветки ушли за прежний край. Я могу срезать их одним словом… но сначала хочу услышать твоё.",
+      "en": "The branches have reached past the old edge. I could cut them with a single word… but first I want to hear yours."
+     },
+     "complete": {
+      "ru": "Решено. Сад запомнит, кто провёл ему границу.",
+      "en": "It's decided. The garden will remember who drew its border."
+     },
+     "waiting": null,
+     "choices": {
+      "prune": {
+       "outcome": {
+        "ru": "Дриада срезает лишнее у самой кромки. Край мира становится ровным и тихим — садовники довольны, но лесу больно.",
+        "en": "The Dryad cuts back everything at the very rim. The edge of the world grows even and quiet; the gardeners are pleased, but the forest aches."
+       },
+       "lean": "gardeners"
+      },
+      "let": {
+       "outcome": {
+        "ru": "Дриада оставляет ветки расти и ставит у края свои знаки. Рост продолжается — под её присмотром и под твоё слово.",
+        "en": "The Dryad lets the branches grow and sets her marks along the edge. The growth goes on, under her watch and on your word."
+       },
+       "lean": "tiders"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Сезон роста",
+     "kind": "Delayed",
+     "description": {
+      "ru": "Всё посеяно и полито. Теперь саду нужно только время: через несколько дней станет видно, принял ли мир твою работу.",
+      "en": "Everything is sown and watered. Now the garden needs only time: in a few days you'll see whether the world has accepted your work."
+     },
+     "offer": {
+      "ru": "Самое трудное в садоводстве — ничего не делать. Подожди со мной, {player}. Сад ответит сам.",
+      "en": "The hardest part of gardening is doing nothing. Wait with me, {player}. The garden will answer on its own."
+     },
+     "complete": {
+      "ru": "Проросло! Видишь эти побеги? Мир сказал «да» — тихо, по-садовому.",
+      "en": "It sprouted! See these shoots? The world said yes, quietly, the way gardens do."
+     },
+     "waiting": {
+      "ru": "Семена прорастают. Не торопи землю — она считает дни иначе, чем мы.",
+      "en": "The seeds are sprouting. Don't hurry the soil; it counts days differently than we do."
+     },
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "Terraria/WitchDoctor",
+   "force": "archivists",
+   "epithet": {
+    "ru": "Хранитель обрядов",
+    "en": "Keeper of Rites"
+   },
+   "quote": {
+    "ru": "Обряд — это память, которую исполняют руками. Забудешь движение — забудешь и смысл.",
+    "en": "A rite is memory performed with the hands. Forget the motion and you forget the meaning."
+   },
+   "intro": {
+    "ru": "Знахарь пришёл из старшего народа джунглей — тех, кто жил здесь, когда мир был меньше. Его обряды — записи без бумаги: каждый жест помнит, каким был мир до первого слова. Пустые резиденции его не радуют: дом без хозяина, говорит он, — незаконченный обряд. В споре сил он стоит с архивистами, но доверяет не книгам, а ритуалу.",
+    "en": "The Witch Doctor comes from the elder people of the jungle, those who lived here when the world was smaller. His rites are records without paper: every gesture remembers what the world was before the first word. The empty residences do not please him; a house without its master, he says, is an unfinished rite. In the dispute of forces he stands with the archivists, but he trusts ritual, not books."
+   },
+   "findHint": null,
+   "epilogue": {
+    "ru": "Обряд, начатый Знахарем, завершили руки {player}. Теперь у джунглей есть свидетель не из старшего народа — и это, говорит Знахарь, лучший знак: память перестала принадлежать только им. Его страница в «Летописи» написана как обряд, и читать её стоит медленно.",
+    "en": "The rite the Witch Doctor began has been finished by {player}'s hands. Now the jungle has a witness who is not of the elder people, and that, he says, is the best sign: memory no longer belongs to them alone. His page in the Chronicle is written like a rite, and it is best read slowly."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Жала и споры",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Для оберега нужны жала шершней — так делали старшие, и так помнят их руки. Принеси жала, и Знахарь начнёт первый обряд.",
+      "en": "A ward needs hornet stingers; that is how the elders made it, and that is what their hands remember. Bring stingers and the Witch Doctor will begin the first rite."
+     },
+     "offer": {
+      "ru": "Жало — это память шершня о боли. Из таких памятей делают обереги. Принеси мне их.",
+      "en": "A stinger is a hornet's memory of pain. Wards are made of such memories. Bring them to me."
+     },
+     "complete": {
+      "ru": "Острые. Хорошо. Оберег будет помнить, от чего защищает.",
+      "en": "Sharp. Good. The ward will remember what it guards against."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Ритуал шершней",
+     "kind": "Observe",
+     "description": {
+      "ru": "Шершни кружат по старому узору, который древнее любого улья. Понаблюдай за ними вблизи и не мешай — обряд нельзя прерывать.",
+      "en": "The hornets circle in an old pattern, older than any hive. Watch them up close and do not interfere; a rite must not be broken."
+     },
+     "offer": {
+      "ru": "Шершни танцуют обряд, которого не помнит никто, кроме них. Стой рядом и смотри. Не бей.",
+      "en": "The hornets dance a rite no one remembers but them. Stand close and watch. Do not strike."
+     },
+     "complete": {
+      "ru": "Узор увиден. Теперь он живёт и в тебе — это и есть запись.",
+      "en": "The pattern has been seen. Now it lives in you too; that is what a record is."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Святилища старших",
+     "kind": "Expedition",
+     "description": {
+      "ru": "Глиняные святилища в глубине джунглей построил не мир, а народ Знахаря — ещё когда остров был маленьким. Найди в одном из них дар, оставленный старшими: по нему Знахарь прочтёт, кто молился там последним.",
+      "en": "The mud shrines deep in the jungle were built not by the world but by the Witch Doctor's people, back when the island was small. Find an offering the elders left in one of them and bring it back: from it he will read who prayed there last."
+     },
+     "offer": {
+      "ru": "Под корнями стоят наши алтари. Мир сделал вид, что вырастил их сам. Принеси дар из такого алтаря — найденный, не купленный.",
+      "en": "Our altars stand beneath the roots. The world pretends it grew them itself. Bring me an offering from such an altar: found, not bought."
+     },
+     "complete": {
+      "ru": "Этот узел вязала рука моей бабки. Мир может переписать остров, но не её руку.",
+      "en": "My grandmother's hand tied this knot. The world can rewrite the island, but not her hand."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Чей это остров",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Старшие помнят: когда-то эта земля была островом, и куда меньшим. Знахарь спрашивает, хранить ли это в памяти — или некоторые правды лучше не записывать.",
+      "en": "The elders remember: once this land was an island, and a far smaller one. The Witch Doctor asks whether to keep this in memory, or whether some truths are better left unwritten."
+     },
+     "offer": {
+      "ru": "Мой народ помнит остров, а не континент. Запишем — придётся признать, что мир уже не наш. Решай.",
+      "en": "My people remember an island, not a continent. If we write it down, we must admit the world is no longer ours. Decide."
+     },
+     "complete": {
+      "ru": "Слово сказано. Старшие услышат его на следующем обряде.",
+      "en": "The word is spoken. The elders will hear it at the next rite."
+     },
+     "waiting": null,
+     "choices": {
+      "record": {
+       "outcome": {
+        "ru": "Знахарь вырезает на маске: «Остров был меньше». У архивистов теперь на одно свидетельство прежнего мира больше.",
+        "en": "The Witch Doctor carves into his mask: “The island was smaller.” The archivists now hold one more testimony of the old world."
+       },
+       "lean": "archivists"
+      },
+      "silence": {
+       "outcome": {
+        "ru": "Знахарь молча гасит костёр. Иные ветви памяти тоже подрезают — садовники назвали бы это заботой.",
+        "en": "The Witch Doctor puts out the fire in silence. Some branches of memory get pruned too; the gardeners would call it care."
+       },
+       "lean": "gardeners"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Жало, что выросло с миром",
+     "kind": "Trial",
+     "description": {
+      "ru": "Шершни из первого обряда выросли вместе с миром: в подземных джунглях они стали крупнее и злее, и яд у них старше любого оберега. Последний обряд — одолеть их, не впустив яд в кровь.",
+      "en": "The hornets of the first rite grew along with the world: in the underground jungle they have become larger and fiercer, and their venom is older than any charm. The last rite is to defeat them without letting the venom into your blood."
+     },
+     "offer": {
+      "ru": "Ты собрал жала, видел танец. Теперь встреть тех, кем шершни стали. Оберег помнит боль — пусть не узнает твою.",
+      "en": "You gathered the stings and watched the dance. Now meet what the hornets became. The charm remembers pain; let it not learn yours."
+     },
+     "complete": {
+      "ru": "Ни капли яда. Обряд замкнулся: от первого жала до последнего. Ты помнишь его руками — значит, он не умрёт.",
+      "en": "Not a drop of venom. The rite has closed its circle, from the first sting to the last. You remember it with your hands, so it will not die."
+     },
+     "waiting": null,
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "Terraria/Truffle",
+   "force": "gardeners",
+   "epithet": {
+    "ru": "Садовник тёмного сада",
+    "en": "Gardener of the Dark Garden"
+   },
+   "quote": {
+    "ru": "Саду не обязательно видеть солнце. Ему достаточно, чтобы его не ели.",
+    "en": "A garden doesn't need to see the sun. It just needs not to be eaten."
+   },
+   "intro": {
+    "ru": "Трюфель — живой гриб и отшельник светящихся пещер. Его сад растёт в темноте и не нуждается в солнце, зато очень нуждается в покое. Расширение мира он встретил с опаской: новые пещеры — это новые грибницы, но и новые гости с аппетитом. Он садовник, только мягкий: подрезает не ножом, а терпением, и пустую резиденцию видит грядкой под мицелий.",
+    "en": "Truffle is a living mushroom and a hermit of the glowing caves. His garden grows in the dark and needs no sun, but it very much needs peace. He met the world's expansion warily: new caves mean new mycelium, but also new guests with an appetite. He is a gardener, a gentle one: he prunes with patience rather than a knife, and sees an empty residence as a bed for mycelium."
+   },
+   "findHint": null,
+   "epilogue": {
+    "ru": "Тёмный сад Трюфеля пережил свой сезон и пророс туда, куда сам Трюфель не решался его вести. Он по-прежнему вздрагивает, когда кто-то хвалит вкус грибов, но теперь знает: среди соседей есть тот, кто сначала спросит, — {player}. Его страница в «Летописи» светится в темноте. Немного.",
+    "en": "Truffle's dark garden survived its season and spread where Truffle himself never dared to lead it. He still flinches when someone praises the taste of mushrooms, but now he knows one neighbour will always ask first: {player}. His page in the Chronicle glows in the dark. A little."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Грибница",
+     "kind": "GatherEnv",
+     "description": {
+      "ru": "Грибнице нужен уголок наверху, где её не затопчут. Поставь ящики для рассады — Трюфель засеет их мицелием и проверит, приживётся ли тёмный сад на свету.",
+      "en": "The mycelium needs a corner up top where no one will trample it. Set up planter boxes; Truffle will seed them and see whether a dark garden can take root in the light."
+     },
+     "offer": {
+      "ru": "Мне бы немного места под мицелий. Не грядку, а ящики — из ящиков как-то меньше хочется есть.",
+      "en": "I could use some room for mycelium. Not a bed, just boxes; somehow people are less tempted to eat out of boxes."
+     },
+     "complete": {
+      "ru": "Ящики стоят, мицелий принялся. Тихо, ровно, никто не жуёт. Чудесно.",
+      "en": "The boxes are up and the mycelium has taken. Quiet, even, nobody chewing. Wonderful."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Светящиеся шляпки",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Светящиеся грибы — не еда, а фонари грибного сада. Принеси их, и Трюфель разнесёт свет по новым пещерам, где пока темно и пусто.",
+      "en": "Glowing mushrooms are not food but the lanterns of a mushroom garden. Bring them, and Truffle will carry their light into the new caves that are still dark and empty."
+     },
+     "offer": {
+      "ru": "Принеси светящихся шляпок. Только не говори, что они вкусные. Я знаю. Все знают.",
+      "en": "Bring me glowing caps. Just don't tell me they're tasty. I know. Everyone knows."
+     },
+     "complete": {
+      "ru": "Какой свет! Новые пещеры перестанут быть чужими, когда в них засветится сад.",
+      "en": "What light! The new caves will stop feeling strange once a garden glows in them."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Светящаяся улитка",
+     "kind": "Observe",
+     "description": {
+      "ru": "В подземной грибнице живёт крошечная светящаяся улитка — единственная соседка, которой грибница не боится. Рыбаки охотятся на неё ради наживки. Понаблюдай за улиткой и не лови её.",
+      "en": "A tiny glowing snail lives in the underground mycelium, the only neighbour the mycelium is not afraid of. Fishermen hunt it for bait. Watch the snail and do not catch it."
+     },
+     "offer": {
+      "ru": "Она маленькая и всё время прячется. Я её понимаю. Посмотри на неё, {player}. Только без сачка, ладно? Её и так все хотят насадить на крючок.",
+      "en": "She is small and always hiding. I understand her. Take a look at her, {player}. No bug net, all right? Everyone wants to put her on a hook as it is."
+     },
+     "complete": {
+      "ru": "Живая, светится, и никто её не насадил на крючок. Пока. Можно я буду волноваться за двоих?",
+      "en": "Alive, glowing, and no one has put her on a hook. Yet. May I worry for the both of us?"
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Соседи на крючке",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Трюфель узнал, что улиток из его грибницы ловят на наживку для какой-то большой рыбы. Увести их глубже в мицелий, оставить всё как есть или попросить Зоолога вписать их в перепись? Помоги ему решить.",
+      "en": "Truffle has learned that the snails from his mycelium are caught as bait for some big fish. Lead them deeper into the mycelium, leave things as they are, or ask the Zoologist to enter them in her census? Help him decide."
+     },
+     "offer": {
+      "ru": "Их ловят, чтобы скормить рыбе. Меня от одной мысли трясёт. Что мне делать, {player}? Ты ведь тоже кого-то ловишь.",
+      "en": "They catch them to feed to a fish. The very thought makes me shiver. What should I do, {player}? You catch things too, after all."
+     },
+     "complete": {
+      "ru": "Хорошо. Я передам грибнице. А улитки… улитки, наверное, и так всё слышали.",
+      "en": "All right. I will tell the mycelium. And the snails... the snails probably heard everything already."
+     },
+     "waiting": null,
+     "choices": {
+      "keep": {
+       "outcome": {
+        "ru": "Трюфель прорастает мицелием глубже в пещеру, и улитки уползают за ним. Наверху их больше не найти — сад закрылся, как ладонь.",
+        "en": "Truffle grows his mycelium deeper into the cave, and the snails crawl after him. Up above no one will find them now; the garden has closed like a palm."
+       },
+       "lean": "gardeners"
+      },
+      "spread": {
+       "outcome": {
+        "ru": "Трюфель вздыхает и оставляет всё как есть. Улиток по-прежнему ловят, но сад растёт, и новых становится больше, чем пойманных.",
+        "en": "Truffle sighs and leaves things be. The snails are still caught, but the garden keeps growing, and new ones appear faster than they are taken."
+       },
+       "lean": "tiders"
+      },
+      "record": {
+       "outcome": {
+        "ru": "Зоолог заводит страницу «светящаяся улитка» с пометкой «редка, беречь». Трюфель перечитывает её каждый вечер.",
+        "en": "The Zoologist starts a page for the glowing snail with a note: ‘rare, protect.’ Truffle rereads it every evening."
+       },
+       "lean": "archivists"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Споры прорастают",
+     "kind": "Delayed",
+     "description": {
+      "ru": "Споры посеяны в новой пещере. Осталось подождать несколько дней: грибной сад растёт медленно, зато надёжно.",
+      "en": "The spores are sown in the new cave. All that's left is to wait a few days: a mushroom garden grows slowly, but surely."
+     },
+     "offer": {
+      "ru": "Теперь ждём. Споры не любят, когда на них смотрят. Можно я тоже не буду смотреть?",
+      "en": "Now we wait. Spores don't like being watched. Can I not watch either?"
+     },
+     "complete": {
+      "ru": "Проросли! Целая полянка шляпок — и ни одна не надкушена.",
+      "en": "They sprouted! A whole little meadow of caps, and not one has been nibbled."
+     },
+     "waiting": {
+      "ru": "Споры прорастают в темноте. Трюфель делает вид, что не заглядывает в пещеру.",
+      "en": "The spores are sprouting in the dark. Truffle pretends he isn't peeking into the cave."
+     },
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "Terraria/Angler",
+   "force": "tricksters",
+   "epithet": {
+    "ru": "Мальчишка с удочкой",
+    "en": "The Boy with the Rod"
+   },
+   "quote": {
+    "ru": "Задание есть задание! А зачем — это уже не твоя забота.",
+    "en": "A job is a job! And why is none of your business."
+   },
+   "intro": {
+    "ru": "Рыбак — мальчишка, которого нашли спящим на берегу, и с тех пор он раздаёт задания так, будто весь мир ему должен. Спор сил ему смешон: садовники скучные, приливники мокрые, архивисты зануды. Пустые резиденции он считает отличным местом для тайников. Он трикстер: просит ради самой просьбы, но на его шутки порой клюёт что-то очень настоящее.",
+    "en": "The Angler is a boy someone found asleep on the beach, and ever since he hands out jobs as if the whole world owes him. He finds the dispute of forces hilarious: gardeners are boring, tiders are soggy, archivists are nerds. To him the empty residences are perfect hiding spots. He is a trickster: he asks for the sake of asking, yet sometimes something very real bites on his jokes."
+   },
+   "findHint": null,
+   "epilogue": {
+    "ru": "Пять заданий выполнено, и Рыбак впервые не придумал шестое сразу. Он долго смотрел на воду, потом заявил, что {player} — «почти нормальный человек» и что клёв теперь будет «по-честному». Его страница в «Летописи» исписана кривым почерком и пахнет рыбой.",
+    "en": "Five jobs done, and for once the Angler didn't come up with a sixth right away. He stared at the water for a long time, then declared that {player} is “almost a normal person” and that the fish would bite “fair and square” from now on. His page in the Chronicle is scrawled in crooked handwriting and smells of fish."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Наживка",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Рыбаку срочно нужны черви. Зачем — он не объясняет, а спрашивать бесполезно. Накопай червей, лучше после дождя, и принеси.",
+      "en": "The Angler urgently needs worms. He won't say why, and asking is pointless. Dig some up, preferably after rain, and bring them over."
+     },
+     "offer": {
+      "ru": "Мне нужны черви. Много. Нет, не скажу зачем. Да, это срочно. Иди уже, {player}!",
+      "en": "I need worms. Lots. No, I won't tell you why. Yes, it's urgent. Go already, {player}!"
+     },
+     "complete": {
+      "ru": "Ага, черви. Нормальные. Можешь идти. Шучу — следующее задание уже готово.",
+      "en": "Ha, worms. Decent ones. You can go. Kidding, the next job's already waiting."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Сапог со дна",
+     "kind": "Expedition",
+     "description": {
+      "ru": "Рыбаку понадобился старый сапог — обязательно выловленный, а не снятый с чьей-то ноги. Зачем, он не говорит, только подозрительно хихикает. Закинь удочку и выуди ему сапог.",
+      "en": "The Angler needs an old shoe, and it has to be fished up, not pulled off somebody's foot. He won't say why, he just giggles suspiciously. Cast your line and fish him a shoe."
+     },
+     "offer": {
+      "ru": "Мне нужен сапог. Мокрый! С тиной! Снятые с ног не считаются. Для чего? Узнаешь. Потом. Может быть.",
+      "en": "I need a shoe. A wet one! With slime on it! Ones taken off feet don't count. What for? You'll find out. Later. Maybe."
+     },
+     "complete": {
+      "ru": "Идеальный. Воняет как надо. Спрячу его до лучших времён, а ты делай вид, что ничего не видел.",
+      "en": "Perfect. Smells just right. I'll hide it for the right moment, and you pretend you saw nothing."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Рыба-наблюдатель",
+     "kind": "Observe",
+     "description": {
+      "ru": "Рыбак утверждает, что золотые рыбки за всеми следят. Понаблюдай за одной сам — и узнай, кто на кого на самом деле смотрит.",
+      "en": "The Angler claims goldfish are watching everyone. Watch one yourself and find out who is really looking at whom."
+     },
+     "offer": {
+      "ru": "Золотые рыбки шпионят. Точно говорю! Последи за одной и не моргай. Ну, моргать можно.",
+      "en": "Goldfish are spies. I mean it! Watch one and don't blink. Well, blinking's allowed."
+     },
+     "complete": {
+      "ru": "И что? Она смотрела в ответ? Вот! А все смеялись.",
+      "en": "Well? Did it look back? See! And everyone laughed."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Розыгрыш",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Рыбак задумал розыгрыш: подложить рыбу в чужой сапог. Подыграть ему или отчитать — решать тебе. Шутка может оказаться не такой уж глупой.",
+      "en": "The Angler has a prank in mind: a fish in someone's boot. Play along or scold him, it's your call. The joke may turn out less silly than it seems."
+     },
+     "offer": {
+      "ru": "План гениальный: рыба, сапог, вопль. Ты со мной или ты как все взрослые?",
+      "en": "The plan is genius: fish, boot, scream. Are you with me, or are you like all the grown-ups?"
+     },
+     "complete": {
+      "ru": "Ладно, ладно. Но сапог был интересный, согласись.",
+      "en": "Fine, fine. But it was an interesting boot, admit it."
+     },
+     "waiting": null,
+     "choices": {
+      "play": {
+       "outcome": {
+        "ru": "Сапог оказывается из пустой резиденции, и внутри уже лежит рыба — старая, высохшая. Кто-то пошутил так задолго до Рыбака.",
+        "en": "The boot turns out to be from an empty residence, and there's already a fish inside, old and dried. Someone played this joke long before the Angler."
+       },
+       "lean": "none"
+      },
+      "scold": {
+       "outcome": {
+        "ru": "Рыбак дуется, а потом шёпотом признаётся: ему просто хотелось, чтобы в пустых домах хоть кто-нибудь закричал. Слишком там тихо.",
+        "en": "The Angler sulks, then admits in a whisper: he just wanted someone in the empty houses to scream. It's far too quiet in there."
+       },
+       "lean": "none"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Берег, где меня нашли",
+     "kind": "Visit",
+     "description": {
+      "ru": "Рыбак вдруг перестал придумывать задания и попросил только одно: постоять с ним на берегу, где его когда-то нашли спящим. Он не объясняет зачем — и впервые не делает вид, что это шутка.",
+      "en": "The Angler suddenly stopped inventing errands and asked for only one thing: to stand with him on the shore where he was once found asleep. He won't explain why, and for the first time he doesn't pretend it is a joke."
+     },
+     "offer": {
+      "ru": "Это не задание. Ну, задание, но странное. Просто постой со мной на берегу, {player}. Там, где меня нашли. И не спрашивай.",
+      "en": "This isn't an errand. Well, it is, but a weird one. Just stand with me on the shore, {player}. Where they found me. And don't ask."
+     },
+     "complete": {
+      "ru": "Я думал, вспомню, откуда пришёл. Не вспомнил. Зато теперь на этом берегу был ещё кто-то, кроме меня. Это… нормально.",
+      "en": "I thought I'd remember where I came from. I didn't. But now someone besides me has stood on this shore. That's... fine."
+     },
+     "waiting": null,
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "Terraria/Golfer",
+   "force": "gardeners",
+   "epithet": {
+    "ru": "Хранитель идеального газона",
+    "en": "Keeper of the Perfect Lawn"
+   },
+   "quote": {
+    "ru": "Идеальный газон — это когда трава знает своё место. До последней травинки.",
+    "en": "A perfect lawn is grass that knows its place. Down to the last blade."
+   },
+   "intro": {
+    "ru": "Гольфист заблудился в подземной пустыне, разыскивая улетевший мяч, и вышел в мир, ставший куда шире любого поля. Для него расширение — прежде всего беспорядок: неровные склоны, дикая трава, лунки, которых никто не размечал. Он садовник в самой крайней форме и мечтает подстричь мир до ровного газона. Пустая резиденция для него — недостроенный клубный дом.",
+    "en": "The Golfer got lost in the underground desert chasing a stray ball, and came out into a world grown far wider than any course. To him the expansion is mostly a mess: uneven slopes, wild grass, holes nobody marked. He is a gardener in the most extreme form and dreams of mowing the world into one even lawn. An empty residence, to him, is an unfinished clubhouse."
+   },
+   "findHint": null,
+   "epilogue": {
+    "ru": "Газон отрос, и Гольфист впервые не схватился за ножницы. Он прошёл поле до конца, сделал удар — и признал, что мяч катится честнее по траве, в которой осталось хоть немного жизни. Его страница в «Летописи» расчерчена, как карточка счёта, но на полях кто-то нарисовал одуванчик.",
+    "en": "The lawn grew back, and for the first time the Golfer didn't reach for the shears. He walked the course to the end, took his shot, and admitted the ball rolls more honestly on grass with a little life left in it. His page in the Chronicle is ruled like a scorecard, but someone drew a dandelion in the margin."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Разметка поля",
+     "kind": "GatherEnv",
+     "description": {
+      "ru": "Новый мир шире любого поля, и ни одна лунка в нём не размечена. Поставь лунки возле клубного дома Гольфиста — с них начнётся первый в мире настоящий газон.",
+      "en": "The new world is wider than any course, and not a single hole in it is marked. Set holes near the Golfer's clubhouse: the world's first proper green will begin with them."
+     },
+     "offer": {
+      "ru": "Мир без лунок — просто трава. Поставь три лунки, {player}, и ровно, я буду проверять рулеткой.",
+      "en": "A world without holes is just grass. Set three holes, {player}, and evenly; I'll check with a tape measure."
+     },
+     "complete": {
+      "ru": "Три лунки. Почти на одной линии. Почти — это уже начало порядка.",
+      "en": "Three holes. Almost in a line. Almost is already the start of order."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Мяч в песках",
+     "kind": "Visit",
+     "description": {
+      "ru": "Гольфист попал в этот мир, гоняясь за улетевшим мячом по подземной пустыне. Мяч так и не нашёлся. Побудь в пустыне за него — посмотри, где песок мог его спрятать.",
+      "en": "The Golfer came into this world chasing a stray ball through the underground desert. The ball was never found. Spend time in the desert for him and see where the sand could have hidden it."
+     },
+     "offer": {
+      "ru": "Тот мяч до сих пор где-то в песке. Сам я туда не вернусь — хватило одного раза. Сходи в пустыню, {player}. Просто посмотри.",
+      "en": "That ball is still somewhere in the sand. I won't go back there myself; once was enough. Go to the desert, {player}. Just look around."
+     },
+     "complete": {
+      "ru": "Не нашёл? Ну и пусть лежит. Возьми клюшку для песка — раз уж мир состоит из бункеров, надо уметь из них выбираться.",
+      "en": "Didn't find it? Let it lie, then. Take the sand wedge; if the world is made of bunkers, one must know how to get out of them."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Соперник на газоне",
+     "kind": "Observe",
+     "description": {
+      "ru": "С газона пропадают мячи: их уносит птица, которая, похоже, считает их яйцами. Понаблюдай за ней, не прогоняя, — Гольфист хочет знать, куда уходят его мячи.",
+      "en": "Balls keep vanishing from the green: a bird carries them off, apparently taking them for eggs. Watch it without chasing it away; the Golfer wants to know where his balls go."
+     },
+     "offer": {
+      "ru": "Эта птица ворует мячи. Мои мячи! Последи за ней, {player}. Не стреляй — я хочу понять, что у неё на уме.",
+      "en": "That bird steals balls. My balls! Keep an eye on it, {player}. Don't shoot; I want to understand what it's thinking."
+     },
+     "complete": {
+      "ru": "Гнездо из мячей? Она высиживает их… Хм. Может, полю и не обязательно принадлежать только мне.",
+      "en": "A nest of golf balls? She's sitting on them... Hm. Perhaps the course doesn't have to belong only to me."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Последняя лунка",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Поле размечено, осталась последняя лунка. Гольфист может поставить её у края мира над океаном, у клубного дома — ровно и под присмотром, или там, в подземной пустыне, где он когда-то потерялся. Решать тебе.",
+      "en": "The course is marked; one last hole remains. The Golfer can place it at the edge of the world above the ocean, by the clubhouse where it is even and watched, or down in the underground desert where he once got lost. It is your call."
+     },
+     "offer": {
+      "ru": "Последняя лунка — это подпись под полем. Где я распишусь, {player}? Скажи, и я не буду спорить. Почти.",
+      "en": "The last hole is the course's signature. Where do I sign it, {player}? Tell me, and I won't argue. Much."
+     },
+     "complete": {
+      "ru": "Решено. Записываю в карточку счёта — карандашом, на всякий случай.",
+      "en": "Decided. I'm writing it on the scorecard, in pencil, just in case."
+     },
+     "waiting": null,
+     "choices": {
+      "wild": {
+       "outcome": {
+        "ru": "Лунка встаёт над обрывом. Мяч, сорвавшийся с края, улетает в воду — Гольфист впервые смеётся, а не ругается.",
+        "en": "The hole goes in above the cliff. A ball that slips off the edge flies into the sea, and for the first time the Golfer laughs instead of cursing."
+       },
+       "lean": "tiders"
+      },
+      "mow": {
+       "outcome": {
+        "ru": "Лунка встаёт у самого порога. Поле замыкается в аккуратный круг — ни одной травинки за его пределами.",
+        "en": "The hole sits right by the doorstep. The course closes into a neat loop, not a single blade beyond it."
+       },
+       "lean": "gardeners"
+      },
+      "sand": {
+       "outcome": {
+        "ru": "Гольфист ставит лунку в песке, где когда-то сбился с пути, и кладёт рядом старый мяч. Теперь поле помнит, как всё началось.",
+        "en": "The Golfer sets the hole in the sand where he once lost his way, and puts an old ball beside it. Now the course remembers how it all began."
+       },
+       "lean": "archivists"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Газон отрастает",
+     "kind": "Delayed",
+     "description": {
+      "ru": "Газону нужно время, чтобы отрасти — после стрижки или после воли. Подожди несколько дней и посмотри, каким станет поле.",
+      "en": "The lawn needs time to grow back, whether after the mowing or after running wild. Wait a few days and see what the course becomes."
+     },
+     "offer": {
+      "ru": "Теперь самое сложное для гольфиста: не трогать траву. Совсем. Пару дней.",
+      "en": "Now comes the hardest part for a golfer: not touching the grass. At all. For a couple of days."
+     },
+     "complete": {
+      "ru": "Отросло! Смотри — ровно, но живо. Кажется, это и есть идеальный газон.",
+      "en": "It grew back! Look: even, but alive. I think that's the perfect lawn."
+     },
+     "waiting": {
+      "ru": "Газон отрастает. Гольфист ходит вокруг поля с ножницами и героически их не открывает.",
+      "en": "The lawn is growing back. The Golfer paces around the course with his shears, heroically keeping them shut."
+     },
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "Terraria/BestiaryGirl",
+   "force": "archivists",
+   "epithet": {
+    "ru": "Переписчица живого",
+    "en": "Census-Taker of the Living"
+   },
+   "quote": {
+    "ru": "У каждого зверя свой нрав. Присмотрись внимательнее!",
+    "en": "Every creature has a personality. Take a closer look!"
+   },
+   "intro": {
+    "ru": "Зоолог ведёт перепись всего живого и первой заметила, что в расширенном мире звери появляются раньше, чем им успевают дать имена. Для неё каждая новая тварь — свидетельство, а каждая пропавшая — потеря, которую надо записать. Пустые резиденции она мечтает превратить в приюты. В споре сил она архивист, хотя в полнолуние её собственный нрав плохо поддаётся описанию.",
+    "en": "The Zoologist keeps a census of everything alive, and she was the first to notice that the grown world brings forth creatures before anyone has named them. To her every new beast is a testimony and every vanished one a loss to be recorded. She dreams of turning the empty residences into shelters. In the dispute of forces she is an archivist, though under a full moon her own nature resists description."
+   },
+   "findHint": null,
+   "epilogue": {
+    "ru": "Перепись продолжается, но у неё появился соавтор. Зоолог вписала {player} в бестиарий — не как зверя, а как свидетеля, который умеет смотреть, не причиняя вреда. Её страница в «Летописи» полна набросков, следов лап и пометок на полях: «проверить в полнолуние».",
+    "en": "The census goes on, but now it has a co-author. The Zoologist has written {player} into the Bestiary, not as a beast but as a witness who knows how to look without doing harm. Her page in the Chronicle is full of sketches, paw prints and margin notes: “check at full moon.”"
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Первая запись",
+     "kind": "Observe",
+     "description": {
+      "ru": "Перепись начинается с самого простого зверя. Понаблюдай за кроликом, не трогая его, — Зоолог хочет, чтобы первая запись была честной.",
+      "en": "The census begins with the simplest creature. Watch a bunny without touching it; the Zoologist wants the first entry to be an honest one."
+     },
+     "offer": {
+      "ru": "Начнём с кролика. Не смейся — в новом мире их больше, чем было. Смотри внимательно, {player}.",
+      "en": "Let's start with a bunny. Don't laugh; there are more of them in the new world than there used to be. Watch closely, {player}."
+     },
+     "complete": {
+      "ru": "Записано: ушами слушает, носом думает. Хорошее начало переписи!",
+      "en": "Recorded: listens with its ears, thinks with its nose. A good start to the census!"
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Ночная страница",
+     "kind": "Observe",
+     "description": {
+      "ru": "Ночью в переписи пробел: демонические глаза кружат над домами, и никто не знает зачем. Понаблюдай за одним вблизи и помоги Зоологу заполнить ночную страницу.",
+      "en": "The census has a gap at night: demon eyes circle the houses and nobody knows why. Watch one up close and help the Zoologist fill in the night page."
+     },
+     "offer": {
+      "ru": "Демонические глаза смотрят на нас каждую ночь. Пора посмотреть на них в ответ. Не моргай первым!",
+      "en": "Demon eyes stare at us every night. Time to stare back. Don't blink first!"
+     },
+     "complete": {
+      "ru": "Он искал… дома. Пустые дома. Любопытно. Записываю — и ставлю жирную пометку.",
+      "en": "It was looking for… houses. Empty houses. Curious. I'm writing it down, with a bold mark."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Приют в пустом доме",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Зоолог давно мечтает превратить пустые резиденции в приюты — особенно с тех пор, как над ними кружат демонические глаза. Поймай сачком живых зверьков для первого приюта: пусть пустой дом кому-то пригодится.",
+      "en": "The Zoologist has long dreamed of turning empty residences into shelters, all the more since demon eyes began circling them. Catch live critters with a bug net for the first shelter: let an empty house be of use to someone at last."
+     },
+     "offer": {
+      "ru": "Если глаза ищут пустые дома, пусть найдут их занятыми. Принеси мне живых зверьков, {player}, — кролик, белка или золотая рыбка, кто попадётся.",
+      "en": "If the eyes are looking for empty houses, let them find those houses occupied. Bring me live critters, {player}: a bunny, a squirrel or a goldfish, whoever comes along."
+     },
+     "complete": {
+      "ru": "Все живы, все записаны, у всех есть угол. Пусть теперь глаза заглядывают — тут занято!",
+      "en": "All alive, all recorded, all with a corner of their own. Let the eyes look in now: this house is taken!"
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Чем кончается бестиарий",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Бестиарий почти заполнен, а мир всё растёт. Зоолог спрашивает: описывать ли тех, кого мир ещё не сказал, или только то, что она видела сама?",
+      "en": "The Bestiary is nearly full, but the world keeps growing. The Zoologist asks: should she describe those the world has not said yet, or only what she has seen herself?"
+     },
+     "offer": {
+      "ru": "Тут странные следы. Ничьи. Будто зверь ещё не родился, а уже бегает. Записывать такое или нет?",
+      "en": "There are strange tracks here. Nobody's. As if a beast isn't born yet but already runs. Should I record that or not?"
+     },
+     "complete": {
+      "ru": "Решено. У последней главы бестиария теперь есть правило — и придумали мы его вдвоём.",
+      "en": "Decided. The last chapter of the Bestiary has a rule now, and the two of us made it."
+     },
+     "waiting": null,
+     "choices": {
+      "all": {
+       "outcome": {
+        "ru": "Зоолог заводит пустые страницы для зверей, которых ещё нет. Перепись тянется к краю мира — туда, где он только собирается заговорить.",
+        "en": "The Zoologist starts blank pages for beasts that don't exist yet. The census reaches toward the edge of the world, where it is only about to speak."
+       },
+       "lean": "tiders"
+      },
+      "known": {
+       "outcome": {
+        "ru": "Зоолог закрывает бестиарий на последнем увиденном звере. Только проверенное, только своими глазами — так архив остаётся правдивым.",
+        "en": "The Zoologist closes the Bestiary at the last beast she saw. Only what's verified, only with her own eyes: that is how an archive stays true."
+       },
+       "lean": "archivists"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Страница полнолуния",
+     "kind": "Observe",
+     "description": {
+      "ru": "Последняя пустая страница бестиария — о самой Зоологе: о том, кем она становится в полнолуние. Себя изнутри не опишешь. Побудь рядом с ней ночью, лучше в полную луну, и расскажи, какой она бывает.",
+      "en": "The bestiary's last blank page is about the Zoologist herself: what she becomes under a full moon. No one can describe themselves from the inside. Stay near her at night, ideally under a full moon, and tell her what she is like."
+     },
+     "offer": {
+      "ru": "Есть зверь, которого я не могу описать сама. Ты знаешь, о ком я. Побудь рядом со мной в полнолуние, {player}, и расскажи, какая я. Только честно.",
+      "en": "There is one beast I cannot describe myself. You know who I mean. Stay near me under the full moon, {player}, and tell me what I am like. Honestly."
+     },
+     "complete": {
+      "ru": "Злая? Нет — испуганная. Записываю так. И ставлю на полях: «автор — тоже зверь».",
+      "en": "Vicious? No, frightened. I'll write it that way. And in the margin: “the author is a beast too.”"
+     },
+     "waiting": null,
+     "choices": null
+    }
+   ]
+  }
+ ]
+}

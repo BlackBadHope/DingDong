@@ -46,5 +46,19 @@ public static class AuthoredRoadmapR6ProbeManifest
 		string author,
 		string source,
 		string worldSha256,
-		PresetRole roles) => PublicHomeReplacementCatalog.Create(id, width, height, AuthoredPlacementMode.TerrainScene, roles);
+		PresetRole roles) => new(
+		id,
+		$"Structures/PrivateHome/{folder}/{id}.shstruct",
+		width,
+		height,
+		null,
+		0,
+		author,
+		source,
+		$"wld-sha256:{worldSha256}",
+		AuthoredPresetCatalog.PrivateHomeLicense,
+		roles | PresetRole.PrivateHome,
+		AuthoredPlacementMode.TerrainScene,
+		false,
+		false);
 }

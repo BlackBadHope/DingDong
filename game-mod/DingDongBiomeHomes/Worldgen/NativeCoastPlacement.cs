@@ -29,7 +29,10 @@ internal static class NativeCoastPlacement
 	{
 		if (!Active || CurrentPass == null || CurrentPass is
 			"DingDong ocean expeditions" or "Sulphur Sea" or "Sulphur Sea 2" or "Abyss" or
-			"SOTS: Ocean Caves" or "Thorium Mod: Aquatic Depths") return true;
+			"SOTS: Ocean Caves" or "Thorium Mod: Aquatic Depths" or
+			// V03 29.10: the shore seal writes plugs on the coast; without this every
+			// coastal 1x1 CanPlace is false before "Sulphur Sea 2" and only self-seals ran.
+			"DingDong shore seal" or "DingDong shore seal again" or "DingDong shore seal coast") return true;
 		// Allow sky structures above the sea's air-clearance envelope, and Hell
 		// structures below the future Abyss. All existing provider reservations
 		// remain intact; this only rejects a candidate before it writes tiles.

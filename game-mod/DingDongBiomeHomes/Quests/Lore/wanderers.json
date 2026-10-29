@@ -1,0 +1,965 @@
+{
+ "format": "dingdong-lore-node-v1",
+ "node": "wanderers",
+ "nodePage": {
+  "title": {
+   "ru": "Пришедшие позже",
+   "en": "Those Who Came Later"
+  },
+  "body": {
+   "ru": "Их не было в мире, когда прозвучало первое слово. Пират пришёл по следу чужих кораблей, Стимпанкерша — на запах пара, Киборг — из будущего, которое сам себе собирает. Волшебник очнулся связанным в пещерах, с памятью о заклинаниях старше камня. Санта заглядывает раз в год и каждый раз застаёт мир другим. Сборщик налогов выбрался из пепла и первым делом завёл книгу учёта. Принцесса пришла последней — когда в городе собрались все, кого можно любить.\n\nПришедшие позже не помнят малого мира и потому спорят о нём смелее всех. Приливники среди них торопят следующее слово, архивист бережёт первое, а сборщик предлагает порядок, у которого есть цена. Резиденции, построенные будто под кого-то, ждали и их — и никто не признаётся, кто знал, что они придут.",
+   "en": "They were not in the world when the first word was spoken. The Pirate followed the wake of foreign ships, the Steampunker followed the smell of steam, the Cyborg came from a future he is assembling for himself. The Wizard woke up bound in the caverns, remembering spells older than stone. Santa drops by once a year and finds the world changed every time. The Tax Collector crawled out of the ashes and opened a ledger first thing. The Princess came last, once the town held everyone there was to love.\n\nThose who came later do not remember the small world, so they argue about it more boldly than anyone. The Tiders among them hurry the next word, the archivist guards the first, and the collector offers an order that has a price. The residences built as if for someone were waiting for them too, and no one admits to knowing they would come."
+  }
+ },
+ "residents": [
+  {
+   "npcKey": "Terraria/Pirate",
+   "force": "tiders",
+   "epithet": {
+    "ru": "Капитан у края карты",
+    "en": "Captain at the map's edge"
+   },
+   "quote": {
+    "ru": "Карта кончается? Значит, кто-то поленился её дорисовать. Ничего, дорисуем сами!",
+    "en": "The map ends? Then someone got lazy drawing it. No matter, we'll finish it ourselves!"
+   },
+   "intro": {
+    "ru": "{resident} бросил якорь, когда отгремели пушки пиратского вторжения, и остался: у этого мира есть край, а край для моряка — личное оскорбление. Он приливник до последней доски. Океан напротив Бездны для него не угроза, а несказанная половина мира, полная добычи. Пустые резиденции он считает трофеем без хозяина и громко ворчит, что в его доме нет мачты.",
+    "en": "{resident} dropped anchor once the cannons of the pirate invasion fell silent, and he stayed: this world has an edge, and to a sailor an edge is a personal insult. He is a Tider down to the last plank. The ocean across from the Abyss is no threat to him but the unspoken half of the world, full of loot. He sees the empty residences as unclaimed trophies and loudly grumbles that his house has no mast."
+   },
+   "findHint": null,
+   "epilogue": {
+    "ru": "Пират так и не уплыл — или уплыл и вернулся так быстро, что никто не заметил. В его резиденции висит карта с дорисованным краем, и каждый вечер он добавляет на неё по острову. «Это не враньё, — говорит он, — это прогноз». Приливники зовут его своим знаменосцем, а сам он просто рад, что миру наконец есть куда плыть.",
+    "en": "The Pirate never sailed off, or sailed and came back so fast that no one noticed. A map with a redrawn edge hangs in his residence, and every evening he adds another island to it. \"It's not a lie,\" he says, \"it's a forecast.\" The Tiders call him their standard-bearer, and he is simply glad the world finally has somewhere to sail."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Кораллы с отмели",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Капитан проверяет, умеешь ли ты ходить по мелководью, не теряя сапог. Собери кораллы на отмелях у океана и принеси ему: по ним он читает, куда тянет течение.",
+      "en": "The captain wants to know if you can wade the shallows without losing your boots. Gather coral from the ocean shoals and bring it to him: he reads the pull of the current from it."
+     },
+     "offer": {
+      "ru": "Кораллы, {player}! Настоящие, с отмели. По ним видно, куда идёт вода, а куда вода — туда и я.",
+      "en": "Coral, {player}! Real coral, from the shoal. It shows where the water goes, and where the water goes, so do I."
+     },
+     "complete": {
+      "ru": "Ха, ещё пахнут солью! Течение тянет к краю мира — я так и знал.",
+      "en": "Ha, they still smell of salt! The current pulls toward the world's edge. I knew it."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Клад с глубин",
+     "kind": "Expedition",
+     "description": {
+      "ru": "Пирату нужно доказательство, что глубины прячут клады. Найди зелье жабр в тайниках и руинах мира: сваренное или купленное не в счёт, ему важен именно найденный клад.",
+      "en": "The Pirate wants proof that the deep hides treasure. Find a gills potion in the world's caches and ruins: brewed or bought ones do not count, only a found treasure will do."
+     },
+     "offer": {
+      "ru": "Сварить жабры может любой аптекарь. А ты найди такие, что пролежали в сундуке с самого сотворения. Вот это будет клад!",
+      "en": "Any apothecary can brew gills. You find me some that have lain in a chest since creation. Now that would be treasure!"
+     },
+     "complete": {
+      "ru": "Пролежало тут дольше, чем я живу… Значит, мир прятал добро ещё до нас. Хороший мир. Жадный, как я.",
+      "en": "It's been lying there longer than I've been alive... So the world was hiding loot before we came. Good world. Greedy, like me."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Край воды",
+     "kind": "Visit",
+     "description": {
+      "ru": "Пират зовёт тебя туда, где кончается суша и начинается то, что мир ещё не договорил. Побудь у океана и посмотри на горизонт его глазами.",
+      "en": "The Pirate wants you to stand where the land ends and what the world has not finished saying begins. Spend time at the ocean and look at the horizon through his eyes."
+     },
+     "offer": {
+      "ru": "Иди к океану и смотри на горизонт, пока не надоест. А когда надоест — смотри ещё. Так и становятся моряками.",
+      "en": "Go to the ocean and watch the horizon until you're bored. When you're bored, keep watching. That's how sailors are made."
+     },
+     "complete": {
+      "ru": "Чуешь, как темнеет там вода? Это не глубина, юнга. Это черновик. Мир ещё не решил, что там нарисовать.",
+      "en": "Feel how dark the water gets out there? That's not depth, deckhand. That's a draft. The world hasn't decided what to draw there yet."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Куда плыть",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Капитан всерьёз собирается в плавание, из которого может не быть пути назад. Скажи ему, куда держать курс: за край мира или домой с тем, что уже добыто.",
+      "en": "The captain is seriously planning a voyage there may be no coming back from. Tell him where to set the course: past the world's edge, or home with the loot already won."
+     },
+     "offer": {
+      "ru": "Карта есть, команда — ну, почти есть. Скажи, {player}: плывём за край или берём добычу и домой?",
+      "en": "I've got a map, and a crew, well, almost. Tell me, {player}: do we sail past the edge or take the loot and head home?"
+     },
+     "complete": {
+      "ru": "Решено, и ром тому свидетель. Пират без курса — просто мокрый человек с саблей.",
+      "en": "Settled, and the rum is my witness. A pirate without a course is just a wet man with a cutlass."
+     },
+     "waiting": null,
+     "choices": {
+      "beyond": {
+       "outcome": {
+        "ru": "Пират хохочет и отрывает край карты: «Значит, дорисуем!» Приливники в городе одобрительно шумят.",
+        "en": "The Pirate roars with laughter and tears off the map's edge: \"Then we'll draw it in!\" The Tiders in town cheer."
+       },
+       "lean": "tiders"
+      },
+      "home": {
+       "outcome": {
+        "ru": "Пират долго молчит, потом прячет карту в сундук: «Добыча есть добыча. Край подождёт — он никуда не денется».",
+        "en": "The Pirate is silent for a long time, then locks the map in a chest: \"Loot is loot. The edge can wait; it isn't going anywhere.\""
+       },
+       "lean": "gardeners"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Акулы за кормой",
+     "kind": "Hunt",
+     "description": {
+      "ru": "Курс выбран, но за кормой всё ещё идёт старый долг: акулы, что тянулись за кораблём Пирата от самого последнего порта. Пока они кружат у этого берега, ни один берег не станет домом. Пусти их ко дну.",
+      "en": "The course is set, but an old debt still trails astern: the sharks that followed the Pirate's ship all the way from his last port. While they circle this shore, no shore will be home. Send them to the bottom."
+     },
+     "offer": {
+      "ru": "Слышишь, юнга? Это не волны — это они. Шли за мной через всё море. Пирату не уйти за край, пока за ним гонится собственное прошлое.",
+      "en": "Hear that, deckhand? That's not the waves; that's them. They followed me across the whole sea. A pirate can't sail past the edge while his own past is chasing him."
+     },
+     "complete": {
+      "ru": "Ко дну! И долг вместе с ними. Держи пушку, поставь на крышу. В каждом приличном доме должна быть мачта или хотя бы пушка.",
+      "en": "To the bottom! And the debt with them. Take this cannon and put it on your roof. Every decent house needs a mast, or at least a cannon."
+     },
+     "waiting": null,
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "Terraria/SantaClaus",
+   "force": "tricksters",
+   "epithet": {
+    "ru": "Гость, что приходит раз в год",
+    "en": "The guest who comes once a year"
+   },
+   "quote": {
+    "ru": "Я вижу ваш мир раз в год. Поверь, со стороны отлично заметно, как он растёт.",
+    "en": "I see your world once a year. Believe me, from outside it's easy to tell how much it has grown."
+   },
+   "intro": {
+    "ru": "{resident} приходит, когда отбит Морозный легион и наступает пора подарков, и исчезает, едва она кончится. Он трикстер и гость, а не житель: ему незачем спорить, каким должен быть мир, — он просто замечает, каким тот стал за год. Резиденцию в снегах он зовёт мастерской «на вырост» и подмигивает, когда спрашивают, кто её построил.",
+    "en": "{resident} arrives once the Frost Legion is beaten and the gift season begins, and vanishes as soon as it ends. He is a trickster and a guest, not a resident: he has no need to argue about what the world should be; he just notices what it has become over the year. He calls his residence in the snow a workshop \"to grow into\" and winks when asked who built it."
+   },
+   "findHint": {
+    "ru": "Санта гостит недолго. Ищи его в снежном биоме и заговори первым — сам он слишком занят своими списками.",
+    "en": "Santa never stays long. Look for him in the Snow biome and speak first; he is far too busy with his lists."
+   },
+   "epilogue": {
+    "ru": "Санта уходит, как всегда, неожиданно и оставив слишком много обёрточной бумаги. Но в мастерской на снежной полке теперь всегда горит свет, а на столе лежит письмо: «Я видел, каким мир был год назад. Он стал больше, громче и, кажется, добрее. Силам не говори — пусть спорят. До встречи».",
+    "en": "Santa leaves as he always does, suddenly and with far too much wrapping paper left behind. But a light now always burns in the workshop on the snowy shelf, and a letter lies on the table: \"I saw what the world was like a year ago. It has grown bigger, louder and, I think, kinder. Don't tell the forces; let them argue. See you.\""
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Снежки",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Санта начинает знакомство с игры: ему нужны снежки, и побольше. Слепи их в снегах и принеси, а зачем они ему — он объяснит, только если угадаешь.",
+      "en": "Santa starts your acquaintance with a game: he needs snowballs, lots of them. Make them in the snow and bring them over; he will only explain why if you guess it yourself."
+     },
+     "offer": {
+      "ru": "Снежки, {player}! Целую охапку. Нет-нет, не спрашивай зачем. Подарок, который объяснили, — уже не подарок.",
+      "en": "Snowballs, {player}! A whole armful. No, no, don't ask why. A gift that has been explained is no longer a gift."
+     },
+     "complete": {
+      "ru": "Прекрасно! Половину я раздам, а половину запущу в того, кто первым спросит, зачем мне снежки.",
+      "en": "Wonderful! Half I'll give away, and the other half I'll throw at whoever first asks what I need snowballs for."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Заплатка на мешок",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Мешок Санты прохудился: за год мир вырос, а мешок нет. Ему нужна кожа, чтобы залатать дно, пока подарки не начали теряться по дороге. Принеси кожу, и он, так и быть, расскажет, что лежало в мешке год назад.",
+      "en": "Santa's sack has worn through: the world grew this year, and the sack did not. He needs leather to patch the bottom before gifts start falling out along the way. Bring leather, and he may even tell you what was in the sack a year ago."
+     },
+     "offer": {
+      "ru": "Видишь дыру? Год назад её не было, и подарков было меньше. Принеси кожу, {player}. Без вопросов, как договаривались.",
+      "en": "See that hole? It wasn't there a year ago, and there were fewer gifts. Bring leather, {player}. No questions, as agreed."
+     },
+     "complete": {
+      "ru": "Крепко! Хотя мешок всё равно не бездонный, что бы ни рассказывали. Ничего, что-нибудь придумаем ближе к празднику.",
+      "en": "Sturdy! Though the sack still isn't bottomless, whatever the stories say. Never mind; we'll think of something closer to the holiday."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Пингвины у проруби",
+     "kind": "Observe",
+     "description": {
+      "ru": "Санта уверен, что пингвины знают о зиме больше него. Побудь рядом с пингвином и понаблюдай за ним, не тревожа: Санте важно, изменилась ли их зима за год.",
+      "en": "Santa is sure penguins know more about winter than he does. Stay near a penguin and watch it without disturbing it: Santa wants to know whether their winter has changed this year."
+     },
+     "offer": {
+      "ru": "Сходи посмотри на пингвинов. Только тихо! Они ведут свой список — кто вёл себя хорошо, а кто топтал лёд.",
+      "en": "Go and watch the penguins. Quietly! They keep their own list of who has been good and who stomped on the ice."
+     },
+     "complete": {
+      "ru": "Ну как, ходят вразвалку? Значит, зима у них всё та же. Хоть что-то в этом мире не переписали за год.",
+      "en": "Well, still waddling? Then their winter is the same as ever. At least something in this world wasn't rewritten this year."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Кому подарок",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Мешок Санты не бездонный, что бы о нём ни рассказывали. Он просит совета: дарить всем без разбора или только тем, кто заслужил. Ответ скажет больше о тебе, чем о нём.",
+      "en": "Santa's sack is not bottomless, whatever the stories say. He asks for advice: give to everyone, or only to those who earned it. The answer will say more about you than about him."
+     },
+     "offer": {
+      "ru": "Подарков в этом году меньше, чем жителей. Как быть, {player}: всем понемногу или только достойным?",
+      "en": "There are fewer gifts than residents this year. What shall we do, {player}: a little for everyone, or only for the worthy?"
+     },
+     "complete": {
+      "ru": "Записал. Не в список хороших и плохих — в другой, о котором я никому не рассказываю.",
+      "en": "Noted. Not on the naughty-or-nice list, but on another one I never tell anyone about."
+     },
+     "waiting": null,
+     "choices": {
+      "all": {
+       "outcome": {
+        "ru": "Санта хохочет и развязывает мешок пошире: «Кто не верит — тому подарок нужнее всех».",
+        "en": "Santa laughs and opens the sack wider: \"Those who don't believe need a gift most of all.\""
+       },
+       "lean": "none"
+      },
+      "deserving": {
+       "outcome": {
+        "ru": "Санта кивает и достаёт из кармана уголь: «Справедливо. Только учти — список составляю я, а не ты».",
+        "en": "Santa nods and pulls a lump of coal from his pocket: \"Fair enough. Just remember, I write the list, not you.\""
+       },
+       "lean": "gardeners"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Ночь перед",
+     "kind": "Delayed",
+     "description": {
+      "ru": "Всё готово, осталось дождаться праздничной ночи. Санта просит подождать сутки: подарки должны дойти до каждой резиденции, пока город спит.",
+      "en": "Everything is ready; all that is left is to wait for the holiday night. Santa asks you to wait a day: the gifts must reach every residence while the town sleeps."
+     },
+     "offer": {
+      "ru": "Теперь самое трудное — ждать. Ложись спать, {player}, а утром посмотрим, кто что найдёт под ёлкой.",
+      "en": "Now comes the hardest part: waiting. Go to sleep, {player}, and in the morning we'll see who finds what under the tree."
+     },
+     "complete": {
+      "ru": "С праздником! Видишь, мир стал чуточку теплее. Я замечу это в следующий раз — я всегда замечаю.",
+      "en": "Happy holidays! See, the world is a little warmer now. I'll notice it next time; I always notice."
+     },
+     "waiting": {
+      "ru": "Санта шуршит обёрточной бумагой и никого не пускает в мастерскую. Праздничная ночь ещё не наступила.",
+      "en": "Santa rustles wrapping paper and lets no one into the workshop. The holiday night has not come yet."
+     },
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "Terraria/TaxCollector",
+   "force": "gardeners",
+   "epithet": {
+    "ru": "Счетовод порядка",
+    "en": "Bookkeeper of order"
+   },
+   "quote": {
+    "ru": "Порядок стоит денег, дорогуша. Беспорядок стоит дороже — просто счёт приходит позже.",
+    "en": "Order costs money, my dear. Disorder costs more; the bill just arrives later."
+   },
+   "intro": {
+    "ru": "{resident} был измученной душой в аду, пока очищающий порошок не вернул ему тело и, увы, привычки. Он садовник по убеждению: мир должен быть ухожен, расчерчен и учтён, а за каждую ухоженную грядку кто-то обязан платить. Пустые резиденции он давно внёс в реестр как «объекты без плательщика» и искренне не понимает, почему это никого не радует.",
+    "en": "{resident} was a tortured soul in the Underworld until purification powder gave him back his body and, alas, his habits. He is a Gardener by conviction: the world must be tended, ruled into neat lines and accounted for, and someone must pay for every tended bed. He long ago entered the empty residences in his register as \"properties without a payer\" and sincerely cannot see why that pleases no one."
+   },
+   "findHint": {
+    "ru": "В аду бродит измученная душа. Найди её среди пепла и исцели очищающим порошком — дальше она представится сама.",
+    "en": "A tortured soul wanders the Underworld. Find it among the ashes and cure it with purification powder; it will introduce itself."
+   },
+   "epilogue": {
+    "ru": "Сборщик налогов по-прежнему ходит по городу с книгой, но теперь в ней две графы: «собрано» и «чего это стоило». Вторую он заполняет мелко, неохотно и только по ночам. Садовники ставят его в пример, приливники — в анекдоты, а сам он однажды признался, что ухоженный сад без единого жителя — не порядок, а просто очень дорогой пустырь.",
+    "en": "The Tax Collector still walks the town with his ledger, but now it has two columns: \"collected\" and \"what it cost.\" He fills in the second one in small print, reluctantly, and only at night. The Gardeners hold him up as an example, the Tiders as a punchline, and he once admitted that a tidy garden without a single resident is not order but merely a very expensive wasteland."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Недоимка",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Сборщик налогов начинает с главного — с долга, которого за тобой никогда не было. Принеси ему серебро в счёт «недоимки»: так он проверяет, платят ли в этом мире без лишних вопросов.",
+      "en": "The Tax Collector starts with what matters most to him: a debt you never ran up. Bring him silver to cover the \"arrears\": it is how he tests whether people in this world pay without asking questions."
+     },
+     "offer": {
+      "ru": "По моим записям за этим участком числится недоимка. Чья? Неважно, {player}. Важно, что платить будете вы.",
+      "en": "According to my records, this lot is in arrears. Whose? Irrelevant, {player}. What matters is that you will be paying."
+     },
+     "complete": {
+      "ru": "Пересчитал. Дважды. Одной монеты не хватает, но я великодушен — запишу её на следующий год.",
+      "en": "Counted. Twice. One coin short, but I am magnanimous; I shall carry it over to next year."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Старый адрес",
+     "kind": "Visit",
+     "description": {
+      "ru": "Сборщик налогов хочет закрыть старую графу: в аду, где он был измученной душой, за ним числится «неоплаченный адрес». Сам он туда не вернётся ни за какие деньги. Побудь в Преисподней и осмотри пепелище, как для описи.",
+      "en": "The Tax Collector wants to close an old entry: in the Underworld, where he was a tortured soul, his records show an “unpaid address”. He will not go back there for any money. Spend time in the Underworld and look over the ashes as if taking an inventory."
+     },
+     "offer": {
+      "ru": "Там, внизу, всё ещё числится моё прежнее жильё. Пепел, сера, ни одной квитанции. Осмотрите его, {player}, я заплачу. Нет, правда заплачу.",
+      "en": "Down there, my former lodgings are still on the books. Ash, brimstone, not a single receipt. Survey it, {player}, and I will pay. No, I really will pay."
+     },
+     "complete": {
+      "ru": "Всё ещё горит? И никто не платит? Вычёркиваю. Странное чувство, дорогуша: впервые списываю долг, и мне легче.",
+      "en": "Still burning? And nobody paying? I'm striking it off. A strange feeling, my dear: the first debt I've ever written off, and I feel lighter."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Фонари на улицах",
+     "kind": "GatherEnv",
+     "description": {
+      "ru": "Порядок любит свет: в темноте не видно, кто не заплатил. Поставь фонарные столбы у резиденции сборщика. Он называет это «уличным освещением за счёт благодарных граждан».",
+      "en": "Order loves light: in the dark you cannot see who has not paid. Put up lamp posts by the collector's residence; he calls it “street lighting funded by grateful citizens.”"
+     },
+     "offer": {
+      "ru": "Город без фонарей — город без учёта. Три столба у моей конторы, дорогуша, и не факелы: факелы не внушают уважения. Счёт за масло пришлю отдельно.",
+      "en": "A town without lamps is a town without accounts. Three posts by my office, my dear, and not torches: torches inspire no respect. The bill for the oil will follow separately."
+     },
+     "complete": {
+      "ru": "Светло и упорядоченно. Теперь каждый прохожий знает: здесь считают. Это успокаивает. Меня.",
+      "en": "Bright and orderly. Now every passer-by knows that someone is counting here. It is reassuring. To me."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Налоговый устав",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Сборщик составляет первый настоящий налоговый устав мира и, к общему удивлению, спрашивает твоего мнения. Реши, брать со всех одинаково или облегчить ношу тем, кто строит.",
+      "en": "The collector is drafting the world's first real tax charter and, to everyone's surprise, asks your opinion. Decide whether all pay the same or the burden is eased for those who build."
+     },
+     "offer": {
+      "ru": "Устав почти готов, осталась одна графа. Скажите, {player}: налог для всех одинаковый или скидка строителям?",
+      "en": "The charter is nearly done; one column is left. Tell me, {player}: the same tax for all, or a discount for builders?"
+     },
+     "complete": {
+      "ru": "Внесено. Чернила высохнут — и это станет законом. Не благодарите: благодарность налогом не облагается. Пока.",
+      "en": "Entered. Once the ink dries, it is law. No need to thank me: gratitude is not taxable. Yet."
+     },
+     "waiting": null,
+     "choices": {
+      "strict": {
+       "outcome": {
+        "ru": "Сборщик довольно щёлкает счётами. Город станет ровным, чистым и тихим — таким тихим, что слышно, как в чужих карманах звенят последние монеты.",
+        "en": "The collector clicks his abacus with satisfaction. The town will be even, clean and quiet, so quiet you can hear the last coins jingling in other people's pockets."
+       },
+       "lean": "gardeners"
+      },
+      "fair": {
+       "outcome": {
+        "ru": "Сборщик морщится, но записывает исключение. Кажется, впервые в его книге появилась строка не про деньги, а про людей.",
+        "en": "The collector winces but writes down the exception. It seems that for the first time his ledger has a line about people rather than money."
+       },
+       "lean": "tiders"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Проценты капают",
+     "kind": "Delayed",
+     "description": {
+      "ru": "Устав принят, теперь дело за временем: проценты капают сами. Подожди несколько дней, пока сборщик подсчитает, во что миру обошёлся его порядок. Итог удивит и его самого.",
+      "en": "The charter is adopted; now time does the work, and interest accrues on its own. Wait a few days while the collector tallies what his order has cost the world. The result will surprise even him."
+     },
+     "offer": {
+      "ru": "Теперь ничего не делайте. Это самая выгодная часть работы: деньги растут, пока все спят.",
+      "en": "Now do nothing at all. It is the most profitable part of the job: money grows while everyone sleeps."
+     },
+     "complete": {
+      "ru": "Подвёл итог. Порядок обошёлся миру дороже беспорядка. Странно. Я перепроверю… позже.",
+      "en": "The books are closed. Order has cost the world more than disorder. Odd. I shall double-check... later."
+     },
+     "waiting": {
+      "ru": "Сборщик щёлкает счётами и бормочет проценты. День ещё не закрыт, итог не подведён.",
+      "en": "The collector clicks his abacus and mutters about interest. The day is not closed, the books not balanced."
+     },
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "Terraria/Steampunker",
+   "force": "tiders",
+   "epithet": {
+    "ru": "Мастерица пара и шестерён",
+    "en": "Mistress of steam and cogs"
+   },
+   "quote": {
+    "ru": "Мир скрипит, как старый котёл. Значит, пора поддать пару и посмотреть, что из него вылетит!",
+    "en": "The world creaks like an old boiler. Time to add some steam and see what flies out!"
+   },
+   "intro": {
+    "ru": "{resident} пряталась в данже среди костей и ржавых механизмов, пока её не вывели на свет, и первым делом спросила, где тут паровой котёл. Она приливница: мир для неё — машина, которую можно разогнать, а каждое новое слово — ещё одна шестерня. Пустые резиденции её не пугают: она давно прикинула, сколько труб влезет в каждую.",
+    "en": "{resident} was hiding in the Dungeon among bones and rusty machinery until someone led her into the light, and the first thing she asked was where the steam boiler was. She is a Tider: to her the world is a machine that can be run faster, and every new word is one more cog. The empty residences do not frighten her; she has long since worked out how many pipes would fit in each."
+   },
+   "findHint": {
+    "ru": "Стимпанкерша прячется в данже. Найди её среди костей и старых механизмов и поговори с ней при встрече.",
+    "en": "The Steampunker is hiding in the Dungeon. Find her among the bones and old machinery and speak to her when you meet."
+   },
+   "epilogue": {
+    "ru": "В резиденции Стимпанкерши теперь всегда тепло и всегда шумно. Машина стоит в углу под брезентом, и никто, кроме хозяйки, не знает, что она умеет. «Когда мир решит сказать новое слово, у него будет хороший голос, — говорит она. — Или хороший аккомпанемент. Я ещё не решила». Приливники заходят погреться и уходят, полные идей.",
+    "en": "The Steampunker's residence is always warm and always noisy now. The machine stands in a corner under a tarp, and no one but its owner knows what it can do. \"When the world decides to say a new word, it'll have a fine voice,\" she says. \"Or a fine accompaniment. I haven't decided yet.\" The Tiders drop in to warm up and leave full of ideas."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Медь для котла",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Стимпанкерша годами смотрела, как ржавеют механизмы данжа. Её котёл ржаветь не будет: он будет медный. Принеси медные слитки — или оловянные, если медь в этом мире не родилась.",
+      "en": "For years the Steampunker watched the Dungeon's machinery rust. Her boiler won't rust: it will be copper. Bring copper bars, or tin ones if this world was born without copper."
+     },
+     "offer": {
+      "ru": "Железо в данже сгнило у меня на глазах. Хватит. Котёл будет медный — неси слитки, {player}, и побольше.",
+      "en": "I watched the iron in the Dungeon rot before my eyes. Enough. The boiler will be copper; bring bars, {player}, and plenty."
+     },
+     "complete": {
+      "ru": "Блестят! Гудят, если постучать, — как котёл перед свистком. Держи телепорты, пригодятся, когда трубы потянутся по городу.",
+      "en": "Shiny! They hum when you tap them, like a boiler just before the whistle. Take these teleporters; they'll come in handy once the pipes run through town."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Трубы до соседей",
+     "kind": "GatherEnv",
+     "description": {
+      "ru": "Стимпанкерша считает город слишком медленным: пока дойдёшь до соседа, остынет любой котёл. Поставь у её резиденции телепорты, те, что она дала. Пусть первая «труба» покажет, что мир можно разогнать.",
+      "en": "The Steampunker thinks the town is far too slow: by the time you reach a neighbour, any boiler has gone cold. Place teleporters at her residence, the ones she gave you, and let the first “pipe” prove the world can be sped up."
+     },
+     "offer": {
+      "ru": "Два телепорта, {player}, оба у моего дома, сначала испытаем на коротком плече. Провода подведёшь сам, я в тебя верю. Почти.",
+      "en": "Two teleporters, {player}, both by my house; we'll test on a short run first. You'll wire them yourself; I believe in you. Almost."
+     },
+     "complete": {
+      "ru": "Вжух, и ты уже там! Видишь? Мир можно разогнать. Сегодня два шага, завтра до самого края.",
+      "en": "Whoosh, and you're over there! See? The world can be sped up. Two steps today, all the way to the edge tomorrow."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Чужая машина",
+     "kind": "Expedition",
+     "description": {
+      "ru": "Стимпанкерша уверена: мир прятал машины задолго до неё. Говорят, в старых подземных сундуках лежат экстрактинаторы, которых никто из жителей не собирал. Найди такой сам: она хочет посмотреть, чья это работа.",
+      "en": "The Steampunker is certain the world was hiding machines long before she arrived. They say old underground chests hold extractinators no resident ever built. Find one yourself: she wants to see whose work it is."
+     },
+     "offer": {
+      "ru": "Где-то под землёй лежит машина, которую никто не строил. Не поверю, пока не потрогаю. Найди её, {player}!",
+      "en": "Somewhere underground lies a machine nobody built. I won't believe it until I touch it. Find it, {player}!"
+     },
+     "complete": {
+      "ru": "Шестерни притёрты так, будто машина работала тысячу лет, а ей от силы неделя. Ох, как мне это не нравится, и как нравится!",
+      "en": "The gears are worn in as if it had run for a thousand years, yet it can't be a week old. Oh, how I hate that, and how I love it!"
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Пар или тишина",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Машина почти готова, и Стимпанкерша наконец признаётся, что это: устройство, которое будет произносить слова за мир. Но она сомневается. Реши, строить дальше или сначала послушать сам мир.",
+      "en": "The machine is nearly done, and the Steampunker finally admits what it is: a device that will speak words for the world. But she has doubts. Decide whether to keep building or first listen to the world itself."
+     },
+     "offer": {
+      "ru": "Я могу собрать машину, которая скажет следующее слово вместо мира. Громко и без запинок. Строим, {player}, или сперва послушаем?",
+      "en": "I can build a machine that says the next word in the world's place. Loud and without a stammer. Do we build it, {player}, or listen first?"
+     },
+     "complete": {
+      "ru": "Решено. Котёл не любит сомнений — он от них ржавеет. Посмотрим, что получится.",
+      "en": "Settled. A boiler hates doubt; it rusts from it. Let's see what comes of it."
+     },
+     "waiting": null,
+     "choices": {
+      "build": {
+       "outcome": {
+        "ru": "Стимпанкерша поддаёт пару, и машина впервые гудит — низко, почти как голос. Приливники собираются послушать, что она скажет.",
+        "en": "The Steampunker adds steam, and for the first time the machine hums, low, almost like a voice. The Tiders gather to hear what it will say."
+       },
+       "lean": "tiders"
+      },
+      "listen": {
+       "outcome": {
+        "ru": "Стимпанкерша гасит топку и садится рядом с машиной. В тишине слышно, как где-то под землёй мир скрипит сам по себе. Она записывает каждый звук.",
+        "en": "The Steampunker banks the firebox and sits beside the machine. In the silence you can hear the world creaking by itself somewhere underground. She writes down every sound."
+       },
+       "lean": "archivists"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Испытание в дюнах",
+     "kind": "Visit",
+     "description": {
+      "ru": "Машина готова к первому запуску, но в мастерской слишком сыро и тесно. Стимпанкерша любит пустыню: сухой жар, простор и некого оглушить. Побудь в дюнах, пока машина впервые набирает голос.",
+      "en": "The machine is ready for its first run, but the workshop is too damp and cramped. The Steampunker loves the desert: dry heat, open space and no one to deafen. Spend time in the dunes while the machine finds its voice for the first time."
+     },
+     "offer": {
+      "ru": "Тащим её в пустыню! Если что-то засвистит, это нормально. Если замолчит — беги.",
+      "en": "We're hauling it to the desert! If something starts whistling, that's normal. If it goes quiet, run."
+     },
+     "complete": {
+      "ru": "Давление в норме, ничего не взорвалось! Ну, почти ничего. Мир слегка вздрогнул, значит, услышал.",
+      "en": "Pressure's normal, nothing exploded! Well, almost nothing. The world flinched a little, so it heard."
+     },
+     "waiting": null,
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "Terraria/Cyborg",
+   "force": "tiders",
+   "epithet": {
+    "ru": "Тот, кто собирает будущее",
+    "en": "The one assembling the future"
+   },
+   "quote": {
+    "ru": "Моё тело — черновик следующей версии. Мир, кстати, тоже. Разница в том, что я свой обновляю.",
+    "en": "My body is a draft of the next version. So is the world, by the way. The difference is that I update mine."
+   },
+   "intro": {
+    "ru": "{resident} появился, когда в джунглях пала Плантера, — будто мир решил, что пора показать немного будущего. Он приливник по самому своему устройству: каждая новая деталь в его теле — маленькое следующее слово, и он не понимает, почему мир медлит со своим. Пустые резиденции он сканирует как незанятые слоты и уверен, что их строили на вырост.",
+    "en": "{resident} appeared after Plantera fell in the jungle, as if the world had decided it was time to show a little of the future. He is a Tider by his very design: every new part in his body is a small next word, and he cannot understand why the world is slow with its own. He scans the empty residences as unused slots and is sure they were built to grow into."
+   },
+   "findHint": null,
+   "epilogue": {
+    "ru": "Киборг вышел из перезагрузки другим — и всё же узнаваемым. Он по-прежнему торопит мир, но иногда замирает посреди улицы и прислушивается, будто ловит сигнал, идущий не из будущего, а откуда-то из-под земли. «Мир тоже ставит обновление, — объясняет он. — Медленно. Надеюсь, без потери данных».",
+    "en": "The Cyborg came out of his reboot changed, yet recognizable. He still hurries the world along, but sometimes he freezes in the middle of the street and listens, as if catching a signal that comes not from the future but from somewhere underground. \"The world is installing an update too,\" he explains. \"Slowly. Hopefully without data loss.\""
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Металл с неба",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Киборг перепаивает схему и ищет металл, которого нет в его базах: тот, что упал на этот мир с неба. Метеоритные слитки, считает он, ближе к будущему, чем всё, что выросло здесь. Принеси их.",
+      "en": "The Cyborg is resoldering his circuitry and looking for a metal that isn't in his databases: the kind that fell onto this world from the sky. Meteorite bars, he reckons, are closer to the future than anything that grew here. Bring some."
+     },
+     "offer": {
+      "ru": "Требуется металл не с этой планеты. Да, такой есть. Нет, в кратер я не полезу: там жарко и всё горит. Сходишь ты, {player}.",
+      "en": "Required: a metal not from this planet. Yes, it exists. No, I am not climbing into the crater: it is hot and everything burns. You will go, {player}."
+     },
+     "complete": {
+      "ru": "Контакт установлен. Чувствуешь, как он тянется к схеме? Нет? А я чувствую. Будущее, оказывается, падает с неба.",
+      "en": "Connection established. Do you feel it reaching for the circuit? No? I do. The future, it turns out, falls from the sky."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Калибровка",
+     "kind": "Observe",
+     "description": {
+      "ru": "Новые сенсоры нужно откалибровать на чём-то простом и предсказуемом. Понаблюдай вблизи за синим слизнем, не трогая его: Киборг снимает показания через тебя, как через эталонный прибор.",
+      "en": "New sensors must be calibrated on something simple and predictable. Watch a blue slime up close without touching it: the Cyborg takes his readings through you, as through a reference instrument."
+     },
+     "offer": {
+      "ru": "Мне нужен эталон. Самое простое существо в мире — синий слизень. Постой рядом и не трогай его: я калибруюсь по тебе.",
+      "en": "I need a reference. The simplest creature in the world is the blue slime. Stand near one and don't touch it: I'm calibrating off you."
+     },
+     "complete": {
+      "ru": "Калибровка завершена. Слизень прыгает с периодом, точным до кадра. Мир, оказывается, держит ритм.",
+      "en": "Calibration complete. The slime hops with a period accurate to the frame. The world, it turns out, keeps time."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Короткое замыкание",
+     "kind": "Trial",
+     "description": {
+      "ru": "Киборг проверяет, выдержит ли твоя система то, на чём сгорела бы его собственная: солёная вода и ток — худшее сочетание для схемы. Одолей розовых медуз в океане и ни разу не попади под их разряд.",
+      "en": "The Cyborg is testing whether your system holds up where his own would burn out: salt water and current are the worst mix for a circuit. Defeat the pink jellyfish in the ocean without taking a single shock."
+     },
+     "offer": {
+      "ru": "Тест на изоляцию. Медузы в море бьют током, а я в воду не полезу — замкнёт. Победи их и ни разу не получи разряд.",
+      "en": "Insulation test. The jellyfish in the sea deliver shocks, and I am not getting in the water: I would short out. Beat them and never take a shock."
+     },
+     "complete": {
+      "ru": "Ноль замыканий. Ты работаешь стабильнее половины моих модулей. Это комплимент. Наверное.",
+      "en": "Zero short circuits. You run more stably than half my modules. That is a compliment. Probably."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Что улучшать",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "У Киборга хватит деталей только на одно большое обновление. Он колеблется между собой и миром и просит тебя решить, куда в первую очередь отправить будущее.",
+      "en": "The Cyborg has parts for only one big upgrade. He wavers between himself and the world and asks you to decide where the future should go first."
+     },
+     "offer": {
+      "ru": "Ресурсов хватит на одно крупное обновление. Улучшить меня — или мир вокруг? Решай, {player}. Я слишком предвзят.",
+      "en": "There are resources for one major upgrade. Improve me, or the world around me? You decide, {player}. I'm too biased."
+     },
+     "complete": {
+      "ru": "Выбор принят и записан в постоянную память. Отменить нельзя. Мне это, честно говоря, нравится.",
+      "en": "Choice accepted and written to permanent memory. It cannot be undone. Frankly, I like that."
+     },
+     "waiting": null,
+     "choices": {
+      "self": {
+       "outcome": {
+        "ru": "Киборг перепрошивает собственный каркас и становится быстрее, точнее — и дальше от остальных. «Мир догонит», — говорит он. Приливники кивают.",
+        "en": "The Cyborg reflashes his own frame and becomes faster, more precise, and further from everyone else. \"The world will catch up,\" he says. The Tiders nod."
+       },
+       "lean": "tiders"
+      },
+      "world": {
+       "outcome": {
+        "ru": "Киборг отдаёт детали на фонари, насосы и мосты. Его каркас остаётся старым, зато в каждой резиденции теперь что-то тихо работает.",
+        "en": "The Cyborg gives his parts to lamps, pumps and bridges. His frame stays old, but now something quietly works in every residence."
+       },
+       "lean": "gardeners"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Сигнал из гранита",
+     "kind": "Observe",
+     "description": {
+      "ru": "После обновления сенсоры Киборга ловят сигнал — не из будущего, а снизу, из гранитных пещер, где камень живёт и гудит. Побудь рядом с гранитным элементалем, не разрушая его: Киборг пишет, кто ещё здесь обновляется.",
+      "en": "After the upgrade, the Cyborg's sensors pick up a signal, not from the future but from below, from the granite caves where the stone lives and hums. Stay near a granite elemental without destroying it: the Cyborg is recording who else here updates itself."
+     },
+     "offer": {
+      "ru": "Новый модуль ловит частоту, которой нет в моих базах. Источник: гранит. Постой рядом с элементалем, {player}, и не стреляй. Я слушаю.",
+      "en": "My new module is picking up a frequency that is not in my databases. Source: granite. Stand near an elemental, {player}, and do not shoot. I am listening."
+     },
+     "complete": {
+      "ru": "Запись завершена. Мир тоже ставит обновление, медленно. Надеюсь, без потери данных. Странно: я помню тебя лучше, чем вчера.",
+      "en": "Recording complete. The world is installing an update too, slowly. Hopefully without data loss. Strange: I remember you better than I did yesterday."
+     },
+     "waiting": null,
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "Terraria/Wizard",
+   "force": "archivists",
+   "epithet": {
+    "ru": "Хранитель первого заклинания",
+    "en": "Keeper of the first spell"
+   },
+   "quote": {
+    "ru": "Первое слово было заклинанием. Я не знаю, кто его произнёс, но знаю, что оно ещё звучит.",
+    "en": "The first word was a spell. I do not know who spoke it, but I know it is still ringing."
+   },
+   "intro": {
+    "ru": "{resident} очнулся связанным в глубоких пещерах и первым делом спросил не «кто вы?», а «какой нынче век?». Он архивист старой магии: собирает заклинания старше камня и уверен, что первое слово мира было именно заклинанием — длинным, недоговорённым и до сих пор действующим. Пустые резиденции для него — строки этого заклинания, и он боится, что их прочтут неправильно.",
+    "en": "{resident} woke up bound in the deep caverns, and the first thing he asked was not \"who are you?\" but \"what century is it?\" He is an archivist of old magic: he collects spells older than stone and is certain the world's first word was a spell, long, unfinished and still in effect. To him the empty residences are lines of that spell, and he fears they will be read wrongly."
+   },
+   "findHint": null,
+   "epilogue": {
+    "ru": "В архиве Волшебника появилась новая полка, а на ней — одна-единственная страница, исписанная звёздной пылью. Читать её он не даёт, но охотно рассказывает, что первое слово было не приказом, а вопросом. «Кто-то спросил, каким быть миру, — говорит он, — и мир до сих пор ждёт, кто ответит». Архивисты переписывают эту фразу в свои летописи.",
+    "en": "A new shelf has appeared in the Wizard's archive, and on it lies a single page written in stardust. He will not let anyone read it, but he gladly explains that the first word was not a command but a question. \"Someone asked what the world should be,\" he says, \"and the world is still waiting for whoever will answer.\" The Archivists copy that sentence into their chronicles."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Падшие звёзды",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Волшебник ведёт летопись неба и уверен, что каждая падшая звезда — обронённая буква старого заклинания. Собери падшие звёзды по ночам и принеси ему для архива.",
+      "en": "The Wizard keeps a chronicle of the sky and is convinced every fallen star is a dropped letter of an old spell. Gather fallen stars at night and bring them to him for the archive."
+     },
+     "offer": {
+      "ru": "По ночам небо роняет буквы, {player}. Люди зовут их падшими звёздами. Принеси мне несколько — я давно пытаюсь сложить из них слово.",
+      "en": "At night the sky drops letters, {player}. People call them fallen stars. Bring me a few; I have long been trying to spell a word with them."
+     },
+     "complete": {
+      "ru": "Чудесно. Вот эта похожа на «а», а эта — на начало чего-то очень длинного. Я запишу.",
+      "en": "Marvelous. This one looks like an \"a,\" and this one like the start of something very long. I shall write it down."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Чтение ночи",
+     "kind": "Observe",
+     "description": {
+      "ru": "Демонические глаза каждую ночь смотрят на мир, и Волшебник хочет знать, что они видят. Понаблюдай за таким глазом вблизи, не уничтожая его: ночь читают тихо.",
+      "en": "Demon eyes watch the world every night, and the Wizard wants to know what they see. Watch one up close without destroying it: the night is read quietly."
+     },
+     "offer": {
+      "ru": "Ночь смотрит на нас тысячей глаз. Посмотри и ты на один из них — внимательно и не поднимая оружия. Ночь не любит, когда её перебивают.",
+      "en": "The night watches us with a thousand eyes. Look back at one of them, closely and without raising a weapon. The night dislikes being interrupted."
+     },
+     "complete": {
+      "ru": "Он смотрел на тебя, а ты на него. Так и читают ночь: кто моргнёт первым, того она и запомнит.",
+      "en": "It watched you, and you watched it. That is how the night is read: whoever blinks first is the one it remembers."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Снег помнит",
+     "kind": "Visit",
+     "description": {
+      "ru": "Волшебник уверен, что снег хранит отпечатки прежнего, малого мира: под ним время течёт медленнее. Побудь в снежном биоме и послушай, о чём молчит снег.",
+      "en": "The Wizard believes the snow keeps imprints of the former, smaller world: time runs slower beneath it. Spend time in the Snow biome and listen to what the snow keeps silent about."
+     },
+     "offer": {
+      "ru": "Снег — лучший архив: он укрывает и ничего не стирает. Сходи в снега, побудь там подольше. Слушай тишину — она подробная.",
+      "en": "Snow is the finest archive: it covers and erases nothing. Go to the snows and stay a while. Listen to the silence; it is very detailed."
+     },
+     "complete": {
+      "ru": "На твоих сапогах холод старше этого города. Да… первое слово прозвучало там, где сейчас лежит снег. Или где-то рядом.",
+      "en": "There is cold on your boots older than this town. Yes... the first word was spoken where the snow now lies. Or somewhere near."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Первое слово",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Волшебник почти разобрал заклинание, с которого начался мир, и стоит перед выбором, который не решается сделать сам. Скажи ему: искать того, кто произнёс первое слово, или не будить говорящего.",
+      "en": "The Wizard has nearly deciphered the spell the world began with, and faces a choice he dares not make alone. Tell him: seek whoever spoke the first word, or leave the speaker asleep."
+     },
+     "offer": {
+      "ru": "Заклинание почти прочитано. Ещё шаг — и я узнаю, чей это голос. Но, {player}, у заклинаний бывают хозяева. Искать или оставить?",
+      "en": "The spell is almost read. One more step and I will know whose voice it is. But, {player}, spells sometimes have owners. Seek, or let it be?"
+     },
+     "complete": {
+      "ru": "Да будет так. Я запишу твой ответ на полях, рядом с первым словом. Пусть потомки знают, кто решил.",
+      "en": "So be it. I shall write your answer in the margin, beside the first word. Let those who come after know who decided."
+     },
+     "waiting": null,
+     "choices": {
+      "seek": {
+       "outcome": {
+        "ru": "Волшебник раскрывает самые старые свитки и садится за работу. «Помнить — значит знать, кто говорил», — бормочет он. Архивисты оживляются.",
+        "en": "The Wizard unrolls his oldest scrolls and sets to work. \"To remember is to know who spoke,\" he mutters. The Archivists stir."
+       },
+       "lean": "archivists"
+      },
+      "fear": {
+       "outcome": {
+        "ru": "Волшебник медленно закрывает книгу и кладёт на неё камень. «Иные слова лучше не перечитывать вслух», — говорит он, и садовники согласно молчат.",
+        "en": "The Wizard slowly closes the book and places a stone on it. \"Some words are better not read aloud again,\" he says, and the Gardeners keep an approving silence."
+       },
+       "lean": "gardeners"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Свежие строки",
+     "kind": "Visit",
+     "description": {
+      "ru": "Заклинание записано, но не закончено: когда пала Стена плоти, мир произнёс новое слово, и на земле проступила Святыня. Побудь в освящённых землях и прислушайся: Волшебник хочет сверить свежие строки со старыми.",
+      "en": "The spell is written but unfinished: when the Wall of Flesh fell, the world spoke a new word, and the Hallow surfaced on the land. Spend time in the hallowed lands and listen: the Wizard wants to check the fresh lines against the oldest."
+     },
+     "offer": {
+      "ru": "Снег помнит первое слово, а Святыня — последнее. Сходи туда, {player}, и послушай. Если они рифмуются, говорит один и тот же голос.",
+      "en": "The snow remembers the first word, and the Hallow the latest. Go there, {player}, and listen. If they rhyme, the same voice is speaking."
+     },
+     "complete": {
+      "ru": "Рифмуются. Не во всём, но рифмуются. Значит, заклинание ещё звучит, и кто-то его продолжает. Возьми шар и смотри в него, когда мир снова заговорит.",
+      "en": "They rhyme. Not everywhere, but they rhyme. So the spell is still ringing, and someone is continuing it. Take this ball, and look into it when the world speaks again."
+     },
+     "waiting": null,
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "Terraria/Princess",
+   "force": "unassigned",
+   "epithet": {
+    "ru": "Любимица всего города",
+    "en": "Beloved of the whole town"
+   },
+   "quote": {
+    "ru": "Меня любят все. Это очень приятно. Только иногда кажется, что никто не слышит, что я говорю.",
+    "en": "Everyone loves me. It is very pleasant. Only sometimes it feels as if no one hears what I say."
+   },
+   "intro": {
+    "ru": "{resident} пришла последней, когда в городе собрались все остальные, и сразу стала всеобщей любимицей. Она не принадлежит ни одной силе и не спорит, каким должен быть мир: ей довольно того, что он есть. Но порой она говорит о пустых резиденциях странные вещи — будто помнит, как их строили, — а потом смеётся и уверяет, что просто пошутила.",
+    "en": "{resident} came last, once everyone else had gathered in town, and at once became everyone's favorite. She belongs to no force and does not argue about what the world should be: it is enough for her that it exists. But now and then she says strange things about the empty residences, as if she remembers them being built, and then laughs and insists she was only joking."
+   },
+   "findHint": null,
+   "epilogue": {
+    "ru": "На балу Принцесса сказала всего несколько слов — так тихо, что услышали только стоявшие рядом. Наутро никто в городе не мог их повторить, но все сходились в одном: стало легче. Она по-прежнему всеобщая любимица. Только теперь, когда ей улыбаются, она иногда переспрашивает: «А ты меня слышишь?» — и ждёт ответа дольше, чем принято.",
+    "en": "At the ball the Princess said only a few words, so quietly that only those standing close could hear. By morning no one in town could repeat them, but everyone agreed on one thing: things felt lighter. She is still everyone's favorite. Only now, when people smile at her, she sometimes asks, \"But do you hear me?\" and waits for the answer longer than is customary."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Дар для двора",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Принцесса устраивает свой маленький двор и хочет, чтобы в нём было что-то настоящее. Принеси ей алмаз — не ради богатства, а как знак, что к её словам относятся всерьёз.",
+      "en": "The Princess is setting up her little court and wants something real in it. Bring her a diamond, not for the wealth, but as a sign that her words are taken seriously."
+     },
+     "offer": {
+      "ru": "У каждого двора должно быть сокровище. Принесёшь мне алмаз, {player}? Не потому, что он дорогой, — а чтобы я знала, что меня услышали.",
+      "en": "Every court needs a treasure. Will you bring me a diamond, {player}? Not because it is precious, but so I know that I was heard."
+     },
+     "complete": {
+      "ru": "Он настоящий. Знаешь, обычно мне просто улыбаются и говорят «конечно, принцесса». А этот алмаз — здесь.",
+      "en": "It is real. You know, usually people just smile at me and say \"of course, Princess.\" But this diamond is here."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Подданные",
+     "kind": "Observe",
+     "description": {
+      "ru": "Принцесса называет кроликов своими подданными и хочет знать, хорошо ли им живётся. Понаблюдай за кроликом вблизи, не тревожа его, и расскажи ей, что увидишь.",
+      "en": "The Princess calls the bunnies her subjects and wants to know whether they are living well. Watch a bunny up close without disturbing it and tell her what you see."
+     },
+     "offer": {
+      "ru": "Мои подданные — кролики. Они никогда не жалуются. Посмотри на одного вблизи и скажи: он счастлив? Только не пугай его.",
+      "en": "My subjects are bunnies. They never complain. Look at one up close and tell me: is it happy? Just don't frighten it."
+     },
+     "complete": {
+      "ru": "Счастлив? Я так и думала. Кролики слушают мир лучше всех — у них самые длинные уши.",
+      "en": "Happy? I thought so. Bunnies listen to the world better than anyone; they have the longest ears."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Кто правит",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Горожане полушутя предлагают Принцессе корону, и она впервые не отшучивается. Ей нужен совет того, кто слышит её всерьёз: нужен ли городу правитель или всё должно остаться как есть.",
+      "en": "The townsfolk half-jokingly offer the Princess a crown, and for the first time she does not laugh it off. She needs advice from someone who truly hears her: does the town need a ruler, or should things stay as they are?"
+     },
+     "offer": {
+      "ru": "Мне предлагают корону. Все так меня любят, что готовы слушаться. Но, {player}, слушаться и слышать — разные вещи. Что скажешь?",
+      "en": "They are offering me a crown. Everyone loves me so much they are ready to obey. But, {player}, obeying and hearing are different things. What do you say?"
+     },
+     "complete": {
+      "ru": "Спасибо. Это был ответ не подданного и не советника, а друга. Я запомню.",
+      "en": "Thank you. That was the answer not of a subject or an adviser, but of a friend. I will remember it."
+     },
+     "waiting": null,
+     "choices": {
+      "crown": {
+       "outcome": {
+        "ru": "Принцесса примеряет корону перед зеркалом. «Если меня будут слушаться, может, однажды и услышат», — говорит она, и в её голосе мелькает сомнение.",
+        "en": "The Princess tries on the crown before a mirror. \"If they obey me, perhaps one day they will hear me too,\" she says, and a flicker of doubt crosses her voice."
+       },
+       "lean": "none"
+      },
+      "none": {
+       "outcome": {
+        "ru": "Принцесса с улыбкой возвращает корону: «Пусть никто не правит. Тогда каждому придётся слушать самому». И будто вместе с ней выдохнул весь мир.",
+        "en": "The Princess returns the crown with a smile: \"Let no one rule. Then everyone will have to listen for themselves.\" And it is as if the whole world breathed out with her."
+       },
+       "lean": "none"
+      }
+     }
+    },
+    {
+     "index": 3,
+     "titleRu": "Куда смотрят подсолнухи",
+     "kind": "GatherEnv",
+     "description": {
+      "ru": "Принцесса говорит, что подсолнухи честнее людей: они поворачиваются только к тому, что действительно светит. Посади их у её резиденции. Она хочет проверить, к кому они повернутся, к солнцу или к ней.",
+      "en": "The Princess says sunflowers are more honest than people: they turn only toward what truly shines. Plant them by her residence. She wants to see whom they turn to: the sun, or her."
+     },
+     "offer": {
+      "ru": "Все мне улыбаются, а подсолнухи нет. Они смотрят, куда хотят. Посадишь несколько у моего дома, {player}? Мне правда интересно.",
+      "en": "Everyone smiles at me, but sunflowers don't. They look wherever they please. Will you plant a few by my house, {player}? I really want to know."
+     },
+     "complete": {
+      "ru": "Смотрят на солнце. Конечно. И это хорошо: хоть кто-то здесь не притворяется ради меня. Странно… я помню, как их здесь сажали. Но я ведь пришла последней.",
+      "en": "They're looking at the sun. Of course. And that's good: at least someone here doesn't pretend for my sake. Strange… I remember them being planted here. But I came last."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 4,
+     "titleRu": "Бал назначен",
+     "kind": "Delayed",
+     "description": {
+      "ru": "Принцесса назначает бал для всего города и на этот раз хочет не танцевать, а говорить. Подожди, пока готовится праздник: ей есть что сказать тому, кто придёт слушать.",
+      "en": "The Princess announces a ball for the whole town, and this time she wants to speak rather than dance. Wait while the celebration is prepared: she has something to say to whoever comes to listen."
+     },
+     "offer": {
+      "ru": "Скоро бал. Приходи — нет, не танцевать. Я хочу сказать кое-что важное, и мне нужен хотя бы один слушатель.",
+      "en": "The ball is soon. Come, though not to dance. I want to say something important, and I need at least one listener."
+     },
+     "complete": {
+      "ru": "Все танцевали, а мне достался слушатель. Значит, я говорила не в пустоту. Спасибо, {player}.",
+      "en": "Everyone danced, and I got a listener. So I did not speak into emptiness. Thank you, {player}."
+     },
+     "waiting": {
+      "ru": "В городе развешивают гирлянды, а Принцесса шёпотом репетирует речь. Бал ещё не начался.",
+      "en": "Garlands go up around town while the Princess rehearses her speech in a whisper. The ball has not begun yet."
+     },
+     "choices": null
+    }
+   ]
+  }
+ ]
+}

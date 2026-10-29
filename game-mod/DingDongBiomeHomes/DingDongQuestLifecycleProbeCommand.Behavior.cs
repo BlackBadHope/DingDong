@@ -27,7 +27,7 @@ public sealed partial class DingDongQuestLifecycleProbeCommand
 	private void RunOnMainThread(CommandCaller caller, string[] args)
 	{
 		string worldFile = Path.GetFileNameWithoutExtension(Main.ActiveWorldFileData?.Path ?? string.Empty);
-		if (!Main.dedServ || !string.Equals(Environment.GetEnvironmentVariable(ProbeEnvironmentVariable), "1", StringComparison.Ordinal) || args.Length != 1 || !string.Equals(args[0], "lifecycle", StringComparison.OrdinalIgnoreCase) || !worldFile.StartsWith(ProbeWorldPrefix, StringComparison.Ordinal) || Main.player.Any(player => player.active))
+		if (!Main.dedServ || !string.Equals(Environment.GetEnvironmentVariable(ProbeEnvironmentVariable), "1", StringComparison.Ordinal) || args.Length != 1 || !(string.Equals(args[0], "lifecycle", StringComparison.OrdinalIgnoreCase) || string.Equals(args[0], "forms", StringComparison.OrdinalIgnoreCase)) || !worldFile.StartsWith(ProbeWorldPrefix, StringComparison.Ordinal) || Main.player.Any(player => player.active))
 		{
 			caller.Reply($"Usage: {Usage}. Requires an empty dedicated server, {ProbeEnvironmentVariable}=1, and a world named {ProbeWorldPrefix}*.", Color.OrangeRed);
 			return;
@@ -36,7 +36,7 @@ public sealed partial class DingDongQuestLifecycleProbeCommand
 		string summary;
 		try
 		{
-			summary = RunProbe(Mod, worldFile);
+			summary = string.Equals(args[0], "forms", StringComparison.OrdinalIgnoreCase) ? RunFormsProbe(Mod, worldFile) : RunProbe(Mod, worldFile);
 		}
 		catch (Exception exception)
 		{

@@ -9,8 +9,9 @@ namespace DingDongBiomeHomes;
 // Height follows the rendered font at the real available width, including translated text.
 internal sealed class JournalContentCard : JournalFrame
 {
-	private readonly UIText heading;
-	private readonly UIText body;
+	private readonly BookText heading;
+    internal string HeadingText=>heading.Value;
+	private readonly BookText body;
 	private readonly float minimumContentHeight;
 
 	internal JournalContentCard(string title, string description, DamageGuideTone tone, int itemType = ItemID.None, int npcType = NPCID.None, int rewardItemType = ItemID.None)
@@ -36,25 +37,11 @@ internal sealed class JournalContentCard : JournalFrame
 			slot.Append(icon);
 			Append(slot);
 		}
-		heading = new UIText(title, 0.96f)
-		{
-			IsWrapped = true,
-			TextOriginX = 0f,
-			TextColor = tone == DamageGuideTone.Normal ? DingDongUiTheme.Text : DingDongUiTheme.Accent(tone),
-			IgnoresMouseInteraction = true,
-			WrappedTextBottomPadding = 0f
-		};
+		heading = new BookText(title,.96f,tone==DamageGuideTone.Normal?DingDongUiTheme.Text:DingDongUiTheme.Accent(tone));
 		heading.Left.Set(leading, 0f);
 		heading.Width.Set(-leading - trailing, 1f);
 		Append(heading);
-		body = new UIText(description, 0.85f)
-		{
-			IsWrapped = true,
-			TextOriginX = 0f,
-			TextColor = DingDongUiTheme.Text,
-			IgnoresMouseInteraction = true,
-			WrappedTextBottomPadding = 2f
-		};
+		body = new BookText(description,.85f,DingDongUiTheme.Text);
 		body.Left.Set(leading, 0f);
 		body.Width.Set(-leading - trailing, 1f);
 		Append(body);

@@ -84,6 +84,7 @@ public sealed partial class NpcResidenceWorldSystem
 			return false;
 		}
 		state.Stage = ResidentEscortStage.Arrived;
+		state.OriginReleased = true;
 		state.FailureReason = string.Empty;
 		Touch(state);
 		ApplyHome(npc, state.DestinationHome);
@@ -124,6 +125,7 @@ public sealed partial class NpcResidenceWorldSystem
 
 	internal static void ApplyLockedHome(NPC npc, string npcKey)
 	{
+        if(ResidentEncounterSystem.IsPending(npcKey))return;
 		if (Main.netMode == NetmodeID.MultiplayerClient)
 			return;
 		ResidentEscortState state = GetState(npcKey);
@@ -134,6 +136,9 @@ public sealed partial class NpcResidenceWorldSystem
 			ResidentEscortStage.Following when HasAssignedDestination(state) => state.SpawnAnchor,
 			_ => state.OriginHome
 		};
+        if(!state.OriginReleased && state.Stage is ResidentEscortStage.Anchored or ResidentEscortStage.Befriended or ResidentEscortStage.Invited &&
+            SettlementWorldState.TryGetResidence(npcKey,out var residence) && ResidentEncounterTerrain.TryHomeAnchor(residence,npc.type,out var anchor))
+            home=new Point(anchor.X,anchor.Y+2);
 		if (home.X > 0 && home.Y > 0)
 			ApplyHome(npc, home);
 	}

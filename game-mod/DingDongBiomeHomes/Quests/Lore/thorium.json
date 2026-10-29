@@ -1,0 +1,702 @@
+{
+ "format": "dingdong-lore-node-v1",
+ "node": "thorium",
+ "nodePage": {
+  "title": {
+   "ru": "Принятые",
+   "en": "The Accepted"
+  },
+  "body": {
+   "ru": "В этом узле живут те, кого мир не ждал. Химик, который однажды умер и не перестал думать. Демон, ушедший от своих и так до конца и не принятый чужими. Автоматон, считающий себя не жителем, а описью. Рядом с ними — Друидка, выросшая в джунглях, и Спиритуалист, ищущий равновесие там, где другие видят только тень.\n\nПустые резиденции строили «под кого-то», но никто не сказал, под кого. Здесь этот вопрос звучит острее всего: можно ли поселить того, кого мир не задумывал для дома? Каждый из пятерых по-своему отвечает, что значит «лучше»: вернуть прежнее, принять новое, вырастить, отпустить или сохранить. А кому из них поверить, решает {player}.",
+   "en": "This node is home to those the world did not expect. A chemist who died once and never stopped thinking. A demon who left his kin and was never fully accepted by strangers. An Automaton that considers itself not a resident but an inventory. Beside them live the Druid, raised in the jungle, and the Spiritualist, who seeks balance where others see only shadow.\n\nThe empty residences were built “for someone”, but no one said for whom. Here that question cuts deepest: can you house someone the world never meant to have a home? Each of the five answers in their own way what “better” means: to restore the past, to accept the new, to grow, to release or to keep. And {player} decides which of them to trust."
+  }
+ },
+ "residents": [
+  {
+   "npcKey": "ThoriumMod/ConfusedZombie",
+   "force": "unassigned",
+   "epithet": {
+    "ru": "Химик, переживший себя",
+    "en": "The chemist who outlived himself"
+   },
+   "quote": {
+    "ru": "Формулы я помню лучше, чем собственное лицо. Наверное, это о чём-то говорит.",
+    "en": "I remember formulas better than my own face. That probably says something."
+   },
+   "intro": {
+    "ru": "Этот зомби до сих пор держит в голове формулы, хотя не помнит, кто его им учил. Опыт, после которого он перестал дышать, он зовёт «неудачной серией», варит отпугивающие составы и старается не смотреть на соседей как на обед. Пустую резиденцию он принял с благодарностью и опаской — а вдруг её строили под того, кем он был раньше? Спор сил о том, что значит «лучше», для него не теория: он сам и есть этот спор.",
+    "en": "This zombie still keeps formulas in his head, though he cannot remember who taught him. He calls the experiment that stopped his breathing “an unlucky batch”, brews repellents and tries not to look at the neighbours as lunch. He took the empty residence with gratitude and unease. What if it was built for the man he used to be? The forces argue over what “better” means; for him that argument is not theory. He is the argument."
+   },
+   "findHint": {
+    "ru": "Приходит в мир после победы над Patch Werk. Сам он говорит, что в лесу чувствует себя на своём месте.",
+    "en": "Arrives once Patch Werk is defeated. He says the forest is where he feels he belongs."
+   },
+   "epilogue": {
+    "ru": "Химик больше не извиняется за то, как выглядит. В его резиденции пахнет реактивами и лесом, а на полке стоят склянки, подписанные старым и новым почерком. Он так и не решил, кем быть «лучше» — тем или этим. Зато понял, что окончательно выбирать не обязательно, пока рядом есть кто-то, кто помнит обоих.",
+    "en": "The chemist no longer apologises for how he looks. His residence smells of reagents and forest, and the shelf holds flasks labelled in an old hand and a new one. He never decided which of him is “better”. He did learn that he need not choose for good, as long as someone nearby remembers both."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Свои среди чужих",
+     "kind": "Observe",
+     "description": {
+      "ru": "Химик хочет понять, что у него общего с теми, кто бродит снаружи по ночам. Побудь рядом с зомби, не убивая его, и запомни, как он ходит, куда смотрит и чего ищет.",
+      "en": "The chemist wants to know what he shares with the things that wander outside at night. Stay near a zombie without killing it, and note how it walks, where it looks and what it seeks."
+     },
+     "offer": {
+      "ru": "Сходи посмотри на них, {player}. Только не бей сразу. Мне надо знать, на что я похож со стороны.",
+      "en": "Go and watch them, {player}. Don't hit them right away. I need to know what I look like from the outside."
+     },
+     "complete": {
+      "ru": "Бродят, ищут, сами не знают что… Ладно. Я-то хотя бы знаю, что ищу. Это уже разница.",
+      "en": "Wandering, searching, not knowing for what… Fine. At least I know what I'm looking for. That's a difference."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Чистый кальций",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Руки химика помнят хотя бы один рецепт: состав, который отпугивает скелетов. Он клянётся, что это «почти чистый жидкий кальций», и для пробной партии ему нужны кости. Принеси их, и посмотрим, вспомнит ли он остальное.",
+      "en": "The chemist's hands remember at least one recipe: a repellent for skeletons. He swears it is “nearly pure liquid calcium”, and for a test batch he needs bones. Bring some, and let's see whether the rest comes back to him."
+     },
+     "offer": {
+      "ru": "Кости, {player}. Не спрашивай. Скелеты тоже не спрашивают, им просто не нравится запах.",
+      "en": "Bones, {player}. Don't ask. The skeletons don't ask either; they just dislike the smell."
+     },
+     "complete": {
+      "ru": "Растолочь, развести, взболтать… Получилось с первого раза. Значит, это не память, а привычка. Только чья?",
+      "en": "Grind, dilute, shake… Worked first time. So it isn't memory, it's habit. But whose habit?"
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Кем ты был",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Воспоминания возвращаются кусками, и химик боится того, что найдёт. Реши, что ему нужнее: вернуть себе прежнего человека или перестать мерить себя тем, кем он был.",
+      "en": "Memories return in pieces, and the chemist fears what he will find. Decide what he needs more: to win back the man he was, or to stop measuring himself against him."
+     },
+     "offer": {
+      "ru": "Скажи честно: мне стоит искать того, кем я был? Или лучше оставить его там, где он остался?",
+      "en": "Tell me honestly: should I look for who I was? Or leave him where he stayed?"
+     },
+     "complete": {
+      "ru": "Хорошо. Не обещаю, что справлюсь. Но теперь хотя бы понятно, куда идти.",
+      "en": "All right. I can't promise I'll manage. But at least now I know which way to walk."
+     },
+     "waiting": null,
+     "choices": {
+      "remind": {
+       "outcome": {
+        "ru": "Он записывает всё, что всплывает: названия реактивов, запах лаборатории, чей-то смех. «Если соберу себя по кусочкам, вдруг выйдет тот самый я?»",
+        "en": "He writes down everything that surfaces: reagent names, the smell of a lab, someone's laugh. “If I put myself together piece by piece, maybe it'll be the real me?”"
+       },
+       "lean": "archivists"
+      },
+      "accept": {
+       "outcome": {
+        "ru": "Он долго молчит, потом смеётся: «Значит, новый я тоже считается?» Впервые он говорит о своём теле без извинений.",
+        "en": "He is silent for a long while, then laughs: “So the new me counts too?” For the first time he speaks of his body without apology."
+       },
+       "lean": "tiders"
+      }
+     }
+    },
+    {
+     "index": 3,
+     "titleRu": "Не теряя себя",
+     "kind": "Trial",
+     "description": {
+      "ru": "Химик хочет доказать себе, что ясная голова — выбор, а не случайность. Яд шершней, говорят, путает мысли не хуже удара по затылку. Сразись с шершнями в подземных джунглях и не дай яду попасть в кровь.",
+      "en": "The chemist wants proof that a clear head is a choice, not luck. Hornet venom, they say, muddles the mind like a blow to the head. Fight the hornets of the underground jungle and keep their poison out of your blood."
+     },
+     "offer": {
+      "ru": "Теперь — к шершням. И не теряй голову, {player}: их яд путает мысли. Я проверяю, можно ли остаться собой, когда тебя сбивают с толку.",
+      "en": "Now, to the hornets. And don't lose your head, {player}: their venom muddles thought. I'm testing whether one can stay oneself while being muddled."
+     },
+     "complete": {
+      "ru": "Ни разу не сбился? Хорошо. Значит, можно. Значит, и мне можно.",
+      "en": "Never lost your bearings? Good. So it can be done. So I can do it too."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 4,
+     "titleRu": "Дорога домой",
+     "kind": "Expedition",
+     "description": {
+      "ru": "Химик признаётся, что до сих пор иногда забывает, где его дом. В старых сундуках мира попадаются зелья возвращения, сваренные задолго до жителей. Найди такое: он хочет узнать почерк того, кто знал дорогу домой.",
+      "en": "The chemist admits he still sometimes forgets where his home is. The world's old chests hold recall potions brewed long before any residents. Find one: he wants to recognise the hand of someone who knew the way home."
+     },
+     "offer": {
+      "ru": "Десять шагов, оглянулся, и дома нет… Найди мне старое зелье возвращения, {player}. Хочу понять, кто его варил.",
+      "en": "Ten paces, look around, and home is gone… Find me an old recall potion, {player}. I want to know who brewed it."
+     },
+     "complete": {
+      "ru": "Осадок, пропорции, пробка залита воском… Это мой почерк. Прежний я варил его, чтобы вернуться. Что ж, я вернулся. Мы оба вернулись.",
+      "en": "The sediment, the ratios, a cork sealed with wax… That's my hand. The old me brewed it to find his way back. Well, I'm back. Both of us are."
+     },
+     "waiting": null,
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "ThoriumMod/WeaponMaster",
+   "force": "unassigned",
+   "epithet": {
+    "ru": "Изгнанник с клинком",
+    "en": "The exile with a blade"
+   },
+   "quote": {
+    "ru": "Я ушёл от своих не для того, чтобы меня любили. Достаточно, если позволят стоять рядом.",
+    "en": "I did not leave my kin to be loved. It is enough to be allowed to stand nearby."
+   },
+   "intro": {
+    "ru": "Мастер оружия — демон, который ушёл от своих и теперь сражается за тех, кого его родня привыкла жечь. Говорит он мало и держится особняком, но к ученикам терпеливее, чем к себе. Пустую резиденцию он принял осторожно: дом, построенный не для тебя, легко отнять. Спиритуалист открыто ему не доверяет, и Мастер не спорит — он отвечает делом. Для него «лучше» — не слово, а то, что можно защитить.",
+    "en": "The Weapon Master is a demon who walked away from his own kind and now fights for those his kin were used to burning. He says little and keeps apart, but he is more patient with his students than with himself. He accepted the empty residence warily: a home not built for you is easily taken away. The Spiritualist openly distrusts him, and the Master does not argue; he answers with deeds. To him, “better” is not a word but something one can defend."
+   },
+   "findHint": {
+    "ru": "Приходит в мир после победы над Fallen Beholder. Ему не положено приближаться к Преисподней — но его это никогда не останавливало.",
+    "en": "Arrives once the Fallen Beholder is defeated. He is not supposed to go near the Underworld, but that has never stopped him."
+   },
+   "epilogue": {
+    "ru": "Мастер так и не стал своим для всех — и не требует этого. Он обходит резиденции дозором, ворчит на тех, кто не чистит оружие, и разводит маленькие огни для тех, кому холодно. Спиритуалист по-прежнему ему не доверяет, но теперь хотя бы здоровается первым. Для демона-изгнанника это почти дом.",
+    "en": "The Master never became one of everyone, and he does not ask to. He walks a patrol around the residences, grumbles at anyone who neglects their blade and lights small fires for those who are cold. The Spiritualist still distrusts him, but now greets him first. For a demonic exile, that is nearly a home."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Камень без воли",
+     "kind": "Hunt",
+     "description": {
+      "ru": "Мастер не верит словам. Прежде чем говорить всерьёз, он хочет увидеть тебя против гранитных големов: камня, который дерётся по привычке и без воли внутри. Победи их и покажи, что ты сражаешься иначе.",
+      "en": "The Master trusts no words. Before he speaks with you in earnest, he wants to see you face granite golems: stone that fights out of habit, with no will inside. Defeat them and show that you fight differently."
+     },
+     "offer": {
+      "ru": "В гранитных пещерах бродит камень без хозяина. Бьёт сильно и ни о чём не думает. Покажи, что ты не такой, {player}.",
+      "en": "In the granite caves, stone walks with no one inside. It strikes hard and thinks of nothing. Show me you are not like that, {player}."
+     },
+     "complete": {
+      "ru": "Ты выбирал, куда бить, а не просто махал. Камень так не умеет. С тобой можно разговаривать.",
+      "en": "You chose where to strike instead of just swinging. Stone cannot do that. You are worth talking to."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "В огне моей родни",
+     "kind": "Trial",
+     "description": {
+      "ru": "Огонь Преисподней ему не страшен: он в нём родился. Тебе страшен. Сразись с адскими летучими мышами и ни разу не загорись. Мастер хочет видеть, держишь ли ты дистанцию, когда жар подступает со всех сторон.",
+      "en": "The Underworld's fire cannot hurt him; he was born in it. It can hurt you. Fight the hellbats without catching fire even once: the Master wants to see whether you keep your distance when heat closes in from every side."
+     },
+     "offer": {
+      "ru": "Мне не положено туда спускаться. Тебе можно. Адские мыши быстрые и горячие. Не дай им себя поджечь.",
+      "en": "I am not supposed to go down there. You are allowed. Hellbats are quick and hot. Do not let them set you alight."
+     },
+     "complete": {
+      "ru": "Ни одной искры на тебе. Моя родня жжёт всех, кто подходит близко. Ты подошёл и остался цел. Хм.",
+      "en": "Not a spark on you. My kin burn everyone who comes close. You came close and stayed whole. Hm."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Лицо родни",
+     "kind": "Observe",
+     "description": {
+      "ru": "Чтобы понять Мастера, нужно увидеть, от кого он ушёл. Найди в Преисподней демона и понаблюдай за ним, не вступая в бой: как он держит крылья, чего ищет. Мастер хочет знать, видишь ли ты в нём то же, что в нём самом.",
+      "en": "To understand the Master, you must see whom he walked away from. Find a demon in the Underworld and watch it without fighting: how it holds its wings, what it watches, what it seeks. The Master wants to know whether you see in it what you see in him."
+     },
+     "offer": {
+      "ru": "Спустись и посмотри на моих. Не бей, смотри. А потом скажи мне честно, чем мы различаемся.",
+      "en": "Go down and look at my own kind. Do not strike; watch. Then tell me honestly how we differ."
+     },
+     "complete": {
+      "ru": "Он ищет, кого сжечь. Я ищу, кого согреть. Наверное, в этом и разница. Спиритуалист её пока не видит.",
+      "en": "It seeks someone to burn. I seek someone to warm. Perhaps that is the difference. The Spiritualist does not see it yet."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Для чего оружие",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Спиритуалист говорит, что демон с клинком остаётся демоном. Мастер спрашивает тебя прямо: для чего нужно оружие? От ответа зависит, каким он станет рядом с теми, кто ему не верит.",
+      "en": "The Spiritualist says a demon with a blade is still a demon. The Master asks you plainly: what is a weapon for? Your answer shapes who he becomes among those who do not trust him."
+     },
+     "offer": {
+      "ru": "Целитель считает, что я просто ищу, кого бы ударить. Может, он прав. Скажи сам: для чего оружие?",
+      "en": "The healer thinks I'm only looking for someone to strike. Maybe he's right. You tell me: what is a weapon for?"
+     },
+     "complete": {
+      "ru": "Я услышал. Не обещаю, что Спиритуалист услышит то же самое. Но жить я буду по этому ответу.",
+      "en": "I heard you. I can't promise the Spiritualist will hear the same. But I will live by that answer."
+     },
+     "waiting": null,
+     "choices": {
+      "protect": {
+       "outcome": {
+        "ru": "По ночам Мастер стоит у ворот резиденций. Спиритуалист впервые не отводит глаз, проходя мимо: «Защитник? Посмотрим, надолго ли».",
+        "en": "At night the Master stands at the residence gates. Passing by, the Spiritualist does not look away for once: “A protector? We'll see for how long.”"
+       },
+       "lean": "gardeners"
+      },
+      "test": {
+       "outcome": {
+        "ru": "Мастер уходит тренироваться к самому краю Преисподней. Спиритуалист лишь кивает: «Вот видите. Демону всегда нужен только он сам».",
+        "en": "The Master goes off to train at the very edge of the Underworld. The Spiritualist only nods: “You see? A demon only ever needs himself.”"
+       },
+       "lean": "tiders"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Маленькие огни",
+     "kind": "GatherEnv",
+     "description": {
+      "ru": "Ответ найден, и Мастер решает жить по нему. Он хочет развести у резиденций маленькие огни: для тех, кому холодно, и для тех, кто ему не верит. Поставь у его дома костры. Это огонь демона, который никого не жжёт.",
+      "en": "The answer is found, and the Master means to live by it. He wants small fires by the residences: for those who are cold, and for those who do not trust him. Set campfires near his home: a demon's fire that burns no one."
+     },
+     "offer": {
+      "ru": "Моя родня разводит огонь, чтобы жечь. Я хочу, чтобы он грел. Поставь у моего дома простые костры, {player}. Трёх хватит.",
+      "en": "My kin light fires to burn. I want mine to warm. Set plain campfires by my home, {player}. Three will do."
+     },
+     "complete": {
+      "ru": "Горят ровно. Кто-то уже греет руки, а Спиритуалист стоит в стороне, но не уходит. Для начала этого достаточно.",
+      "en": "They burn steadily. Someone is already warming their hands, and the Spiritualist stands apart but does not leave. To begin with, that is enough."
+     },
+     "waiting": null,
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "ThoriumMod/Druid",
+   "force": "gardeners",
+   "epithet": {
+    "ru": "Выросшая в джунглях",
+    "en": "Raised in the jungle"
+   },
+   "quote": {
+    "ru": "Растения не спрашивают, где проходит граница. Они просто растут — и иногда это лучший ответ.",
+    "en": "Plants never ask where the border lies. They simply grow, and sometimes that is the best answer."
+   },
+   "intro": {
+    "ru": "Друидка знает джунгли лучше любой тропы, а настоящую дриаду до сих пор считает старшей сестрой, с которой ещё не довелось встретиться. Она любит растения любых форм и размеров, разговаривает с ними и сердится, когда кто-нибудь топчет её травы. Пустые резиденции она увидела как поляну, которую кто-то расчистил и забыл засеять. Садовники считают её своей, но её сад всегда растёт чуть шире ограды.",
+    "en": "The Druid knows the jungle better than any trail, and still thinks of a true dryad as an older sister she has yet to meet. She loves plants of every shape and size, talks to them and grows cross when someone tramples her herbs. To her, the empty residences looked like a glade someone cleared and forgot to sow. The Gardeners count her as one of theirs, yet her garden always grows a little past the fence."
+   },
+   "findHint": {
+    "ru": "Приходит в мир после победы над Corpse Bloom. Если в мире уже живёт Дриада, Друидка будет рада такому соседству.",
+    "en": "Arrives once Corpse Bloom is defeated. If a Dryad already lives in the world, the Druid will be glad of her company."
+   },
+   "epilogue": {
+    "ru": "Роща Друидки шумит у резиденции, и её кольца теперь честные: каждое — прожитый год, а не написанный. Друидка говорит, что мир можно подрезать, а можно поливать, и настоящий садовник умеет и то и другое. Когда-то она мечтала встретить дриаду. Теперь, кажется, сама стала для рощи кем-то очень похожим.",
+    "en": "The Druid's grove rustles beside the residence, and its rings are honest now: each one a year lived, not a year written. She says a world can be pruned or watered, and a true gardener knows how to do both. Once she dreamed of meeting a dryad. Now, it seems, she has become something very like one for her grove."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Незасеянная поляна",
+     "kind": "GatherEnv",
+     "description": {
+      "ru": "Друидка хочет начать с самого простого — с рощи. Посади саженцы деревьев: молодым деревьям нужны место, свет и чьи-то руки, которые не поленятся их посадить.",
+      "en": "The Druid wants to start with the simplest thing: a grove. Plant tree saplings. Young trees need room, light and someone's hands willing to put them in the ground."
+     },
+     "offer": {
+      "ru": "Давай начнём с рощи! Посади саженцы, {player}, а я посмотрю, где им будет лучше всего.",
+      "en": "Let's start with a grove! Plant some saplings, {player}, and I'll see where they'll be happiest."
+     },
+     "complete": {
+      "ru": "Смотри, как стоят — будто всегда здесь росли. Через год тут будет тень.",
+      "en": "Look at them standing there, as if they'd always grown here. In a year there'll be shade."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "После взрыва",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Подрывник опять поджёг траву своими зарядами, и край молодой рощи обгорел. Лозы держат влагу и силу земли, и Друидка хочет обвязать ими опалённые корни. Срежь лозы в джунглях и принеси ей.",
+      "en": "The Demolitionist has set the grass alight with his charges again, and the edge of the young grove is scorched. Vines hold the earth's water and strength, and the Druid wants to bind the singed roots with them. Cut vines in the jungle and bring them to her."
+     },
+     "offer": {
+      "ru": "Опять этот подрывник! Половина саженцев в копоти. Принеси лозы из джунглей, я перевяжу корни, пока они не сдались.",
+      "en": "That demolitionist again! Half the saplings are covered in soot. Bring jungle vines; I'll bind the roots before they give up."
+     },
+     "complete": {
+      "ru": "Пахнут домом. Я выросла среди таких. Роща выживет, а с подрывником я ещё поговорю.",
+      "en": "They smell like home. I grew up among these. The grove will live, and I'll be having words with that demolitionist."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Пчёлы над поляной",
+     "kind": "Observe",
+     "description": {
+      "ru": "Без опылителей нет сада. Друидка просит понаблюдать за шершнями джунглей, не убивая их: она хочет понять, примут ли они новую рощу или станут ей врагами.",
+      "en": "There is no garden without pollinators. The Druid asks you to watch the jungle hornets without killing them: she wants to know whether they will accept the new grove or turn against it."
+     },
+     "offer": {
+      "ru": "Шершни злые, знаю. Но без них в джунглях ничего бы не цвело. Понаблюдай за ними, не трогая.",
+      "en": "Hornets are nasty, I know. But without them nothing in the jungle would bloom. Watch them without touching them."
+     },
+     "complete": {
+      "ru": "Значит, они кружат у цветов, а не ищут, кого ужалить? Хорошо. Роща им понравится.",
+      "en": "So they circle the flowers instead of looking for someone to sting? Good. They'll like the grove."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Границы рощи",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Роща окрепла, и встал вопрос, который садовники задают себе всегда: где кончается сад? Друидка просит тебя решить — огородить рощу от мира или позволить ей расти дальше ограды.",
+      "en": "The grove has grown strong, and with it comes the question every gardener asks: where does a garden end? The Druid asks you to decide whether to fence the grove off from the world or let it grow beyond the fence."
+     },
+     "offer": {
+      "ru": "Роща растёт быстрее, чем я думала. Её можно огородить и сберечь. Или отпустить. Что скажешь?",
+      "en": "The grove is growing faster than I thought. We could fence it and keep it safe. Or let it go. What do you say?"
+     },
+     "complete": {
+      "ru": "Ладно. Мне самой не хватало смелости выбрать. Хорошо, что ты рядом.",
+      "en": "All right. I didn't have the courage to choose myself. I'm glad you're here."
+     },
+     "waiting": null,
+     "choices": {
+      "fence": {
+       "outcome": {
+        "ru": "Друидка ставит низкую изгородь из лоз. Роща становится ухоженной и тихой — настоящим садом, где каждое дерево знает своё место.",
+        "en": "The Druid sets up a low fence of vines. The grove grows tidy and quiet, a true garden where every tree knows its place."
+       },
+       "lean": "gardeners"
+      },
+      "open": {
+       "outcome": {
+        "ru": "Друидка смеётся и выдёргивает колышки. Через пару дней корни уже тянутся за поляну — роща сама выбирает, куда расти.",
+        "en": "The Druid laughs and pulls up the stakes. Within days the roots are reaching past the glade; the grove chooses for itself where to grow."
+       },
+       "lean": "tiders"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Кольца на срезе",
+     "kind": "Delayed",
+     "description": {
+      "ru": "Друидка срезала упавшую ветвь старого дерева и считает годичные кольца. Колец больше, чем дней, прожитых этим миром. Дай ей время досчитать — и понять, что это значит.",
+      "en": "The Druid has cut a fallen limb from an old tree and is counting its rings. There are more rings than days this world has lived. Give her time to finish counting, and to understand what it means."
+     },
+     "offer": {
+      "ru": "Странно… На срезе колец больше, чем могло вырасти. Дай мне несколько дней, я досчитаю.",
+      "en": "Strange… There are more rings in this cut than could have grown. Give me a few days to finish counting."
+     },
+     "complete": {
+      "ru": "Деревья старше мира, {player}. Их сразу написали старыми. Но новые кольца — настоящие. Их вырастили мы.",
+      "en": "The trees are older than the world, {player}. They were written old from the start. But the new rings are real. We grew those."
+     },
+     "waiting": {
+      "ru": "Друидка склонилась над срезом и шепчет числа. Кольца не сходятся…",
+      "en": "The Druid bends over the cut, whispering numbers. The rings don't add up…"
+     },
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "ThoriumMod/Spiritualist",
+   "force": "gardeners",
+   "epithet": {
+    "ru": "Хранитель равновесия",
+    "en": "Keeper of balance"
+   },
+   "quote": {
+    "ru": "Не всё, что ушло, потеряно, друг мой. Иногда отпустить — значит наконец увидеть.",
+    "en": "Not everything that is gone is lost, my friend. Sometimes letting go is how you finally see."
+   },
+   "intro": {
+    "ru": "Спиритуалист лечит тихим словом и травяным отваром, а свободные часы проводит в размышлениях. Он ищет места, полные духовной силы, и тревожится там, где из глубины тянет тёмной энергией. Пустые резиденции кажутся ему телами без души: дом жив, только когда в нём кто-то есть. Мастеру оружия он не доверяет — демоны, говорит он, лгут, — но готов признать ошибку, если ему её покажут.",
+    "en": "The Spiritualist heals with a quiet word and an herbal brew, and spends his spare hours in contemplation. He seeks places rich in spiritual energy and grows uneasy wherever dark energy seeps up from below. The empty residences seem to him like bodies without souls: a house lives only when someone dwells in it. He does not trust the Weapon Master, for demons lie, he says, yet he is ready to admit his error if someone shows it to him."
+   },
+   "findHint": {
+    "ru": "Приходит в мир после победы над Buried Champion. Соседство с Мастером оружия ему не по душе — учти это при заселении.",
+    "en": "Arrives once the Buried Champion is defeated. He does not care to live beside the Weapon Master; keep that in mind when settling him."
+   },
+   "epilogue": {
+    "ru": "Спиритуалист лечит всех, кто к нему приходит, и ищет равновесие в мире, который не перестаёт меняться. С Мастером оружия они так и не стали друзьями, но порой сидят у одного огня и молчат об одном и том же. Спиритуалист говорит, что для доверия этого достаточно — по крайней мере для начала.",
+    "en": "The Spiritualist heals all who come to him and seeks balance in a world that never stops changing. He and the Weapon Master never became friends, but at times they sit by the same fire and keep silent about the same things. The Spiritualist says that is enough for trust, at least to begin with."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Свечи",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Чтобы души нашли дорогу к пустым домам, нужен свет, который горит спокойно и не обжигает. Спиритуалист просит принести ему свечи — начнёт он с малого.",
+      "en": "For souls to find their way to the empty houses, they need a light that burns calmly and does not scorch. The Spiritualist asks you to bring him candles; he will start small."
+     },
+     "offer": {
+      "ru": "Друг мой, принеси свечи. Не для меня — для тех, кто ещё не нашёл дорогу домой.",
+      "en": "My friend, bring me candles. Not for me, but for those who have not yet found their way home."
+     },
+     "complete": {
+      "ru": "Спасибо. Смотри, как ровно горят. Значит, здесь спокойно. Пока что.",
+      "en": "Thank you. See how steadily they burn. It means this place is calm. For now."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Тень снизу",
+     "kind": "Visit",
+     "description": {
+      "ru": "Свечи горят ровно, но Спиритуалист чувствует, как из глубины тянет тёмной силой. Сам он спускаться не любит. Побудь под землёй вместо него и почувствуй, откуда идёт эта тень: от новой земли или от старой.",
+      "en": "The candles burn steadily, yet the Spiritualist feels dark energy seeping up from the depths. He does not like going down himself. Spend time underground in his stead and feel where this shadow comes from: the new earth, or the old."
+     },
+     "offer": {
+      "ru": "Чем глубже, тем тяжелее дышать, друг мой. Спустись туда, куда я не хочу, и побудь там. Мне нужно знать, что зовёт снизу.",
+      "en": "The deeper one goes, the harder it is to breathe, my friend. Go where I would rather not, and stay a while. I need to know what calls from below."
+     },
+     "complete": {
+      "ru": "Ты принёс с собой холод, но не тьму. Значит, тень не в земле. Она в тех, кто под землёй остался. Я должен на них посмотреть.",
+      "en": "You brought back cold, but no darkness. So the shadow is not in the earth. It is in those who stayed beneath it. I must look at them."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Беспокойные души",
+     "kind": "Observe",
+     "description": {
+      "ru": "Для Спиритуалиста скелеты в пещерах — не просто чудовища, а души, которые не могут уйти. Побудь рядом с ними, не нападая, и посмотри, что их держит.",
+      "en": "To the Spiritualist, the skeletons in the caves are not mere monsters but souls that cannot depart. Stay near them without attacking, and see what holds them here."
+     },
+     "offer": {
+      "ru": "Скелеты в пещерах… В них что-то осталось. Побудь рядом, не нападай. Посмотри, что их держит.",
+      "en": "The skeletons in the caves… Something remains in them. Stay close, do not attack. See what holds them."
+     },
+     "complete": {
+      "ru": "Они ходят по кругу, будто ищут место, которого больше нет. Мир изменился, а они — нет.",
+      "en": "They walk in circles, as if seeking a place that no longer exists. The world changed; they did not."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Кого отпустить",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Души держатся за прежний, малый мир. Спиритуалист спрашивает: отпустить их — а вместе с ними и старые обиды, даже на демонов, — или удержать память, чтобы её не забыли?",
+      "en": "The souls cling to the old, smaller world. The Spiritualist asks: should he release them, and old grudges with them, even against demons, or hold on to the memory so it is not forgotten?"
+     },
+     "offer": {
+      "ru": "Я могу помочь им уйти. Или удержать. Скажи мне, друг: прошлое нужно отпускать — или беречь?",
+      "en": "I can help them leave. Or hold them. Tell me, friend: should the past be released, or kept?"
+     },
+     "complete": {
+      "ru": "Хорошо. Я помолюсь об этом. И, может быть, подумаю о том, о ком думать не хочу.",
+      "en": "Very well. I will pray on it. And perhaps think about someone I would rather not think about."
+     },
+     "waiting": null,
+     "choices": {
+      "release": {
+       "outcome": {
+        "ru": "Спиритуалист отпускает души, а вечером впервые кивает Мастеру оружия: «Если я отпускаю прошлое мира, пора отпустить и твоё».",
+        "en": "The Spiritualist releases the souls, and that evening nods to the Weapon Master for the first time: “If I release the world's past, it is time to release yours.”"
+       },
+       "lean": "gardeners"
+      },
+      "hold": {
+       "outcome": {
+        "ru": "Спиритуалист зажигает по свече на каждую душу. О Мастере оружия он говорит: «Я помню, что делали демоны. Кто-то должен помнить».",
+        "en": "The Spiritualist lights a candle for every soul. Of the Weapon Master he says: “I remember what demons did. Someone must remember.”"
+       },
+       "lean": "archivists"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Свеча на каждую душу",
+     "kind": "GatherEnv",
+     "description": {
+      "ru": "Решение принято, и Спиритуалист хочет закрепить его светом. Отпущенным душам свеча укажет дорогу, удержанным даст место у дома. Поставь свечи у его резиденции, по одной на каждую душу, что ходила по кругу в пещерах.",
+      "en": "The decision is made, and the Spiritualist wants to seal it with light. For souls released, a candle shows the way; for souls held, it gives them a place by the house. Set candles at his residence, one for each soul that walked in circles in the caves."
+     },
+     "offer": {
+      "ru": "Пять простых свечей, друг мой. Не для алтаря, а для них. Поставь их у моего порога, и я помолюсь у каждой.",
+      "en": "Five plain candles, my friend. Not for the altar, but for them. Set them at my threshold, and I will pray beside each one."
+     },
+     "complete": {
+      "ru": "Горят ровно, все пять. Меня услышали. Не знаю кто: мир, духи или ты. Но равновесие вернулось.",
+      "en": "All five burn steadily. I was heard. I do not know by whom: the world, the spirits, or you. But balance has returned."
+     },
+     "waiting": null,
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "MagicStorage/Golem",
+   "force": "archivists",
+   "epithet": {
+    "ru": "Опись всего сущего",
+    "en": "Inventory of all things"
+   },
+   "quote": {
+    "ru": "Предмет принят на хранение. Предмет будет храниться. Предмет не будет забыт.",
+    "en": "Item accepted for storage. Item will be stored. Item will not be forgotten."
+   },
+   "intro": {
+    "ru": "Автоматон называет себя не жителем, а блоком хранения. Он говорит каталожными формулировками, присваивает номера всему, что видит, и бережёт любую вещь — даже ту, что другие считают мусором. Пустые резиденции занесены им в опись с пометкой «строитель не установлен». Архивисты считают его своим, а сам он уверен: мир, который забывает свои вещи, однажды забудет и себя.",
+    "en": "The Automaton calls itself not a resident but a storage unit. It speaks in catalogue phrasing, assigns a number to everything it sees and keeps every object, even what others call junk. It has entered the empty residences in its inventory, marked “builder not established”. The Archivists count it as one of theirs, and it holds that a world which forgets its things will one day forget itself."
+   },
+   "findHint": {
+    "ru": "Заселяется, только если в серверных настройках Magic Storage разрешено заселение Автоматона.",
+    "en": "Moves in only if the Magic Storage server settings allow the Automaton to move in."
+   },
+   "epilogue": {
+    "ru": "Автоматон завершил опись и сразу открыл новую: по его словам, опись не может быть окончена, пока мир продолжает говорить. В его хранилище лежат вещи, которых больше никто не помнит, и у каждой есть номер. Лишь одна запись без номера: «Пустые резиденции. Строитель не установлен. Наблюдение продолжается».",
+    "en": "The Automaton finished its inventory and at once opened a new one: an inventory cannot be closed, it says, while the world keeps speaking. Its storage holds things no one else remembers, each with a number. Only one entry has none: “Empty residences. Builder not established. Observation continues.”"
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Сундуки для хранилища",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Чтобы начать опись, блоку нужен объём хранения. Принеси Автоматону сундуки — он разложит по ним первые единицы учёта и присвоит им номера.",
+      "en": "To begin its inventory, the unit needs storage capacity. Bring the Automaton chests, and it will sort the first items of record into them and number each one."
+     },
+     "offer": {
+      "ru": "Запрос: сундуки. Назначение: хранение. Без хранения опись невозможна, {player}.",
+      "en": "Request: chests. Purpose: storage. Without storage, an inventory is impossible, {player}."
+     },
+     "complete": {
+      "ru": "Сундуки приняты и пронумерованы. Опись открыта. Этот блок готов к работе.",
+      "en": "Chests received and numbered. Inventory opened. This unit is ready to work."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Ярлыки",
+     "kind": "GatherEnv",
+     "description": {
+      "ru": "Опись растёт, и Автоматон боится перепутать единицы хранения. Ему нужны ярлыки, которые видно издалека. Поставь таблички вокруг его резиденции: блок присвоит каждой номер и закрепит за ней сундук.",
+      "en": "The inventory is growing, and the Automaton fears mixing up its storage units. It needs labels visible from afar. Set up signs around its residence; the unit will number each one and assign a chest to it."
+     },
+     "offer": {
+      "ru": "Запрос: таблички. Количество: четыре. Назначение: маркировка. Без маркировки опись превращается в кучу, {player}.",
+      "en": "Request: signs. Quantity: four. Purpose: labelling. Without labels an inventory becomes a pile, {player}."
+     },
+     "complete": {
+      "ru": "Таблички учтены: номера 0041–0044. Ошибок маркировки не обнаружено. Этот блок… удовлетворён.",
+      "en": "Signs recorded: numbers 0041 through 0044. No labelling errors detected. This unit is… satisfied."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Несанкционированная процедура",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Посреди описи у Автоматона сработала процедура, которой нет в его списках: он требует растение. Какое и зачем, блок не знает. Принеси ему розу из джунглей и посмотри, что будет: возможно, это след того, кто его собрал.",
+      "en": "In the middle of the inventory, the Automaton ran a routine that is not on any of its lists: it demands a plant. Which plant, and why, the unit cannot explain. Bring it a jungle rose and see what happens; perhaps it is a trace of whoever built it."
+     },
+     "offer": {
+      "ru": "[ОТДАЙ МНЕ РАСТЕНИЕ.] *бип* Приносим извинения, {player}. Этот блок выполнил незарегистрированную процедуру. Тем не менее… растение было бы кстати.",
+      "en": "[GIVE ME THE PLANT.] *beep* Apologies, {player}. This unit executed an unregistered routine. Nevertheless… a plant would be welcome."
+     },
+     "complete": {
+      "ru": "Растение принято. Процедура завершена. Происхождение процедуры: не установлено. Запись внесена рядом с записью о резиденциях.",
+      "en": "Plant received. Routine complete. Origin of routine: not established. Entry filed beside the entry on the residences."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Что хранить",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Хранилище переполняется, и даже блоку нужен принцип отбора. Автоматон спрашивает тебя: хранить всё подряд, потому что мир может забыть, или только то, что пригодится?",
+      "en": "The storage is overflowing, and even the unit needs a rule of selection. The Automaton asks you: keep everything because the world may forget, or only what will be of use?"
+     },
+     "offer": {
+      "ru": "Ёмкость на исходе. Требуется правило отбора. Этот блок не уполномочен решать сам. Решение за вами.",
+      "en": "Capacity nearly exhausted. A selection rule is required. This unit is not authorised to decide. The decision is yours."
+     },
+     "complete": {
+      "ru": "Правило записано. Правило будет соблюдаться. Этот блок благодарит за уточнение.",
+      "en": "Rule recorded. Rule will be observed. This unit thanks you for the clarification."
+     },
+     "waiting": null,
+     "choices": {
+      "all": {
+       "outcome": {
+        "ru": "Правило: «хранить всё». Автоматон бережно описывает сломанный факел, пустую бутылку и камешек: «Мусор — это вещь, о которой ещё не вспомнили».",
+        "en": "Rule: “keep everything”. The Automaton carefully records a broken torch, an empty bottle and a pebble: “Junk is an object no one has remembered yet.”"
+       },
+       "lean": "archivists"
+      },
+      "useful": {
+       "outcome": {
+        "ru": "Правило: «только нужное». Автоматон выносит лишнее, но оставляет одну пыльную склянку — на случай, если правило окажется ошибкой.",
+        "en": "Rule: “only what is useful”. The Automaton clears out the excess but keeps one dusty flask, in case the rule proves to be an error."
+       },
+       "lean": "gardeners"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Индекс пересобран",
+     "kind": "Delayed",
+     "description": {
+      "ru": "Опись выросла, и Автоматону нужно пересобрать индекс — сверить каждую запись с каждой вещью. Дай ему несколько дней работать без помех: опись завершается.",
+      "en": "The inventory has grown, and the Automaton must rebuild its index, checking every entry against every object. Give it a few days of undisturbed work: the inventory is being completed."
+     },
+     "offer": {
+      "ru": "Требуется пересборка индекса. Ожидаемое время: несколько дней. Просьба не перемещать предметы.",
+      "en": "Index rebuild required. Estimated time: several days. Please do not move any items."
+     },
+     "complete": {
+      "ru": "Индекс пересобран. Записей: много. Утрачено: ничего. Для вас, {player}, создана отдельная запись.",
+      "en": "Index rebuilt. Entries: many. Lost: none. A separate entry has been created for you, {player}."
+     },
+     "waiting": {
+      "ru": "Опись завершается… Просьба не перемещать предметы.",
+      "en": "Inventory being completed… Please do not move any items."
+     },
+     "choices": null
+    }
+   ]
+  }
+ ]
+}

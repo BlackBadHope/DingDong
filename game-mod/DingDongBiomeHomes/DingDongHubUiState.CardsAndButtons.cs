@@ -30,7 +30,7 @@ internal sealed partial class DingDongHubUiState
 
 	private static UITextPanel<string> CreateButton(string text, float width, float height)
 	{
-		UITextPanel<string> button = new(text, 0.78f)
+		UITextPanel<string> button = new BookActionButton(text, 0.78f)
 		{
 			BackgroundColor = DingDongUiTheme.Raised,
 			BorderColor = DingDongUiTheme.Border,

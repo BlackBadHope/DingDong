@@ -9,7 +9,7 @@ internal static class ResidentTrustPolicy
 	internal static int RequiredQuests(NpcTownIdentity identity)
 	{
 		int baseline = Math.Clamp(ModContent.GetInstance<DingDongServerConfig>().RequiredResidentQuests, 1, 20);
-		return RequiredQuests(baseline, identity.Biome, Main.hardMode);
+		return Math.Min(PersonalResidentQuestCatalog.Length(identity.NpcKey), RequiredQuests(baseline, identity.Biome, Main.hardMode));
 	}
 
 	internal static int RequiredQuests(int baseline, HomeBiome biome, bool hardmode)
@@ -24,15 +24,15 @@ internal static class ResidentTrustPolicy
 			HomeBiome.Underworld => 4,
 			_ => 0
 		};
-		int hardmodeMultiplier = hardmode ? 2 : 1;
+		int hardmodeMultiplier = 1; // World milestones never reduce earned reputation.
 		return Math.Clamp((baseline + progressionTier) * hardmodeMultiplier, 1, 40);
 	}
 
 	internal static bool ContractPass() =>
 		RequiredQuests(3, HomeBiome.Forest, false) == 3 &&
 		RequiredQuests(3, HomeBiome.Underworld, false) == 7 &&
-		RequiredQuests(3, HomeBiome.Forest, true) == 6 &&
-		RequiredQuests(3, HomeBiome.Underworld, true) == 14;
+		RequiredQuests(3, HomeBiome.Forest, true) == 3 &&
+		RequiredQuests(3, HomeBiome.Underworld, true) == 7;
 
 	internal static int Percent(ResidentQuestProgress progress, NpcTownIdentity identity)
 	{

@@ -12,33 +12,33 @@ using Terraria.ModLoader.IO;
 namespace DingDongBiomeHomes;
 public sealed partial class DingDongQuestLifecycleProbeCommand
 {
-	private static void VerifyRewardAndLedger(List<string> failures, NpcTownIdentity identity, ref int completed, ref int rewards, ref bool milestoneBonus, int cycle, int rewardCopper, ResidentQuestProgress turnedIn, List<Item> rewardDrops, long coinDelta, int cacheDelta)
+	private static void VerifyRewardAndLedger(List<string> failures, NpcTownIdentity identity, ref int completed, ref int rewards, int cycle, ResidentQuestProgress turnedIn, bool rewardNow, string rewardDetail)
 	{
-		int expectedCacheDelta = cycle == 4 ? 2 : 1;
-		Expect(failures, $"complete-{cycle + 1}", !turnedIn.Active && turnedIn.Completed == cycle + 1);
-		Expect(failures, $"coins-{cycle + 1}", coinDelta == rewardCopper);
-		Expect(failures, $"cache-{cycle + 1}", cacheDelta == expectedCacheDelta);
+		bool completedNow = !turnedIn.Active && turnedIn.Completed == cycle + 1;
+		Expect(failures, $"complete-{cycle + 1}", completedNow);
+		Expect(failures, $"reward-{cycle + 1}({rewardDetail})", rewardNow);
 		Expect(failures, $"ledger-{cycle + 1}", NpcQuestWorldLedger.TryRead(ProbeIdentity, identity.NpcKey, out ResidentQuestProgress ledgerProgress) && !ledgerProgress.Active && ledgerProgress.Completed == cycle + 1);
-		if (!turnedIn.Active && turnedIn.Completed == cycle + 1)
+		if (completedNow)
 			completed++;
-		if (coinDelta == rewardCopper && cacheDelta == expectedCacheDelta)
+		if (rewardNow)
 			rewards++;
-		milestoneBonus |= cycle == 4 && cacheDelta == 2;
-		foreach (Item item in rewardDrops)
-			item.TurnToAir();
 	}
 
 	private static int AdvanceObjectiveAndVerifyGate(List<string> failures, Player player, NPC npc, NpcTownIdentity identity, NpcQuestPlayer questPlayer, int gated, int cycle, ResidentQuestProgress progress, out int rewardCopper, out int rewardDifficulty, out QuestJournalSnapshot readySnapshot)
 	{
 		rewardCopper = progress.RewardCopper;
 		rewardDifficulty = progress.DifficultyRank;
+		ResidentQuestDefinition definition = progress.Definition(identity);
 		if (cycle == 0)
 		{
+			// An unready stage pays nothing: neither into the inventory nor into the world.
+			(long Coins, int Items) heldBefore = Holdings(player, definition.RewardItemType);
 			bool[] itemsBeforeGate = CaptureActiveItems();
 			InteractWithSyntheticResident(player, npc);
 			ResidentQuestProgress gatedProgress = questPlayer.Get(identity.NpcKey);
 			List<Item> prematureDrops = NewWorldItems(itemsBeforeGate);
-			if (gatedProgress.Active && gatedProgress.Completed == 0 && prematureDrops.Count == 0)
+			(long Coins, int Items) heldAfter = Holdings(player, definition.RewardItemType);
+			if (gatedProgress.Active && gatedProgress.Completed == 0 && prematureDrops.Count == 0 && heldAfter == heldBefore)
 				gated++;
 			else
 				failures.Add("premature-turn-in");
@@ -46,7 +46,6 @@ public sealed partial class DingDongQuestLifecycleProbeCommand
 				item.TurnToAir();
 		}
 
-		ResidentQuestDefinition definition = progress.Definition(identity);
 		PrepareObjective(player, progress, definition);
 		NpcQuestWorldLedger.Record(player, identity.NpcKey, progress);
 		Expect(failures, $"ready-{cycle + 1}", NpcQuestSystem.IsReady(player, definition, progress));

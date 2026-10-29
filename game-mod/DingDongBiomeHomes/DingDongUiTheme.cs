@@ -7,16 +7,16 @@ namespace DingDongBiomeHomes;
 // Shared, deliberately quiet surfaces. Pixel borders stay crisp at Terraria's UI scale.
 internal static class DingDongUiTheme
 {
-	internal static readonly Color Text = new(236, 233, 222);
-	internal static readonly Color Muted = new(160, 180, 184);
-	internal static readonly Color Gold = new(225, 187, 107);
-	internal static readonly Color Positive = new(113, 207, 164);
-	internal static readonly Color Information = new(119, 191, 219);
-	internal static readonly Color Warning = new(240, 184, 108);
-	internal static readonly Color Shell = new(17, 29, 35);
-	internal static readonly Color Surface = new(28, 43, 49);
-	internal static readonly Color Raised = new(36, 54, 61);
-	internal static readonly Color Border = new(67, 89, 96);
+	internal static readonly Color Text = new(57, 36, 19);
+	internal static readonly Color Muted = new(105, 78, 43);
+	internal static readonly Color Gold = new(120, 78, 24);
+	internal static readonly Color Positive = new(62, 110, 37);
+	internal static readonly Color Information = new(48, 92, 105);
+	internal static readonly Color Warning = new(137, 67, 29);
+	internal static readonly Color Shell = new(225, 201, 151);
+	internal static readonly Color Surface = new(233, 211, 168);
+	internal static readonly Color Raised = new(246, 226, 178);
+	internal static readonly Color Border = new(151, 120, 72);
 
 	internal static Color Accent(DamageGuideTone tone) => tone switch
 	{

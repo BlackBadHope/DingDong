@@ -26,6 +26,12 @@ internal static partial class NpcQuestNetwork
 	}
 
 	internal static void SendQuestSnapshot(Player player, int toClient)
+    {
+        if (Main.netMode != NetmodeID.Server) return;
+        foreach (Player recipient in Main.ActivePlayers)
+            if (recipient.GetModPlayer<NpcQuestPlayer>().IdentityConfirmed) SendSnapshotTo(recipient, recipient.whoAmI);
+    }
+	private static void SendSnapshotTo(Player player, int toClient)
 	{
 		if (Main.netMode != NetmodeID.Server || !CanSendToClient(toClient))
 			return;
@@ -53,8 +59,13 @@ internal static partial class NpcQuestNetwork
 			packet.Write(progress.ActiveTargetName ?? string.Empty);
 			packet.Write(progress.RewardCopper);
 			packet.Write((byte)progress.DifficultyRank);
+			packet.Write(progress.ActiveStoryKey); packet.Write(progress.RewardItemType); packet.Write(progress.RewardItemCount);
+			packet.Write(progress.AssignedTo); packet.Write(progress.AssignedName); packet.Write(progress.LastCompletedBy);
+			packet.Write(progress.Paused); packet.Write(progress.StartClock); packet.Write(progress.Baseline);
 		}
 
+		WriteSharedHistory(packet);
+		WriteWorldState(packet);
 		packet.Send(toClient);
 	}
 

@@ -16,50 +16,19 @@ namespace DingDongBiomeHomes;
 public sealed partial class NpcQuestWorldLedger
 {
 	internal static void BindPlayer(Player player, bool allowLocalImport)
-	{
-		NpcQuestPlayer questPlayer = player.GetModPlayer<NpcQuestPlayer>();
-		if (!questPlayer.IdentityConfirmed || questPlayer.PersistentId.Length == 0)
-			return;
-		string prefix = questPlayer.PersistentId + Separator;
-		List<(string NpcKey, ResidentQuestProgress Progress)> authoritative = Records.Where(pair => pair.Key.StartsWith(prefix, StringComparison.Ordinal)).Select(pair => (pair.Key[prefix.Length..], pair.Value.Clone())).ToList();
-		for (int index = 0; index < authoritative.Count; index++)
-		{
-			(string npcKey, ResidentQuestProgress progress) = authoritative[index];
-			if (NpcTownManifest.TryGet(npcKey, out NpcTownIdentity identity) && progress.NormalizeLoaded(identity, questPlayer.PersistentId))
-			{
-				Records[Compose(questPlayer.PersistentId, npcKey)] = progress.Clone();
-			}
-		}
-
-		if (allowLocalImport && authoritative.Count == 0)
-		{
-			IReadOnlyList<(string NpcKey, ResidentQuestProgress Progress)> imported = questPlayer.CurrentSnapshot();
-			foreach ((string npcKey, ResidentQuestProgress progress)in imported)
-			{
-				if (NpcTownManifest.TryGet(npcKey, out NpcTownIdentity identity))
-					progress.NormalizeLoaded(identity, questPlayer.PersistentId);
-				Records[Compose(questPlayer.PersistentId, npcKey)] = progress.Clone();
-			}
-
-			questPlayer.ReplaceCurrentSnapshot(imported);
-			return;
-		}
-
-		questPlayer.ReplaceCurrentSnapshot(authoritative);
-	}
-
-	internal static void Record(Player player, string npcKey, ResidentQuestProgress progress)
-	{
-		if (Main.netMode == NetmodeID.MultiplayerClient)
-			return;
-		NpcQuestPlayer questPlayer = player.GetModPlayer<NpcQuestPlayer>();
-		if (questPlayer.IdentityConfirmed && questPlayer.PersistentId.Length > 0)
-		{
-			Records[Compose(questPlayer.PersistentId, npcKey)] = progress.Clone();
-			questPlayer.Touch();
-		}
-	}
-
+    {
+        var q = player.GetModPlayer<NpcQuestPlayer>();
+        if (!q.IdentityConfirmed || q.PersistentId.Length == 0) return;
+        MigrateLegacyRecords();
+        if (Main.netMode != NetmodeID.MultiplayerClient && ResumeClaims(q.PersistentId)) { PublishShared(); NpcQuestNetwork.SendQuestSnapshot(null, -1); }
+        q.ReplaceCurrentSnapshot(SharedSnapshot());
+    }
+    internal static void Record(Player player, string npcKey, ResidentQuestProgress progress)
+    {
+        if (Main.netMode == NetmodeID.MultiplayerClient || !player.GetModPlayer<NpcQuestPlayer>().IdentityConfirmed) return;
+        Shared[npcKey] = progress;
+        PublishShared();
+    }
 	private static string Compose(string ownerId, string npcKey) => ownerId + Separator + npcKey;
 	private static void Split(string key, out string ownerId, out string npcKey)
 	{

@@ -28,6 +28,10 @@ internal static partial class NpcQuestNetwork
 			failure = "interact-packet";
 		else if (!FlagClaimPacketContractPass())
 			failure = "flag-claim-packet";
+		else if (!WorldStatePacketContractPass())
+			failure = "world-state-packet";
+		else if (!QuestNotice.PacketContractPass())
+			failure = "notice-packet";
 		return failure.Length == 0;
 	}
 
@@ -35,7 +39,8 @@ internal static partial class NpcQuestNetwork
 	{
 		using MemoryStream stream = new();
 		using (BinaryWriter writer = new(stream, System.Text.Encoding.UTF8, leaveOpen: true))
-			WriteQuestInteractPayload(writer, npcIndex, requestEscort);
+			{ var p = NpcResidentRegistry.TryGet(Main.npc[npcIndex],out string key,out _) ? Main.player[sender].GetModPlayer<NpcQuestPlayer>().Get(key) : null;
+			WriteCheckedQuestInteraction(writer,npcIndex,requestEscort,p?.ActiveQuestId ?? -1,p?.Completed ?? 0); }
 		stream.Position = 0;
 		using BinaryReader reader = new(stream, System.Text.Encoding.UTF8, leaveOpen: true);
 		HandlePacket(DingDongPacketKind.QuestInteractRequest, reader, sender);

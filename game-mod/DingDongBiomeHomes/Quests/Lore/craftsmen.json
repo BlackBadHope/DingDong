@@ -1,0 +1,706 @@
+{
+ "format": "dingdong-lore-node-v1",
+ "node": "craftsmen",
+ "nodePage": {
+  "title": {
+   "ru": "Мастерские",
+   "en": "Workshops"
+  },
+  "body": {
+   "ru": "Мастеровые люди заняли пустующие резиденции раньше, чем успели спросить, кто их построил: у мастера всегда найдётся дело поважнее вопросов. Кузнец, Сапожник, Повар, Следопыт и Послушник пустыни — люди рук, а не речей. Почти все они держат сторону Садовников: мир для них — заготовка, которую надо довести до ума, подрезать лишнее и закалить.\n\nНо и в мастерских нет согласия. Сапожник помнит каждую пару, сношенную до него, и считает, что ремесло без памяти — просто работа. Следопыт подрезает опасное, но знает, что не всякий зверь — сорняк. А Послушник просит одного: чтобы порядок наконец означал безопасность.\n\nЗдесь спор сил решают не словами, а работой: что починить, что перековать, а чему позволить расти.",
+   "en": "The craftsfolk took the empty residences before they ever asked who built them: a master always has something more pressing than questions. The Blacksmith, the Cobbler, the Cook, the Tracker and the Desert Acolyte are people of hands, not speeches. Nearly all of them side with the Gardeners: to them the world is a workpiece to be finished, trimmed and tempered.\n\nYet even the workshops do not agree. The Cobbler remembers every pair worn out before his time and holds that craft without memory is just labour. The Tracker prunes the dangerous, but knows not every beast is a weed. And the Acolyte asks for only one thing: that order should finally mean safety.\n\nHere the quarrel of the forces is settled not with words but with work: what to mend, what to reforge, and what to let grow."
+  }
+ },
+ "residents": [
+  {
+   "npcKey": "ThoriumMod/Blacksmith",
+   "force": "gardeners",
+   "epithet": {
+    "ru": "Мастер, что правит огнём",
+    "en": "The master who shapes with fire"
+   },
+   "quote": {
+    "ru": "Мир — та же заготовка: в огонь, ударить где надо и не жалеть окалину.",
+    "en": "The world's just a blank: into the fire, strike where it counts, and don't mourn the scale."
+   },
+   "intro": {
+    "ru": "Кузнец стар, ворчлив и уверен, что металл честнее людей: его хотя бы можно перековать. Он объявился в мире, когда пал Глаз Ктулху, и первым делом обругал пустую резиденцию за кривые стены. Для него Садовники правы без лишних слов: вещь получает форму через огонь и молот, а то, что формы не держит, идёт обратно в горн. Кто строил эти дома — ему всё равно. Лишь бы нашлось, где поставить наковальню.",
+    "en": "The Blacksmith is old, grumpy and sure that metal is more honest than people: at least it can be reforged. He turned up in the world once the Eye of Cthulhu fell, and the first thing he did was curse an empty residence for its crooked walls. To him the Gardeners are right without further talk: a thing takes its form through fire and hammer, and whatever won't hold its form goes back into the forge. Who built these houses he doesn't care. As long as there's room for an anvil."
+   },
+   "findHint": {
+    "ru": "Придёт сам, когда падёт Глаз Ктулху. Ему нужен свободный дом — лучше просторный и подальше от толчеи.",
+    "en": "He comes on his own once the Eye of Cthulhu falls. He needs a free house — roomy, and well away from the crowd."
+   },
+   "epilogue": {
+    "ru": "Заказ сдан, и старик впервые не нашёл, к чему придраться. Вслух он этого не скажет, но клеймо мастерской теперь стоит и на твоём имени, {player}: кузнец решил, что из тебя вышел толк. Для Садовников это знак — порядок держится не на запретах, а на руках, которые умеют и чинить, и ковать.",
+    "en": "The commission is delivered, and for the first time the old man found nothing to grumble about. He won't say it aloud, but the workshop's mark now stands on your name too, {player}: the smith has decided you turned out well. For the Gardeners it is a sign — order rests not on prohibitions but on hands that know how to mend and how to forge."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Железо для горна",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Горн остыл, а без хорошего металла мастер работать отказывается. Принеси ему железные слитки — не руду, а честно выплавленный металл.",
+      "en": "The forge has gone cold, and the master refuses to work without good metal. Bring him iron bars — not ore, but honestly smelted metal."
+     },
+     "offer": {
+      "ru": "Чего глаза таращишь, {player}? Горн голодный. Тащи железо в слитках, и чтоб без шлака.",
+      "en": "What are you gawking at, {player}? The forge is hungry. Haul me iron bars, and no slag."
+     },
+     "complete": {
+      "ru": "Хм. Неплохое железо. Это не похвала, а оценка — запомни разницу.",
+      "en": "Hm. Decent iron. That's not praise, it's an assessment — learn the difference."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Чужие кирки",
+     "kind": "Hunt",
+     "description": {
+      "ru": "Кузнец заметил в пещерах кирки, которые ковал не он, — их носят мёртвые шахтёры. Уложи троих: старик хочет понять по клейму, чья рука ковала этот инструмент.",
+      "en": "The smith has noticed picks in the caves that he never forged — dead miners carry them. Put three down: from the maker's mark the old man wants to learn whose hand forged those tools."
+     },
+     "offer": {
+      "ru": "Внизу бродят мертвецы с кирками. Работа не моя, а клеймо знакомое. Уложи троих — хочу посмотреть, кто ковал до меня.",
+      "en": "There are dead men down below swinging picks. Not my work, but I know the mark. Put three down — I want to see who forged before me."
+     },
+     "complete": {
+      "ru": "Клеймо старое, ещё с тех времён, когда мир был меньше. Ковал мастер, а носили неумехи. Вот и думай теперь, что с этим делать.",
+      "en": "An old mark, from back when the world was smaller. A master forged these, and fools carried them. Now chew on what to do with them."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Чей молот",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Старика мучает вопрос, который он не готов признать вслух: что делать со старыми вещами мира — чинить их или переплавлять. Выслушай его и ответь.",
+      "en": "The old man is troubled by a question he won't admit to: what to do with the world's old things — mend them or melt them down. Hear him out and answer."
+     },
+     "offer": {
+      "ru": "Сядь. Вопрос есть. Кирки тех мертвецов — латать их или в тигель? Отвечай, как сам думаешь, а не как мне приятно.",
+      "en": "Sit. I've got a question. Those dead men's picks — patch them, or into the crucible? Answer what you think, not what I'd like to hear."
+     },
+     "complete": {
+      "ru": "Ладно, услышал. Молот своё ещё скажет, а я запомню, что сказано тобой.",
+      "en": "Fine, I heard you. The hammer will have its say, and I'll remember yours."
+     },
+     "waiting": null,
+     "choices": {
+      "repair": {
+       "outcome": {
+        "ru": "Кузнец хмыкает и достаёт старый клинок из угла. «Будет жить», — бурчит он. Мир, который чинят, сохраняет свою форму.",
+        "en": "The smith grunts and pulls the old blade from the corner. \"It'll live,\" he mutters. A world that is mended keeps its form."
+       },
+       "lean": "gardeners"
+      },
+      "forge": {
+       "outcome": {
+        "ru": "Старик бросает обломок в тигель, и тот уходит в огонь без следа. «Новое так новое», — говорит он. Где-то у краёв мира будто вздыхает прилив.",
+        "en": "The old man tosses the shard into the crucible, and it vanishes into the fire. \"New it is,\" he says. Somewhere at the world's edge the tide seems to sigh."
+       },
+       "lean": "tiders"
+      }
+     }
+    },
+    {
+     "index": 3,
+     "titleRu": "Броня на морозе",
+     "kind": "Trial",
+     "description": {
+      "ru": "Старик проверяет, держит ли его доспех холод: на морозе сталь становится хрупкой, как стекло. Спустись в ледяные пещеры и перебей ледяных летучих мышей, ни разу не промёрзнув.",
+      "en": "The old man is testing whether his armour holds against the cold: in deep frost, steel turns brittle as glass. Go down to the ice caves and kill the ice bats without getting chilled once."
+     },
+     "offer": {
+      "ru": "В ледяных пещерах сталь звенит, как стекло, а мыши бьют холодом. Иди к ним. Треснет мой доспех — переделаю. Треснет твоя голова — не обессудь.",
+      "en": "In the ice caves steel rings like glass, and the bats strike with cold. Go to them. If my plate cracks, I'll redo it. If your head does, no hard feelings."
+     },
+     "complete": {
+      "ru": "Ни вмятины. Значит, ковал правильно. Держи полироль — с ней броня помнит форму, даже когда хозяин забывает.",
+      "en": "Not a dent. So I forged it right. Take this polish — with it armor keeps its shape even when its owner forgets."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 4,
+     "titleRu": "Заказ на совесть",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Старик берёт последний заказ — металл из самого пекла. Принеси адские слитки: он скуёт кирку не хуже тех, что носили мёртвые шахтёры, только достанется она достойным рукам.",
+      "en": "The old man takes his last commission: metal from the inferno itself. Bring hellstone bars, and he'll forge a pick as fine as the ones the dead miners carried, only this one will go to worthy hands."
+     },
+     "offer": {
+      "ru": "Мир вырос — и пекло вместе с ним. Принеси адских слитков. Скую кирку, которой и тебе не стыдно будет работать.",
+      "en": "The world grew, and the inferno with it. Bring me hellstone bars. I'll forge a pick you won't be ashamed to work with yourself."
+     },
+     "complete": {
+      "ru": "Готово. Клеймо мастерской на ней — и твоё имя рядом. Не благодари: заслужил, а не выпросил.",
+      "en": "Done. The workshop's mark is on it — and your name beside it. Don't thank me: you earned it, you didn't beg for it."
+     },
+     "waiting": null,
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "ThoriumMod/Cobbler",
+   "force": "archivists",
+   "epithet": {
+    "ru": "Отставной герой, хранитель шага",
+    "en": "Retired hero, keeper of the stride"
+   },
+   "quote": {
+    "ru": "Каждая пара помнит свою дорогу. Я лишь шью так, чтобы новой было что запомнить.",
+    "en": "Every pair remembers its road. I just stitch so the next one has something worth remembering."
+   },
+   "intro": {
+    "ru": "Сапожник не любит рассказывать о своих походах, но по тому, как он держит шило, видно: раньше в этой руке было оружие. Теперь он шьёт обувь следующему поколению и хранит память ремесла: по стоптанному каблуку расскажет, кто и куда шёл. Архивисты для него свои. Пустые резиденции его тревожат: дом без следов на пороге — это дом без истории, а мир, забывший старые дороги, споткнётся на новых.",
+    "en": "The Cobbler doesn't like to talk about his travels, but the way he holds an awl shows that his hand once held a weapon. Now he makes footwear for the next generation and keeps the memory of the craft: from a worn heel he can tell who walked and where. The Archivists are his people. The empty residences trouble him: a house with no footprints on its doorstep is a house with no history, and a world that forgets its old roads will stumble on the new ones."
+   },
+   "findHint": {
+    "ru": "Сапожник приходит к тем, кто бережёт ноги: держи в инвентаре любую обувь-аксессуар, и он сам тебя отыщет.",
+    "en": "The Cobbler comes to those who look after their feet: carry any footwear accessory in your inventory and he will find you."
+   },
+   "epilogue": {
+    "ru": "Разношенная пара стоит у его порога, и в коже уже угадывается твоя походка. Сапожник записал её в свою тетрадь рядом с шагами героев, чьих имён, кроме него, никто не помнит. «Теперь и ты в архиве, {player}», — говорит он и впервые за долгое время улыбается, как молодой.",
+    "en": "The worn-in pair stands at his doorstep, and the leather already holds the shape of your stride. The Cobbler has written it in his notebook beside the steps of heroes whose names no one but he remembers. \"Now you're in the archive too, {player},\" he says, and for the first time in years he smiles like a young man."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Старые истории",
+     "kind": "Observe",
+     "description": {
+      "ru": "Сапожник уверен: прежде чем шить обувь, надо понять, куда в ней пойдут. Побудь рядом с Гидом и послушай его истории о прежних дорогах мира.",
+      "en": "The Cobbler is sure that before you make shoes you must know where they will walk. Stay near the Guide and listen to his stories of the world's old roads."
+     },
+     "offer": {
+      "ru": "Прежде чем снимать мерку, послушай старые истории. Посиди с Гидом — он помнит дороги, которых уже нет.",
+      "en": "Before I take your measure, listen to some old stories. Sit with the Guide — he remembers roads that are gone."
+     },
+     "complete": {
+      "ru": "Ну как? Теперь понятно, почему я сначала слушаю, а потом шью? Держи наконечники для шнурков — с них начинается любая пара.",
+      "en": "Well? Now you see why I listen first and stitch second? Take these aglets — every pair starts with them."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Мягкая стелька",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Для стелек сапожнику нужен шёлк: грубая подошва натирает, а усталая нога быстро забывает, куда шла. Принеси ему мягкой ткани.",
+      "en": "The Cobbler needs silk for insoles: a rough sole chafes, and a tired foot soon forgets where it was going. Bring him soft cloth."
+     },
+     "offer": {
+      "ru": "Старые ноги не прощают грубой работы. Принеси шёлка — сделаю стельку, в которой и до края мира дойти не страшно.",
+      "en": "Old feet don't forgive rough work. Bring me silk and I'll make an insole you could walk to the world's edge in."
+     },
+     "complete": {
+      "ru": "Мягкий, ровный — то, что нужно. Ремесло начинается с того, чего никто не видит.",
+      "en": "Soft and even — just right. Craft begins with the part nobody sees."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Пара из прошлого",
+     "kind": "Expedition",
+     "description": {
+      "ru": "Сапожник ищет обувь, которую носили до него: настоящие Сапоги Гермеса, найденные в тайниках и руинах мира, а не купленные у торговцев.",
+      "en": "The Cobbler is looking for footwear worn before his time: genuine Hermes Boots found in the world's caches and ruins, not bought from a merchant."
+     },
+     "offer": {
+      "ru": "Хочу увидеть пару, которую шил не я. Найди в мире старые Сапоги Гермеса — те, что лежали там ещё до нас.",
+      "en": "I want to see a pair I didn't make. Find old Hermes Boots out in the world — ones that were lying there before any of us."
+     },
+     "complete": {
+      "ru": "Этот шов… я его знаю. Это мои сапоги: я сносил их в последнем походе, когда мир был меньше. Как они пережили то, что пережил мир?",
+      "en": "This seam... I know it. These are my boots: I wore them out on my last campaign, when the world was smaller. How did they survive what the world went through?"
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Для кого обувь",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Сапожник шьёт новую пару и не может решить главное — кому она достанется. Ответь ему, для кого делается обувь в мире, который всё время меняется.",
+      "en": "The Cobbler is making a new pair and can't settle the main thing — who it is for. Tell him who shoes are made for in a world that keeps changing."
+     },
+     "offer": {
+      "ru": "Последний вопрос, прежде чем я возьмусь за колодку. Для кого я шью — для тех, кто бежит вперёд, или для тех, кто стоит на своём?",
+      "en": "One last question before I pick up the last. Who am I stitching for — those who run ahead, or those who stand their ground?"
+     },
+     "complete": {
+      "ru": "Ответ услышан и записан. Обувь всё равно сносят — важно, куда в ней успеют дойти.",
+      "en": "Answer heard and written down. Shoes wear out either way — what matters is where they carry you first."
+     },
+     "waiting": null,
+     "choices": {
+      "runners": {
+       "outcome": {
+        "ru": "Сапожник делает подошву лёгкой, как у гонцов. «Бегущим нужна память о дороге назад», — говорит он и вшивает под язычок метку.",
+        "en": "The Cobbler makes the sole light, like a courier's. \"Runners need to remember the way back,\" he says, and stitches a mark under the tongue."
+       },
+       "lean": "tiders"
+      },
+      "standing": {
+       "outcome": {
+        "ru": "Сапожник укрепляет каблук и прошивает рант двойным швом. «Кто стоит, тот помнит, на чём стоит», — говорит он и делает запись в тетради.",
+        "en": "The Cobbler reinforces the heel and double-stitches the welt. \"Whoever stands remembers what they stand on,\" he says, and makes a note in his book."
+       },
+       "lean": "archivists"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Разношенная пара",
+     "kind": "Visit",
+     "description": {
+      "ru": "Новая пара деревянная, пока её не разносят. Пройдись в ней по лесу — Сапожник любит лес больше песка и снега — и дай коже запомнить твой шаг, как когда-то его шаг.",
+      "en": "A new pair stays stiff until it's walked in. Take it through the forest — the Cobbler loves the woods over sand and snow — and let the leather learn your stride, as it once learned his."
+     },
+     "offer": {
+      "ru": "Пара готова, но ещё деревянная. Колодка её не разносит — только дорога. Пройдись по лесу. Без песка, без снега, без гравия.",
+      "en": "The pair's done, but still stiff as wood. A last can't wear it in — only a road can. Walk the forest. No sand, no snow, no gravel."
+     },
+     "complete": {
+      "ru": "Шагни — слышишь? Не скрипит. Запомнила. Держи и эти, с ракетами: в таких я когда-то догонял то, что теперь живёт только в архиве.",
+      "en": "Take a step — hear that? No creak. It remembers. Take these too, with rockets: in a pair like that I once chased things that now live only in the archive."
+     },
+     "waiting": null,
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "ThoriumMod/Cook",
+   "force": "gardeners",
+   "epithet": {
+    "ru": "Тот, кто делает дикое съедобным",
+    "en": "The one who makes the wild edible"
+   },
+   "quote": {
+    "ru": "Дикое — это просто блюдо, которое ещё никто не довёл до ума.",
+    "en": "The wild is just a dish nobody has finished yet."
+   },
+   "intro": {
+    "ru": "Повар судит о мире по тому, что из него можно приготовить. Он объявился после падения Короля слизней и первым делом спросил, нет ли здесь свободной кухни. Среди Садовников он самый мирный: не подрезает, а окультуривает — грибы, рыбу и жгучие специи превращает в то, что можно подать к столу. Мир, по его мнению, становится лучше, когда его можно попробовать на вкус и не отравиться.",
+    "en": "The Cook judges the world by what can be cooked out of it. He showed up after the King Slime fell and the first thing he asked was whether there was a free kitchen. Among the Gardeners he is the gentlest: he doesn't prune, he cultivates — mushrooms, fish and fiery spices become something fit for the table. In his view the world gets better when you can taste it without being poisoned."
+   },
+   "findHint": {
+    "ru": "Повар приходит, когда повержен Король слизней. Ему нужен свободный дом — желательно такой, где найдётся место для кухни.",
+    "en": "The Cook arrives once the King Slime is defeated. He needs a free house — ideally one with room for a kitchen."
+   },
+   "epilogue": {
+    "ru": "Пир удался: за длинным столом сидели жители, которые ещё вчера спорили, и ели из одного котла. Повар не произносил речей — он просто подкладывал добавку. Садовники говорят, что так и выглядит мир, доведённый до ума: дикое стало хлебом, а соседи — гостями. Рецепт теперь твой, {player}.",
+    "en": "The feast was a success: residents who were arguing only yesterday sat at one long table and ate from one pot. The Cook made no speeches — he just kept serving seconds. The Gardeners say this is what a finished world looks like: the wild became bread, and neighbours became guests. The recipe is yours now, {player}."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Корзина с грибами",
+     "kind": "Deliver",
+     "description": {
+      "ru": "Повар начинает с простого: обычные грибы — основа любого супа. Набери ему полную корзину, и он покажет, что можно сделать из дикого.",
+      "en": "The Cook starts simple: ordinary mushrooms are the base of any soup. Gather him a full basket, and he'll show you what the wild can become."
+     },
+     "offer": {
+      "ru": "Знаешь, с чего начинается кухня? С грибов. Набери полную корзину, а я покажу, что из них выйдет.",
+      "en": "Know where a kitchen begins? With mushrooms. Fill me a basket and I'll show you what they can turn into."
+     },
+     "complete": {
+      "ru": "Свежие, крепкие! Сегодня будет суп, и первая ложка — твоя.",
+      "en": "Fresh and firm! Soup tonight, and the first spoonful is yours."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Грядка при кухне",
+     "kind": "GatherEnv",
+     "description": {
+      "ru": "Каждый раз бегать за диким — долго. Повар хочет свою грядку: поставь ящики для растений у его резиденции, чтобы зелень росла под рукой.",
+      "en": "Running after wild greens every time takes too long. The Cook wants his own garden: place planter boxes by his residence so the herbs grow close at hand."
+     },
+     "offer": {
+      "ru": "Хорошему повару зелень нужна под рукой, а не за тремя холмами. Поставь у моего дома грядки — будем растить своё.",
+      "en": "A good cook needs his greens close, not three hills away. Set up planters by my house — we'll grow our own."
+     },
+     "complete": {
+      "ru": "Грядки на месте! Дикое мы приручили, теперь пусть растёт по-нашему.",
+      "en": "The planters are in! We've tamed the wild — now let it grow our way."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Грибы, что кусаются",
+     "kind": "Observe",
+     "description": {
+      "ru": "В светящемся грибном лесу и грибы, и звери норовят съесть повара первыми. Понаблюдай за грибными крабами вблизи, не убивая их: Повар хочет знать, чем они живут, прежде чем готовить их соседей.",
+      "en": "In the glowing mushroom woods both the mushrooms and the beasts want to eat the cook first. Watch the fungus crabs up close without killing them: the Cook wants to know how they live before he cooks their neighbours."
+     },
+     "offer": {
+      "ru": "Там, где грибы светятся, рецептов на сто лет. Но сначала узнай, кто там кого ест. Посмотри на грибных крабов. Издалека не считается.",
+      "en": "Where the mushrooms glow there are recipes for a hundred years. But first find out who eats whom. Watch the fungus crabs. From afar doesn't count."
+     },
+     "complete": {
+      "ru": "Не трогают тех, кто не спешит… Значит, эти грибы можно растить, а не воевать за них. Держи семена — посадим свой светящийся лес.",
+      "en": "They leave the unhurried alone... So those mushrooms can be grown, not fought over. Here, seeds — we'll plant a glowing forest of our own."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Рецепт для спорщиков",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Повар задумал общий стол для жителей, которые не могут договориться, каким быть миру. Помоги выбрать рецепт: по строгой книге, из всего, что принесут гости, или по старинке, как в малом мире.",
+      "en": "The Cook is planning one table for residents who can't agree what the world should be. Help choose the recipe: by the strict book, from whatever the guests bring, or the old way, as in the small world."
+     },
+     "offer": {
+      "ru": "Накормить спорщиков — работа потруднее специй. Как готовим, {player}? По книге, из всего подряд или как бабушки в старом мире?",
+      "en": "Feeding a quarrel is harder work than spices. How do we cook, {player}? By the book, from everything at once, or the way grandmothers did in the old world?"
+     },
+     "complete": {
+      "ru": "Решено, так и сварю. На вкус узнаем, прав ли ты. Держи ужин с морепродуктами — это ещё не пир, а репетиция.",
+      "en": "Decided, that's how I'll cook it. We'll taste whether you were right. Take this seafood dinner — not the feast yet, just a rehearsal."
+     },
+     "waiting": null,
+     "choices": {
+      "book": {
+       "outcome": {
+        "ru": "Повар раскладывает блюда по порядку, и спор за столом затихает. «Порядок на тарелке — порядок в голове», — говорит он.",
+        "en": "The Cook lays out the dishes in order, and the quarrel at the table dies down. “Order on the plate is order in the head,” he says."
+       },
+       "lean": "gardeners"
+      },
+      "pot": {
+       "outcome": {
+        "ru": "Повар смеётся и бросает в котёл всё подряд. Выходит странно и вкусно. «Мир растёт из всего сразу — пусть и суп растёт».",
+        "en": "The Cook laughs and throws everything into the pot. It comes out strange and delicious. “The world grows from everything at once — let the soup grow too.”"
+       },
+       "lean": "tiders"
+      },
+      "old": {
+       "outcome": {
+        "ru": "Повар достаёт засаленную тетрадь без обложки. «Так готовили, когда мир был меньше, — говорит он. — Пусть хоть вкус это помнит».",
+        "en": "The Cook pulls out a greasy notebook with no cover. “This is how they cooked when the world was smaller,” he says. “Let the taste at least remember.”"
+       },
+       "lean": "archivists"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Пир для всех",
+     "kind": "Delayed",
+     "description": {
+      "ru": "Повар задумал пир для всех жителей и будет готовить без спешки. Дай ему время: хорошее блюдо доходит медленно.",
+      "en": "The Cook is planning a feast for every resident and won't be hurried. Give him time: a good dish takes its time."
+     },
+     "offer": {
+      "ru": "Я задумал пир. Для всех — даже для тех, кто вечно спорит. Это займёт пару дней, не подгоняй.",
+      "en": "I'm planning a feast. For everyone — even the ones who are always arguing. It'll take a couple of days, don't rush me."
+     },
+     "complete": {
+      "ru": "Столы накрыты! Садись, ешь, хвали. А тебе — золотое блюдо, лучшее, что я умею. Рецепт теперь твой: дикое тоже можно довести до ума.",
+      "en": "The tables are set! Sit, eat, praise. And for you — a golden dish, the best I can make. The recipe is yours now: even the wild can be finished."
+     },
+     "waiting": {
+      "ru": "С кухни пахнет томлёным мясом и травами. Пир ещё готовится.",
+      "en": "The kitchen smells of slow-cooked meat and herbs. The feast is still on the fire."
+     },
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "ThoriumMod/Tracker",
+   "force": "gardeners",
+   "epithet": {
+    "ru": "Охотник ордена, подрезающий опасное",
+    "en": "Order hunter who prunes the dangerous"
+   },
+   "quote": {
+    "ru": "Опасное надо подрезать вовремя, малец. Но сперва — убедиться, что оно опасное.",
+    "en": "You prune the dangerous in time, kid. But first you make sure it's dangerous."
+   },
+   "intro": {
+    "ru": "Следопыт пришёл с холодного севера и привык мерить мир контрактами: найти, выследить, закрыть. Он объявился после падения Глаза Ктулху, зовёт тебя «мальцом» и платит медалями за выполненные контракты. Для Садовников он — садовые ножницы: срезает то, что грозит саду. Но охотник знает разницу между зверем и угрозой, и потому его спор с самим собой честнее, чем у многих.",
+    "en": "The Tracker came down from the cold north and is used to measuring the world in contracts: find, track, close. He arrived after the Eye of Cthulhu fell, calls you \"kid\" and pays in medals for finished contracts. For the Gardeners he is the shears: he cuts away what threatens the garden. But a hunter knows the difference between a beast and a threat, which makes his argument with himself more honest than most."
+   },
+   "findHint": {
+    "ru": "Следопыт приходит после победы над Глазом Ктулху. Ему по душе снег и простор — в тесноте ему не развернуться.",
+    "en": "The Tracker comes after the Eye of Cthulhu is defeated. He likes snow and open space — in a cramped town he can't swing his axe."
+   },
+   "epilogue": {
+    "ru": "Донесение ушло в орден, и в нём есть строка о тебе. Что именно там написано, Следопыт не говорит, но оружие отдаёт из собственного запаса. «Ты умеешь ждать, малец. Это редкость дороже любого зверя». Теперь он знает точно: подрезать — значит понимать, а не просто рубить.",
+    "en": "The report has gone to the order, and there is a line in it about you. The Tracker won't say what it says, but he hands you a weapon from his own stock. \"You know how to wait, kid. That's rarer than any beast.\" Now he knows for certain: pruning means understanding, not just chopping."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Повадки наста",
+     "kind": "Observe",
+     "description": {
+      "ru": "Охота начинается не с выстрела, а со следа. Найди в снегах ледяных слизней и держись рядом, не убивая их, — изучи, как они двигаются.",
+      "en": "A hunt starts with a trail, not a shot. Find ice slimes in the snow and stay close without killing them — learn how they move."
+     },
+     "offer": {
+      "ru": "Хочешь охотиться — научись смотреть, малец. Найди ледяных слизней и проследи за ними. Оружие не доставать.",
+      "en": "Want to hunt? Learn to watch first, kid. Find the ice slimes and follow them. Weapons stay put away."
+     },
+     "complete": {
+      "ru": "Заметно теперь, как они замирают перед прыжком? Это и есть повадка. Теперь знаешь, куда бить.",
+      "en": "See now how they freeze before a jump? That's a habit. Now you know where to strike."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Контракт: потерянная девочка",
+     "kind": "Hunt",
+     "description": {
+      "ru": "Орден прислал контракт на редкую тварь, что прикидывается заблудившейся девочкой в пещерах. Правило Следопыта: сперва убедись, что оно опасно. Дождись, пока она сбросит личину, и закрой контракт.",
+      "en": "The order has sent a contract on a rare creature that poses as a lost girl in the caves. The Tracker's rule: first make sure it's dangerous. Wait until it drops the disguise, then close the contract."
+     },
+     "offer": {
+      "ru": "Контракт, малец. В пещерах плачет девочка — только девочек там не бывает. Не руби сразу. Подойди и посмотри, кем она станет.",
+      "en": "A contract, kid. There's a girl crying in the caves — only there are no girls down there. Don't swing right away. Get close and see what she becomes."
+     },
+     "complete": {
+      "ru": "Видал, как лицо сползло? Вот почему сначала смотрят, потом рубят. Держи зелье — опасность надо чуять раньше, чем видеть.",
+      "en": "Saw how the face slid off? That's why you look first and swing second. Take this potion — you have to sense danger before you see it."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Чистая работа",
+     "kind": "Trial",
+     "description": {
+      "ru": "Следопыт ценит охотника, которого не сковать. Перебей шипастых ледяных слизней в подземных снегах, ни разу не промёрзнув, — неповоротливая охота ордену не нужна.",
+      "en": "The Tracker values a hunter nothing can freeze in place. Cut down spiked ice slimes in the underground snow without ever being chilled — the order has no use for sluggish hunts."
+     },
+     "offer": {
+      "ru": "Махать оружием может любой дурак. А ты сделай так, чтобы ни один ледяной слизень тебя не заморозил.",
+      "en": "Any fool can swing a weapon. You make sure not one ice slime freezes you."
+     },
+     "complete": {
+      "ru": "Ни инея на сапогах. Вот это я называю чистой работой, малец.",
+      "en": "Not a speck of frost on your boots. That's what I call clean work, kid."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "Редкий зверь",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Следопыт выследил редкого зверя, которого орден велел устранить. Но тварь, похоже, никому не угрожала. Реши вместе с ним, исполнить контракт или промолчать.",
+      "en": "The Tracker has found a rare beast the order told him to dispatch. But the creature seems to threaten no one. Decide with him: fulfil the contract, or say nothing."
+     },
+     "offer": {
+      "ru": "Я нашёл его, малец. Редкий, красивый и, похоже, никому не мешает. Контракт есть контракт… Или нет. Что скажешь?",
+      "en": "I found it, kid. Rare, beautiful, and it doesn't seem to bother anyone. A contract's a contract... or is it? What do you say?"
+     },
+     "complete": {
+      "ru": "Решено. Мне с этим жить, тебе — тоже. Пойдём, пока я не передумал.",
+      "en": "It's decided. I'll live with it, and so will you. Let's go before I change my mind."
+     },
+     "waiting": null,
+     "choices": {
+      "contract": {
+       "outcome": {
+        "ru": "Следопыт делает свою работу быстро и без злобы. «Сад держится на тех, кто не колеблется», — говорит он, но смотрит в сторону.",
+        "en": "The Tracker does his job quickly and without malice. \"A garden survives on people who don't hesitate,\" he says, but he looks away."
+       },
+       "lean": "gardeners"
+      },
+      "spare": {
+       "outcome": {
+        "ru": "Следопыт опускает топор, и зверь уходит в снег. «В отчёте напишу, что след остыл», — бурчит он. Мир оставил себе ещё одно дикое слово.",
+        "en": "The Tracker lowers his axe, and the beast slips away into the snow. \"I'll write that the trail went cold,\" he grumbles. The world keeps one more wild word."
+       },
+       "lean": "tiders"
+      }
+     }
+    },
+    {
+     "index": 4,
+     "titleRu": "Северянин во льдах",
+     "kind": "Observe",
+     "description": {
+      "ru": "Орден прислал новый контракт: в ледяных пещерах бродят мёртвые викинги — северяне, как и сам Следопыт. Он не хочет рубить, пока не поймёт. Найди викинга и держись рядом, не убивая: пусть отчёт пишут глаза.",
+      "en": "The order sent a new contract: dead vikings roam the ice caves, northerners like the Tracker himself. He won't chop until he understands. Find a viking and stay near it without killing it: let eyes write the report."
+     },
+     "offer": {
+      "ru": "Орден хочет голову викинга. А я хочу знать, что он сторожит подо льдом. Найди его и смотри. Топор не доставай, малец, — как в первый раз.",
+      "en": "The order wants the viking's head. I want to know what he guards under the ice. Find him and watch. Keep the axe away, kid, like the first time."
+     },
+     "complete": {
+      "ru": "Ходит вдоль одной стены, как часовой… Так в донесении и напишу. Держи клинок с севера: ты умеешь ждать, а это редкость.",
+      "en": "He walks the same wall like a sentry... That's what the report will say. Take this northern blade: you know how to wait, and that's rare."
+     },
+     "waiting": null,
+     "choices": null
+    }
+   ]
+  },
+  {
+   "npcKey": "ThoriumMod/DesertAcolyte",
+   "force": "gardeners",
+   "epithet": {
+    "ru": "Дозорный пустынных дюн",
+    "en": "Watchman of the dunes"
+   },
+   "quote": {
+    "ru": "В пустыне видно далеко. Потому я её и люблю — там ничто не подкрадётся.",
+    "en": "You can see far in the desert. That's why I love it — nothing can sneak up on you there."
+   },
+   "intro": {
+    "ru": "Послушник из пустыни держит лавку метательного снаряжения и сам вздрагивает от свиста, с которым оно летит. Он пришёл, когда пала Великая громовая птица, и до сих пор оглядывается на каждый шорох. Порядок для него — не красота сада, а безопасность: широкий обзор, свет по периметру, предсказуемые соседи. Рядом с некоторыми жителями ему тяжело — об их роде у него остались плохие воспоминания, и он стыдится этого больше, чем показывает.",
+    "en": "The desert Acolyte keeps a shop of throwing gear and flinches himself at the whistle it makes in flight. He came after the Grand Thunder Bird fell, and he still looks over his shoulder at every rustle. To him order is not a tidy garden but safety: a wide view, light along the perimeter, neighbours you can predict. Some residents are hard for him to be near — he has bad memories of their kind, and he is more ashamed of it than he shows."
+   },
+   "findHint": {
+    "ru": "Послушник придёт, когда будет повержена Великая громовая птица. Ему нужен безопасный дом с хорошим обзором — лучше всего в пустыне.",
+    "en": "The Acolyte arrives once the Grand Thunder Bird is defeated. He needs a safe home with a clear view — best of all in the desert."
+   },
+   "epilogue": {
+    "ru": "Послушник больше не вздрагивает, когда ты входишь без стука. Страх никуда не делся — он просто перестал быть тайной. Факелы по периметру горят каждую ночь, и он сам обходит их, напевая. Садовники называют это порядком, он — «впервые могу спать». В мире, который всё ещё меняется, это, может быть, одно и то же.",
+    "en": "The Acolyte no longer flinches when you walk in without knocking. The fear hasn't gone anywhere — it has simply stopped being a secret. The perimeter torches burn every night, and he walks the line himself, humming. The Gardeners call it order; he calls it \"finally able to sleep\". In a world that is still changing, those may be the same thing."
+   },
+   "stages": [
+    {
+     "index": 0,
+     "titleRu": "Дозор на дюнах",
+     "kind": "Visit",
+     "description": {
+      "ru": "Послушнику спокойнее, когда кто-то держит дозор там, где видно далеко. Проведи время в пустыне и осмотри дюны, пока он собирается с духом.",
+      "en": "The Acolyte feels calmer when someone keeps watch where you can see far. Spend time in the desert and look over the dunes while he gathers his courage."
+     },
+     "offer": {
+      "ru": "Можно попросить… постоять в дозоре на дюнах? Там видно до самого горизонта. Мне просто нужно знать, что там пусто.",
+      "en": "Could I ask you... to stand watch on the dunes? You can see all the way to the horizon. I just need to know it's empty out there."
+     },
+     "complete": {
+      "ru": "Пусто? Правда пусто? Спасибо. Я, кажется, впервые за неделю выдохнул.",
+      "en": "Empty? Really empty? Thank you. I think I just breathed out for the first time in a week."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 1,
+     "titleRu": "Огни по периметру",
+     "kind": "GatherEnv",
+     "description": {
+      "ru": "Темнота вокруг дома не даёт послушнику уснуть. Расставь факелы вокруг его резиденции, чтобы ни один угол не остался в тени.",
+      "en": "The darkness around his home keeps the Acolyte from sleeping. Place torches around his residence so not a single corner stays in shadow."
+     },
+     "offer": {
+      "ru": "Ночью вокруг дома столько теней… Расставишь факелы по периметру? Тогда никто не подойдёт незамеченным.",
+      "en": "There are so many shadows around the house at night... Would you put torches along the perimeter? Then no one can get close unseen."
+     },
+     "complete": {
+      "ru": "Светло. Светло со всех сторон. Ты не представляешь, как много это для меня значит.",
+      "en": "It's bright. Bright on every side. You can't imagine how much that means to me."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 2,
+     "titleRu": "Знать врага в лицо",
+     "kind": "Observe",
+     "description": {
+      "ru": "Послушник решил, что страх слабеет, когда знаешь врага. Найди в пустыне муравьиных львов и понаблюдай за ними вблизи, не убивая, — а потом расскажи ему, как они охотятся.",
+      "en": "The Acolyte has decided that fear weakens once you know your enemy. Find antlions in the desert and watch them up close without killing them — then tell him how they hunt."
+     },
+     "offer": {
+      "ru": "Говорят, страх меньше, если знаешь врага в лицо. Посмотришь на муравьиных львов вблизи? Только осторожно, прошу.",
+      "en": "They say fear shrinks once you know the enemy's face. Will you watch the antlions up close? Carefully, please."
+     },
+     "complete": {
+      "ru": "Они ждут в песке и не бросаются первыми… Значит, если не стоять над ямой, не страшно. Это я запомню.",
+      "en": "They wait in the sand and never strike first... So if you don't stand over the pit, it's not so frightening. I'll remember that."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 3,
+     "titleRu": "То, что ходит сквозь песок",
+     "kind": "Hunt",
+     "description": {
+      "ru": "В подземной пустыне завелись гробничные черви: они проходят сквозь песок и камень и нападают оттуда, откуда не ждёшь, — то самое, чего боится Послушник. Убей троих: пусть он узнает, что и такое можно победить.",
+      "en": "Tomb crawlers have settled in the underground desert: they pass through sand and stone and strike from where no one expects, the very thing the Acolyte fears. Kill three: let him learn that even this can be beaten."
+     },
+     "offer": {
+      "ru": "В пустыне видно далеко. Но под ней… там что-то ползёт сквозь песок. Его не увидишь заранее. Пожалуйста, сделай так, чтобы оно больше не ползало.",
+      "en": "You can see far in the desert. But beneath it... something crawls through the sand. You can't see it coming. Please make it stop crawling."
+     },
+     "complete": {
+      "ru": "Значит, и сквозь песок не всё проходит безнаказанно. Держи зелье охотника: пусть хоть кто-то из нас видит тех, кто подкрадывается.",
+      "en": "So not everything gets through the sand unpunished. Take this hunter's potion: let at least one of us see the ones who creep up."
+     },
+     "waiting": null,
+     "choices": null
+    },
+    {
+     "index": 4,
+     "titleRu": "Признание",
+     "kind": "DialogueChoice",
+     "description": {
+      "ru": "Послушник наконец решается рассказать, откуда его страх, — о давней беде и о тех, кого с тех пор не может видеть рядом. Выслушай его и реши, что ему ответить.",
+      "en": "The Acolyte finally works up the courage to tell where his fear comes from — an old disaster, and those he hasn't been able to stand near ever since. Hear him out and decide how to answer."
+     },
+     "offer": {
+      "ru": "{player}… я давно хотел сказать. Я боюсь не темноты. Я боюсь того, что помню. Выслушаешь?",
+      "en": "{player}... I've wanted to say this for a long time. It isn't the dark I'm afraid of. It's what I remember. Will you listen?"
+     },
+     "complete": {
+      "ru": "Спасибо. Говорить об этом было страшнее, чем стоять в дозоре. Возьми осколки из песчаной бури — я больше не прячусь от неё.",
+      "en": "Thank you. Saying it was harder than standing watch. Take these shards from the sandstorm — I don't hide from it anymore."
+     },
+     "waiting": null,
+     "choices": {
+      "confess": {
+       "outcome": {
+        "ru": "Ты просто слушаешь, и послушник впервые договаривает до конца. «Значит, с этим можно жить», — шепчет он. Страх, рассказанный вслух, становится историей.",
+        "en": "You simply listen, and for the first time the Acolyte gets to the end of it. \"So it's possible to remember and keep living,\" he whispers. A fear spoken aloud becomes a story."
+       },
+       "lean": "archivists"
+      },
+      "duty": {
+       "outcome": {
+        "ru": "Ты напоминаешь ему о дозоре, и он выпрямляется. «Кто стоит на посту, тот не бежит», — говорит он. Страх не ушёл, но теперь у него есть место в порядке.",
+        "en": "You remind him of his watch, and he straightens up. \"Whoever stands a post doesn't run,\" he says. The fear hasn't left, but now it has a place within order."
+       },
+       "lean": "gardeners"
+      }
+     }
+    }
+   ]
+  }
+ ]
+}

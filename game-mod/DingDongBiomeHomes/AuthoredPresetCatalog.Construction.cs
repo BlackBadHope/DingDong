@@ -26,7 +26,7 @@ public static partial class AuthoredPresetCatalog
 
 	private static void AddWorldOfBuildings(Dictionary<string, AuthoredPreset> entries, string id, string fileName, int width, int height, AuthoredPlacementMode placementMode, PresetRole roles)
 	{
-		AuthoredPreset preset = PublicHomeReplacementCatalog.Create(id, width, height, placementMode, roles);
+		AuthoredPreset preset = new(id, $"Structures/PrivateHome/WorldOfBuildings/{fileName}.shstruct", width, height, null, 0, "KIRA and Zilot", WorldOfBuildingsSource, $"wld-sha256:{WorldOfBuildingsWorldSha256}", PrivateHomeLicense, roles | PresetRole.PrivateHome, placementMode, false, false);
 		if (!entries.TryAdd(id, preset))
 			throw new InvalidOperationException($"Duplicate authored preset id: {id}");
 	}

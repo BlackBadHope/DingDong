@@ -42,6 +42,20 @@ internal static partial class ContinentalWorldHooks
 
 	internal static void ForceSeedText(UIWorldCreation screen) => OptionSeedField.SetValue(screen, ForcedSeedText);
 
+	// V03 28.10: second line of the lock. Client IL order (read from tML 2026.x): FinishCreatingWorld ->
+	// ProcessSeed -> ProcessSpecialWorldSeeds (hooked above: getGoodWorldGen=true) -> SetSeed ->
+	// CreateNewWorld -> clearWorld -> GenerateWorld (Main.getGoodWorld = getGoodWorldGen) -> PreWorldGen.
+	// No mod in the 67-mod pack writes getGoodWorldGen (Cecil scan); this only repairs a creation path that
+	// bypassed ProcessSpecialWorldSeeds. No RNG is used, so generation stays deterministic.
+	internal static void EnsureForTheWorthy(string stage, bool generationFlag)
+	{
+		bool repairGen = generationFlag && !WorldGen.getGoodWorldGen, repairMain = !Main.getGoodWorld;
+		if (repairGen) WorldGen.getGoodWorldGen = true;
+		if (repairMain) Main.getGoodWorld = true;
+		if (repairGen || repairMain)
+			DingDongBiomeHomes.Instance?.Logger.Warn($"DINGDONG_SEED_LOCK|stage={stage}|repairedGenFlag={repairGen}|repairedWorldFlag={repairMain}|applied=ForTheWorthy");
+	}
+
 	// The seed row (randomize button + seed plate) is replaced by a fixed, non-editable label.
 	private static void LockSeedRow(UIWorldCreation screen)
 	{
@@ -76,4 +90,12 @@ internal static partial class ContinentalWorldHooks
 		label.OnMouseOut += (_, _) => SetDescription(screen, string.Empty);
 		parent.Append(label);
 	}
+}
+
+// V03 28.10: FTW is re-asserted before the passes run and once more after generation (vanilla clears
+// getGoodWorldGen in its final cleanup pass, so only Main.getGoodWorld is checked after generation).
+public sealed class ForTheWorthyLockSystem : Terraria.ModLoader.ModSystem
+{
+	public override void PreWorldGen() => ContinentalWorldHooks.EnsureForTheWorthy("preworldgen", generationFlag: true);
+	public override void PostWorldGen() => ContinentalWorldHooks.EnsureForTheWorthy("postworldgen", generationFlag: false);
 }

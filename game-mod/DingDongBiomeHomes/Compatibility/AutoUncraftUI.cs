@@ -42,10 +42,12 @@ public sealed class AutoUncraftUI : ModSystem
   int width = Main.screenWidth, height = Main.screenHeight;
   Rectangle slot = SlotBounds(width, height, Main.instance.invBottom, (Main.LocalPlayer.chest != -1 && !Main.recBigList) || Main.npcShop > 0, autoX?.Invoke() ?? 8, autoY?.Invoke() ?? 5);
   AutoUncraftPlayer player = Main.LocalPlayer.GetModPlayer<AutoUncraftPlayer>();
+  previewItem = null;
   DrawAutomation(batch, player, slot, false);
   Rectangle trash = new(slot.X + 72, slot.Y, 40, 40);
   DrawAutomation(batch, player, trash, true);
   if (showList) DrawList(batch, player, slot, width, height);
+  DrawPreview(batch, width, height);
   return true;
  }
  private static bool trashList;
@@ -65,10 +67,13 @@ public sealed class AutoUncraftUI : ModSystem
     // vanilla mouse text drew that item's own tooltip instead of our hover text,
     // so the slot item is no longer handed to Main.HoverItem; the preview is shown
     // for the cursor item, or for the slot item when the cursor is empty.
-    Main.HoverItem = new Item();
+    // V03 28.10: owner 19.webp still saw nothing. Vanilla Main.DrawInterface_33_MouseText
+    // draws hoverItemName only while Main.mouseItem.type == 0, so a cursor-held item never
+    // got any text. The result is now drawn by this layer as icons + counts (DrawPreview).
+    if (!Main.HoverItem.IsAir) Main.HoverItem = new Item();
     Main.hoverItemName = Text(trash ? "TrashSlotHint" : "SlotHint");
     Item previewed = !Main.mouseItem.IsAir ? Main.mouseItem : items[0];
-    if (!trash && !previewed.IsAir) Main.hoverItemName += "\n" + Preview(previewed);
+    if (!trash && !previewed.IsAir) { previewItem = previewed; previewAnchor = slot; }
     else if (trash && !items[0].IsAir) Main.hoverItemName += "\n" + items[0].Name + " ×" + items[0].stack;
     if (Main.mouseLeft && Main.mouseLeftRelease) {
      if (trash) AutoTrashSlot.Click(Main.LocalPlayer);
@@ -104,8 +109,70 @@ public sealed class AutoUncraftUI : ModSystem
   Recipe.FindRecipes();
   return true;
  }
+ // V03 28.10: hover preview cache, rebuilt only when the previewed type or language changes.
+ private static Item previewItem; private static Rectangle previewAnchor;
+ private static int previewType = -1; private static object previewCulture;
+ private static Recipe previewRecipe; private static Item[] previewOutputs = Array.Empty<Item>();
+ private static string[] previewCounts = Array.Empty<string>();
+ private static string previewInputCount = "", previewTitle = "", previewMissing = "";
+ private static float previewTitleWidth, previewMissingWidth;
+ private static readonly Dictionary<int, string> tooltipCache = new();
+ private static object tooltipCulture; private static bool lookupFailed;
+ private static Recipe SafeBasic(Item item) {
+  try { return UncraftRecipeCompatibility.BasicRecipe(item); }
+  catch (Exception e) {
+   if (!lookupFailed) { lookupFailed = true; ModContent.GetInstance<AutoUncraftUI>().Mod.Logger.Warn("Auto-uncraft preview lookup failed: " + e.GetBaseException().Message); }
+   return null;
+  }
+ }
+ private static void PreparePreview(Item item) {
+  if (item.type == previewType && ReferenceEquals(previewCulture, Language.ActiveCulture)) return;
+  previewType = item.type; previewCulture = Language.ActiveCulture;
+  previewRecipe = SafeBasic(item);
+  previewOutputs = previewRecipe == null ? Array.Empty<Item>() : previewRecipe.requiredItem.Where(i => i != null && !i.IsAir).ToArray();
+  previewCounts = previewOutputs.Select(i => i.stack.ToString()).ToArray();
+  previewInputCount = previewRecipe == null ? "" : previewRecipe.createItem.stack.ToString();
+  previewTitle = Text("PreviewTitle"); previewMissing = Text("CannotUncraft");
+  previewTitleWidth = FontAssets.MouseText.Value.MeasureString(previewTitle).X * .7f;
+  previewMissingWidth = FontAssets.MouseText.Value.MeasureString(previewMissing).X * .75f;
+ }
+ private static void DrawPreview(SpriteBatch batch, int width, int height) {
+  Item item = previewItem; previewItem = null;
+  if (item == null || item.IsAir) return;
+  PreparePreview(item);
+  bool none = previewRecipe == null || previewOutputs.Length == 0;
+  int cols = Math.Clamp(previewOutputs.Length, 1, 8), rows = Math.Max(1, (previewOutputs.Length + 7) / 8);
+  int w = none ? (int)previewMissingWidth + 16 : Math.Max((int)previewTitleWidth + 16, 8 + 56 + cols * 36 + 4);
+  int h = none ? 28 : 24 + rows * 36 + 4;
+  // V03 28.10: with an empty cursor vanilla draws the hint box at mouse+6 (down-right), so the panel goes above the anchor.
+  bool hintBelow = Main.mouseItem.type == 0 && !string.IsNullOrEmpty(Main.hoverItemName);
+  Rectangle panel = new(previewAnchor.X, hintBelow ? previewAnchor.Top - 6 - h : previewAnchor.Bottom + 6, w, h);
+  if (!hintBelow && panel.Bottom > height - 4) panel.Y = previewAnchor.Top - 6 - h;
+  panel.X = Math.Clamp(panel.X, 4, Math.Max(4, width - w - 4)); panel.Y = Math.Clamp(panel.Y, 4, Math.Max(4, height - h - 4));
+  batch.Draw(TextureAssets.MagicPixel.Value, panel, new Color(91, 120, 155));
+  Rectangle inner = panel; inner.Inflate(-2, -2);
+  batch.Draw(TextureAssets.MagicPixel.Value, inner, new Color(23, 38, 68, 245));
+  if (none) { Utils.DrawBorderString(batch, previewMissing, panel.TopLeft() + new Vector2(8, 6), new Color(255, 160, 140), .75f); return; }
+  Utils.DrawBorderString(batch, previewTitle, panel.TopLeft() + new Vector2(8, 5), Color.LightCyan, .7f);
+  Vector2 origin = panel.TopLeft() + new Vector2(8, 24);
+  DrawIcon(batch, item, previewInputCount, origin);
+  Utils.DrawBorderString(batch, "»", origin + new Vector2(38, 6), Color.White, .9f);
+  for (int i = 0; i < previewOutputs.Length; i++)
+   DrawIcon(batch, previewOutputs[i], previewCounts[i], origin + new Vector2(56 + i % 8 * 36, i / 8 * 36));
+ }
+ private static void DrawIcon(SpriteBatch batch, Item item, string count, Vector2 at) {
+  DrawSlotBackground(batch, new Rectangle((int)at.X, (int)at.Y, 34, 34));
+  ItemSlot.DrawItemIcon(item, ItemSlot.Context.InventoryItem, batch, at + new Vector2(17, 17), 1f, 26f, Color.White);
+  Utils.DrawBorderString(batch, count, at + new Vector2(3, 17), Color.White, .7f);
+ }
+ internal static string TooltipPreview(Item item) {
+  if (!ReferenceEquals(tooltipCulture, Language.ActiveCulture)) { tooltipCache.Clear(); tooltipCulture = Language.ActiveCulture; }
+  if (!tooltipCache.TryGetValue(item.type, out string line))
+   tooltipCache[item.type] = line = SafeBasic(item) == null ? null : Preview(item);
+  return line;
+ }
  private static string Preview(Item item) {
-  Recipe recipe = UncraftRecipeCompatibility.BasicRecipe(item);
+  Recipe recipe = SafeBasic(item);
   if (recipe == null) return Text("CannotUncraft");
   // Owner 28.10: show the exchange as item icons with stack counts, not names.
   // [i/sN:type] tags render in hover text and in the item tooltip lines.
@@ -128,7 +195,11 @@ public sealed class AutoUncraftUI : ModSystem
    for (int n = page * 40; n < Math.Min(filters.Count, (page + 1) * 40); n++) {
     int i = n - page * 40; Rectangle box = new(panel.X + 12 + i % 10 * 43, panel.Y + 94 + i / 10 * 44, 38, 38);
     Item item = filters[n]; DrawSlotBackground(batch, box); ItemSlot.Draw(batch, new[] { item }, ItemSlot.Context.BankItem, 0, box.TopLeft());
-    if (Hovered(box)) { Main.hoverItemName = item.Name + "\n" + (trashList ? "" : Preview(item)) + "\n" + Text("RemoveHint"); if (LeftClick()) { filters.RemoveAt(n); Click(); break; } }
+    if (Hovered(box)) {
+     Main.hoverItemName = item.Name + "\n" + Text("RemoveHint");
+     if (!trashList) { previewItem = item; previewAnchor = box; }
+     if (LeftClick()) { filters.RemoveAt(n); Click(); previewItem = null; break; }
+    }
    }
   } finally { Main.inventoryScale = old; }
   Button(batch, new Rectangle(panel.X + 12, panel.Bottom - 34, 35, 26), "<", () => page = Math.Max(0, page - 1));
@@ -158,7 +229,13 @@ public sealed class AutoUncraftUI : ModSystem
    Rectangle slot = SlotBounds(width, 720, 258, chest);
    if (slot.X < 0 || slot.Right + 97 > width || slot.Bottom > 720) throw new InvalidOperationException("Auto-uncraft slot outside viewport.");
   }
-  return 6;
+  // V03 28.10: recipe -> preview icons/counts and the Shift tooltip line for a known basic recipe.
+  Item chair = new(ItemID.WoodenChair); previewType = -1; PreparePreview(chair);
+  bool ok = previewRecipe != null && previewOutputs.Length == previewCounts.Length && previewOutputs.Any(i => i.type == ItemID.Wood && i.stack > 0)
+   && previewCounts.All(c => int.TryParse(c, out int n) && n > 0) && TooltipPreview(chair)?.Contains("[i/s") == true;
+  previewType = -1; previewRecipe = null; previewOutputs = Array.Empty<Item>(); previewCounts = Array.Empty<string>();
+  if (!ok) throw new InvalidOperationException("Auto-uncraft preview must list Wooden Chair -> Wood with counts.");
+  return 7;
  }
  internal static int GraphicsProbe()
  {
@@ -178,6 +255,10 @@ public sealed class AutoUncraftUI : ModSystem
    batch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(Main.UIScale));
    Rectangle slot = SlotBounds((int)(Main.screenWidth / Main.UIScale), (int)(Main.screenHeight / Main.UIScale), 210, false, autoX(), autoY());
    Main.mouseX = (int)(slot.Center.X * Main.UIScale); Main.mouseY = (int)(slot.Center.Y * Main.UIScale);
+   // V03 28.10: hovering with a cursor-held item must build the icon preview (vanilla mouse text cannot show it).
+   previewType = -1; Draw();
+   if (previewType != ItemID.WoodenChair || previewRecipe == null || !previewOutputs.Any(i => i.type == ItemID.Wood) || Main.mouseItem.stack != 2)
+    throw new InvalidOperationException("Cursor-held item must draw its uncraft result icons without moving the stack.");
    Main.mouseLeft = Main.mouseLeftRelease = true; Draw();
    if (player.Filters.Count != 1 || !Main.mouseItem.IsAir || player.Input[0].stack != 2) throw new InvalidOperationException("Actual slot click must move the stack off the cursor.");
    Main.mouseLeftRelease = true; Draw();
@@ -208,12 +289,25 @@ public sealed class AutoUncraftUI : ModSystem
    batch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(Main.UIScale));
    Draw(); batch.End(); device.SetRenderTargets(oldTargets);
    using var file = System.IO.File.Create(output); target.SaveAsPng(file, target.Width, target.Height);
-   return 8;
+   return 9;
   } finally {
    device.SetRenderTargets(oldTargets); Main.spriteBatch = oldBatch; Main.gameMenu = menu; Main.playerInventory = inventory;
    Main.mouseLeft = left; Main.mouseLeftRelease = release; Main.mouseItem = mouse; Main.mouseX = mx; Main.mouseY = my; Main.instance.invBottom = bottom; Main.inventoryBack = oldBackground;
    showList = false;
   }
  }
- public override void Unload() { showList = false; page = 0; autoX = autoY = null; }
+ public override void Unload() {
+  showList = false; page = 0; autoX = autoY = null;
+  previewItem = null; previewType = -1; previewCulture = tooltipCulture = null; previewRecipe = null;
+  previewOutputs = Array.Empty<Item>(); previewCounts = Array.Empty<string>(); tooltipCache.Clear(); lookupFailed = false;
+ }
+}
+// V03 28.10: Shift + hover over an item while the inventory is open adds the uncraft result line.
+public sealed class AutoUncraftTooltip : GlobalItem
+{
+ public override void ModifyTooltips(Item item, List<TooltipLine> tooltips) {
+  if (Main.dedServ || !Main.playerInventory || !UncraftRecipeCompatibility.Installed || item == null || item.IsAir || !Main.keyState.PressingShift()) return;
+  string line = AutoUncraftUI.TooltipPreview(item);
+  if (line != null) tooltips.Add(new TooltipLine(Mod, "DingDongUncraftPreview", line));
+ }
 }

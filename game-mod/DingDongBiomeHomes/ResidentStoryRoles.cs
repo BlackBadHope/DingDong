@@ -18,6 +18,12 @@ internal static class ResidentStoryRoles
 	internal const int MainCount = 20;
 	internal const int MainVanillaCount = 16; // 80 % of MainCount
 	private const int SeedSalt = 0x5D1D0A6;
+	/// <summary>Nominal size of the main line in stages (MainCount stories of five stages).</summary>
+	internal const int NominalMainStages = MainCount * 5;
+	// Residents that may never move in even with their mod loaded (MagicStorage's Automaton
+	// arrives only when that mod's server setting allows it). A main line must stay finishable,
+	// so they are never drawn as story residents and keep their stories as side lines.
+	private static readonly HashSet<string> ConditionalResidents = new(StringComparer.Ordinal) { "MagicStorage/Golem" };
 	private static int cachedWorld = int.MinValue;
 	private static HashSet<string> cached;
 
@@ -29,7 +35,7 @@ internal static class ResidentStoryRoles
 	{
 		if (cached != null && cachedWorld == worldId)
 			return cached;
-		cached = Draw(worldId, NpcTownManifest.All.Select(n => n.NpcKey));
+		cached = Draw(worldId, NpcTownManifest.All.Select(n => n.NpcKey).Where(EligibleForMain));
 		cachedWorld = worldId;
 		return cached;
 	}
@@ -46,6 +52,10 @@ internal static class ResidentStoryRoles
 		Take(rng, vanilla, Math.Min(MainCount - set.Count, vanilla.Count), set); // too few modded residents: fill from vanilla
 		return set;
 	}
+
+	/// <summary>Only residents that can actually live in this world: their NPC is loaded and no external setting gates them.</summary>
+	internal static bool EligibleForMain(string npcKey) =>
+		!ConditionalResidents.Contains(npcKey) && NpcResidentRegistry.TryGetType(npcKey, out _);
 
 	private static void Take(Random rng, List<string> pool, int count, HashSet<string> into)
 	{

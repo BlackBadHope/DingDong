@@ -16,6 +16,7 @@ public sealed partial class NpcResidenceWorldSystem
 	{
 		NpcKey = tag.GetString("NpcKey"),
 		Stage = version == 1 && tag.GetInt("Stage") == 5 ? ResidentEscortStage.Arrived : (ResidentEscortStage)tag.GetInt("Stage"),
+		OriginReleased = tag.GetBool("OriginReleased") || (version == 1 ? tag.GetInt("Stage") == 5 : tag.GetInt("Stage") == (int)ResidentEscortStage.Arrived),
 		OwnerId = tag.GetString("OwnerId"),
 		OwnerPlayerIndex = -1,
 		FlagPosition = new Point16(tag.GetInt("FlagX"), tag.GetInt("FlagY")),
@@ -41,6 +42,7 @@ public sealed partial class NpcResidenceWorldSystem
 		writer.Write(state.DestinationHome.Y);
 		writer.Write(state.FailureReason);
 		writer.Write(state.Revision);
+		writer.Write(state.OriginReleased);
 	}
 
 	private static ResidentEscortState ReadState(BinaryReader reader)
@@ -57,6 +59,7 @@ public sealed partial class NpcResidenceWorldSystem
 		Point destinationHome = new(reader.ReadInt32(), reader.ReadInt32());
 		string failureReason = reader.ReadString();
 		long revision = reader.ReadInt64();
+		bool originReleased = reader.ReadBoolean();
 		if (!Enum.IsDefined(typeof(ResidentEscortStage), stage))
 			throw new InvalidDataException("Invalid escort stage.");
 		if (npcKey.Length == 0 || npcKey.Length > MaximumEscortStringLength)
@@ -81,7 +84,8 @@ public sealed partial class NpcResidenceWorldSystem
 			SpawnAnchor = spawnAnchor,
 			DestinationHome = destinationHome,
 			FailureReason = failureReason,
-			Revision = Math.Max(0, revision)
+			Revision = Math.Max(0, revision),
+			OriginReleased = originReleased || stage == ResidentEscortStage.Arrived
 		};
 	}
 }

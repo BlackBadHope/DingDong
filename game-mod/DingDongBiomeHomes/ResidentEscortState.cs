@@ -14,6 +14,7 @@ internal sealed class ResidentEscortState
 {
 	internal string NpcKey { get; init; } = string.Empty;
 	internal ResidentEscortStage Stage { get; set; }
+	internal bool OriginReleased { get; set; }
 	internal string OwnerId { get; set; } = string.Empty;
 	internal int OwnerPlayerIndex { get; set; } = -1;
 	internal Point16 FlagPosition { get; set; } = new(-1, -1);
@@ -27,6 +28,7 @@ internal sealed class ResidentEscortState
 	{
 		NpcKey = NpcKey,
 		Stage = Stage,
+		OriginReleased = OriginReleased,
 		OwnerId = OwnerId,
 		OwnerPlayerIndex = OwnerPlayerIndex,
 		FlagPosition = FlagPosition,

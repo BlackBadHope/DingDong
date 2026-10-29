@@ -31,6 +31,16 @@ internal static partial class NpcQuestSystem
 			if (progress.Progress >= definition.Goal)
 				continue;
 			bool matched = false;
+			if (definition.Kind == ResidentQuestKind.Observe && string.Equals(contentKey, definition.TargetKey, StringComparison.Ordinal))
+			{
+				// Observe failure: the watched creature must not be harmed by the performer.
+				if (progress.Progress > 0)
+				{
+					progress.Progress = 0; NpcQuestWorldLedger.Record(player, npcKey, progress); changed = true;
+					QuestNotice.Send(player, QuestNoticeKind.ObserveFailed, npcKey, definition.Variant);
+				}
+				continue;
+			}
 			switch (definition.Kind)
 			{
 				case ResidentQuestKind.DefendOrigin:
@@ -65,11 +75,18 @@ internal static partial class NpcQuestSystem
 			NpcQuestWorldLedger.Record(player, npcKey, progress);
 			changed = true;
 			if (progress.Progress >= definition.Goal)
-				Notify(player, "Mods.DingDongBiomeHomes.Quests.ObjectiveReady", ResidentName(npcKey));
+				QuestNotice.Send(player, QuestNoticeKind.ObjectiveReady, npcKey, definition.Variant);
 		}
 
 		if (changed)
 			NpcQuestNetwork.SendQuestSnapshot(player, player.whoAmI);
+	}
+
+	// Objective texts and resident names are words: the client composes them in its language.
+	private static void NotifyObjectiveMissing(Player player, string npcKey, ResidentQuestDefinition definition, ResidentQuestProgress progress)
+	{
+		if (definition.StoryKey.Length > 0) QuestNotice.Send(player, QuestNoticeKind.ObjectiveMissing, npcKey, definition.Variant);
+		else Notify(player, "Mods.DingDongBiomeHomes.Quests.ObjectiveMissing", ObjectiveText(player, definition, progress));
 	}
 
 	internal static void Notify(Player player, string key, params object[] args)

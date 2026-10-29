@@ -13,6 +13,7 @@ AutoUncraft: {
 	ShowList: Show and edit auto-uncraft rules
 	Preview: "Dismantling {0} returns up to: {1}"
 	RatioHint: The configured Lans return ratio and random rounding apply.
+	PreviewTitle: Uncrafting returns up to:
 	Title: Auto-uncraft ({0} rules)
 	EditHint: Add via the slot; click a listed item to remove it.
 	SafetyHint: Only listed items; favorites are protected. Full inventory pauses processing.
@@ -74,7 +75,7 @@ WorldCreation: {
 
 	// 28.10: "First Word" backdrop of the world-generation screen.
 	Backdrop: {
-		Title: The First Word
+		Title: First Word Was
 		Subtitle: The world is being spoken…
 		Line0: In the beginning was a word. It was short — and the world was small.
 		Line1: The world changes because it wants to become better. But who decides what better means?
@@ -97,7 +98,7 @@ WorldCreation: {
 
 		{0}
 
-		Free RAM and available Windows commit are different limits. Close unused applications or review Windows paging-file settings, then try again, or select a smaller world. Ding Dong has not changed your paging file or closed any applications.
+		Free memory and the memory Windows can still set aside are separate limits. Close unused applications or check the Windows virtual memory settings, then try again, or select a smaller world. Ding Dong has not changed any system settings or closed any applications.
 		'''
 }
 

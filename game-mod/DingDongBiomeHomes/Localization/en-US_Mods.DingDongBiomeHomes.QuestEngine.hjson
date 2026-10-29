@@ -1,0 +1,42 @@
+{
+  "RewardBundle": "{0} + {1} × {2}",
+  "Bubble": {
+    "Resume": "Resume the task",
+    "Busy": "Task taken by {0}",
+    "Choose": "Make a choice",
+    "Progress": "Task: {0} / {1}",
+    "Waiting": "Waiting: day {0} of {1}"
+  },
+  "Notice": {
+    "ObserveFailed": "“{0}”: the observation is ruined — {1} fell by your hand. Start watching again.",
+    "TrialFailed": "“{0}”: the trial is broken — you are under {1}. The count starts over.",
+    "Abandoned": "You gave up the task “{0}”. You can take it again; the resident's trust is kept.",
+    "Resumed": "You pick up the task “{0}” where it was left.",
+    "Says": "{0}: “{1}”"
+  },
+  "Status": {
+    "Locked": "Find first",
+    "Available": "Available",
+    "InProgress": "In progress",
+    "ReadyToTurnIn": "Ready to turn in",
+    "TakenByOther": "Taken: {0}",
+    "Paused": "Paused: {0}",
+    "Complete": "Story complete"
+  },
+  "Filters": {
+    "All": "All",
+    "Main": "Main story",
+    "Side": "Side stories",
+    "Mine": "Mine",
+    "Completed": "Completed"
+  },
+  "Codex": {
+    "Chapters": {
+      "world": "World",
+      "forces": "Forces",
+      "arcs": "Main line",
+      "finale": "Finale",
+      "places": "Places"
+    }
+  }
+}

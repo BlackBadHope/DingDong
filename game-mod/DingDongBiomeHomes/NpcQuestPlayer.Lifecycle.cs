@@ -26,6 +26,7 @@ public sealed partial class NpcQuestPlayer
 
 	public override void OnEnterWorld()
 	{
+		Revision = 0;
 		if (Main.netMode == NetmodeID.SinglePlayer)
 		{
 			identityConfirmed = true;
@@ -44,6 +45,7 @@ public sealed partial class NpcQuestPlayer
 	{
 		if (Main.netMode == NetmodeID.Server)
 		{
+			NpcQuestWorldLedger.ReleaseClaims(PersistentId);
 			NpcResidenceWorldSystem.HandlePlayerDisconnected(Player.whoAmI);
 			identityConfirmed = false;
 		}

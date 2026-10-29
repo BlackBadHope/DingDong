@@ -30,6 +30,8 @@ public sealed partial class ContinentalNaturalWorldgenSystem
 		original(tasks, ref weight);
 		Fishing.Worldgen.FishingWaterWorldSystem.Attach(tasks, ref weight);
 		OceanExpeditions.OceanExpeditionWorldSystem.Attach(tasks, ref weight);
+		// V03 29.10: after both sea passes exist, so the coast seal follows "DingDong open ocean".
+		Fishing.Worldgen.FishingWaterWorldSystem.AttachShoreSeal(tasks, ref weight);
 		BiomeHomeWorldgenSystem.FinalizeResidencePass(Mod, tasks);
 		AttachFinalNativePipeline(tasks, ref weight);
 	}

@@ -20,21 +20,27 @@ internal sealed partial class DingDongHubUiState
 	{
 		snapshot ??= QuestJournalContent.Build(Main.LocalPlayer);
 		lastQuestSnapshot = snapshot;
-		contentTitle.SetText(snapshot.Title);
-		contentSubtitle.SetText(snapshot.Subtitle);
-		contentCards.Add(CreateInfoCard(Text("Quests.SummaryTitle"), snapshot.Summary, DamageGuideTone.Information, ItemID.Book));
-		foreach (QuestJournalEntry entry in snapshot.Entries)
-			contentCards.Add(CreateQuestCard(entry));
+        bookJournal ??= new ResidentBookJournal();
+        contentPanel.Append(bookJournal);bookJournal.Reload();
+
 		lastQuestRevision = Main.LocalPlayer.GetModPlayer<NpcQuestPlayer>().Revision;
 		lastQuestRefreshTick = Main.GameUpdateCount;
 	}
 
-	private void BuildCombat()
+	// Combat chapters: the index lists the guide pages, the right page shows the chosen one.
+	// DamageGuideContent is unchanged; only the presentation moved into the book spread.
+	private void BuildCombat(BookSpread book)
 	{
+		book.AddIndexCaption(TabLabel(DingDongHubTab.Combat));
+		foreach (DamageGuidePageId id in DamageGuideContent.PageOrder)
+		{
+			DamageGuidePageId target = id;
+			var row = new BookIndexRow(DamageGuideContent.Build(id, Main.LocalPlayer).Title, null, ItemID.None, NPCID.None, id == selectedDamagePage);
+			row.OnLeftClick += (_, _) => { SoundEngine.PlaySound(SoundID.MenuTick); SelectDamagePage(target); };
+			book.Index.Add(row);
+		}
 		DamageGuidePage page = DamageGuideContent.Build(selectedDamagePage, Main.LocalPlayer);
-		contentTitle.SetText(page.Title);
-		contentSubtitle.SetText(page.Subtitle);
-		contentCards.Add(CreateDamageNavigation());
+		book.AddHeading(page.Title, page.Subtitle);
 		for (int i = 0; i < page.Blocks.Count; i++)
 		{
 			DamageGuideBlock block = page.Blocks[i];
@@ -51,7 +57,7 @@ internal sealed partial class DingDongHubUiState
 				npcType = DamageGuideTelemetry.LastHit.TargetType;
 			}
 
-			contentCards.Add(CreateInfoCard(block.Heading, block.Body, block.Tone, itemType, npcType));
+			book.Page.Add(CreateInfoCard(block.Heading, block.Body, block.Tone, itemType, npcType));
 		}
 	}
 

@@ -36,7 +36,8 @@ public sealed partial class NpcResidenceWorldSystem
 		if (Main.netMode == NetmodeID.MultiplayerClient)
 			return;
 		ResidentEscortState state = GetState(npcKey);
-		ResetToOrigin(state, clearFlagAssignment: true, "resident-died");
+		if (state.Stage == ResidentEscortStage.Arrived) { state.FailureReason = string.Empty; Touch(state); }
+		else ResetToOrigin(state, clearFlagAssignment: true, "resident-died");
 		BroadcastSnapshot();
 	}
 

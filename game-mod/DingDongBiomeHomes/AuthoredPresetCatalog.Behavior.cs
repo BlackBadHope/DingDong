@@ -33,21 +33,21 @@ public static partial class AuthoredPresetCatalog
 
 	private static void AddPrivateHome(Dictionary<string, AuthoredPreset> entries, string id, string fileName, int width, int height, AuthoredPlacementMode placementMode, PresetRole roles)
 	{
-		AuthoredPreset preset = PublicHomeReplacementCatalog.Create(id, width, height, placementMode, roles);
+		AuthoredPreset preset = new(id, $"Structures/PrivateHome/ZiiioNpcThemed/{fileName}.shstruct", width, height, null, 0, "Ziiio", ZiiioSource, $"wld-sha256:{ZiiioWorldSha256}", PrivateHomeLicense, roles | PresetRole.PrivateHome, placementMode, false, false);
 		if (!entries.TryAdd(id, preset))
 			throw new InvalidOperationException($"Duplicate authored preset id: {id}");
 	}
 
 	private static void AddGreaveil(Dictionary<string, AuthoredPreset> entries, string id, string fileName, int width, int height, AuthoredPlacementMode placementMode, PresetRole roles)
 	{
-		AuthoredPreset preset = PublicHomeReplacementCatalog.Create(id, width, height, placementMode, roles);
+		AuthoredPreset preset = new(id, $"Structures/PrivateHome/Greaveil/{fileName}.shstruct", width, height, null, 0, "TUNA DASH", GreaveilSource, $"wld-sha256:{GreaveilWorldSha256}", PrivateHomeLicense, roles | PresetRole.PrivateHome, placementMode, false, false);
 		if (!entries.TryAdd(id, preset))
 			throw new InvalidOperationException($"Duplicate authored preset id: {id}");
 	}
 
 	private static void AddAegis8(Dictionary<string, AuthoredPreset> entries, string id, string fileName, int width, int height, AuthoredPlacementMode placementMode, PresetRole roles)
 	{
-		AuthoredPreset preset = PublicHomeReplacementCatalog.Create(id, width, height, placementMode, roles);
+		AuthoredPreset preset = new(id, $"Structures/PrivateHome/Aegis8/{fileName}.shstruct", width, height, null, 0, "TerraMonolith", Aegis8Source, $"wld-sha256:{Aegis8WorldSha256}", PrivateHomeLicense, roles | PresetRole.PrivateHome, placementMode, false, false);
 		if (!entries.TryAdd(id, preset))
 			throw new InvalidOperationException($"Duplicate authored preset id: {id}");
 	}

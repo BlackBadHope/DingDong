@@ -211,14 +211,14 @@ public sealed class FishingCalamityExpansion : ModSystem
 		}
 		// Native center, layers, shrine and fossils stay intact. Side shafts and
 		// intermittent cross-routes make the wider footprint traversable.
-		for (int y = top; y < bottom - 70; y++)
+		// V03 28.10: route shape moved to AbyssRouteGeometry (no more lattice, 15.webp).
+		int routeBottom = bottom - AbyssRouteGeometry.BottomMargin;
+		int crossings = AbyssRouteGeometry.CrossingCount(top, routeBottom);
+		for (int y = top; y < routeBottom; y++)
 		{
-			int offset = (int)(Math.Sin(y * 0.006) * 30);
-			for (int edge = 70; edge < 960; edge++)
+			for (int edge = AbyssRouteGeometry.EdgeFrom; edge < AbyssRouteGeometry.EdgeTo; edge++)
 			{
-				bool shaft = Math.Abs(edge - (180 + offset)) < 44 || Math.Abs(edge - (820 - offset)) < 48;
-				bool crossing = (y - top) % 420 is >= 0 and < 46;
-				if (!shaft && !crossing) continue;
+				if (!AbyssRouteGeometry.InRoute(edge, y, top, routeBottom, crossings)) continue;
 				int x = left ? edge : Main.maxTilesX - edge;
 				if (chestCells.Contains(((long)(x / 16) << 32) | (uint)(y / 16))) continue;
 				Tile t = Main.tile[x, y];

@@ -84,7 +84,7 @@ public sealed class UncraftRecipeCompatibility : ModSystem
 	{
 		// Keep the provider's blocked/cyclic filters. Never manufacture a recipe
 		// from a shared furniture/wood group or change a required ingredient ID.
-		Recipe best = candidates.Where(r => r?.createItem?.type == input.type && r.createItem.stack > 0 && r.requiredItem.Count > 0)
+		Recipe best = candidates.Where(r => r?.createItem?.type == input.type && UncraftReversibility.IsMaterialRecipe(r))
 			.OrderBy(CostPerOutput).ThenBy(r => r.requiredItem.Sum(i => (long)Math.Max(0, i.rare)))
 			.ThenBy(r => r.RecipeIndex).FirstOrDefault();
 		selected[input.type] = best;
@@ -95,7 +95,7 @@ public sealed class UncraftRecipeCompatibility : ModSystem
 
 	private static bool IsSelected(object provider, Item input, Recipe recipe)
 	{
-		if (input == null || input.IsAir || recipe == null) return false;
+		if (input == null || input.IsAir || !UncraftReversibility.IsMaterialRecipe(recipe)) return false;
 		if (!selected.TryGetValue(input.type, out Recipe basic))
 		{
 			_ = find.Invoke(provider, [input]); selected.TryGetValue(input.type, out basic);
@@ -150,6 +150,7 @@ public sealed class UncraftRecipeCompatibility : ModSystem
 	{
 		for (int i = hooks.Count - 1; i >= 0; i--) hooks[i].Dispose();
 		hooks.Clear(); selected.Clear(); find = uncraft = null; success = error = null;
+		UncraftReversibility.Reset();
 		ProviderType = null; Installed = false; suppressedGroups = 0;
 	}
 }

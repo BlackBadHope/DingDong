@@ -37,6 +37,13 @@ internal static partial class NpcQuestNetwork
 					short choiceNpc = reader.ReadInt16(); byte choice = reader.ReadByte();
 					if (ValidPlayer(whoAmI)) NpcQuestSystem.HandleChoice(Main.player[whoAmI], choiceNpc, choice);
 					break;
+				case DingDongPacketKind.QuestAbandonRequest when Main.netMode == NetmodeID.Server:
+					string abandonKey = ReadResidentKey(reader);
+					if (ValidPlayer(whoAmI)) NpcQuestSystem.HandleAbandon(Main.player[whoAmI], abandonKey);
+					break;
+				case DingDongPacketKind.QuestNotice when Main.netMode == NetmodeID.MultiplayerClient:
+					QuestNotice.Receive(reader);
+					break;
 				case DingDongPacketKind.FlagClaimRequest when Main.netMode == NetmodeID.Server:
 					ReadFlagClaimPayload(reader, out short tileX, out short tileY);
 					if (ValidPlayer(whoAmI))

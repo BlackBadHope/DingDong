@@ -1,4 +1,5 @@
 # Roadmap item 8: quest book texts (owner reference "DingDong Hub", 27.10.2026).
+# Owner items 8 and 11 (28.10): new book UI — filters, statuses, chronicle, tracker, markers.
 MainStory: Main storyline
 SideStory: Side story
 Reputation: World reputation
@@ -12,6 +13,233 @@ InviteOnMeet: Invite when you meet
 Status: {
 	Available: Available
 	InProgress: In progress
+	Ready: Ready to turn in
+	Busy: Taken by another
+	Paused: Paused
 	Find: Not found yet
 	Complete: Completed
 }
+
+StatusBusyBy: "Assigned to: {0}"
+
+Tabs: {
+	Residents: Residents
+	Chronicle: Chronicle
+}
+
+Filters: {
+	All: All
+	Main: Main story
+	Side: Side
+	Mine: Mine
+	Done: Completed
+}
+
+FilterEmpty: No resident matches this filter yet.
+QuoteFormat: “{0}”
+RoleHover: "{0} · {1}"
+Count: "{0} / {1}"
+CountSeconds: "{0} / {1} s"
+CountDays: "{0} / {1} d"
+StageOf: "Stage {0} of {1} · {2}"
+
+Kinds: {
+	Deliver: delivery
+	Hunt: hunt
+	Visit: journey
+	Observe: observation
+	GatherEnv: furnishing
+	Trial: trial
+	DialogueChoice: conversation
+	Delayed: waiting
+	Expedition: expedition
+}
+
+Objective: {
+	Deliver: "Bring: {0}"
+	Expedition: "Obtain on an expedition: {0}"
+	Hunt: "Defeat: {0}"
+	Visit: "Spend time in the biome: {0}"
+	Observe: "Watch without attacking: {0}"
+	GatherEnv: "Furnish the residence surroundings: {0}"
+	Trial: "Defeat: {0} without getting “{1}”"
+	DialogueChoice: Answer the resident — pick one of the options
+	DialogueChosen: "Your answer: “{0}”"
+	Delayed: Wait until the work has matured
+}
+
+Performer: {
+	You: You are doing this stage
+	Other: "Assigned to: {0}"
+	Paused: "{0} has left — the stage is paused"
+	None: Nobody has taken it yet
+	Note: Shared progress. The reward goes to the performer.
+}
+
+Rewards: Rewards
+RewardItem: "{0} × {1}"
+
+Buttons: {
+	Accept: Accept quest
+	TurnIn: Turn in quest
+	InProgress: Quest in progress
+	Resume: Resume the quest
+	Invite: Invite to your settlement
+	StoryDone: Story complete
+	Track: Track
+	Untrack: Stop tracking
+	Abandon: Abandon
+	ConfirmAbandon: Yes, abandon
+	Cancel: Cancel
+}
+
+Hints: {
+	FindFirst: Find and rescue this resident first.
+	AssignedTo: "Assigned to: {0}"
+	MeetToSpeak: Meet this resident to speak.
+	Paused: The performer has left the game. The stage is paused and can be continued.
+	TrackerFull: You can track at most three quests.
+	AbandonQuestion: Abandon the stage “{0}”?
+	AbandonDetail: Finished stages are kept; the current progress resets.
+}
+
+History: {
+	Show: Full story — show
+	Hide: Full story — hide
+	Title: Full story
+	StageLine: "{0}. {1} — {2}"
+	Done: done
+	Current: in progress
+	Future: ahead
+	Choice: "Choice: “{0}”"
+	ChoiceUnknown: A choice was made, but its outcome was not recorded.
+}
+
+Log: {
+	Title: Shared completion log
+	Entry: "Stage {0}/{1} · {2}"
+}
+
+Epilogue: Epilogue
+StoryDoneBody: This resident's story has been told to the end. They remember who helped them along the way.
+
+Quotes: {
+	Dryad: The forest lives while someone cares for it. Help me preserve it.
+	GoblinTinkerer: Every malfunction can become an invention.
+	Merchant: A good venture begins with an honest deal.
+	Nurse: Come back in one piece. I will take care of the rest.
+	BestiaryGirl: Every creature has a personality. Take a closer look!
+	Clothier: Some stories are best mended with a strong thread.
+}
+
+Encounter: {
+	Dryad: The Dryad wanders the Jungle: surface by day, caves by night. She returns to her residence after the first boss defeat.
+	Clothier: The Old Man waits at the Dungeon entrance. Break Skeletron’s curse.
+	SantaClaus: Find Santa in the Snow biome and speak to him.
+	Steampunker: The Steampunker is hiding in the Dungeon. Speak to her when you find her.
+	TaxCollector: A Tortured Soul wanders the Underworld. Cure it with Purification Powder.
+	Default: Find and rescue this resident. No boss defeat is required for the encounter.
+}
+
+Forces: {
+	gardeners: Gardeners
+	tiders: Tiders
+	archivists: Archivists
+	tricksters: Tricksters
+	unassigned: Personal line
+	balance: Balance
+	none: Outside the dispute
+}
+
+Chronicle: {
+	Unlocked: "Entries open: {0} / {1}"
+	Locked: Sealed entry
+	LockedDefault: This page opens as the world's story moves on.
+	New: new
+	Empty: This world's chronicle is not written yet — its pages arrive with the story texts.
+	NodeLocked: This place opens when any of its residents finishes a first stage.
+	NodeResidents: Residents of this place
+	ResidentLine: "{0} · {1} / {2}"
+	ResidentUnknown: This resident has not talked about themselves yet.
+
+	Chapters: {
+		world: World
+		forces: Forces
+		arcs: Main line
+		finale: Finale
+		places: Places
+	}
+
+	MainLine: {
+		Title: The main line of this world
+		Body: Twenty residents carry the story of this world. Their choices tip the forces, and finished stages open the acts of the main line.
+		Progress: Story stages
+		Act: "Current act: {0}"
+		NoAct: The main line has not begun yet.
+		Lean: Lean of the forces
+		LeanEmpty: No story choices yet — the scales are empty.
+		Leaning: "Currently ahead: {0}"
+		Residents: Main-story residents of this world
+	}
+}
+
+Residents: {
+	Summary: "Residences found: {0} / {1}"
+	Biome: "Biome: {0}"
+	House: "House #{0}"
+	Coords: "Building centre: {0}, {1} (in tiles)"
+	ProtectedNote: Until the resident moves, the building cannot be broken or looted.
+	MovedNote: The resident has moved to you; the old residence is no longer protected.
+	OpenQuests: Open the resident's quests
+}
+
+Help: {
+	Quests: {
+		Title: Quests and story
+		Body:
+			'''
+			Every resident has a chain of five stages. Progress is shared by the whole world: one player performs a stage, and only that player is rewarded.
+			Main-story residents carry a star and a gold frame — every world draws twenty of them; the others tell side stories.
+			The filters above the list show everyone, main or side stories only, your active quests or finished stories.
+			Above a resident: a gold "!" means a main-story stage is available, a silver "!" a side stage, and "?" a quest you can turn in.
+			'''
+	}
+
+	Chronicle: {
+		Title: World chronicle
+		Body:
+			'''
+			The chronicle collects what the residents know about the first word, the three forces and the edges of the world.
+			Entries open through the world's shared progress, story choices and boss victories. New entries are marked "new" until you read them.
+			The page "The main line of this world" shows the main-story residents, finished stages, the current act and the lean of the forces.
+			'''
+	}
+
+	Tracker: {
+		Title: Quest tracking
+		Body:
+			'''
+			The "Track" button on a quest page puts it on screen: a card with the goal and progress appears on the right.
+			Up to three quests can be tracked at once; the choice is stored in the character, separately for every world.
+			Clicking the card opens that resident's page.
+			'''
+	}
+
+	Residents: {
+		Title: Residents and residences
+		Body:
+			'''
+			The Residents tab lists only residences this character has already found: biome, house number, coordinates and status.
+			A residence is protected until its resident moves to you. Main-story residences are marked on the map with a star.
+			'''
+	}
+}
+
+Tracker: {
+	Title: Tracking
+	Available: "Available: {0}"
+	Busy: "{0} — taken by {1}"
+	Ready: ready to turn in
+}
+
+Map.MainResidence: "{0} — main storyline"

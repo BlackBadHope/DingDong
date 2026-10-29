@@ -8,7 +8,7 @@ namespace DingDongBiomeHomes.Worldgen.Exact66Adapters;
 internal static class Exact66WorldgenAdapters
 {
 	private static readonly List<IDisposable> Hooks = [];
-	private const int RuntimeHookCount = 33 + 7 + 6; // Village/geode protections, mushroom roots and Sanctuary height callers.
+	private const int RuntimeHookCount = 33 + 7 + 6 + 1; // Village/geode protections, mushroom roots, Sanctuary height callers; V03 29.10: +1 pyramid ocean-site remap.
 	private const int CleanupCount = 4;
 	private const int FingerprintCount = 17 + 10; // Village admission/footprints and big-geode template.
 	private static bool installed;

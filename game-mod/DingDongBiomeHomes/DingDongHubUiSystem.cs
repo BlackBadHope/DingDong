@@ -36,6 +36,16 @@ public sealed class DingDongHubUiSystem : ModSystem
 		IngameFancyUI.OpenUIState(hubState);
 	}
 
+	/// <summary>Opens the quest book on one resident (HUD tracker click).</summary>
+	internal static void OpenResident(string npcKey)
+	{
+		if (Main.dedServ || hubState == null)
+			return;
+		hubState.ShowResidentQuests(npcKey);
+		if (Main.InGameUI.CurrentState != hubState)
+			IngameFancyUI.OpenUIState(hubState);
+	}
+
 	internal static void OpenCombat(DamageGuidePageId page)
 	{
 		if (Main.dedServ || hubState == null)

@@ -17,6 +17,12 @@ internal static partial class NpcQuestSystem
 {
 	private static void NotifyQuestAccepted(Player player, ResidentQuestDefinition definition, NpcTownIdentity identity)
 	{
+		if (definition.StoryKey.Length > 0)
+        {
+            // Story texts live in authored JSON pairs: send keys, the client words them.
+            QuestNotice.Send(player, QuestNoticeKind.Accepted, identity.NpcKey, definition.Variant, definition.BaseRewardCopper);
+            return;
+        }
 		switch (definition.Kind)
 		{
 			case ResidentQuestKind.SurveyOrigin:
@@ -48,15 +54,16 @@ internal static partial class NpcQuestSystem
 
 	internal static string ObjectiveText(Player player, ResidentQuestDefinition definition, ResidentQuestProgress progress)
 	{
+		if (definition.StoryKey.Length > 0) return PersonalObjectiveText(player, definition, progress);
 		return definition.Kind switch
 		{
 			ResidentQuestKind.SurveyOrigin => Language.GetTextValue("Mods.DingDongBiomeHomes.Quests.Objectives.Survey", SurveyTargetLabel(definition.Variant)),
 			ResidentQuestKind.PatrolOrigin => Language.GetTextValue("Mods.DingDongBiomeHomes.Quests.Objectives.Patrol", progress.Progress, definition.Goal, PatrolDirectionLabel(PatrolPointIndex(definition.Variant, Math.Min(progress.Progress, definition.Goal - 1)))),
-			ResidentQuestKind.DeliverSupplies => Language.GetTextValue("Mods.DingDongBiomeHomes.Quests.Objectives.Supplies", Math.Min(CountInventory(player, definition.ItemType), definition.Goal), definition.Goal, Lang.GetItemNameValue(definition.ItemType)),
+			ResidentQuestKind.DeliverSupplies => Language.GetTextValue("Mods.DingDongBiomeHomes.Quests.Objectives.Supplies", Math.Min(QuestInventoryCount(player, definition, progress), definition.Goal), definition.Goal, Lang.GetItemNameValue(definition.ItemType)),
 			ResidentQuestKind.DefendOrigin => Language.GetTextValue("Mods.DingDongBiomeHomes.Quests.Objectives.Defense", progress.Progress, definition.Goal),
 			ResidentQuestKind.BossHunt => Language.GetTextValue("Mods.DingDongBiomeHomes.Quests.Objectives.Boss", definition.TargetName, progress.Progress, definition.Goal),
 			ResidentQuestKind.BiomePurge => Language.GetTextValue("Mods.DingDongBiomeHomes.Quests.Objectives.Biome", definition.TargetName, progress.Progress, definition.Goal),
-			ResidentQuestKind.BannerCollection => Language.GetTextValue("Mods.DingDongBiomeHomes.Quests.Objectives.Banner", Lang.GetItemNameValue(definition.ItemType), definition.TargetName, CountInventory(player, definition.ItemType) > 0 ? 1 : 0),
+			ResidentQuestKind.BannerCollection => Language.GetTextValue("Mods.DingDongBiomeHomes.Quests.Objectives.Banner", Lang.GetItemNameValue(definition.ItemType), definition.TargetName, QuestInventoryCount(player, definition, progress) > 0 ? 1 : 0),
 			ResidentQuestKind.ModProgression => Language.GetTextValue("Mods.DingDongBiomeHomes.Quests.Objectives.Progression", definition.TargetName, progress.Progress, definition.Goal),
 			_ => definition.TargetName
 		};
@@ -64,7 +71,7 @@ internal static partial class NpcQuestSystem
 
 	internal static string ResidentName(string npcKey)
 	{
-		return NpcResidentRegistry.TryGetType(npcKey, out int npcType) ? Lang.GetNPCNameValue(npcType) : npcKey;
+		return NpcResidentRegistry.TryGetType(npcKey, out int npcType) ? ResidentUiNames.Resolve(npcKey,npcType) : npcKey;
 	}
 
 	internal static string DifficultyName(int difficultyRank) => Language.GetTextValue($"Mods.DingDongBiomeHomes.Quests.Difficulty.{Math.Clamp(difficultyRank, 0, 3) switch {0 => "Classic", 1 => "Expert", 2 => "Master", _ => "Legendary"}}");

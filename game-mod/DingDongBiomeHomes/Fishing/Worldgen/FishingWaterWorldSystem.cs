@@ -124,8 +124,10 @@ public sealed partial class FishingWaterWorldSystem : ModSystem
 			bool river = i % 3 == 0;
 			for (int attempt = 0; attempt < 24; attempt++)
 			{
-				int width = river ? WorldGen.genRand.Next(240, 420) : WorldGen.genRand.Next(100, 190);
-				int height = river ? WorldGen.genRand.Next(220, 280) : WorldGen.genRand.Next(150, 220);
+				// V03 28.10: lakes wider than tall and shallower river beds; the old
+				// 100-190 x 150-220 bounds made upright egg-shaped pockets (17.webp).
+				int width = river ? WorldGen.genRand.Next(240, 420) : WorldGen.genRand.Next(180, 320);
+				int height = river ? WorldGen.genRand.Next(130, 180) : WorldGen.genRand.Next(90, 150);
 				bool upper = (i / 3) % 2 == 0;
 				if (upper) height = Math.Min(height, Math.Max(100, (int)(Main.rockLayer - Main.worldSurface) - 140));
 				int minY = upper ? (int)Main.worldSurface + 60 : (int)Main.rockLayer + 60;
@@ -147,18 +149,37 @@ public sealed partial class FishingWaterWorldSystem : ModSystem
 	private static void Carve(FishingWaterRegion r)
 	{
 		Rectangle footprint = r.PlacementBounds;
+		// V03 28.10: the lobed Contains costs trig; evaluate it once per cell, not 25x per wall test.
+		int fw = footprint.Width, fh = footprint.Height;
+		bool[] inside = new bool[fw * fh];
+		for (int x = 0; x < fw; x++)
+			for (int y = 0; y < fh; y++) inside[x * fh + y] = r.Contains(footprint.Left + x, footprint.Top + y);
+		const int seal = FishingWaterRegion.BasinWallThickness;
 		for (int x = footprint.Left; x < footprint.Right; x++)
 			for (int y = footprint.Top; y < footprint.Bottom; y++)
 			{
-				if (!r.Contains(x, y))
+				int ix = x - footprint.Left, iy = y - footprint.Top;
+				if (!inside[ix * fh + iy])
 				{
 					// Retain an impermeable basin below its waterline, even where it
 					// intersects an old natural cave. Access passages remain above water.
-					if (r.IsBasinWall(x, y))
-					{
-						Tile bank = Main.tile[x, y]; bank.ClearTile(); bank.HasTile = true;
-						bank.TileType = TileID.Stone; bank.LiquidAmount = 0;
-					}
+					if (y < r.WaterY) continue;
+					bool wall = false;
+					for (int dx = -seal; dx <= seal && !wall; dx++)
+						for (int dy = -seal; dy <= seal && !wall; dy++)
+						{
+							int jx = ix + dx, jy = iy + dy;
+							wall = jx >= 0 && jx < fw && jy >= 0 && jy < fh && inside[jx * fh + jy];
+						}
+					if (!wall) continue;
+					Tile bank = Main.tile[x, y];
+					// V03 28.10: keep the host's own solid ground (dirt, mud, ore...) so the
+					// basin has no drawn stone outline; only gaps, sand and props become stone.
+					if (bank.HasTile && !bank.IsActuated && Main.tileSolid[bank.TileType] && !Main.tileSolidTop[bank.TileType] &&
+						!Main.tileSand[bank.TileType] && !TileID.Sets.Falling[bank.TileType])
+					{ bank.LiquidAmount = 0; continue; }
+					bank.ClearTile(); bank.HasTile = true;
+					bank.TileType = TileID.Stone; bank.LiquidAmount = 0;
 					continue;
 				}
 				Tile tile = Main.tile[x, y];
