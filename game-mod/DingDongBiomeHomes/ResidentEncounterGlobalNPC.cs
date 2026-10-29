@@ -30,8 +30,15 @@ public sealed class ResidentEncounterGlobalNPC : GlobalNPC
 
 public sealed class ResidentEncounterSeasonCompatibility : ModSystem
 {
-    public override void Load()=>On_NPC.AI+=RunAI;
-    public override void Unload()=>On_NPC.AI-=RunAI;
+    public override void Load(){On_NPC.AI+=RunAI;On_NPC.UpdateNPC+=RunUpdate;}
+    public override void Unload(){On_NPC.AI-=RunAI;On_NPC.UpdateNPC-=RunUpdate;}
+    // Vanilla kills Santa outside Christmas in the update step before AI runs
+    // ("Santa Claus was slain" on every respawn), so the update needs the same scope.
+    private static void RunUpdate(On_NPC.orig_UpdateNPC orig,NPC npc,int i)
+    {
+        if(npc.type!=NPCID.SantaClaus||!ModContent.GetInstance<DingDongServerConfig>().EnableNpcQuestsAndEscort){orig(npc,i);return;}
+        bool christmas=Main.xMas;try{Main.xMas=true;orig(npc,i);}finally{Main.xMas=christmas;}
+    }
     private static void RunAI(On_NPC.orig_AI orig,NPC npc)
     {
         // Santa is a permanent discoverable resident in this pack. Scope Christmas

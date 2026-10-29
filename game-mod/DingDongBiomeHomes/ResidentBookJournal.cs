@@ -47,15 +47,16 @@ internal sealed class ResidentBookJournal : UIElement
         {
             BookQuestFilter value = FilterOrder[i];
             var button = new BookFilterButton(BookUiText.Get("Filters." + value));
-            button.Left.Set(2, i / (float)FilterOrder.Length * .455f); button.Width.Set(-4 - 26f / FilterOrder.Length, .455f / FilterOrder.Length);
+            // Inset from the page corner vine; gaps and the right edge stay as before.
+            button.Left.Set(14 - 12f * i / FilterOrder.Length, i / (float)FilterOrder.Length * .455f); button.Width.Set(-4 - 38f / FilterOrder.Length, .455f / FilterOrder.Length);
             button.OnLeftClick += (_, _) => SetFilter(value);
             filterButtons[i] = button; Append(button);
         }
         residents.Top.Set(FilterHeight + 6, 0); residents.Width.Set(-26, .455f); residents.Height.Set(-FilterHeight - 6, 1); Append(residents);
         residentScroll.Top.Set(FilterHeight + 6, 0); residentScroll.Left.Set(-24, .455f); residentScroll.Width.Set(20, 0); residentScroll.Height.Set(-FilterHeight - 6, 1);
         residentScroll.SetView(100, 1000); Append(residentScroll); residents.SetScrollbar(residentScroll);
-        detail.Left.Set(0, .525f); detail.Top.Set(-60, 0); detail.Width.Set(-27, .455f); detail.Height.Set(-124, 1); Append(detail);
-        detailScroll.Left.Set(-22, .98f); detailScroll.Top.Set(-60, 0); detailScroll.Width.Set(20, 0); detailScroll.Height.Set(-124, 1);
+        detail.Left.Set(0, .525f); detail.Top.Set(-46, 0); detail.Width.Set(-27, .455f); detail.Height.Set(-138, 1); Append(detail);
+        detailScroll.Left.Set(-22, .98f); detailScroll.Top.Set(-46, 0); detailScroll.Width.Set(20, 0); detailScroll.Height.Set(-138, 1);
         detailScroll.SetView(100, 1000); Append(detailScroll); detail.SetScrollbar(detailScroll);
         questFooter.Left.Set(0, .525f); questFooter.Top.Set(-174, 1); questFooter.Width.Set(-27, .455f); questFooter.Height.Set(174, 0); Append(questFooter);
     }
@@ -416,8 +417,8 @@ internal sealed class ResidentBookJournal : UIElement
         }
         // Reference: the chain sits in its own framed card; the residence lock gets a full caption beside it.
         var trail = new ResidentStoryTrail(selected, p.Completed); trail.Top.Set(68, 0); trail.Width.Set(-170, 1); trail.Height.Set(104, 0); questFooter.Append(trail);
-        var house = new BookAssetIcon(moved ? BookGlyph.Residents : BookGlyph.Residence); house.Left.Set(-160, 1); house.Top.Set(66, 0); house.Width.Set(150, 0); house.Height.Set(66, 0); questFooter.Append(house);
-        var homeText = new BookText(BookUiText.Get(moved ? "ResidenceMoved" : "ResidenceProtected"), .70f, Ink) { Centered = true }; homeText.Left.Set(-162, 1); homeText.Top.Set(134, 0); homeText.Width.Set(156, 0); questFooter.Append(homeText);
+        var house = new BookAssetIcon(moved ? BookGlyph.Residents : BookGlyph.Residence); house.Left.Set(-160, 1); house.Top.Set(62, 0); house.Width.Set(150, 0); house.Height.Set(60, 0); questFooter.Append(house);
+        var homeText = new BookText(BookUiText.Get(moved ? "ResidenceMoved" : "ResidenceProtected"), .62f, Ink) { Centered = true }; homeText.Left.Set(-162, 1); homeText.Top.Set(124, 0); homeText.Width.Set(156, 0); questFooter.Append(homeText);
     }
 }
 

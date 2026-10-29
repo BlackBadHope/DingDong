@@ -211,6 +211,9 @@ public sealed class BookQuestHudSystem : ModSystem
 		float height = HeaderHeight + trackCountTotal * EntryHeight + 10f;
 		top = Math.Max(0f, Math.Min(top, Main.screenHeight / Main.UIScale - height - 12f));
 		var area = new Rectangle((int)(screenWidth - TrackerWidth - 52f), (int)top, (int)TrackerWidth, (int)height);
+		// Beside the minimap, top right, when it is shown and the card fits to its left.
+		if (Main.mapEnabled && Main.mapStyle == 1 && Main.miniMapX - TrackerWidth - 14f >= 0f && Main.miniMapY + height <= Main.screenHeight / Main.UIScale)
+			area = new Rectangle((int)(Main.miniMapX - TrackerWidth - 14f), Main.miniMapY, (int)TrackerWidth, (int)height);
 		bool hovered = area.Contains(Main.MouseScreen.ToPoint());
 		DingDongUiAssets.DrawBookCard(batch, area, Color.White * (hovered ? .98f : .86f));
 		batch.DrawString(font, trackerTitle, new Vector2(area.X + 12, area.Y + 7), ResidentBookJournal.Ink, 0f, Vector2.Zero, .78f, SpriteEffects.None, 0f);
