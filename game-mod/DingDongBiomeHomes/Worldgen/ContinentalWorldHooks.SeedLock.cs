@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.GameContent.UI.States;
@@ -22,11 +23,34 @@ internal static partial class ContinentalWorldHooks
 	private static readonly FieldInfo SeedPlateField = PrivateField("_seedPlate");
 	private static readonly FieldInfo OptionSeedField = PrivateField("_optionSeed");
 
-	private static void InstallSeedLock() =>
-		On_UIWorldCreation.ProcessSpecialWorldSeeds += ForceForTheWorthy;
+	private static bool gamepadGuardLogged;
 
-	private static void UninstallSeedLock() =>
+	private static void InstallSeedLock()
+	{
+		On_UIWorldCreation.ProcessSpecialWorldSeeds += ForceForTheWorthy;
+		On_UIWorldCreation.SetupGamepadPoints += GuardGamepadPoints;
+	}
+
+	private static void UninstallSeedLock()
+	{
 		On_UIWorldCreation.ProcessSpecialWorldSeeds -= ForceForTheWorthy;
+		On_UIWorldCreation.SetupGamepadPoints -= GuardGamepadPoints;
+	}
+
+	// S16 29.10 (owner crash): vanilla SetupGamepadPoints runs every frame of the creation menu and
+	// expects the "Seed" and "RandomizeSeed" snap points of the seed row we replace. LockSeedRow now
+	// gives the locked label both points; this guard keeps any other menu change (other mods
+	// included) from ever crashing the game over gamepad navigation.
+	private static void GuardGamepadPoints(On_UIWorldCreation.orig_SetupGamepadPoints orig, UIWorldCreation self, SpriteBatch spriteBatch)
+	{
+		try { orig(self, spriteBatch); }
+		catch (Exception ex)
+		{
+			if (gamepadGuardLogged) return;
+			gamepadGuardLogged = true;
+			DingDongBiomeHomes.Instance?.Logger.Warn("DINGDONG_WORLD_MENU_GAMEPAD|verdict=GUARDED|reason=" + ex.Message);
+		}
+	}
 
 	private static void ForceForTheWorthy(On_UIWorldCreation.orig_ProcessSpecialWorldSeeds orig, string processedSeed)
 	{
@@ -79,6 +103,11 @@ internal static partial class ContinentalWorldHooks
 			BorderColor = new Color(255, 190, 70)
 		};
 		label.SetPadding(0f);
+		// Vanilla gamepad navigation looks these two points up by name (see GuardGamepadPoints).
+		label.SetSnapPoint("Seed", 0);
+		var randomizeAnchor = new UIElement { Width = StyleDimension.FromPixels(40f), Height = StyleDimension.FromPercent(1f) };
+		randomizeAnchor.SetSnapPoint("RandomizeSeed", 0);
+		label.Append(randomizeAnchor);
 		label.Append(new UIText(Language.GetText($"{MenuKey}.SeedLocked.Name"), 0.95f)
 		{
 			HAlign = 0.5f,
