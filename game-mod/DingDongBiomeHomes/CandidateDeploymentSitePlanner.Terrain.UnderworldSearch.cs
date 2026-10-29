@@ -29,7 +29,7 @@ public static partial class CandidateDeploymentSitePlanner
 			Worldgen.NativeUnderworldSystem.ScaleOffset(100), preset.Height,
 			out int minY, out int maxY))
 			return Fail("underworld-domain-empty:scene-or-clearance-does-not-fit", out site, out failure);
-		int seed = PositiveHash($"underworld:{profile.NpcKey}:{Main.ActiveWorldFileData?.Seed}:layout={layoutSalt}");
+		int seed = PositiveHash($"underworld:{profile.NpcKey}:{PlanningSeedKey}:layout={layoutSalt}");
 		int xCount = maxX - minX + 1;
 		int yCount = maxY - minY + 1;
 		int rejected = 0;

@@ -22,11 +22,11 @@ internal static class AbyssCaverns
 {
     internal sealed class Receipt
     {
-        public int Anchors, Caverns, Rejected, NearCrossing, Cells, Shrines, ShrineChests, AirPockets, Veins, VeinCells, Flora, Lumenyl, Lights;
+        public int Anchors, Caverns, Rejected, NearCrossing, Cells, Shrines, ShrineChests, AirPockets, Veins, VeinCells, Flora, Lumenyl, Lights, ScatterAnchors, Scattered;
 
         public override string ToString() =>
             $"caverns={Caverns}|cavernAnchors={Anchors}|cavernsRejected={Rejected}|cavernsNearCrossing={NearCrossing}|cavernCells={Cells}|shrines={Shrines}|shrineChests={ShrineChests}" +
-            $"|airPockets={AirPockets}|veins={Veins}|veinCells={VeinCells}|flora={Flora}|lumenyl={Lumenyl}|lights={Lights}";
+            $"|airPockets={AirPockets}|veins={Veins}|veinCells={VeinCells}|flora={Flora}|lumenyl={Lumenyl}|lights={Lights}|scatterAnchors={ScatterAnchors}|scattered={Scattered}";
     }
 
     // Biome X gate is edge < 930 (FishingCalamityExpansion); keep a margin.
@@ -103,6 +103,24 @@ internal static class AbyssCaverns
             if (!TryCavern(c, center, y, prefer, rx, ry, feature) && !TryCavern(c, center, y, -prefer, rx, ry, feature)
                 && !TryCavern(c, center, y, prefer, rx * 3 / 4, Math.Max(10, ry * 3 / 4), feature))
                 c.R.Rejected++;
+        }
+        // Owner, 29.10: "resources only along the way down - they must be everywhere". A grid over
+        // the whole Abyss band: from the nearest natural water cell a side cavern branches into the
+        // rock, with a vein (half), an air pocket or a shrine, plus flora and lights.
+        for (int y = top + 70 + random.Next(30); y < routeBottom - 60; y += 70 + random.Next(30))
+        for (int e = EdgeFrom + 40 + random.Next(40); e < EdgeMax - 40; e += 110 + random.Next(40))
+        {
+            int start = -1;
+            for (int k = 0; k < 60 && start < 0; k += 3)
+            {
+                if (Water(Cell(c, e + k, y)) && !InRoute(c, e + k, y)) start = e + k;
+                else if (Water(Cell(c, e - k, y)) && !InRoute(c, e - k, y)) start = e - k;
+            }
+            if (start < 0) continue;
+            c.R.ScatterAnchors++;
+            int rx = 18 + random.Next(14), ry = 9 + random.Next(7), feature = random.Next(2, 12);
+            int d = random.Next(2) == 0 ? 1 : -1;
+            if (TryCavern(c, start, y, d, rx, ry, feature) || TryCavern(c, start, y, -d, rx, ry, feature)) c.R.Scattered++;
         }
     }
 

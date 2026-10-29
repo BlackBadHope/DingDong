@@ -24,7 +24,7 @@ public static partial class CandidateDeploymentSitePlanner
 			work.Solved = DeterministicConstraintRepairSolver.TrySolve(work.Variables, work.Domains, PrepareEvaluationContext,
 				EvaluateHardDistributionCandidate, HardDistributionFeasible,
 				(leftVariable, leftCandidate, rightVariable, rightCandidate) => EvaluateHardConstraintPairCached(leftVariable, leftCandidate, rightVariable, rightCandidate, masks, candidateIds, hardPairCompatibilityCache),
-				assigned => AcceptLayerHardSafety(assigned, masks, work.Variables), PositiveHash($"layer-hard-safety:{work.Layer}:{Main.ActiveWorldFileData?.Seed}"), ConstraintHardSafetyFallbackRestartLimit, ConstraintRepairStepsPerRestart, ConstraintRepairPairEvaluationLimit, ConstraintRepairCandidateEvaluationLimit, work.RepairBudget, out work.Solution, out work.RepairStats);
+				assigned => AcceptLayerHardSafety(assigned, masks, work.Variables), PositiveHash($"layer-hard-safety:{work.Layer}:{PlanningSeedKey}"), ConstraintHardSafetyFallbackRestartLimit, ConstraintRepairStepsPerRestart, ConstraintRepairPairEvaluationLimit, ConstraintRepairCandidateEvaluationLimit, work.RepairBudget, out work.Solution, out work.RepairStats);
 			if (work.Solution.Count == work.Variables.Count)
 				work.CompleteSeed = new List<KeyValuePair<string, RankedLayoutCandidate>>(work.Solution);
 			work.Method = "layer-hard-safety";

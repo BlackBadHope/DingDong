@@ -223,7 +223,11 @@ internal static class ResidenceTransitBuilder
 	private static int Sweep(ProtectionBand band, ObjectLedger objects, int start, int step, int floorY, ref int cells, ref int skipped)
 	{
 		int liquidRun = 0, last = start;
-		for (int x = start; x >= MetroEdgeMargin && x < Main.maxTilesX - MetroEdgeMargin; x += step)
+		// V03 29.10: the metro ran to the map edge through Calamity's Abyss caves on one side and,
+		// with the cave ocean, through the flooded rock on the other: a water tunnel into the whole
+		// continent. Both sea bands (the Ding Dong ocean width on either side) end the line.
+		int seaBand = OceanExpeditions.OceanExpeditionLayout.WidthFor(Main.maxTilesX);
+		for (int x = start; x >= Math.Max(MetroEdgeMargin, seaBand) && x < Main.maxTilesX - Math.Max(MetroEdgeMargin, seaBand); x += step)
 		{
 			// S3 run: underground lakes ended the line mid-map (7744..17267 of 28000).
 			// Only a column that is water from the open sky down to the track row is ocean.

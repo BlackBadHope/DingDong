@@ -29,7 +29,7 @@ public static partial class CandidateDeploymentSitePlanner
 				(variable, candidate, planned) => EvaluateCandidate(variable, candidate, planned, presets, masks, profileByNpc, rejectionReasons),
 				(variable, candidate, planned) => EvaluateForward(variable, candidate, planned, profileByNpc, rejectionReasons),
 				(leftVariable, leftCandidate, rightVariable, rightCandidate) => EvaluateConstraintPairCached(leftVariable, leftCandidate, rightVariable, rightCandidate, presets, masks, profileByNpc, rejectionReasons, candidateIds, pairCompatibilityCache),
-				assigned => AcceptLayer(assigned, masks, work.Variables), PositiveHash($"layer-repair:{work.Layer}:{Main.ActiveWorldFileData?.Seed}"), work.RepairRestarts, work.RepairSteps, ConstraintRepairPairEvaluationLimit, ConstraintRepairCandidateEvaluationLimit, work.RepairBudget, out work.Solution, out work.RepairStats);
+				assigned => AcceptLayer(assigned, masks, work.Variables), PositiveHash($"layer-repair:{work.Layer}:{PlanningSeedKey}"), work.RepairRestarts, work.RepairSteps, ConstraintRepairPairEvaluationLimit, ConstraintRepairCandidateEvaluationLimit, work.RepairBudget, out work.Solution, out work.RepairStats);
 			if (work.Solution.Count == work.Variables.Count)
 				work.CompleteSeed = new List<KeyValuePair<string, RankedLayoutCandidate>>(work.Solution);
 

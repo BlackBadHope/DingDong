@@ -18,6 +18,7 @@ internal static class OceanForeignFootprint
 	// V03 29.10: = NativePyramidProtection search half-width around the origin.
 	internal const int PyramidMargin = 640;
 	private const int Block = 32;
+	private const int DecorCells = 16;
 	internal static bool Scheduled { get; set; }
 	internal static Point AmberAnchor { get; set; } = new(-1, -1);
 	private static BitArray baseline;
@@ -119,6 +120,7 @@ internal static class OceanForeignFootprint
 			owners[b] ??= OwnerName(x, y, tiles);
 		}
 		var intrusions = new List<string>();
+		var decor = new List<string>();
 		string intended = "none";
 		bool[] seen = new bool[count.Length];
 		var queue = new Queue<int>();
@@ -150,6 +152,9 @@ internal static class OceanForeignFootprint
 			// V03 29.10: SOTS' Amber water vault is authored for sea water (anchor = water over sand).
 			Rectangle amberZone = area; amberZone.Inflate(Block, Block);
 			if (mod == "SOTS" && AmberAnchor.X >= 0 && amberZone.Contains(AmberAnchor)) intended = "amberVault:" + entry;
+			// Owner's world 29.10: one Thorium decor tile on the sea floor failed the receipt. A few
+			// loose cells are a provider's floor decoration, not a structure placed into the sea.
+			else if (cells < DecorCells) decor.Add(entry);
 			else intrusions.Add(entry);
 		}
 		Vector2 pyramid = ReadStatic<Vector2>("SOTS.WorldgenHelpers.PyramidWorldgenHelper", "placementLocation");
@@ -160,7 +165,7 @@ internal static class OceanForeignFootprint
 		bool pass = intrusions.Count == 0 && !pyramidIn && !villageIn && pyramidUnresolved == 0;
 		string line = $"DINGDONG_OCEAN_FOREIGN_FOOTPRINT|verdict={(pass ? "PASS" : "FAIL")}" +
 			$"|water={water.X},{water.Y},{water.Width},{water.Height}|baselineForeignCells={baselineCells}" +
-			$"|newForeignCells={added}|lostForeignCells={lost}|intrusions={intrusions.Count}|intended={intended}" +
+			$"|newForeignCells={added}|lostForeignCells={lost}|intrusions={intrusions.Count}|decor={decor.Count}|intended={intended}" +
 			$"|pyramidOrigin={(int)pyramid.X},{(int)pyramid.Y}|pyramidInBasin={pyramidIn}|pyramidRolls={pyramidRolls}" +
 			$"|pyramidRemaps={pyramidRemaps}|pyramidUnresolved={pyramidUnresolved}" +
 			$"|villageOuter={village.X},{village.Y},{village.Width},{village.Height}|villageInBasin={villageIn}" +

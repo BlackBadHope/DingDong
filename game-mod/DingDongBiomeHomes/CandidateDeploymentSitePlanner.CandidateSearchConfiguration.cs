@@ -26,4 +26,12 @@ public static partial class CandidateDeploymentSitePlanner
 	private const int LayoutBeamCandidateFanout = 12;
 	private const int LayoutBeamStatesPerBucket = 3;
 	private const int CandidatePoolLayoutSalts = 8;
+
+	// Owner's world 29.10 (seed 2097116013): the surface layer ended one pair short of a full plan
+	// and the world got no residences at all. A failed plan is retried with another search key;
+	// retry 0 keeps the historic key exactly, so worlds that already plan are unchanged.
+	internal const int PlanningRetries = 2;
+	internal static int PlanningRetry;
+	internal static string PlanningSeedKey => PlanningRetry == 0
+		? $"{Main.ActiveWorldFileData?.Seed}" : $"{Main.ActiveWorldFileData?.Seed}#retry{PlanningRetry}";
 }

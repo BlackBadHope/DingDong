@@ -18,7 +18,10 @@ public sealed class OceanExpeditionLayout
     public const int Version = 1;
     // Layout 2: the basin stops at a fraction of the world height instead of the
     // Underworld ceiling, and islets are fewer, irregularly spaced and vegetated.
-    public const int CurrentIslandLayout = 2;
+    // Layout 3 (v0.3, owner 28.10): the sea floor falls from a coastal shelf down a
+    // continental slope to an abyssal plain just above the Underworld, and every
+    // islet is the peak of a seamount rooted on that floor instead of a hanging bowl.
+    public const int CurrentIslandLayout = 3;
     public int WorldWidth { get; }
     public int WorldHeight { get; }
     public bool Left { get; }
@@ -44,7 +47,7 @@ public sealed class OceanExpeditionLayout
         Width = Math.Clamp(worldWidth / 6, 200, worldWidth / 5);
         SeaLevel = seaLevel; Seed = seed; IslandLayout = islandLayout;
         int ceiling = Math.Min(worldHeight - 160, underworld - Clearance);
-        Bottom = bottom >= 0 ? Math.Min(bottom, ceiling) : SeaLevel + BasinDepth(worldHeight, ceiling - seaLevel);
+        Bottom = bottom >= 0 ? Math.Min(bottom, ceiling) : islandLayout >= 3 ? ceiling : SeaLevel + BasinDepth(worldHeight, ceiling - seaLevel);
         if (Depth < 260) throw new ArgumentOutOfRangeException(nameof(underworld));
         Random random = new(seed);
         if (islandLayout >= 2) PlanIslands(random); else PlanLegacyIslands(random);
@@ -63,8 +66,9 @@ public sealed class OceanExpeditionLayout
             if(!island.Harbor)Landmarks.Add(new(new(X(island.Edge), SeaLevel - island.Crown), 0));
         for (int i = 0; i < 8; i++)
         {
+            // Layout 3 has no midwater ledges: every ruin rests on the slope or the plain.
             int edge = (int)(Width * (.12 + .60 * ((i * 3) % 8) / 7d));
-            int y = i < 4 ? SeaLevel + (int)(Depth * (.22 + i * .16)) : Floor(edge) - 8;
+            int y = i < 4 && islandLayout < 3 ? SeaLevel + (int)(Depth * (.22 + i * .16)) : Floor(edge) - 8;
             Landmarks.Add(new(new(X(edge), y), i % 3 + 1));
         }
     }
@@ -111,8 +115,122 @@ public sealed class OceanExpeditionLayout
     }
     public int X(int edge) => Left ? edge : WorldWidth - 1 - edge;
     public int Edge(int x) => Left ? x : WorldWidth - 1 - x;
+    // Layout 3 sea floor, in tiles below the sea: a coastal shelf, a continental slope
+    // and an abyssal plain with low hills and trenches.
+    public const int ShelfDepth = 320;
+    public const double ShelfFrom = .86, PlainTo = .52;
+    // Owner, 29.10: the open sea is a water layer over a cave-riddled rock mass that runs down to
+    // the Underworld like the Abyss next door. Floor() is the floor of that open layer (~450 tiles
+    // under the sea); CaveOpen() decides which cells of the rock below it are flooded caves.
+    public const int OpenDepth = 430, CrustDepth = 36, CaveSeal = 40;
+    private int DeepFloor(int edge)
+    {
+        double t = Math.Clamp((double)edge / Width, 0, 1);
+        double open = OpenDepth + Math.Sin(edge * .004 + (Seed & 255)) * 40 + Math.Sin(edge * .0011 + (Seed & 31)) * 30;
+        double shelf = Math.Min(ShelfDepth, open * .75), depth;
+        if (t >= ShelfFrom) depth = shelf * Math.Pow((1 - t) / (1 - ShelfFrom), 1.3);
+        else if (t >= ShelfFrom - .06)
+        {
+            double s = (ShelfFrom - t) / .06;
+            depth = shelf + (open - shelf) * s * s * (3 - 2 * s);
+        }
+        else depth = open;
+        // Broad, gentle swells: wrecks, ruins and gardens need stretches with under 4 tiles of rise.
+        double relief = Math.Sin(edge * .019) * 2;
+        return Math.Clamp(SeaLevel + (int)(depth + relief), SeaLevel + 4, Bottom - CrustDepth - CaveSeal);
+    }
+
+    // Value noise on a hashed lattice, smooth-stepped; stable per world seed.
+    private double Lattice(int ix, int iy, int salt)
+    {
+        unchecked
+        {
+            uint h = (uint)(ix * 374761393 + iy * 668265263 + (Seed + salt) * 1442695041);
+            h = (h ^ (h >> 13)) * 1274126177; h ^= h >> 16;
+            return (h & 0xFFFFFF) / (double)0xFFFFFF;
+        }
+    }
+    private double Noise(double x, double y, int salt)
+    {
+        int ix = (int)Math.Floor(x), iy = (int)Math.Floor(y);
+        double fx = x - ix, fy = y - iy;
+        fx = fx * fx * (3 - 2 * fx); fy = fy * fy * (3 - 2 * fy);
+        double a = Lattice(ix, iy, salt), b = Lattice(ix + 1, iy, salt), c = Lattice(ix, iy + 1, salt), d = Lattice(ix + 1, iy + 1, salt);
+        return a + (b - a) * fx + (c - a) * fy + (a - b - c + d) * fx * fy;
+    }
+    internal double Fbm(double x, double y, int salt) =>
+        (Noise(x, y, salt) * .55 + Noise(x * 2.1, y * 2.1, salt + 1) * .3 + Noise(x * 4.3, y * 4.3, salt + 2) * .15);
+
+    /// <summary>Whether a cell of the rock mass under the open floor is a flooded cave. Wide, flat
+    /// chambers like the Abyss, a few meandering shafts from the floor down and long galleries
+    /// tie them together; a crust under the floor, the map edge, the coast and the last rows above
+    /// the Underworld stay solid so the sea cannot drain.</summary>
+    public int ShaftCount => Math.Clamp(Width / 1000, 3, 6);
+    /// <summary>Edge of the centre line of a meandering shaft from the open floor to the bottom.</summary>
+    public double ShaftCentre(int k, int y) =>
+        Width * (.06 + .8 * (k + .5) / ShaftCount) + Math.Sin(y * .0045 + k * 1.7 + (Seed & 7)) * 70 + Math.Sin(y * .017 + k) * 18;
+    // CaveOpen runs for ~23 million cells at generation and on every zone query in play; the shaft
+    // lines depend only on the row and the galleries only on the column, so both are tabulated once.
+    private const int GallerySpacing = 650, GalleryFirst = 300;
+    private double[] shaftCentres, shaftHalves, galleryCentres, galleryHalves;
+    private int galleryCount;
+    private void BuildCaveTables()
+    {
+        int rows = Bottom - SeaLevel, shafts = ShaftCount;
+        var centres = new double[shafts * rows]; var halves = new double[shafts * rows];
+        for (int k = 0; k < shafts; k++)
+        for (int r = 0; r < rows; r++)
+        {
+            int y = SeaLevel + r;
+            centres[k * rows + r] = ShaftCentre(k, y);
+            halves[k * rows + r] = 8 + 3 * Math.Sin(y * .05 + k);
+        }
+        int count = Depth / GallerySpacing + 2;
+        var gCentres = new double[Width * count]; var gHalves = new double[Width * count];
+        for (int e = 0; e < Width; e++)
+        for (int j = 0; j < count; j++)
+        {
+            gCentres[e * count + j] = GalleryFirst + j * GallerySpacing + Math.Sin(e * .004 + j * 2.1) * 60 + Math.Sin(e * .013 + j) * 14;
+            gHalves[e * count + j] = 6 + 2 * Math.Sin(e * .03 + j);
+        }
+        galleryCount = count; galleryCentres = gCentres; galleryHalves = gHalves;
+        shaftHalves = halves; shaftCentres = centres;
+    }
+    public bool CaveOpen(int edge, int y, int floor)
+    {
+        // Shafts open at the floor row itself; chambers and galleries only under the crust.
+        if (IslandLayout < 3 || y < floor || y >= Bottom - CaveSeal || edge < 60 || edge > Width - 100) return false;
+        if (shaftCentres == null) BuildCaveTables();
+        int rows = Bottom - SeaLevel, row = y - SeaLevel;
+        for (int k = 0; k < ShaftCount; k++)
+        {
+            if (Math.Abs(edge - shaftCentres[k * rows + row]) < shaftHalves[k * rows + row]) return true;
+        }
+        if (y <= floor + CrustDepth) return false;
+        int below = y - floor;
+        for (int j = 0; j < galleryCount && j * GallerySpacing + GalleryFirst < Bottom - floor; j++)
+        {
+            if (Math.Abs(below - galleryCentres[edge * galleryCount + j]) < galleryHalves[edge * galleryCount + j]) return true;
+        }
+        // Chambers thin out under the crust and over the sealed bottom.
+        double fade = Math.Min(1, (below - CrustDepth) / 80.0) * Math.Min(1, (Bottom - CaveSeal - y) / 80.0);
+        return Fbm(edge / 230.0, y / 95.0, 11) * fade > .555;
+    }
+    private int[] floorCache;
+    private int[] BuildFloorCache()
+    {
+        var floors = new int[Width];
+        for (int e = 0; e < Width; e++) floors[e] = DeepFloor(e);
+        return floors;
+    }
     public int Floor(int edge)
     {
+        if (IslandLayout >= 3)
+        {
+            if (edge < 0 || edge >= Width) return DeepFloor(edge);
+            floorCache ??= BuildFloorCache();
+            return floorCache[edge];
+        }
         double t = Math.Clamp((double)edge / Width, 0, 1);
         // 65% of the width has near-full depth; the inland 17% is a short shelf.
         double deep = t < .65 ? .97 : t < .83 ? .97 - (t - .65) / .18 * .75 : .22 * Math.Pow((1 - t) / .17, 1.5);
@@ -122,7 +240,7 @@ public sealed class OceanExpeditionLayout
     }
     public int CliffEdge(int y)
     {
-        int low = (int)(Width * .65), high = Width - 1;
+        int low = (int)(Width * (IslandLayout >= 3 ? PlainTo : .65)), high = Width - 1;
         while (high - low > 1) { int mid = (low + high) / 2; if (Floor(mid) > y) low = mid; else high = mid; }
         return low;
     }
@@ -131,8 +249,61 @@ public sealed class OceanExpeditionLayout
         var column = IslandColumn(edge);
         return (column.Top, column.Bottom);
     }
+    // Half-width that a seamount flank adds at a given depth below the sea: a steep
+    // stem under the islet that flares into a broad foot on the plain.
+    // Natural volcanic-island profile: a shallow reef shelf, a steep but uneven slope with
+    // ledges, and a wide talus apron in the last stretch above the floor.
+    // O2 (29.10): a broad flank turned five seamounts into one wall of rock and left no open
+    // floor, so the stem now widens slowly (1 tile per ~110 of depth) and flares only near the
+    // foot: about 44% of the basin is rock instead of ~90% (scratch model of the owner's seed).
+    private double FlankReach(OceanIslet i, double depth, double floorDepth)
+    {
+        double shelf = Math.Min(depth, 30) * .8;
+        double slope = Math.Max(0, depth - 30) * .06;
+        // The open floor is ~450 deep now: a cone that flares into a talus foot on the floor.
+        double apronStart = Math.Max(60, floorDepth - 180);
+        double apron = depth > apronStart ? Math.Pow((depth - apronStart) / 180d, 1.8) * 70 : 0;
+        double ledges = Math.Sin(depth * .021 + i.Edge * .37) * 6 + Math.Sin(depth * .0047 + i.Edge) * 16;
+        return Math.Max(0, shelf + slope + apron + ledges * Math.Min(1, depth / 200));
+    }
+    private OceanIsletColumn SeamountColumn(int edge)
+    {
+        var best = new OceanIsletColumn(int.MaxValue, int.MinValue, 1, false);
+        int floor = Floor(edge);
+        foreach (var i in Islands)
+        {
+            int dist = Math.Abs(edge - i.Edge);
+            double d = dist / (double)i.Radius;
+            int top;
+            if (d < 1)
+                top = SeaLevel - (int)(i.Crown * Math.Pow(1 - d * d, .65)) +
+                    (int)Math.Round(Math.Sin(edge * .23 + (Seed & 63)) * 1.5 + Math.Sin(edge * .071 + i.Edge) * 2.5);
+            else
+            {
+                // Solve FlankReach(depth) = dist - radius (monotonic in depth).
+                // Shallowest depth whose reach covers the distance (the profile has ledges, so scan).
+                double need = dist - i.Radius; int span = floor - SeaLevel, found = -1;
+                for (int dd = 0; dd <= span; dd += 4) if (FlankReach(i, dd, span) >= need) { found = dd; break; }
+                if (found < 0) continue;
+                top = SeaLevel + found + (int)Math.Round(Math.Sin(edge * .052 + i.Edge) * 3 + Math.Sin(edge * .013) * 5);
+            }
+            if (top >= floor) continue;
+            if (top < best.Top) best = new(top, floor + 24, d, i.Harbor);
+        }
+        return best;
+    }
+    private OceanIsletColumn[] seamountCache;
     public OceanIsletColumn IslandColumn(int edge)
     {
+        if (IslandLayout >= 3)
+        {
+            // Zone queries run at play time too; the profile is fixed per world, so cache it.
+            if (edge < 0 || edge >= Width) return SeamountColumn(edge);
+            seamountCache ??= new OceanIsletColumn[Width];
+            ref OceanIsletColumn cached = ref seamountCache[edge];
+            if (cached.Top == 0 && cached.Bottom == 0) cached = SeamountColumn(edge);
+            return cached;
+        }
         foreach (var i in Islands)
         {
             double d = Math.Abs(edge-i.Edge)/(double)i.Radius;
@@ -160,7 +331,8 @@ public sealed class OceanExpeditionLayout
         if (edge < 20 || edge >= Width || y < SeaLevel - 48 || y >= Bottom + 20) return OceanExpeditionZone.None;
         foreach (var room in Grottos)
             if (InsideEllipse(room.Bounds, x, y, 8)) return OceanExpeditionZone.AirGrotto;
-        if (y > Floor(edge) || IslandSolid(edge, y)) return OceanExpeditionZone.None;
+        int floor = Floor(edge);
+        if (IslandSolid(edge, y) || (y > floor && !CaveOpen(edge, y, floor))) return OceanExpeditionZone.None;
         float depth = (y - SeaLevel) / (float)Depth;
         return depth >= .72f ? OceanExpeditionZone.HadalSea : depth >= .30f ? OceanExpeditionZone.DeepSea :
             edge > Width * .83 ? OceanExpeditionZone.Shelf : OceanExpeditionZone.OpenSea;

@@ -43,7 +43,7 @@ public static partial class CandidateDeploymentSitePlanner
 			horizontalRanges = CollectHorizontalRanges(profile, contract, preset.Width, surfaceIndex);
 			ClipHorizontalRanges();
 			altitudeRanges = CavernAltitudeRanges(contract, preset.Height);
-			seed = PositiveHash($"cavern:{profile.NpcKey}:{Main.ActiveWorldFileData?.Seed}:layout={layoutSalt}");
+			seed = PositiveHash($"cavern:{profile.NpcKey}:{PlanningSeedKey}:layout={layoutSalt}");
 			requireReviewedGroundSupport = profile.SourceAnchor == DeploymentSourceAnchor.ReviewedGroundRow && profile.SourceGroundOffset.HasValue;
 		}
 

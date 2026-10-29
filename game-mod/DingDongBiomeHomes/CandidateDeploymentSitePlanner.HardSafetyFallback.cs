@@ -44,7 +44,7 @@ public static partial class CandidateDeploymentSitePlanner
 					hardPairCompatibilityCache),
 			assigned => AcceptHardSafetyComplete(assigned, profiles, masks,
 				variables, ref safetyFailure, ref safetyReport),
-			PositiveHash($"hard-safety-fallback:{Main.ActiveWorldFileData?.Seed}"),
+			PositiveHash($"hard-safety-fallback:{PlanningSeedKey}"),
 			ConstraintHardSafetyFallbackRestartLimit,
 			ConstraintRepairStepsPerRestart, ConstraintRepairPairEvaluationLimit,
 			ConstraintRepairCandidateEvaluationLimit,

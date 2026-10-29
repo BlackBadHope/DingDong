@@ -84,7 +84,7 @@ public static partial class CandidateDeploymentSitePlanner
 			// other to a few columns, turning an otherwise recoverable ocean layout
 			// into a global 61-residence failure.
 			// Numeric Seed is the terrain-generating seed; SeedText may differ for secret worlds.
-			seed = PositiveHash($"{profile.NpcKey}:{profile.PresetId}:{Main.ActiveWorldFileData?.Seed}:layout={layoutSalt}");
+			seed = PositiveHash($"{profile.NpcKey}:{profile.PresetId}:{PlanningSeedKey}:layout={layoutSalt}");
 		}
 
 		public bool TryFind(out CandidateDeploymentSite site, out string failure)

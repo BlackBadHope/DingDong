@@ -32,9 +32,25 @@ public sealed partial class BiomeHomeWorldgenSystem
 		SettlementWorldState.BeginGeneration(seedProfile, NpcTownManifest.AuthoredCount,
 			housesPerDistrict: 1);
 		Mod.Logger.Info($"DINGDONG_WORLDGEN_BEGIN|mode=technical-candidate-admission|seed={Main.ActiveWorldFileData?.Seed}|seedText={Main.ActiveWorldFileData?.SeedText}|size={Main.maxTilesX}x{Main.maxTilesY}|masterMode={Main.masterMode}|getGoodWorld={Main.getGoodWorld}|candidates={NpcAuthoredPresetManifest.CandidateCount}/61|visualApproved={NpcAuthoredPresetManifest.Count}/61");
-		if (!CandidateDeploymentSitePlanner.TryPlanSimultaneous(Mod,
-			AuthoredCandidateDeploymentManifest.All, out List<CandidateDeploymentSite> sites,
-			out string planningFailure))
+		List<CandidateDeploymentSite> sites = null;
+		string planningFailure = "none";
+		bool planned = false;
+		for (int retry = 0; retry <= CandidateDeploymentSitePlanner.PlanningRetries && !planned; retry++)
+		{
+			CandidateDeploymentSitePlanner.PlanningRetry = retry;
+			if (retry > 0)
+			{
+				progress.Message = $"Planning 61 authored biome residences (attempt {retry + 1})";
+				Mod.Logger.Warn($"DINGDONG_PLANNER_RETRY|attempt={retry + 1}|previousFailure={planningFailure}");
+			}
+			planned = CandidateDeploymentSitePlanner.TryPlanSimultaneous(Mod,
+				AuthoredCandidateDeploymentManifest.All, out sites, out planningFailure);
+			if (!planned)
+				Mod.Logger.Info($"DINGDONG_PLANNER_ATTEMPT|attempt={retry + 1}|verdict=FAIL|{CandidateDeploymentSitePlanner.LastSolverTrace}");
+		}
+		int attempts = CandidateDeploymentSitePlanner.PlanningRetry + 1;
+		CandidateDeploymentSitePlanner.PlanningRetry = 0;
+		if (!planned)
 		{
 			Mod.Logger.Error($"DINGDONG_PLANNER_TRACE|verdict=FAIL|{CandidateDeploymentSitePlanner.LastSolverTrace}");
 			SettlementWorldState.AbortGeneration();
@@ -46,7 +62,7 @@ public sealed partial class BiomeHomeWorldgenSystem
 			return;
 		}
 
-		Mod.Logger.Info($"DINGDONG_PLANNER_TRACE|verdict=PASS|{CandidateDeploymentSitePlanner.LastSolverTrace}");
+		Mod.Logger.Info($"DINGDONG_PLANNER_TRACE|verdict=PASS|attempts={attempts}|{CandidateDeploymentSitePlanner.LastSolverTrace}");
 		if (sites.Count != NpcTownManifest.AuthoredCount)
 			throw new InvalidOperationException(
 				$"DingDong simultaneous layout is incomplete: {sites.Count}/{NpcTownManifest.AuthoredCount}.");

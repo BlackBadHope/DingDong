@@ -85,7 +85,7 @@ public sealed partial class OceanExpeditionWorldSystem
     private static bool FindSeabedSite(OceanExpeditionLayout p, Admission admission, List<Rectangle> taken,
         int target, int halfWidth, int height, out Rectangle area, out int centerEdge, out int baseFloor)
     {
-        foreach (int shift in new[] { 0, 40, -40, 80, -80, 120, -120 })
+        foreach (int shift in new[] { 0, 40, -40, 80, -80, 120, -120, 170, -170, 220, -220, 280, -280 })
         {
             centerEdge = target + shift;
             if (SeabedSiteFree(p, admission, taken, centerEdge, halfWidth, height, out area, out baseFloor)) return true;
