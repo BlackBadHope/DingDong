@@ -102,6 +102,8 @@ public sealed class ResidentEncounterSystem : ModSystem
                 int index=NPC.NewNPC(new EntitySource_Misc("DingDongResidentEncounter"),(int)center.X,(int)center.Y,desired);
                 if(index>=Main.maxNPCs)continue;
                 current=Main.npc[index];changed=true;current.Center=center;current.netUpdate=true;
+                // NewNPC leaves homeless=false with home (-1,-1); vanilla night AI would teleport there.
+                current.homeless=true;current.homeTileX=current.homeTileY=-1;
                 if(s.Found)NpcResidenceWorldSystem.ApplyLockedHome(current,key);
             }
             if(!s.Found)

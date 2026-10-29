@@ -122,11 +122,15 @@ public sealed class ResidentReputationSystem : ModSystem
 	private static int WallPenalty(int itemType) =>
 		ContentSamples.ItemsByType.TryGetValue(itemType, out Item item) && Hardmode(item) ? 2 : 1;
 
+	private static readonly Dictionary<int, int> wallItems = new();
+
 	private static int WallItem(int wallType)
 	{
-		for (int i = 1; i < ItemLoader.ItemCount; i++)
-			if (ContentSamples.ItemsByType.TryGetValue(i, out Item item) && item.createWall == wallType) return i;
-		return 0;
+		if (wallItems.TryGetValue(wallType, out int cached)) return cached;
+		int found = 0;
+		for (int i = 1; i < ItemLoader.ItemCount && found == 0; i++)
+			if (ContentSamples.ItemsByType.TryGetValue(i, out Item item) && item.createWall == wallType) found = i;
+		return wallItems[wallType] = found;
 	}
 
 	private static bool IsCraftingStation(int tileType)

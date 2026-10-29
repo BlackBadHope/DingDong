@@ -14,6 +14,8 @@ public sealed class ResidentEncounterGlobalNPC : GlobalNPC
     public override bool PreAI(NPC npc)
     {
         if(ResidentEncounterSystem.TryKey(npc,out string key)&&ResidentEncounterSystem.IsPending(key)){npc.homeless=true;npc.homeTileX=npc.homeTileY=-1;}
+        // A town NPC with a home outside the world crashes vanilla AI_007_TryForcingSitting on teleport.
+        else if(npc.townNPC&&!npc.homeless&&(npc.homeTileX<10||npc.homeTileY<10||npc.homeTileX>=Main.maxTilesX-10||npc.homeTileY>=Main.maxTilesY-10))npc.homeless=true;
         if(!ResidentEncounterSystem.IsPending("Terraria/Dryad")||npc.type!=NPCID.Dryad)return true;
         if(!ResidentEncounterSystem.TryState("Terraria/Dryad",out var s))return true;
         Point anchor=Main.dayTime?s.Day:s.Night;
