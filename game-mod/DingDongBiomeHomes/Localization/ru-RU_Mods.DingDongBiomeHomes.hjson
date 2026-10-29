@@ -68,6 +68,10 @@ WorldCreation: {
 	}
 
 	// 28.10: the seed is fixed to For the Worthy (owner decision).
+	DifficultyLocked: {
+		Name: "Сложность: Легендарная (Мастер + For the Worthy)"
+		Description: "Миры Ding Dong всегда Легендарные: сложность Мастер в мире For the Worthy, Вечность и Смерть всегда включены."
+	}
 	SeedLocked: {
 		Name: "Сид: ForTheWorthy"
 		Description: Каждый мир Ding Dong рождается с секретным сидом For the Worthy («Для достойных»): враги сильнее, правила жёстче. Рельеф при этом каждый раз новый.
@@ -77,6 +81,12 @@ WorldCreation: {
 	Backdrop: {
 		Title: Первое слово было
 		Subtitle: Мир произносится…
+		Preparing: "Подготовка…"
+		Stage: "Этап {0} из {1}: {2}"
+		Elapsed: "Прошло {0}"
+		Remaining: "осталось ≈ {0}"
+		Estimating: "оцениваю, сколько осталось…"
+		Hint: "Континент x10: обычно 20–35 минут"
 		Line0: Вначале было слово. Оно было коротким — и мир был мал.
 		Line1: Мир меняется, потому что хочет стать лучше. Но кто решает, что значит «лучше»?
 		Line2: Садовники говорят: лучше — значит ухоженнее.

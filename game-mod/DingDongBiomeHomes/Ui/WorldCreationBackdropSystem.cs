@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Diagnostics;
 using System.Reflection;
 using Microsoft.Xna.Framework;
@@ -16,35 +17,37 @@ using Terraria.WorldBuilding;
 
 namespace DingDongBiomeHomes.Ui;
 
-// 28.10: "First Word" backdrop of the world-generation screen. The bell (the First Word) tolls,
-// and the continent is lit ("spoken") outward from the bell as generation progresses.
-// Art: Assets/Ui/WorldCreation (source script Tools/Art/render_world_creation_backdrop.py).
+// 28.10: "First Word" backdrop of the world-generation screen.
+// 29.10 (owner: "the animation looks awful, and there is no proper status — how long, which
+// stage"): the glow, rings and light band are gone; a calm backdrop carries one status panel
+// with the current stage (n of m and its message), a progress bar, elapsed time and an
+// estimate of the time left, plus a slowly rotating line of lore.
 public sealed class WorldCreationBackdropSystem : ModSystem
 {
 	private const string AssetPath = "DingDongBiomeHomes/Assets/Ui/WorldCreation/";
 	private const string TextKey = "Mods.DingDongBiomeHomes.WorldCreation.Backdrop";
 	private const int LineCount = 10;
 	private const float ArtWidth = 1920f, ArtHeight = 1080f;
-	private static readonly Vector2 BellCore = new(960f, 392f);
 	private static readonly FieldInfo ProgressBarField =
 		typeof(UIWorldLoad).GetField("_progressBar", BindingFlags.Instance | BindingFlags.NonPublic);
 	private static readonly FieldInfo ProgressMessageField =
 		typeof(UIWorldLoad).GetField("_progressMessage", BindingFlags.Instance | BindingFlags.NonPublic);
-	private static readonly Stopwatch clock = new();
+	private static readonly FieldInfo GeneratorField =
+		typeof(WorldGen).GetField("_generator", BindingFlags.Static | BindingFlags.NonPublic);
+	private static readonly FieldInfo PassesField =
+		typeof(WorldGenerator).GetField("_passes", BindingFlags.Instance | BindingFlags.NonPublic);
+	private static readonly Stopwatch clock = new(), generation = new();
 
-	private static Asset<Texture2D> backdrop, spoken, ring, glow;
+	private static Asset<Texture2D> backdrop;
 	private static UIWorldLoad currentScreen;
-	private static float shownProgress;
+	private static double etaSeconds = -1;
 	private static bool failed;
 
 	public override void Load()
 	{
 		if (Main.dedServ)
 			return;
-		backdrop = Request("Backdrop");
-		spoken = Request("Spoken");
-		ring = Request("Ring");
-		glow = Request("Glow");
+		backdrop = ModContent.Request<Texture2D>(AssetPath + "Backdrop", AssetRequestMode.AsyncLoad);
 		clock.Restart();
 		On_UIWorldLoad.DrawSelf += DrawBackdrop;
 	}
@@ -54,16 +57,13 @@ public sealed class WorldCreationBackdropSystem : ModSystem
 		if (Main.dedServ)
 			return;
 		On_UIWorldLoad.DrawSelf -= DrawBackdrop;
-		backdrop = spoken = ring = glow = null;
+		backdrop = null;
 		currentScreen = null;
 	}
 
-	private static Asset<Texture2D> Request(string name) =>
-		ModContent.Request<Texture2D>(AssetPath + name, AssetRequestMode.AsyncLoad);
-
 	private static void DrawBackdrop(On_UIWorldLoad.orig_DrawSelf orig, UIWorldLoad self, SpriteBatch spriteBatch)
 	{
-		if (!failed && backdrop is { IsLoaded: true } && spoken.IsLoaded && ring.IsLoaded && glow.IsLoaded)
+		if (!failed && backdrop is { IsLoaded: true })
 		{
 			try
 			{
@@ -75,23 +75,34 @@ public sealed class WorldCreationBackdropSystem : ModSystem
 			{
 				// Never break world generation over a decoration: fall back to the vanilla screen.
 				failed = true;
+				RestoreVanilla(self);
 				DingDongBiomeHomes.Instance?.Logger.Warn("DINGDONG_WORLDGEN_BACKDROP|verdict=DISABLED|reason=" + ex.Message);
 			}
 		}
 		orig(self, spriteBatch);
 	}
 
-	// The vanilla progress bar sits in the middle of the screen, over the bell: move it down.
+	// Our panel replaces the vanilla bar and message: move them out of sight.
 	private static void BeginScreen(UIWorldLoad self)
 	{
 		currentScreen = self;
-		shownProgress = 0f;
+		etaSeconds = -1;
+		shown = 0f;
+		generation.Restart();
 		if (ProgressBarField?.GetValue(self) is UIElement bar && ProgressMessageField?.GetValue(self) is UIElement message)
 		{
-			bar.VAlign = 1f;
-			bar.Top.Set(-56f, 0f);
-			message.VAlign = 1f;
-			message.Top.Set(-126f, 0f);
+			bar.Top.Set(-5000f, 0f);
+			message.Top.Set(-5000f, 0f);
+			self.Recalculate();
+		}
+	}
+
+	private static void RestoreVanilla(UIWorldLoad self)
+	{
+		if (ProgressBarField?.GetValue(self) is UIElement bar && ProgressMessageField?.GetValue(self) is UIElement message)
+		{
+			bar.Top.Set(-60f, 0.5f);
+			message.Top.Set(-120f, 0.5f);
 			self.Recalculate();
 		}
 	}
@@ -99,68 +110,116 @@ public sealed class WorldCreationBackdropSystem : ModSystem
 	private static void DrawLayers(UIWorldLoad self, SpriteBatch spriteBatch)
 	{
 		CalculatedStyle screen = self.GetDimensions();
-		float scale = Math.Max(screen.Width / ArtWidth, screen.Height / ArtHeight);
-		Vector2 origin = new(screen.X + (screen.Width - ArtWidth * scale) / 2f,
-			screen.Y + (screen.Height - ArtHeight * scale) / 2f);
-		Vector2 At(Vector2 art) => origin + art * scale;
 		float time = (float)clock.Elapsed.TotalSeconds;
 
-		Texture2D baseTexture = backdrop.Value;
-		spriteBatch.Draw(baseTexture, origin, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+		// Calm backdrop: the art slowly breathes, dimmed so the text stays readable.
+		float breathe = 1f + 0.015f * (0.5f + 0.5f * MathF.Sin(time * 0.25f));
+		float scale = Math.Max(screen.Width / ArtWidth, screen.Height / ArtHeight) * breathe;
+		Vector2 origin = new(screen.X + (screen.Width - ArtWidth * scale) / 2f, screen.Y + (screen.Height - ArtHeight * scale) / 2f);
+		spriteBatch.Draw(backdrop.Value, origin, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+		Texture2D pixel = TextureAssets.MagicPixel.Value;
+		spriteBatch.Draw(pixel, new Rectangle((int)screen.X, (int)screen.Y, (int)screen.Width, (int)screen.Height), Color.Black * 0.35f);
 
-		// The spoken world: a band centred on the bell that widens with generation progress.
-		float target = MathHelper.Clamp((float)(WorldGenerator.CurrentGenerationProgress?.TotalProgress ?? 0d), 0f, 1f);
-		shownProgress += (target - shownProgress) * 0.04f;
-		float eased = 1f - (1f - shownProgress) * (1f - shownProgress);
-		int half = (int)(BellCore.X * MathHelper.Lerp(0.035f, 1f, eased));
-		var source = new Rectangle((int)BellCore.X - half, 0, half * 2, (int)ArtHeight);
-		spriteBatch.Draw(spoken.Value, At(new Vector2(source.X, 0f)), source, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
-
-		Texture2D glowTexture = glow.Value;
-		Vector2 glowOrigin = glowTexture.Size() / 2f;
-		// Seams where the world is being written right now.
-		if (half < BellCore.X - 2)
-		{
-			float flicker = 0.75f + 0.25f * MathF.Sin(time * 7.3f);
-			Color seam = (new Color(255, 205, 120) * (0.85f * flicker)) with { A = 0 };
-			foreach (float x in new[] { BellCore.X - half, BellCore.X + half })
-				spriteBatch.Draw(glowTexture, At(new Vector2(x, 820f)), null, seam, 0f, glowOrigin,
-					new Vector2(0.45f, 3.2f) * scale, SpriteEffects.None, 0f);
-		}
-
-		// The bell tolls: three rings expanding from the core, alternating gold and sky blue.
-		Texture2D ringTexture = ring.Value;
-		Vector2 ringOrigin = ringTexture.Size() / 2f;
-		const float Period = 3.4f;
-		for (int k = 0; k < 3; k++)
-		{
-			float phase = (time / Period + k / 3f) % 1f;
-			float diameter = MathHelper.Lerp(240f, 2300f, phase);
-			float alpha = (1f - phase) * (1f - phase) * 0.55f;
-			Color tint = (((int)(time / Period + k / 3f) + k) % 2 == 0 ? new Color(255, 200, 110) : new Color(130, 215, 255)) * alpha;
-			spriteBatch.Draw(ringTexture, At(BellCore), null, tint with { A = 0 }, 0f, ringOrigin,
-				new Vector2(diameter / ringTexture.Width, diameter / ringTexture.Width / 1.65f) * scale, SpriteEffects.None, 0f);
-		}
-		float pulse = MathF.Pow(1f - (time / Period) % 1f, 3f);
-		spriteBatch.Draw(glowTexture, At(BellCore), null, (new Color(255, 225, 160) * (0.35f + 0.45f * pulse)) with { A = 0 },
-			0f, glowOrigin, (2.6f + 0.6f * pulse) * scale, SpriteEffects.None, 0f);
-
-		// Title and a rotating line of lore.
 		DynamicSpriteFont titleFont = FontAssets.DeathText.Value;
-		DynamicSpriteFont lineFont = FontAssets.MouseText.Value;
-		float uiScale = Math.Min(1f, screen.Width / 1600f) + 0.15f;
+		DynamicSpriteFont font = FontAssets.MouseText.Value;
+		float ui = Math.Clamp(screen.Width / 1920f, 0.7f, 1.2f);
 		DrawCentered(spriteBatch, titleFont, Language.GetTextValue(TextKey + ".Title"),
-			new Vector2(screen.Center().X, screen.Y + screen.Height * 0.075f), new Color(255, 214, 120), 0.95f * uiScale);
-		DrawCentered(spriteBatch, lineFont, Language.GetTextValue(TextKey + ".Subtitle"),
-			new Vector2(screen.Center().X, screen.Y + screen.Height * 0.075f + 50f * uiScale), new Color(200, 210, 240), 0.95f * uiScale);
+			new Vector2(screen.Center().X, screen.Y + screen.Height * 0.12f), new Color(255, 214, 120), 0.8f * ui);
+		DrawCentered(spriteBatch, font, Language.GetTextValue(TextKey + ".Subtitle"),
+			new Vector2(screen.Center().X, screen.Y + screen.Height * 0.12f + 46f * ui), new Color(200, 210, 240), 1f * ui);
 
-		const float LineSeconds = 7f;
+		// Status panel.
+		GenerationProgress progress = WorldGenerator.CurrentGenerationProgress;
+		float p = MathHelper.Clamp((float)(progress?.TotalProgress ?? 0d), 0f, 1f);
+		(int stage, int stages) = StageOf(progress);
+		int width = (int)Math.Min(screen.Width * 0.7f, 980f * ui), height = (int)(150 * ui);
+		var panel = new Rectangle((int)(screen.Center().X - width / 2f), (int)(screen.Y + screen.Height * 0.66f), width, height);
+		spriteBatch.Draw(pixel, panel, new Color(10, 12, 26) * 0.85f);
+		DrawFrame(spriteBatch, pixel, panel, new Color(255, 200, 110) * 0.65f, 2);
+		int pad = (int)(22 * ui);
+
+		string message = progress?.Message;
+		if (string.IsNullOrWhiteSpace(message)) message = Language.GetTextValue(TextKey + ".Preparing");
+		string stageText = stages > 0
+			? Language.GetTextValue(TextKey + ".Stage", stage, stages, message)
+			: message;
+		DrawLeft(spriteBatch, font, Fit(font, stageText, panel.Width - 2 * pad, 1.0f * ui), new Vector2(panel.X + pad, panel.Y + pad), Color.White, 1.0f * ui);
+
+		var track = new Rectangle(panel.X + pad, panel.Y + (int)(62 * ui), panel.Width - 2 * pad - (int)(90 * ui), (int)(18 * ui));
+		spriteBatch.Draw(pixel, track, new Color(40, 44, 70));
+		shown = shown <= 0f ? p : shown + (p - shown) * 0.08f;
+		spriteBatch.Draw(pixel, new Rectangle(track.X, track.Y, (int)(track.Width * shown), track.Height), new Color(255, 196, 92));
+		DrawFrame(spriteBatch, pixel, track, new Color(255, 220, 160) * 0.5f, 1);
+		DrawLeft(spriteBatch, font, $"{p * 100f:0}%", new Vector2(track.Right + 14 * ui, track.Y - 4 * ui), new Color(255, 214, 120), 1.05f * ui);
+
+		double elapsed = generation.Elapsed.TotalSeconds;
+		if (p > 0.02f)
+		{
+			double raw = elapsed * (1 - p) / p;
+			etaSeconds = etaSeconds < 0 ? raw : etaSeconds * 0.98 + raw * 0.02;
+		}
+		string timeText = Language.GetTextValue(TextKey + ".Elapsed", Clock(elapsed)) + "  ·  " +
+			(p > 0.02f ? Language.GetTextValue(TextKey + ".Remaining", Clock(Math.Round(etaSeconds / 10) * 10)) : Language.GetTextValue(TextKey + ".Estimating"));
+		DrawLeft(spriteBatch, font, timeText, new Vector2(panel.X + pad, panel.Y + (int)(98 * ui)), new Color(200, 210, 240), 0.9f * ui);
+		string hint = Language.GetTextValue(TextKey + ".Hint");
+		Vector2 hintSize = ChatManager.GetStringSize(font, hint, Vector2.One) * 0.8f * ui;
+		DrawLeft(spriteBatch, font, hint, new Vector2(panel.Right - pad - hintSize.X, panel.Y + (int)(100 * ui)), new Color(150, 160, 190), 0.8f * ui);
+
+		// A line of lore under the panel, changing every few seconds.
+		const float LineSeconds = 8f;
 		int line = (int)(time / LineSeconds) % LineCount;
 		float local = time % LineSeconds;
-		float fade = MathHelper.Clamp(Math.Min(local / 0.9f, (LineSeconds - local) / 0.9f), 0f, 1f);
-		DrawCentered(spriteBatch, lineFont, Language.GetTextValue($"{TextKey}.Line{line}"),
-			new Vector2(screen.Center().X, screen.Y + screen.Height - 190f), new Color(255, 236, 200) * fade, 1.15f * uiScale);
+		float fade = MathHelper.Clamp(Math.Min(local / 1.2f, (LineSeconds - local) / 1.2f), 0f, 1f);
+		DrawCentered(spriteBatch, font, Language.GetTextValue($"{TextKey}.Line{line}"),
+			new Vector2(screen.Center().X, panel.Bottom + 40f * ui), new Color(255, 236, 200) * (0.85f * fade), 1.0f * ui);
 	}
+
+	private static float shown;
+
+	// Current pass (1-based) and the number of enabled passes, from the running generator.
+	private static (int Stage, int Stages) StageOf(GenerationProgress progress)
+	{
+		if (progress == null || GeneratorField?.GetValue(null) is not WorldGenerator generator || PassesField?.GetValue(generator) is not IList passes)
+			return (0, 0);
+		double total = 0;
+		foreach (GenPass pass in passes) if (pass.Enabled) total += pass.Weight;
+		if (total <= 0) return (0, 0);
+		double done = progress.TotalProgress * total, sum = 0;
+		int index = 0, count = 0;
+		foreach (GenPass pass in passes)
+		{
+			if (!pass.Enabled) continue;
+			count++;
+			if (index == 0 && sum + pass.Weight >= done) index = count;
+			sum += pass.Weight;
+		}
+		return (Math.Max(1, index == 0 ? count : index), count);
+	}
+
+	private static string Clock(double seconds)
+	{
+		var span = TimeSpan.FromSeconds(Math.Max(0, seconds));
+		return span.TotalHours >= 1 ? span.ToString(@"h\:mm\:ss") : span.ToString(@"mm\:ss");
+	}
+
+	private static string Fit(DynamicSpriteFont font, string text, float width, float scale)
+	{
+		if (ChatManager.GetStringSize(font, text, Vector2.One).X * scale <= width) return text;
+		while (text.Length > 4 && ChatManager.GetStringSize(font, text + "…", Vector2.One).X * scale > width)
+			text = text[..^1];
+		return text + "…";
+	}
+
+	private static void DrawFrame(SpriteBatch spriteBatch, Texture2D pixel, Rectangle r, Color color, int thickness)
+	{
+		spriteBatch.Draw(pixel, new Rectangle(r.X, r.Y, r.Width, thickness), color);
+		spriteBatch.Draw(pixel, new Rectangle(r.X, r.Bottom - thickness, r.Width, thickness), color);
+		spriteBatch.Draw(pixel, new Rectangle(r.X, r.Y, thickness, r.Height), color);
+		spriteBatch.Draw(pixel, new Rectangle(r.Right - thickness, r.Y, thickness, r.Height), color);
+	}
+
+	private static void DrawLeft(SpriteBatch spriteBatch, DynamicSpriteFont font, string text, Vector2 position, Color color, float scale) =>
+		ChatManager.DrawColorCodedStringWithShadow(spriteBatch, font, text, position, color, 0f, Vector2.Zero, new Vector2(scale));
 
 	private static void DrawCentered(SpriteBatch spriteBatch, DynamicSpriteFont font, string text, Vector2 center, Color color, float scale)
 	{

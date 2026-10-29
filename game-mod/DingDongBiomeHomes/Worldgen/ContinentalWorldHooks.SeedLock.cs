@@ -22,6 +22,8 @@ internal static partial class ContinentalWorldHooks
 	internal const string ForcedSeedText = "ForTheWorthy";
 	private static readonly FieldInfo SeedPlateField = PrivateField("_seedPlate");
 	private static readonly FieldInfo OptionSeedField = PrivateField("_optionSeed");
+	private static readonly FieldInfo OptionDifficultyField = PrivateField("_optionDifficulty");
+	private static readonly FieldInfo DifficultyButtonsField = PrivateField("_difficultyButtons");
 
 	private static bool gamepadGuardLogged;
 
@@ -64,7 +66,53 @@ internal static partial class ContinentalWorldHooks
 			DingDongBiomeHomes.Instance?.Logger.Info($"DINGDONG_SEED_LOCK|requested={(string.IsNullOrWhiteSpace(processedSeed) ? "random" : "custom")}|applied=ForTheWorthy");
 	}
 
-	internal static void ForceSeedText(UIWorldCreation screen) => OptionSeedField.SetValue(screen, ForcedSeedText);
+	internal static void ForceSeedText(UIWorldCreation screen)
+	{
+		OptionSeedField.SetValue(screen, ForcedSeedText);
+		ForceLegendary(screen);
+	}
+
+	// 29.10 (owner): every Ding Dong world is Legendary — Master difficulty on a For the
+	// Worthy world. WorldDifficultyId: 0 Normal, 1 Expert, 2 Master, 3 Creative.
+	internal static void ForceLegendary(UIWorldCreation screen) =>
+		OptionDifficultyField.SetValue(screen, Enum.ToObject(OptionDifficultyField.FieldType, 2));
+
+	// The difficulty row is replaced by a fixed label, like the seed row.
+	private static void LockDifficultyRow(UIWorldCreation screen)
+	{
+		ForceLegendary(screen);
+		if (DifficultyButtonsField.GetValue(screen) is not Array buttons || buttons.Length == 0 ||
+			buttons.GetValue(0) is not UIElement first || first.Parent is not UIElement parent)
+			throw new InvalidOperationException("Vanilla world-difficulty menu contract changed.");
+		StyleDimension top = first.Top;
+		var row = new List<UIElement>();
+		foreach (UIElement child in parent.Children)
+			if (child.Top.Pixels == top.Pixels && child.Top.Percent == top.Percent)
+				row.Add(child);
+		foreach (UIElement child in row)
+			parent.RemoveChild(child);
+		var label = new UIPanel
+		{
+			Top = top,
+			Left = StyleDimension.FromPixels(0f),
+			Width = StyleDimension.FromPercent(1f),
+			Height = StyleDimension.FromPixels(first.Height.Pixels > 0 ? first.Height.Pixels : 40f),
+			BackgroundColor = new Color(70, 22, 30) * 0.9f,
+			BorderColor = new Color(255, 120, 90)
+		};
+		label.SetPadding(0f);
+		label.SetSnapPoint("difficulty", 0); // vanilla gamepad navigation looks this group up
+		label.Append(new UIText(Language.GetText($"{MenuKey}.DifficultyLocked.Name"), 0.95f)
+		{
+			HAlign = 0.5f,
+			VAlign = 0.5f,
+			TextColor = new Color(255, 170, 130)
+		});
+		string description = Language.GetTextValue($"{MenuKey}.DifficultyLocked.Description");
+		label.OnMouseOver += (_, _) => SetDescription(screen, description);
+		label.OnMouseOut += (_, _) => SetDescription(screen, string.Empty);
+		parent.Append(label);
+	}
 
 	// V03 28.10: second line of the lock. Client IL order (read from tML 2026.x): FinishCreatingWorld ->
 	// ProcessSeed -> ProcessSpecialWorldSeeds (hooked above: getGoodWorldGen=true) -> SetSeed ->

@@ -68,6 +68,10 @@ WorldCreation: {
 	}
 
 	// 28.10: the seed is fixed to For the Worthy (owner decision).
+	DifficultyLocked: {
+		Name: "Difficulty: Legendary (Master + For the Worthy)"
+		Description: "Ding Dong worlds are always Legendary: Master difficulty on a For the Worthy world, with Eternity and Death always on."
+	}
 	SeedLocked: {
 		Name: "Seed: ForTheWorthy"
 		Description: Every Ding Dong world is born with the For the Worthy secret seed: stronger foes and harsher rules. The landscape is still different every time.
@@ -77,6 +81,12 @@ WorldCreation: {
 	Backdrop: {
 		Title: First Word Was
 		Subtitle: The world is being spoken…
+		Preparing: "Preparing…"
+		Stage: "Stage {0} of {1}: {2}"
+		Elapsed: "Elapsed {0}"
+		Remaining: "about {0} left"
+		Estimating: "estimating time left…"
+		Hint: "x10 continent: usually 20–35 minutes"
 		Line0: In the beginning was a word. It was short — and the world was small.
 		Line1: The world changes because it wants to become better. But who decides what better means?
 		Line2: The Gardeners say: better means tended.

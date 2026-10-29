@@ -49,8 +49,8 @@ public sealed class DifficultyLockSystem : ModSystem
 	internal static bool FargoMasochist => fargoMaso?.Get() == true;
 	internal static bool CalamityDeath => calDeath?.Get() == true && calRevenge.Get();
 
-	// Death (non-FTW) and Fargo Masochist need Master; on For the Worthy, Expert already counts as Master.
-	internal static int RequiredGameMode() => Main.getGoodWorld ? GameModeID.Expert : GameModeID.Master;
+	// 29.10 (owner): Master on every Ding Dong world; on For the Worthy that is the Legendary mode.
+	internal static int RequiredGameMode() => GameModeID.Master;
 
 	public override void Load()
 	{

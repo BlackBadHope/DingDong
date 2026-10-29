@@ -49,6 +49,10 @@ internal static partial class ContinentalWorldHooks
 		orig(self);
 		ClearWorldCreationRequest();
 		LockSeedRow(self);
+		// The Legendary difficulty is also forced at creation time; a changed vanilla
+		// menu only loses the label, never the menu.
+		try { LockDifficultyRow(self); }
+		catch (Exception ex) { DingDongBiomeHomes.Instance?.Logger.Warn("DINGDONG_DIFFICULTY_ROW|verdict=SKIPPED|reason=" + ex.Message); }
 		if (IsEnabled())
 			ReplaceSizeButtonsWithPresets(self);
 	}
