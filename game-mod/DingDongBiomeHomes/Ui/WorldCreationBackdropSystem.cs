@@ -1,229 +1,192 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
-using ReLogic.Graphics;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.GameContent.UI.States;
-using Terraria.Localization;
+using Terraria.IO;
 using Terraria.ModLoader;
 using Terraria.UI;
-using Terraria.UI.Chat;
 using Terraria.WorldBuilding;
 
 namespace DingDongBiomeHomes.Ui;
 
-// 28.10: "First Word" backdrop of the world-generation screen.
-// 29.10 (owner: "the animation looks awful, and there is no proper status — how long, which
-// stage"): the glow, rings and light band are gone; a calm backdrop carries one status panel
-// with the current stage (n of m and its message), a progress bar, elapsed time and an
-// estimate of the time left, plus a slowly rotating line of lore.
+// Client decoration only: tasks, weights, random state and world data are unchanged.
 public sealed class WorldCreationBackdropSystem : ModSystem
 {
-	private const string AssetPath = "DingDongBiomeHomes/Assets/Ui/WorldCreation/";
-	private const string TextKey = "Mods.DingDongBiomeHomes.WorldCreation.Backdrop";
-	private const int LineCount = 10;
-	private const float ArtWidth = 1920f, ArtHeight = 1080f;
-	private static readonly FieldInfo ProgressBarField =
-		typeof(UIWorldLoad).GetField("_progressBar", BindingFlags.Instance | BindingFlags.NonPublic);
-	private static readonly FieldInfo ProgressMessageField =
-		typeof(UIWorldLoad).GetField("_progressMessage", BindingFlags.Instance | BindingFlags.NonPublic);
-	private static readonly FieldInfo GeneratorField =
-		typeof(WorldGen).GetField("_generator", BindingFlags.Static | BindingFlags.NonPublic);
-	private static readonly FieldInfo PassesField =
-		typeof(WorldGenerator).GetField("_passes", BindingFlags.Instance | BindingFlags.NonPublic);
-	private static readonly Stopwatch clock = new(), generation = new();
+    private static readonly Stopwatch Clock = new();
+    private static bool failed, loading;
+    private static double loadStart, lastEtaSample = -1, eta = -1, etaGeneration = -1;
+    public override void Load()
+    {
+        if (Main.dedServ) return;
+        failed = loading = false; Clock.Restart(); WorldChronicleSkin.Load(Mod);
+        On_UIWorldLoad.Draw += DrawGeneration;
+        On_GenPass.Apply += ObservePass;
+        On_Main.DrawMenu += DrawLocalLoading;
+    }
+    public override void Unload()
+    {
+        if (!Main.dedServ) { On_UIWorldLoad.Draw -= DrawGeneration; On_GenPass.Apply -= ObservePass; On_Main.DrawMenu -= DrawLocalLoading; }
+        WorldChronicleSkin.Unload(); WorldChronicleStages.Reset(); Clock.Stop();
+    }
+    private static void ObservePass(On_GenPass.orig_Apply orig, GenPass self, GenerationProgress progress, GameConfiguration configuration)
+    {
+        // Observing a pass must not block orig or swallow its generation exception.
+        try { WorldChronicleStages.Begin(self, Clock.Elapsed.TotalSeconds); } catch (Exception ex) { Disable(ex); }
+        orig(self, progress, configuration);
+    }
+    private static void DrawGeneration(On_UIWorldLoad.orig_Draw orig, UIWorldLoad self, SpriteBatch batch)
+    {
+        Rectangle screen = self.GetDimensions().ToRectangle();
+        if (failed || !WorldChronicleSkin.Ready || screen.Width < 800 || screen.Height < 500) { orig(self, batch); return; }
+        try { DrawGenerationBook(batch, screen); return; }
+        catch (Exception ex) { Disable(ex); }
+        orig(self, batch);
+    }
+    private static void DrawGenerationBook(SpriteBatch batch, Rectangle screen)
+    {
+        double now = Clock.Elapsed.TotalSeconds;
+        WorldChronicleSkin.Draw(batch, screen, now);
+        Rectangle b = WorldChronicleSkin.BookBounds(screen), page = WorldChronicleSkin.RightPage(b);
+        float u = b.Width / 1500f;
+        GenerationProgress progress = WorldGenerator.CurrentGenerationProgress;
+        WorldChronicleStages.Snapshot stage = WorldChronicleStages.Current;
+        float total = MathHelper.Clamp((float)(progress?.TotalProgress ?? 0), 0, 1);
+        float local = MathHelper.Clamp((float)(progress?.Value ?? 0), 0, 1);
+        double elapsed = stage == null ? 0 : Math.Max(0, now - stage.GenerationStart);
+        if (stage != null && stage.GenerationStart != etaGeneration) { etaGeneration = stage.GenerationStart; eta = -1; lastEtaSample = -1; }
+        // ETA sampling is time based, independent of FPS.
+        if (elapsed - lastEtaSample >= 1 && elapsed >= 15 && total > .02f && total < 1)
+        {
+            double sample = elapsed * (1 - total) / total;
+            eta = eta < 0 ? sample : eta * .85 + sample * .15; lastEtaSample = elapsed;
+        }
+        WorldChronicleSkin.Heading(batch, WorldChronicleSkin.Local("CreateTitle"), At(page, u, 0, 0, page.Width / u, 46), .92f * u);
+        FitText(batch, Main.worldName, page, 54 * u, 1.02f * u, WorldChronicleSkin.Muted);
+        string counter = stage == null ? WorldChronicleSkin.Local("Preparing") : string.Format(WorldChronicleSkin.Local("StageCounter"), stage.Index + 1, stage.Passes.Length);
+        WorldChronicleSkin.Text(batch, counter, new(page.X, page.Y + 96 * u), .86f * u, WorldChronicleSkin.Muted);
+        string current = stage == null ? WorldChronicleSkin.Local("Preparing") : WorldChronicleStages.Title(stage.Passes[stage.Index]);
+        WorldChronicleSkin.Wrapped(batch, current, At(page, u, 0, 122, page.Width / u, 48), 1.06f * u);
+        string message = progress?.Message;
+        if (string.IsNullOrWhiteSpace(message)) message = WorldChronicleStages.Explanation(stage == null ? null : stage.Passes[stage.Index]);
+        WorldChronicleSkin.Wrapped(batch, message, At(page, u, 0, 174, page.Width / u, 48), .82f * u, WorldChronicleSkin.Muted);
+        WorldChronicleSkin.Progress(batch, At(page, u, 0, 230, page.Width / u, 22), total);
+        WorldChronicleSkin.Text(batch, string.Format(WorldChronicleSkin.Local("Overall"), total * 100), new(page.X, page.Y + 260 * u), .88f * u);
+        FitText(batch, string.Format(WorldChronicleSkin.Local("Elapsed"), FormatTime(elapsed)), page, 288 * u, .78f * u, WorldChronicleSkin.Muted);
+        string remaining = eta >= 0 && total < 1 ? string.Format(WorldChronicleSkin.Local("Remaining"), FormatTime(Math.Round(eta / 10) * 10)) : total >= 1 ? WorldChronicleSkin.Local("Finishing") : WorldChronicleSkin.Local("Estimating");
+        FitText(batch, remaining, page, 311 * u, .78f * u, WorldChronicleSkin.Muted);
+        WorldChronicleSkin.Progress(batch, At(page, u, 0, 342, page.Width / u, 10), local);
+        WorldChronicleSkin.Text(batch, string.Format(WorldChronicleSkin.Local("PassProgress"), local * 100), new(page.X, page.Y + 358 * u), .75f * u, WorldChronicleSkin.Muted);
+        // A moving window into ALL enabled passes. No invented macro-stage progress.
+        if (stage != null)
+        {
+            int visible = Math.Clamp((int)((page.Height - 565 * u) / (24 * u)), 3, 7);
+            int first = Math.Clamp(stage.Index - visible / 2, 0, Math.Max(0, stage.Passes.Length - visible));
+            for (int row = 0; row < visible && first + row < stage.Passes.Length; row++)
+            {
+                int index = first + row;
+                string label = $"{index + 1:00}  {WorldChronicleStages.Title(stage.Passes[index])}";
+                if (index == stage.Index) DingDongUiAssets.DrawBookCard(batch, At(page, u, -4, 402 + row * 24, page.Width / u + 8, 24), Color.White);
+                Color color = index == stage.Index ? WorldChronicleSkin.Ink : index < stage.Index ? WorldChronicleSkin.Green : WorldChronicleSkin.Muted;
+                FitText(batch, label, page, (402 + row * 24) * u, .76f * u, color);
+            }
+        }
+    }
+    private static void DrawLocalLoading(On_Main.orig_DrawMenu orig, Main self, GameTime gameTime)
+    {
+        orig(self, gameTime);
+        bool active = Main.gameMenu && Main.menuMode == 10 && Main.netMode == 0;
+        if (!active) { loading = false; return; }
+        if (failed || !WorldChronicleSkin.Ready) return;
+        double now = Clock.Elapsed.TotalSeconds;
+        if (!loading) { loading = true; loadStart = now; }
+        var screen = new Rectangle(0, 0, (int)(Main.screenWidth / Main.UIScale), (int)(Main.screenHeight / Main.UIScale));
+        if (screen.Width < 800 || screen.Height < 500) return;
+        SpriteBatch batch = Main.spriteBatch; bool begun = false;
+        try
+        {
+            // DrawMenu ends its batch. MP connection menus have Cancel and are excluded.
+            batch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.UIScaleMatrix); begun = true;
+            WorldChronicleSkin.Draw(batch, screen, now, loading: true);
+            Rectangle b = WorldChronicleSkin.BookBounds(screen), page = WorldChronicleSkin.RightPage(b); float u = b.Width / 1500f;
+            WorldChronicleSkin.Heading(batch, WorldChronicleSkin.Local("LoadTitle"), At(page, u, 0, 0, page.Width / u, 50), .92f * u);
+            FitText(batch, Main.ActiveWorldFileData?.Name ?? Main.worldName, page, 64 * u, 1.02f * u, WorldChronicleSkin.Muted);
+            WorldChronicleSkin.Wrapped(batch, Main.statusText, At(page, u, 0, 160, page.Width / u, 110), 1.02f * u);
+            FitText(batch, string.Format(WorldChronicleSkin.Local("Elapsed"), FormatTime(now - loadStart)), page, 292 * u, .84f * u, WorldChronicleSkin.Muted);
+            WorldChronicleSkin.Wrapped(batch, WorldChronicleSkin.Local("LoadNote"), At(page, u, 0, 340, page.Width / u, 96), .84f * u, WorldChronicleSkin.Muted);
+            // Saved-world loading exposes no trustworthy total. Do not invent a % or ETA.
+        }
+        catch (Exception ex) { Disable(ex); }
+        finally { if (begun) batch.End(); }
+    }
+    private static Rectangle At(Rectangle p, float u, float x, float y, float w, float h) => new(p.X + (int)(x * u), p.Y + (int)(y * u), (int)(w * u), (int)(h * u));
+    private static void FitText(SpriteBatch batch, string text, Rectangle page, float y, float scale, Color color)
+    {
+        text ??= ""; var font = FontAssets.MouseText.Value;
+        while (text.Length > 1 && font.MeasureString(text).X * scale > page.Width) text = text[..^1];
+        WorldChronicleSkin.Text(batch, text, new(page.X, page.Y + y), scale, color);
+    }
+    private static string FormatTime(double seconds)
+    {
+        if (!double.IsFinite(seconds) || seconds < 0) seconds = 0;
+        TimeSpan t = TimeSpan.FromSeconds(Math.Min(seconds, 864000));
+        return t.TotalHours >= 1 ? t.ToString(@"h\:mm\:ss") : t.ToString(@"mm\:ss");
+    }
+    private static void Disable(Exception ex)
+    {
+        if (!failed) DingDongBiomeHomes.Instance?.Logger.Warn("DINGDONG_WORLD_CHRONICLE|verdict=FALLBACK|reason=" + ex.Message);
+        failed = true;
+    }
+}
 
-	private static Asset<Texture2D> backdrop;
-	private static UIWorldLoad currentScreen;
-	private static double etaSeconds = -1;
-	private static bool failed;
-
-	public override void Load()
-	{
-		if (Main.dedServ)
-			return;
-		backdrop = ModContent.Request<Texture2D>(AssetPath + "Backdrop", AssetRequestMode.AsyncLoad);
-		clock.Restart();
-		On_UIWorldLoad.DrawSelf += DrawBackdrop;
-	}
-
-	public override void Unload()
-	{
-		if (Main.dedServ)
-			return;
-		On_UIWorldLoad.DrawSelf -= DrawBackdrop;
-		backdrop = null;
-		currentScreen = null;
-	}
-
-	private static void DrawBackdrop(On_UIWorldLoad.orig_DrawSelf orig, UIWorldLoad self, SpriteBatch spriteBatch)
-	{
-		if (!failed && backdrop is { IsLoaded: true })
-		{
-			try
-			{
-				if (!ReferenceEquals(currentScreen, self))
-					BeginScreen(self);
-				DrawLayers(self, spriteBatch);
-			}
-			catch (Exception ex)
-			{
-				// Never break world generation over a decoration: fall back to the vanilla screen.
-				failed = true;
-				RestoreVanilla(self);
-				DingDongBiomeHomes.Instance?.Logger.Warn("DINGDONG_WORLDGEN_BACKDROP|verdict=DISABLED|reason=" + ex.Message);
-			}
-		}
-		orig(self, spriteBatch);
-	}
-
-	// Our panel replaces the vanilla bar and message: move them out of sight.
-	private static void BeginScreen(UIWorldLoad self)
-	{
-		currentScreen = self;
-		etaSeconds = -1;
-		shown = 0f;
-		generation.Restart();
-		if (ProgressBarField?.GetValue(self) is UIElement bar && ProgressMessageField?.GetValue(self) is UIElement message)
-		{
-			bar.Top.Set(-5000f, 0f);
-			message.Top.Set(-5000f, 0f);
-			self.Recalculate();
-		}
-	}
-
-	private static void RestoreVanilla(UIWorldLoad self)
-	{
-		if (ProgressBarField?.GetValue(self) is UIElement bar && ProgressMessageField?.GetValue(self) is UIElement message)
-		{
-			bar.Top.Set(-60f, 0.5f);
-			message.Top.Set(-120f, 0.5f);
-			self.Recalculate();
-		}
-	}
-
-	private static void DrawLayers(UIWorldLoad self, SpriteBatch spriteBatch)
-	{
-		CalculatedStyle screen = self.GetDimensions();
-		float time = (float)clock.Elapsed.TotalSeconds;
-
-		// Calm backdrop: the art slowly breathes, dimmed so the text stays readable.
-		float breathe = 1f + 0.015f * (0.5f + 0.5f * MathF.Sin(time * 0.25f));
-		float scale = Math.Max(screen.Width / ArtWidth, screen.Height / ArtHeight) * breathe;
-		Vector2 origin = new(screen.X + (screen.Width - ArtWidth * scale) / 2f, screen.Y + (screen.Height - ArtHeight * scale) / 2f);
-		spriteBatch.Draw(backdrop.Value, origin, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
-		Texture2D pixel = TextureAssets.MagicPixel.Value;
-		spriteBatch.Draw(pixel, new Rectangle((int)screen.X, (int)screen.Y, (int)screen.Width, (int)screen.Height), Color.Black * 0.35f);
-
-		DynamicSpriteFont titleFont = FontAssets.DeathText.Value;
-		DynamicSpriteFont font = FontAssets.MouseText.Value;
-		float ui = Math.Clamp(screen.Width / 1920f, 0.7f, 1.2f);
-		DrawCentered(spriteBatch, titleFont, Language.GetTextValue(TextKey + ".Title"),
-			new Vector2(screen.Center().X, screen.Y + screen.Height * 0.12f), new Color(255, 214, 120), 0.8f * ui);
-		DrawCentered(spriteBatch, font, Language.GetTextValue(TextKey + ".Subtitle"),
-			new Vector2(screen.Center().X, screen.Y + screen.Height * 0.12f + 46f * ui), new Color(200, 210, 240), 1f * ui);
-
-		// Status panel.
-		GenerationProgress progress = WorldGenerator.CurrentGenerationProgress;
-		float p = MathHelper.Clamp((float)(progress?.TotalProgress ?? 0d), 0f, 1f);
-		(int stage, int stages) = StageOf(progress);
-		int width = (int)Math.Min(screen.Width * 0.7f, 980f * ui), height = (int)(150 * ui);
-		var panel = new Rectangle((int)(screen.Center().X - width / 2f), (int)(screen.Y + screen.Height * 0.66f), width, height);
-		spriteBatch.Draw(pixel, panel, new Color(10, 12, 26) * 0.85f);
-		DrawFrame(spriteBatch, pixel, panel, new Color(255, 200, 110) * 0.65f, 2);
-		int pad = (int)(22 * ui);
-
-		string message = progress?.Message;
-		if (string.IsNullOrWhiteSpace(message)) message = Language.GetTextValue(TextKey + ".Preparing");
-		string stageText = stages > 0
-			? Language.GetTextValue(TextKey + ".Stage", stage, stages, message)
-			: message;
-		DrawLeft(spriteBatch, font, Fit(font, stageText, panel.Width - 2 * pad, 1.0f * ui), new Vector2(panel.X + pad, panel.Y + pad), Color.White, 1.0f * ui);
-
-		var track = new Rectangle(panel.X + pad, panel.Y + (int)(62 * ui), panel.Width - 2 * pad - (int)(90 * ui), (int)(18 * ui));
-		spriteBatch.Draw(pixel, track, new Color(40, 44, 70));
-		shown = shown <= 0f ? p : shown + (p - shown) * 0.08f;
-		spriteBatch.Draw(pixel, new Rectangle(track.X, track.Y, (int)(track.Width * shown), track.Height), new Color(255, 196, 92));
-		DrawFrame(spriteBatch, pixel, track, new Color(255, 220, 160) * 0.5f, 1);
-		DrawLeft(spriteBatch, font, $"{p * 100f:0}%", new Vector2(track.Right + 14 * ui, track.Y - 4 * ui), new Color(255, 214, 120), 1.05f * ui);
-
-		double elapsed = generation.Elapsed.TotalSeconds;
-		if (p > 0.02f)
-		{
-			double raw = elapsed * (1 - p) / p;
-			etaSeconds = etaSeconds < 0 ? raw : etaSeconds * 0.98 + raw * 0.02;
-		}
-		string timeText = Language.GetTextValue(TextKey + ".Elapsed", Clock(elapsed)) + "  ·  " +
-			(p > 0.02f ? Language.GetTextValue(TextKey + ".Remaining", Clock(Math.Round(etaSeconds / 10) * 10)) : Language.GetTextValue(TextKey + ".Estimating"));
-		DrawLeft(spriteBatch, font, timeText, new Vector2(panel.X + pad, panel.Y + (int)(98 * ui)), new Color(200, 210, 240), 0.9f * ui);
-		string hint = Language.GetTextValue(TextKey + ".Hint");
-		Vector2 hintSize = ChatManager.GetStringSize(font, hint, Vector2.One) * 0.8f * ui;
-		DrawLeft(spriteBatch, font, hint, new Vector2(panel.Right - pad - hintSize.X, panel.Y + (int)(100 * ui)), new Color(150, 160, 190), 0.8f * ui);
-
-		// A line of lore under the panel, changing every few seconds.
-		const float LineSeconds = 8f;
-		int line = (int)(time / LineSeconds) % LineCount;
-		float local = time % LineSeconds;
-		float fade = MathHelper.Clamp(Math.Min(local / 1.2f, (LineSeconds - local) / 1.2f), 0f, 1f);
-		DrawCentered(spriteBatch, font, Language.GetTextValue($"{TextKey}.Line{line}"),
-			new Vector2(screen.Center().X, panel.Bottom + 40f * ui), new Color(255, 236, 200) * (0.85f * fade), 1.0f * ui);
-	}
-
-	private static float shown;
-
-	// Current pass (1-based) and the number of enabled passes, from the running generator.
-	private static (int Stage, int Stages) StageOf(GenerationProgress progress)
-	{
-		if (progress == null || GeneratorField?.GetValue(null) is not WorldGenerator generator || PassesField?.GetValue(generator) is not IList passes)
-			return (0, 0);
-		double total = 0;
-		foreach (GenPass pass in passes) if (pass.Enabled) total += pass.Weight;
-		if (total <= 0) return (0, 0);
-		double done = progress.TotalProgress * total, sum = 0;
-		int index = 0, count = 0;
-		foreach (GenPass pass in passes)
-		{
-			if (!pass.Enabled) continue;
-			count++;
-			if (index == 0 && sum + pass.Weight >= done) index = count;
-			sum += pass.Weight;
-		}
-		return (Math.Max(1, index == 0 ? count : index), count);
-	}
-
-	private static string Clock(double seconds)
-	{
-		var span = TimeSpan.FromSeconds(Math.Max(0, seconds));
-		return span.TotalHours >= 1 ? span.ToString(@"h\:mm\:ss") : span.ToString(@"mm\:ss");
-	}
-
-	private static string Fit(DynamicSpriteFont font, string text, float width, float scale)
-	{
-		if (ChatManager.GetStringSize(font, text, Vector2.One).X * scale <= width) return text;
-		while (text.Length > 4 && ChatManager.GetStringSize(font, text + "…", Vector2.One).X * scale > width)
-			text = text[..^1];
-		return text + "…";
-	}
-
-	private static void DrawFrame(SpriteBatch spriteBatch, Texture2D pixel, Rectangle r, Color color, int thickness)
-	{
-		spriteBatch.Draw(pixel, new Rectangle(r.X, r.Y, r.Width, thickness), color);
-		spriteBatch.Draw(pixel, new Rectangle(r.X, r.Bottom - thickness, r.Width, thickness), color);
-		spriteBatch.Draw(pixel, new Rectangle(r.X, r.Y, thickness, r.Height), color);
-		spriteBatch.Draw(pixel, new Rectangle(r.Right - thickness, r.Y, thickness, r.Height), color);
-	}
-
-	private static void DrawLeft(SpriteBatch spriteBatch, DynamicSpriteFont font, string text, Vector2 position, Color color, float scale) =>
-		ChatManager.DrawColorCodedStringWithShadow(spriteBatch, font, text, position, color, 0f, Vector2.Zero, new Vector2(scale));
-
-	private static void DrawCentered(SpriteBatch spriteBatch, DynamicSpriteFont font, string text, Vector2 center, Color color, float scale)
-	{
-		Vector2 size = ChatManager.GetStringSize(font, text, Vector2.One);
-		ChatManager.DrawColorCodedStringWithShadow(spriteBatch, font, text, center, color, 0f, size / 2f, new Vector2(scale));
-	}
+internal static class WorldChronicleStages
+{
+    private static readonly FieldInfo GeneratorField = typeof(WorldGen).GetField("_generator", BindingFlags.Static | BindingFlags.NonPublic);
+    private static readonly FieldInfo PassesField = typeof(WorldGenerator).GetField("_passes", BindingFlags.Instance | BindingFlags.NonPublic);
+    private static object generator;
+    private static GenPass[] enabled = Array.Empty<GenPass>();
+    private static string[] names = Array.Empty<string>();
+    private static double started;
+    internal static volatile Snapshot Current;
+    internal sealed class Snapshot
+    {
+        internal readonly string[] Passes; internal readonly int Index; internal readonly double GenerationStart;
+        internal Snapshot(string[] passes, int index, double start) { Passes = passes; Index = index; GenerationStart = start; }
+    }
+    internal static void Reset() { generator = null; enabled = Array.Empty<GenPass>(); names = Array.Empty<string>(); Current = null; }
+    internal static void Begin(GenPass pass, double now)
+    {
+        object actual = GeneratorField?.GetValue(null); if (actual == null) return;
+        if (!ReferenceEquals(actual, generator))
+        {
+            var list = new List<GenPass>(); if (PassesField?.GetValue(actual) is not IList passes) return;
+            foreach (GenPass item in passes) if (item.Enabled) list.Add(item);
+            enabled = list.ToArray(); names = Array.ConvertAll(enabled, p => p.Name); generator = actual; started = now;
+        }
+        int index = Array.IndexOf(enabled, pass);
+        // Ignore recursively applied children of wrapped compatibility passes.
+        if (index >= 0) Current = new Snapshot(names, index, started);
+    }
+    internal static string Title(string raw)
+    {
+        if (string.IsNullOrWhiteSpace(raw)) return WorldChronicleSkin.Local("Preparing");
+        string key = raw.Replace(" ", "_").Replace(":", "_").Replace("/", "_").Replace("-", "_");
+        string value = WorldChronicleSkin.Local("Passes." + key);
+        return value.StartsWith("Mods.DingDongBiomeHomes.", StringComparison.Ordinal) ? raw : value;
+    }
+    internal static string Explanation(string raw)
+    {
+        string s = (raw ?? "").ToLowerInvariant();
+        string key = s.Contains("residen") || s.Contains("settlement") ? "Residences" : s.Contains("ocean") || s.Contains("beach") ? "Ocean" :
+            s.Contains("cav") || s.Contains("tunnel") ? "Caves" : s.Contains("ore") || s.Contains("resource") ? "Resources" :
+            s.Contains("water") || s.Contains("liquid") || s.Contains("hydrolog") ? "Waters" : s.Contains("terrain") || s == "reset" ? "Terrain" :
+            s.Contains("dungeon") || s.Contains("temple") || s.Contains("structure") ? "Structures" : s.Contains("biome") || s.Contains("jungle") || s.Contains("snow") ? "Biomes" :
+            s.Contains("decorat") || s.Contains("plant") || s.Contains("grass") ? "Decoration" : s.Contains("receipt") || s.Contains("final") || s.Contains("cleanup") ? "Finalize" : "Generic";
+        return WorldChronicleSkin.Local("Help." + key);
+    }
 }

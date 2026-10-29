@@ -10,7 +10,8 @@ public sealed class MagicStorageStarterPlayer : ModPlayer
 	internal static readonly (string Name, int Stack)[] Kit =
 	[
 		("StorageHeart", 1), ("CraftingAccess", 1), ("StorageAccess", 1),
-		("StorageUnit", 3), ("StorageUnitTiny", 2), ("StorageConnector", 8)
+		// Owner, 29.10: no Tiny Storage Unit — it can be neither crafted nor uncrafted.
+		("StorageUnit", 3), ("StorageConnector", 8)
 	];
 	internal static bool IsKitComponent(Item item)
 	{

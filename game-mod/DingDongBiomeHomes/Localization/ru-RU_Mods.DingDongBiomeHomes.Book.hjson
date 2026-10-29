@@ -3,7 +3,7 @@
 MainStory: Сюжетная линия
 SideStory: Побочная линия
 Reputation: Репутация мира
-StagesTitle: Этапы цепочки (общие для всех игроков)
+StagesTitle: Этапы цепочки (общие)
 ResidenceProtected: Резиденция защищена до переезда
 ResidenceMoved: Переезд завершён
 AcceptOnMeet: Принять при встрече
@@ -32,7 +32,7 @@ Filters: {
 	Main: Сюжетные
 	Side: Побочные
 	Mine: Мои
-	Done: Завершённые
+	Done: Готовые
 }
 
 FilterEmpty: Под этот фильтр пока не подходит ни один житель.

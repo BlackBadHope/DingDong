@@ -1,0 +1,106 @@
+CreateChapter: Новая летопись
+LoadChapter: Возвращение
+CreateTitle: Создание мира
+LoadTitle: Загрузка мира
+Motto: Мир не торопит. Мир запоминает.
+Preparing: Подготовка летописи…
+StageCounter: "Этап {0} из {1}"
+Overall: "Мир создан на {0:0}%"
+PassProgress: "Текущий этап: {0:0}%"
+Elapsed: "Прошло {0}"
+Remaining: "Осталось примерно {0}"
+Estimating: Время до завершения ещё оценивается…
+Finishing: Завершаем и сохраняем мир…
+LoadNote: Возвращаемся к уже написанному. Здесь показан текущий шаг загрузки вашего мира.
+Help: {
+  Residences: Размещаем авторские резиденции и проверяем их окружение.
+  Ocean: Формируем океан, берега и морские области.
+  Caves: Прокладываем пещеры и подземные проходы.
+  Resources: Распределяем руду и природные ресурсы.
+  Waters: Заполняем водоёмы и рассчитываем жидкости.
+  Terrain: Создаём основу материка и рельеф.
+  Structures: Размещаем постройки и крупные сооружения.
+  Biomes: Формируем биомы и их границы.
+  Decoration: Добавляем растительность и детали окружения.
+  Finalize: Проверяем и завершаем сгенерированный мир.
+  Generic: Выполняется этап генерации. Его название показано выше.
+}
+Passes: {
+  Reset: Подготовка мира
+  Terrain: Рельеф материка
+  Tunnels: Подземные тоннели
+  Sand: Песчаные области
+  Ocean_Sand: Дно океанов
+  Caves: Пещеры
+  Dirt_Layer_Caves: Пещеры верхнего слоя
+  Rock_Layer_Caves: Пещеры каменного слоя
+  Surface_Caves: Входы в пещеры
+  Jungle: Джунгли
+  Snow: Снежные области
+  Dungeon: Темница
+  Underworld: Подземный мир
+  Lakes: Озёра
+  Small_Holes: Малые полости
+  Chests: Сундуки
+  Buried_Chests: Подземные сундуки
+  Pots: Горшки
+  Piles: Природные залежи
+  Pyramids: Пирамиды
+  Floating_Islands: Парящие острова
+  Floating_Island_Houses: Дома на парящих островах
+  Evil_Biome: Искажение или Багрянец
+  Corruption: Искажение
+  Shinies: Рудные жилы
+  Gems: Драгоценные камни
+  Spider_Caves: Паучьи пещеры
+  Micro_Biomes: Малые биомы
+  Living_Trees: Живые деревья
+  Jungle_Temple: Храм джунглей
+  Hives: Ульи
+  Grass: Трава
+  Trees: Деревья
+  Vines: Лианы
+  Flowers: Цветы
+  Cactus: Кактусы
+  Herbs: Травы
+  Water_Plants: Водные растения
+  Waterfalls: Водопады
+  Liquid_Setup: Подготовка жидкостей
+  Settle_Liquids: Равновесие жидкостей
+  Final_Cleanup: Завершающая обработка
+  Tile_Cleanup: Проверка тайлов
+  Spawn_Point: Точка появления
+  Guide: Первый житель
+  Altars: Алтари
+  Larva: Личинки ульев
+  Traps: Ловушки
+  Minecart_Tracks: Рельсовые пути
+  Moss: Мох
+  Slush: Слякоть
+  Silt: Ил
+  Planting_Trees: Посадка деревьев
+  Stalac: Сталактиты и сталагмиты
+  DingDong_authored_biome_settlements: Авторские резиденции
+  DingDong_continental_biome_identity: Границы континентальных биомов
+  DingDong_continental_natural_landmarks: Природные достопримечательности
+  DingDong_continental_natural_receipt: Проверка природного окружения
+  DingDong_open_ocean: Глубокий открытый океан
+  DingDong_ocean_expeditions: Морские экспедиции
+  DingDong_subterranean_waters: Подземные водоёмы
+  DingDong_lava_proof_spawn_sanctuary: Защищённое святилище спавна
+  DingDong_ocean_foreign_footprint_receipt: Проверка океана и областей модов
+  DingDong_native_worldgen_receipt: Итоговая проверка генерации
+  DingDong_Compiler__Base_Terrain: Основа континента
+  DingDong_Compiler__Cavern_Graph: Связи подземных пещер
+  DingDong_Compiler__Resources: Ресурсы мира
+  DingDong_Compiler__Hydrology: Водная система
+  DingDong_Compiler__World_Metadata: Параметры мира
+  DingDong_Compiler__Structures: Крупные постройки
+  DingDong_Compiler__World_Contracts: Проверка областей мира
+  DingDong_Compiler__Compatibility_Extensions: Области сторонних модов
+  DingDong_Compiler__Natural_Decoration: Природное оформление
+  DingDong_Compiler__Authored_Spawn: Авторская точка появления
+  DingDong_Compiler__Authored_Residences: Авторские резиденции
+  DingDong_Compiler__Finalize: Завершение мира
+  DingDong_Compiler__Receipt: Итоговая проверка
+}

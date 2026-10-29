@@ -17,6 +17,7 @@ internal sealed class ResidentStoryTrail:UIElement
     private readonly int completed,count,first,shown;
     private readonly string[] titles,numbers;
     private string[][] labels=Array.Empty<string[]>();
+    private float[] labelScales=Array.Empty<float>();
     private float[][] labelWidths=Array.Empty<float[]>();
     private readonly string header;
     private float headerScale=.72f;
@@ -35,12 +36,18 @@ internal sealed class ResidentStoryTrail:UIElement
         var font=FontAssets.MouseText.Value;float width=GetDimensions().Width;
         headerScale=Math.Clamp((width-Pad*2)/Math.Max(1f,font.MeasureString(header).X),.5f,.72f);
         float cell=shown>0?(width-Pad*2)/shown:width;
-        labels=new string[shown][];labelWidths=new float[shown][];
-        for(int i=0;i<shown;i++){labels[i]=Wrap(font,titles[i],cell-6,2);labelWidths[i]=new float[labels[i].Length];
-            for(int j=0;j<labels[i].Length;j++)labelWidths[i][j]=font.MeasureString(labels[i][j]).X*LabelScale;}
+        labels=new string[shown][];labelWidths=new float[shown][];labelScales=new float[shown];
+        for(int i=0;i<shown;i++){
+            // 29.10 (owner shot): long words were cut mid-word; the label now shrinks until its
+            // longest word fits the cell, and only a third line is dropped (full title on hover).
+            float longest=1f;foreach(string w in titles[i].Split(' '))longest=Math.Max(longest,font.MeasureString(w).X);
+            float s=Math.Clamp((cell-6)/longest,.40f,LabelScale);labelScales[i]=s;
+            labels[i]=Wrap(font,titles[i],cell-6,2,s);labelWidths[i]=new float[labels[i].Length];
+            for(int j=0;j<labels[i].Length;j++)labelWidths[i][j]=font.MeasureString(labels[i][j]).X*s;}
     }
-    private static string[] Wrap(DynamicSpriteFont font,string text,float width,int maxLines)
+    private static string[] Wrap(DynamicSpriteFont font,string text,float width,int maxLines,float scale)
     {
+        float LabelScale=scale;
         var output=new List<string>();string line="";
         foreach(string word in text.Split(' '))
         {
@@ -50,7 +57,7 @@ internal sealed class ResidentStoryTrail:UIElement
         if(line.Length>0)output.Add(line);
         for(int i=0;i<output.Count;i++)
             while(output[i].Length>1&&font.MeasureString(output[i]).X*LabelScale>width)output[i]=output[i][..^1]; // full title stays on hover
-        if(output.Count>maxLines)output.RemoveRange(maxLines,output.Count-maxLines);
+        if(output.Count>maxLines){output.RemoveRange(maxLines,output.Count-maxLines);output[maxLines-1]=output[maxLines-1].TrimEnd('.',',')+"…";}
         return output.ToArray();
     }
     private static void Line(SpriteBatch batch,Vector2 from,Vector2 to,Color color,float thickness)
@@ -85,7 +92,7 @@ internal sealed class ResidentStoryTrail:UIElement
             }
             if(i<labels.Length)
                 for(int j=0;j<labels[i].Length;j++)
-                    batch.DrawString(font,labels[i][j],new Vector2(cx-labelWidths[i][j]*.5f,cy+21+j*14),stage>completed?ResidentBookJournal.Muted*.8f:ResidentBookJournal.Ink,0,Vector2.Zero,LabelScale,SpriteEffects.None,0);
+                    batch.DrawString(font,labels[i][j],new Vector2(cx-labelWidths[i][j]*.5f,cy+21+j*14),stage>completed?ResidentBookJournal.Muted*.8f:ResidentBookJournal.Ink,0,Vector2.Zero,i<labelScales.Length?labelScales[i]:LabelScale,SpriteEffects.None,0);
             if(IsMouseHovering&&Main.MouseScreen.X>=a.X+Pad+i*cell&&Main.MouseScreen.X<a.X+Pad+(i+1)*cell)Main.hoverItemName=titles[i];
         }
     }

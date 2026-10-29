@@ -533,14 +533,14 @@ internal sealed class BookResidentRow : UIElement
         int roleItem = ResidentRoleIcons.Get(npcKey, npcKey == null ? "" : PersonalResidentQuestCatalog.Force(npcKey));
         // The glyph explains the resident's role and force; the status has its own caption (item 8 review).
         role = new BookItemGlyph(roleItem, 30, roleHover, dim ? new Color(120, 112, 98) : Color.White); Append(role);
-        status = new BookText(stateText, .72f, ResidentBookJournal.StatusColor(state)) { Centered = true, SingleLine = true, MinScale = .56f }; Append(status);
+        status = new BookText(stateText, .72f, ResidentBookJournal.StatusColor(state)) { Centered = true, SingleLine = true, MinScale = .5f }; Append(status);
         statusHover = stateHover;
     }
     private readonly string statusHover;
     public override void Recalculate()
     {
         base.Recalculate();
-        float width = GetInnerDimensions().Width, column = Math.Clamp(width * .21f, 64, 104), left = 76, nameLeft = mainStory ? left + 26 : left;
+        float width = GetInnerDimensions().Width, column = Math.Clamp(width * .27f, 80, 120), left = 76, nameLeft = mainStory ? left + 26 : left;
         if (star != null) { star.Left.Set(left, 0); star.Top.Set(3, 0); }
         title.Left.Set(nameLeft, 0); title.Top.Set(2, 0); title.Width.Set(-nameLeft - column - 4, 1);
         bar.Left.Set(left, 0); bar.Top.Set(40, 0); bar.Width.Set(-left - column - amountWidth - 10, 1);
@@ -587,10 +587,13 @@ internal sealed class BookActionButton : UITextPanel<string>
     internal BookActionButton(string text, float scale) : base(text, scale) { this.scale = scale; fitScale = scale; }
     public override void Recalculate()
     {
+        // UITextPanel sets MinWidth to the caption width, which pushed long captions past their
+        // share of the footer row (owner shot 29.10): the caption shrinks instead.
+        MinWidth.Set(0, 0); MinHeight.Set(0, 0);
         base.Recalculate();
         // Fit the caption once per layout (no measuring while drawing).
         var font = FontAssets.MouseText.Value; float measured = Math.Max(1f, font.MeasureString(Text ?? string.Empty).X);
-        fitScale = Math.Clamp((GetDimensions().Width - 18f) / measured, .5f, scale);
+        fitScale = Math.Clamp((GetDimensions().Width - 18f) / measured, .42f, scale);
         size = font.MeasureString(Text ?? string.Empty) * fitScale;
     }
     protected override void DrawSelf(SpriteBatch batch)

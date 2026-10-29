@@ -1,0 +1,106 @@
+CreateChapter: New chronicle
+LoadChapter: Returning
+CreateTitle: Creating a world
+LoadTitle: Loading a world
+Motto: The world does not hurry. The world remembers.
+Preparing: Preparing the chronicle…
+StageCounter: "Stage {0} of {1}"
+Overall: "World progress: {0:0}%"
+PassProgress: "Current stage: {0:0}%"
+Elapsed: "Elapsed {0}"
+Remaining: "About {0} remaining"
+Estimating: Estimating the remaining time…
+Finishing: Finishing and saving the world…
+LoadNote: Returning to what was written. The current world-loading step is shown above.
+Help: {
+  Residences: Placing authored residences and checking their surroundings.
+  Ocean: Shaping the ocean, coastlines and marine regions.
+  Caves: Carving caves and underground passages.
+  Resources: Distributing ore and natural resources.
+  Waters: Filling bodies of water and settling liquids.
+  Terrain: Creating the continent and its terrain.
+  Structures: Placing buildings and large structures.
+  Biomes: Shaping biomes and their boundaries.
+  Decoration: Adding vegetation and environmental details.
+  Finalize: Checking and finishing the generated world.
+  Generic: A world-generation stage is running. Its name is shown above.
+}
+Passes: {
+  Reset: Reset
+  Terrain: Terrain
+  Tunnels: Tunnels
+  Sand: Sand
+  Ocean_Sand: Ocean Sand
+  Caves: Caves
+  Dirt_Layer_Caves: Dirt Layer Caves
+  Rock_Layer_Caves: Rock Layer Caves
+  Surface_Caves: Surface Caves
+  Jungle: Jungle
+  Snow: Snow
+  Dungeon: Dungeon
+  Underworld: Underworld
+  Lakes: Lakes
+  Small_Holes: Small Holes
+  Chests: Chests
+  Buried_Chests: Buried Chests
+  Pots: Pots
+  Piles: Piles
+  Pyramids: Pyramids
+  Floating_Islands: Floating Islands
+  Floating_Island_Houses: Floating Island Houses
+  Evil_Biome: Evil Biome
+  Corruption: Corruption
+  Shinies: Shinies
+  Gems: Gems
+  Spider_Caves: Spider Caves
+  Micro_Biomes: Micro Biomes
+  Living_Trees: Living Trees
+  Jungle_Temple: Jungle Temple
+  Hives: Hives
+  Grass: Grass
+  Trees: Trees
+  Vines: Vines
+  Flowers: Flowers
+  Cactus: Cactus
+  Herbs: Herbs
+  Water_Plants: Water Plants
+  Waterfalls: Waterfalls
+  Liquid_Setup: Liquid Setup
+  Settle_Liquids: Settle Liquids
+  Final_Cleanup: Final Cleanup
+  Tile_Cleanup: Tile Cleanup
+  Spawn_Point: Spawn Point
+  Guide: Guide
+  Altars: Altars
+  Larva: Larva
+  Traps: Traps
+  Minecart_Tracks: Minecart Tracks
+  Moss: Moss
+  Slush: Slush
+  Silt: Silt
+  Planting_Trees: Planting Trees
+  Stalac: Stalac
+  DingDong_authored_biome_settlements: DingDong authored biome settlements
+  DingDong_continental_biome_identity: DingDong continental biome identity
+  DingDong_continental_natural_landmarks: DingDong continental natural landmarks
+  DingDong_continental_natural_receipt: DingDong continental natural receipt
+  DingDong_open_ocean: DingDong open ocean
+  DingDong_ocean_expeditions: DingDong ocean expeditions
+  DingDong_subterranean_waters: DingDong subterranean waters
+  DingDong_lava_proof_spawn_sanctuary: DingDong lava-proof spawn sanctuary
+  DingDong_ocean_foreign_footprint_receipt: DingDong ocean foreign footprint receipt
+  DingDong_native_worldgen_receipt: DingDong native worldgen receipt
+  DingDong_Compiler__Base_Terrain: DingDong Compiler: Base Terrain
+  DingDong_Compiler__Cavern_Graph: DingDong Compiler: Cavern Graph
+  DingDong_Compiler__Resources: DingDong Compiler: Resources
+  DingDong_Compiler__Hydrology: DingDong Compiler: Hydrology
+  DingDong_Compiler__World_Metadata: DingDong Compiler: World Metadata
+  DingDong_Compiler__Structures: DingDong Compiler: Structures
+  DingDong_Compiler__World_Contracts: DingDong Compiler: World Contracts
+  DingDong_Compiler__Compatibility_Extensions: DingDong Compiler: Compatibility Extensions
+  DingDong_Compiler__Natural_Decoration: DingDong Compiler: Natural Decoration
+  DingDong_Compiler__Authored_Spawn: DingDong Compiler: Authored Spawn
+  DingDong_Compiler__Authored_Residences: DingDong Compiler: Authored Residences
+  DingDong_Compiler__Finalize: DingDong Compiler: Finalize
+  DingDong_Compiler__Receipt: DingDong Compiler: Receipt
+}

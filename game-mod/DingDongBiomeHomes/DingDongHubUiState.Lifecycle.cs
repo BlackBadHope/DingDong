@@ -31,9 +31,10 @@ internal sealed partial class DingDongHubUiState
 		title.Left.Set(104f,0f);title.Top.Set(2f, 0f);
 		title.Width.Set(-8f, .48f);
 		shell.Append(title);
-        tagline = new BookText(Text("Tagline"),.90f,InkSoft);
+        // 29.10: one line that shrinks, ending before the corner flowers of the page.
+        tagline = new BookText(Text("Tagline"),.90f,InkSoft) { SingleLine = true, MinScale = .66f };
 		tagline.Left.Set(104f,0f);tagline.Top.Set(41f, 0f);
-		tagline.Width.Set(-8f, .48f);
+		tagline.Width.Set(-40f, .48f);
 		shell.Append(tagline);
 		JournalCloseButton close = new();
 		close.Width.Set(32f, 0f);

@@ -30,7 +30,7 @@ public sealed class StarterUncraftRuntimeProbe : ModSystem
 			Player player = new(); Main.player[0] = player; Main.myPlayer = 0;
 			var starter = player.GetModPlayer<MagicStorageStarterPlayer>();
 			Item[] kit = starter.AddStartingItems(false).ToArray();
-			Require(kit.Length == 6 && kit.All(i => i.ModItem?.Mod.Name == "MagicStorage"), "Starter contains only six Magic Storage component stacks");
+			Require(kit.Length == 5 && kit.All(i => i.ModItem?.Mod.Name == "MagicStorage") && kit.All(i => i.ModItem.Name != "StorageUnitTiny"), "Starter contains only five Magic Storage component stacks, no Tiny Storage Unit");
 			Require(!starter.AddStartingItems(true).Any(), "No kit on mediumcore death");
 			Item[] creation = PlayerLoader.GetStartingItems(player, Array.Empty<Item>(), false).ToArray();
 			foreach (Item component in kit)
