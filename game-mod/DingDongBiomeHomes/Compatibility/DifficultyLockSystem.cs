@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -92,6 +93,27 @@ public sealed class DifficultyLockSystem : ModSystem
 	}
 
 	// Returns how many flags had to be restored. No allocations on the steady path.
+	/// <summary>Runs <paramref name="body"/> with the world difficulty either at normal (all flags
+	/// off) or at the locked Ding Dong level, then restores every value exactly. Used at load time,
+	/// before any world exists, to measure boss stats under both (weapon forging calibration).</summary>
+	internal static T WithDifficulty<T>(bool locked, Func<T> body)
+	{
+		int mode = Main.GameMode; bool ftw = Main.getGoodWorld;
+		Flag[] flags = { fargoShould, fargoEternity, fargoMaso, fargoCanPlayMaso, calRevenge, calDeath };
+		bool[] saved = flags.Select(f => f?.Get() ?? false).ToArray();
+		try
+		{
+			if (locked) { Main.GameMode = GameModeID.Master; Main.getGoodWorld = true; Enforce(full: true); }
+			else { Main.GameMode = GameModeID.Normal; Main.getGoodWorld = false; foreach (Flag f in flags) f?.Set(false); }
+			return body();
+		}
+		finally
+		{
+			for (int i = 0; i < flags.Length; i++) flags[i]?.Set(saved[i]);
+			Main.GameMode = mode; Main.getGoodWorld = ftw;
+		}
+	}
+
 	internal static int Enforce(bool full)
 	{
 		int repaired = 0;
@@ -272,6 +294,8 @@ public sealed class DifficultyLockSystem : ModSystem
 		internal readonly Func<bool> Get;
 		private readonly Action<bool> set;
 		private Flag(Func<bool> get, Action<bool> set) { Get = get; this.set = set; }
+
+		internal void Set(bool value) => set(value);
 
 		internal int Ensure()
 		{

@@ -1,0 +1,23 @@
+{
+  Name: "{0} ({1})"
+  ElementalOf: "стихия: {0}"
+  Flag: {
+    Crippled: "увечный"
+    Empowered: "усиленный"
+    Elemental: "стихийный"
+    Armored: "бронированный"
+    Swift: "быстрый"
+    Regenerating: "регенерирующий"
+    Mutant: "мутант"
+  }
+  Element: {
+    Fire: "огонь"
+    Frost: "мороз"
+    Poison: "яд"
+    Shadow: "тень"
+    Holy: "свет"
+    Lightning: "гроза"
+    Water: "прилив"
+    Earth: "камень"
+  }
+}

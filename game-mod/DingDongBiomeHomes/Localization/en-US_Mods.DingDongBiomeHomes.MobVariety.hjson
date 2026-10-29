@@ -1,0 +1,23 @@
+{
+  Name: "{0} ({1})"
+  ElementalOf: "{0} elemental"
+  Flag: {
+    Crippled: "crippled"
+    Empowered: "empowered"
+    Elemental: "elemental"
+    Armored: "armored"
+    Swift: "swift"
+    Regenerating: "regenerating"
+    Mutant: "mutant"
+  }
+  Element: {
+    Fire: "fire"
+    Frost: "frost"
+    Poison: "venom"
+    Shadow: "shadow"
+    Holy: "holy"
+    Lightning: "storm"
+    Water: "tide"
+    Earth: "stone"
+  }
+}
