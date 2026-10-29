@@ -56,6 +56,11 @@ internal static partial class NpcQuestSystem
 			Notify(player, "Mods.DingDongBiomeHomes.SharedQuests.Assigned", progress.AssignedName);
 			return;
 		}
+		if (!progress.Active && ResidentReputationSystem.Get(questPlayer.PersistentId, npcKey) <= ResidentReputationSystem.QuestBanAt)
+		{
+			Notify(player, "Mods.DingDongBiomeHomes.Reputation.Refused", ResidentReputationSystem.ResidentName(npcKey), ResidentReputationSystem.Get(questPlayer.PersistentId, npcKey));
+			return;
+		}
 		if (RepairUnavailableProgression(player, npcKey, identity, progress))
 		{
 			NpcQuestWorldLedger.Record(player, npcKey, progress);

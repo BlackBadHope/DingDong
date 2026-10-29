@@ -1,0 +1,18 @@
+{
+  "Hostile": "{0} now treats you as an enemy and will attack you. Buy back what you broke in the quest book.",
+  "QuestBan": "{0} no longer trusts you and will not give you new quests.",
+  "Refused": "{0} refuses to give you a quest: your reputation is {1}.",
+  "BoughtBack": "You paid {0} for the broken blocks; they are back in place.",
+  "Line": "Reputation: {0}",
+  "Mood": {
+    "Hostile": "hostile",
+    "Banned": "no quests",
+    "Grumbling": "grumbling",
+    "Neutral": "neutral",
+    "Friendly": "friendly",
+    "Devoted": "devoted"
+  },
+  "Buyback": "Buy back {0} broken: {1}",
+  "BuybackNone": "Nothing broken here",
+  "BuybackPoor": "Not enough money: {0}"
+}

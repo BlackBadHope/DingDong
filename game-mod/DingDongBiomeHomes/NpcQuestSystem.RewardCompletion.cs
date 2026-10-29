@@ -36,6 +36,7 @@ internal static partial class NpcQuestSystem
 		progress.Completed = Math.Min(int.MaxValue - 1, progress.Completed + 1);
 		progress.ClearActive();
 		NpcQuestWorldLedger.Record(player, npcKey, progress);
+		ResidentReputationSystem.OnQuestCompleted(player, npcKey, progress.Completed, PersonalResidentQuestCatalog.Length(npcKey));
 		int totalCompleted = questPlayer.CurrentCompletedTotal();
 		QuestRewardReceipt receipt = definition.StoryKey.Length > 0 ? QuestRewardBalance.GrantPersonal(player, definition, reward) : QuestRewardBalance.Grant(player, identity, reward, rewardDifficulty, totalCompleted);
 		NpcQuestWorldLedger.RecordCompletion(npcKey, completedQuest, player, receipt);

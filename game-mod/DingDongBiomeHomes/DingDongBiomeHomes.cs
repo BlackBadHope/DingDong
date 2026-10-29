@@ -81,6 +81,11 @@ public sealed class DingDongBiomeHomes : Mod
 			ContinentalSectionStreamingNetwork.HandlePacket(reader, whoAmI, packetKind);
 			return;
 		}
+		if (ResidentReputationSystem.IsPacket(packetKind))
+		{
+			ResidentReputationSystem.HandlePacket(packetKind, reader, whoAmI);
+			return;
+		}
 		if (packetKind is Fishing.FishingNetwork.Select or Fishing.FishingNetwork.Snapshot)
 		{
 			Fishing.FishingNetwork.Handle(packetKind, reader, whoAmI);

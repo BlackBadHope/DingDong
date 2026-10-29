@@ -418,7 +418,27 @@ internal sealed class ResidentBookJournal : UIElement
         // Reference: the chain sits in its own framed card; the residence lock gets a full caption beside it.
         var trail = new ResidentStoryTrail(selected, p.Completed); trail.Top.Set(68, 0); trail.Width.Set(-170, 1); trail.Height.Set(104, 0); questFooter.Append(trail);
         var house = new BookAssetIcon(moved ? BookGlyph.Residents : BookGlyph.Residence); house.Left.Set(-160, 1); house.Top.Set(62, 0); house.Width.Set(150, 0); house.Height.Set(60, 0); questFooter.Append(house);
-        var homeText = new BookText(BookUiText.Get(moved ? "ResidenceMoved" : "ResidenceProtected"), .62f, Ink) { Centered = true }; homeText.Left.Set(-162, 1); homeText.Top.Set(124, 0); homeText.Width.Set(156, 0); questFooter.Append(homeText);
+        // S23: residences are no longer locked; the caption shows the reader's standing with this resident instead.
+        int standing = ResidentReputationSystem.Local(selected);
+        string mood = standing <= ResidentReputationSystem.HostileAt ? "Hostile" : standing <= ResidentReputationSystem.QuestBanAt ? "Banned"
+            : standing <= ResidentReputationSystem.GrumbleAt ? "Grumbling" : standing >= 700 ? "Devoted" : standing >= 300 ? "Friendly" : "Neutral";
+        string caption = moved ? BookUiText.Get("ResidenceMoved")
+            : Language.GetTextValue("Mods.DingDongBiomeHomes.Reputation.Line", standing) + " · " + Language.GetTextValue("Mods.DingDongBiomeHomes.Reputation.Mood." + mood);
+        var homeText = new BookText(caption, .62f, standing <= ResidentReputationSystem.QuestBanAt ? new Color(150, 40, 30) : Ink) { Centered = true }; homeText.Left.Set(-162, 1); homeText.Top.Set(122, 0); homeText.Width.Set(156, 0); questFooter.Append(homeText);
+        var (brokenCount, brokenPrice) = ResidentReputationSystem.LocalBroken(selected);
+        if (!moved && brokenCount > 0)
+        {
+            string coins = QuestRewardBalance.FormatCoins((int)Math.Min(int.MaxValue, brokenPrice));
+            var buyback = new BookActionButton(Language.GetTextValue("Mods.DingDongBiomeHomes.Reputation.Buyback", brokenCount, coins), .58f) { Warning = !Main.LocalPlayer.CanAfford(brokenPrice) };
+            buyback.Left.Set(-162, 1); buyback.Top.Set(142, 0); buyback.Width.Set(156, 0); buyback.Height.Set(30, 0);
+            buyback.OnLeftClick += (_, _) =>
+            {
+                SoundEngine.PlaySound(SoundID.Coins);
+                notice = ResidentReputationSystem.RequestBuyback(selected) ? string.Empty : Language.GetTextValue("Mods.DingDongBiomeHomes.Reputation.BuybackPoor", coins);
+                Reload();
+            };
+            questFooter.Append(buyback);
+        }
     }
 }
 

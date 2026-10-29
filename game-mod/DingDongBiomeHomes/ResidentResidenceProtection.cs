@@ -2,11 +2,13 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ObjectData;
 
 namespace DingDongBiomeHomes;
 
-// Guards exactly the blocks and walls the authored house placed, until its resident is released.
-// Terrain, plants, grown decor and player-placed tiles inside the scene stay breakable.
+// S23 (owner, 30.10): residences are no longer locked. Every block can be broken; breaking a
+// block the authored house itself placed costs reputation with its resident (ResidentReputationSystem).
+// The footprint is read from the house's blueprint, so terrain, plants and player-placed tiles cost nothing.
 internal static class ResidentResidenceProtection
 {
     private static readonly Dictionary<(int, int, int), DingDongAuthoredStructureLoader.ProtectedFootprint> footprints = new();
@@ -18,13 +20,10 @@ internal static class ResidentResidenceProtection
         unresolved.Clear();
     }
 
-    internal static bool IsTileProtected(int x, int y, int type) => !IsNatural(type) && Covers(x, y, wall: false);
-    internal static bool IsTileProtected(int x, int y) => IsTileProtected(x, y, Main.tile[x, y].TileType);
-    internal static bool IsWallProtected(int x, int y) => Covers(x, y, wall: true);
-
-    private static bool Covers(int x, int y, bool wall)
+    /// <summary>The resident whose authored house placed this cell, while that resident still lives there.</summary>
+    internal static bool TryOwner(int x, int y, bool wall, out string npcKey)
     {
-        // World generation and loading must retain their native write path.
+        npcKey = null;
         if (Main.gameMenu || WorldGen.gen || !ModContent.GetInstance<DingDongServerConfig>().EnableNpcQuestsAndEscort)
             return false;
         foreach (SettlementResidenceReport home in SettlementWorldState.Residences)
@@ -33,7 +32,9 @@ internal static class ResidentResidenceProtection
             var footprint = Footprint(home);
             if (footprint == null) return false;
             int index = (x - home.Area.X) * footprint.Height + (y - home.Area.Y);
-            return wall ? footprint.Walls[index] : footprint.Tiles[index];
+            if (!(wall ? footprint.Walls[index] : footprint.Tiles[index])) return false;
+            npcKey = home.NpcKey;
+            return true;
         }
         return false;
     }
@@ -58,67 +59,39 @@ internal static class ResidentResidenceProtection
         return built;
     }
 
-    // Plants, terrain, ore and graves are never guarded, even inside the footprint:
-    // vanilla removes some of them itself in loops (CheckCatTail) and a refused kill hangs the server.
-    private static bool IsNatural(int type) =>
+    // Plants, terrain, ore and graves never cost reputation: they are not the house itself.
+    internal static bool IsNatural(int type) =>
         Main.tileCut[type] || type is TileID.Tombstones or TileID.Cattail or TileID.LilyPad or TileID.Dirt or TileID.Mud or TileID.ClayBlock
-            or TileID.SnowBlock or TileID.Silt or TileID.Slush or TileID.Ash or TileID.Trees or TileID.PalmTree
+            or TileID.SnowBlock or TileID.Silt or TileID.Slush or TileID.Ash or TileID.Trees or TileID.PalmTree or TileID.LandMine
         || TileID.Sets.Ore[type] || TileID.Sets.Grass[type] || TileID.Sets.Conversion.Stone[type]
         || TileID.Sets.Conversion.Sand[type] || TileID.Sets.Conversion.Moss[type];
 }
 
-// These native replacement paths bypass the local-client CanReplace hook.
-// Guard the actual mutation as well, including server-side packet handling.
 public sealed class ResidentResidenceMutationSystem : ModSystem
 {
-    public override void Load()
-    {
-        On_WorldGen.ReplaceTile += ReplaceTile;
-        On_WorldGen.ReplaceWall += ReplaceWall;
-        On_WorldGen.SlopeTile += SlopeTile;
-        On_WorldGen.PoundTile += PoundTile;
-    }
-    public override void Unload()
-    {
-        On_WorldGen.ReplaceTile -= ReplaceTile;
-        On_WorldGen.ReplaceWall -= ReplaceWall;
-        On_WorldGen.SlopeTile -= SlopeTile;
-        On_WorldGen.PoundTile -= PoundTile;
-    }
     public override void OnWorldLoad() => ResidentResidenceProtection.Reset();
     public override void OnWorldUnload() => ResidentResidenceProtection.Reset();
-    private static bool ReplaceTile(On_WorldGen.orig_ReplaceTile next, int x, int y, ushort type, int style) =>
-        !ResidentResidenceProtection.IsTileProtected(x, y) && next(x, y, type, style);
-    private static bool ReplaceWall(On_WorldGen.orig_ReplaceWall next, int x, int y, ushort type) =>
-        !ResidentResidenceProtection.IsWallProtected(x, y) && next(x, y, type);
-    private static bool SlopeTile(On_WorldGen.orig_SlopeTile next, int x, int y, int slope, bool effects) =>
-        !ResidentResidenceProtection.IsTileProtected(x, y) && next(x, y, slope, effects);
-    private static bool PoundTile(On_WorldGen.orig_PoundTile next, int x, int y) =>
-        !ResidentResidenceProtection.IsTileProtected(x, y) && next(x, y);
 }
 
 public sealed class ResidentResidenceGlobalTile : GlobalTile
 {
-    public override bool CanKillTile(int i, int j, int type, ref bool blockDamaged) => !ResidentResidenceProtection.IsTileProtected(i, j, type);
-    public override bool CanExplode(int i, int j, int type) => !ResidentResidenceProtection.IsTileProtected(i, j, type);
-    public override bool CanReplace(int i, int j, int type, int tileTypeBeingPlaced) => !ResidentResidenceProtection.IsTileProtected(i, j, type);
-    public override bool Slope(int i, int j, int type) => !ResidentResidenceProtection.IsTileProtected(i, j, type);
     public override void KillTile(int i, int j, int type, ref bool fail, ref bool effectOnly, ref bool noItem)
     {
-        // Multi-tile objects drop their item in vanilla's frame check before killing the parts;
-        // refusing those kills leaves the object standing and drops again on every check (dupe).
-        // Players are already stopped by CanKillTile, so only plain blocks are refused here.
-        if (Main.tileFrameImportant[type] || !ResidentResidenceProtection.IsTileProtected(i, j, type)) return;
-        fail = true;
-        noItem = true;
+        if (fail || effectOnly || Main.netMode == NetmodeID.MultiplayerClient) return;
+        // A multi-tile object is charged once, at its top-left cell.
+        if (Main.tileFrameImportant[type] && TileObjectData.GetTileData(type, 0) != null && !TileObjectData.IsTopLeft(i, j)) return;
+        if (!ResidentResidenceProtection.TryOwner(i, j, wall: false, out string npcKey)) return;
+        int style = System.Math.Max(0, TileObjectData.GetTileStyle(Main.tile[i, j]));
+        ResidentReputationSystem.OnAuthoredCellBroken(npcKey, i, j, type, style, wall: false);
     }
 }
 
 public sealed class ResidentResidenceGlobalWall : GlobalWall
 {
-    public override bool CanExplode(int i, int j, int type) => !ResidentResidenceProtection.IsWallProtected(i, j);
     public override void KillWall(int i, int j, int type, ref bool fail)
     {
-        if (ResidentResidenceProtection.IsWallProtected(i, j)) fail = true;
+        if (fail || Main.netMode == NetmodeID.MultiplayerClient) return;
+        if (ResidentResidenceProtection.TryOwner(i, j, wall: true, out string npcKey))
+            ResidentReputationSystem.OnAuthoredCellBroken(npcKey, i, j, type, 0, wall: true);
     }
 }

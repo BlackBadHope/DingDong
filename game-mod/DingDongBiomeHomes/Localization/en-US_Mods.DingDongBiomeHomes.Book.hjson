@@ -189,7 +189,7 @@ Residents: {
 	House: "House #{0}"
 	Coords: "Building centre: {0}, {1} (in tiles)"
 	ProtectedNote: Until the resident moves, the building cannot be broken or looted.
-	MovedNote: The resident has moved to you; the old residence is no longer protected.
+	MovedNote: The resident has moved to you; the old residence no longer costs reputation.
 	OpenQuests: Open the resident's quests
 }
 
@@ -230,7 +230,7 @@ Help: {
 		Body:
 			'''
 			The Residents tab lists only residences this character has already found: biome, house number, coordinates and status.
-			A residence is protected until its resident moves to you. Main-story residences are marked on the map with a star.
+			Anything in a residence can be broken, but breaking what the house was built from costs reputation with its resident (stations cost the most); low reputation stops quests and then makes the resident hostile. Quests raise it, and the quest page lets you buy broken blocks back. Main-story residences are marked on the map with a star.
 			'''
 	}
 }
