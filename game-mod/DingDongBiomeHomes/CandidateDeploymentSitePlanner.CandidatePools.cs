@@ -50,7 +50,13 @@ public static partial class CandidateDeploymentSitePlanner
 			int threads = ParallelCandidatePools ? Math.Clamp(Environment.ProcessorCount - 2, 1, 12) : 1;
 			try
 			{
-				System.Threading.Tasks.Parallel.For(0, profiles.Count, new System.Threading.Tasks.ParallelOptions { MaxDegreeOfParallelism = threads }, i =>
+				// Biggest presets first, one profile per hand-out: the phase ends with its slowest
+				// residents (60 s of ~800 s total on x10), so starting them last idled the other threads.
+				int[] order = Enumerable.Range(0, profiles.Count)
+					.OrderByDescending(i => presets.TryGetValue(profiles[i].NpcKey, out AuthoredPreset preset) ? (long)preset.Width * preset.Height : 0L)
+					.ThenBy(i => i).ToArray();
+				System.Threading.Tasks.Parallel.ForEach(System.Collections.Concurrent.Partitioner.Create(order, System.Collections.Concurrent.EnumerablePartitionerOptions.NoBuffering),
+					new System.Threading.Tasks.ParallelOptions { MaxDegreeOfParallelism = threads }, i =>
 				{
 					long started = System.Diagnostics.Stopwatch.GetTimestamp();
 					if (!TryBuildProfilePool(profiles[i], out List<RankedLayoutCandidate> pool, out string reason)) reasons[i] = reason;

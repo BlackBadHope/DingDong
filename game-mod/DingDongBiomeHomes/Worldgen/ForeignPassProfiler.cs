@@ -24,15 +24,29 @@ internal sealed class ForeignPassProfiler : ModSystem
 	{
 		DumpRequestedIl();
 		string filter = Environment.GetEnvironmentVariable("DINGDONG_FOREIGN_PROFILE");
-		if (string.IsNullOrWhiteSpace(filter) || !ModLoader.TryGetMod("CalamityMod", out Mod calamity)) return;
-		string[] parts = filter.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+		// DINGDONG_VANILLA_PROFILE=Terraria.Liquid.QuickWater;Terraria.WorldGen.WaterCheck times single Terraria methods the same way.
+		string vanilla = Environment.GetEnvironmentVariable("DINGDONG_VANILLA_PROFILE");
 		var methods = new List<MethodInfo>();
-		foreach (Type type in LoadableTypes(calamity.Code))
+		if (!string.IsNullOrWhiteSpace(filter) && ModLoader.TryGetMod("CalamityMod", out Mod calamity))
 		{
-			if (type.FullName == null || !parts.Any(p => type.FullName.Contains(p, StringComparison.Ordinal))) continue;
-			foreach (MethodInfo method in type.GetMethods(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly))
-				if (!method.IsAbstract && !method.ContainsGenericParameters && method.GetMethodBody() != null) methods.Add(method);
+			string[] parts = filter.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+			foreach (Type type in LoadableTypes(calamity.Code))
+			{
+				if (type.FullName == null || !parts.Any(p => type.FullName.Contains(p, StringComparison.Ordinal))) continue;
+				foreach (MethodInfo method in type.GetMethods(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly))
+					if (!method.IsAbstract && !method.ContainsGenericParameters && method.GetMethodBody() != null) methods.Add(method);
+			}
 		}
+		if (!string.IsNullOrWhiteSpace(vanilla))
+			foreach (string entry in vanilla.Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
+			{
+				int dot = entry.LastIndexOf('.');
+				Type type = dot > 0 ? typeof(Terraria.Main).Assembly.GetType(entry[..dot]) : null;
+				if (type == null) continue;
+				methods.AddRange(type.GetMethods(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly)
+					.Where(m => m.Name == entry[(dot + 1)..] && !m.ContainsGenericParameters && m.GetMethodBody() != null));
+			}
+		if (methods.Count == 0) return;
 		names = new string[methods.Count];
 		ticks = new long[methods.Count]; calls = new long[methods.Count]; started = new long[methods.Count]; depth = new int[methods.Count];
 		MethodInfo enter = typeof(ForeignPassProfiler).GetMethod(nameof(Enter), BindingFlags.NonPublic | BindingFlags.Static);
@@ -58,7 +72,7 @@ internal sealed class ForeignPassProfiler : ModSystem
 			}
 			catch (Exception) { failed++; }
 		}
-		Mod.Logger.Info($"DINGDONG_FOREIGN_PROFILE|state=ARMED|filter={filter}|methods={hooks.Count}|failed={failed}");
+		Mod.Logger.Info($"DINGDONG_FOREIGN_PROFILE|state=ARMED|filter={filter}|vanilla={vanilla}|methods={hooks.Count}|failed={failed}");
 	}
 
 	// DINGDONG_FOREIGN_IL_DUMP=Type.Method;Type.Method logs the IL of those Calamity methods once
@@ -75,21 +89,42 @@ internal sealed class ForeignPassProfiler : ModSystem
 			string typeName = entry[..dot], methodName = entry[(dot + 1)..];
 			foreach (Type type in types.Where(t => t.Name == typeName))
 			foreach (MethodInfo method in type.GetMethods(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).Where(m => m.Name == methodName && m.GetMethodBody() != null))
-			{
-				var lines = new List<string>();
-				try
-				{
-					using (new ILHook(method, il =>
-					{
-						foreach (var local in il.Body.Variables) lines.Add($"local V_{local.Index}: {local.VariableType.FullName}");
-						for (int i = 0; i < il.Instrs.Count; i++) lines.Add($"{i:D4}: {il.Instrs[i].OpCode.Name} {FormatOperand(il, il.Instrs[i].Operand)}");
-					})) { }
-				}
-				catch (Exception error) { lines.Add("dump-failed: " + error.Message); }
-				Mod.Logger.Info($"DINGDONG_FOREIGN_IL|method={type.FullName}.{method.Name}|count={lines.Count}");
-				foreach (string line in lines) Mod.Logger.Info("DINGDONG_FOREIGN_IL|" + line);
-			}
+				DumpMethod(method);
 		}
+	}
+
+	// DINGDONG_PASS_IL_DUMP=Wall Variety;Smooth World logs the IL behind those world generation passes
+	// (the delegate a legacy pass wraps), read-only, so they can be compared with an accelerated copy.
+	public override void ModifyWorldGenTasks(List<Terraria.WorldBuilding.GenPass> tasks, ref double totalWeight)
+	{
+		string request = Environment.GetEnvironmentVariable("DINGDONG_PASS_IL_DUMP");
+		if (string.IsNullOrWhiteSpace(request)) return;
+		foreach (string name in request.Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
+			foreach (Terraria.WorldBuilding.GenPass pass in tasks.Where(t => t.Name == name))
+			{
+				MethodInfo method = null;
+				for (Type t = pass.GetType(); t != null && method == null; t = t.BaseType)
+					foreach (FieldInfo field in t.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly))
+						if (typeof(Delegate).IsAssignableFrom(field.FieldType) && field.GetValue(pass) is Delegate d) { method = d.Method; break; }
+				Mod.Logger.Info($"DINGDONG_PASS_IL|pass={name}|type={pass.GetType().FullName}|method={method?.DeclaringType?.FullName}.{method?.Name}");
+				if (method != null) DumpMethod(method);
+			}
+	}
+
+	private void DumpMethod(MethodInfo method)
+	{
+		var lines = new List<string>();
+		try
+		{
+			using (new ILHook(method, il =>
+			{
+				foreach (var local in il.Body.Variables) lines.Add($"local V_{local.Index}: {local.VariableType.FullName}");
+				for (int i = 0; i < il.Instrs.Count; i++) lines.Add($"{i:D4}: {il.Instrs[i].OpCode.Name} {FormatOperand(il, il.Instrs[i].Operand)}");
+			})) { }
+		}
+		catch (Exception error) { lines.Add("dump-failed: " + error.Message); }
+		Mod.Logger.Info($"DINGDONG_FOREIGN_IL|method={method.DeclaringType?.FullName}.{method.Name}|count={lines.Count}");
+		foreach (string line in lines) Mod.Logger.Info("DINGDONG_FOREIGN_IL|" + line);
 	}
 
 	private static string FormatOperand(ILContext il, object operand) => operand switch

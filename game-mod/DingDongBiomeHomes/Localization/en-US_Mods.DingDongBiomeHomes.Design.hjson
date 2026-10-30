@@ -1,0 +1,4 @@
+Standing: {
+  Caption: Attitude toward you
+  RangeHint: "From {0} to +{1}. Zero is neutral. Dislike grows to the left; trust grows to the right."
+}

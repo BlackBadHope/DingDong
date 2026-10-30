@@ -4,14 +4,14 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent;
 using Terraria.UI;
 namespace DingDongBiomeHomes;
-// Reference header: large framed portrait | name, epithet, "Репутация мира", thick bar with
-// "40 / 100" to its right, then the resident's quote in «». Texts come from the lore contract
+// Reference header: large framed portrait | name, epithet, personal signed standing,
+// an explicit neutral mark and exact value, then the resident's quote in «». Texts come from the lore contract
 // (epithet, quote) and are prepared by the journal; nothing is formatted while drawing.
 internal sealed class BookResidentHeader:UIElement
 {
     private readonly QuestTargetIcon portrait;
     private readonly BookText name,epithet,reputation,amount,quote;
-    private readonly BookProgressBar bar;
+    private readonly BookStandingBar bar;
     private readonly bool mainStory;
     private readonly float amountWidth;
     internal BookResidentHeader(string key,int percent,int type,string epithetText,string words,bool mainStory=false)
@@ -20,13 +20,14 @@ internal sealed class BookResidentHeader:UIElement
         portrait=new QuestTargetIcon(0,type,166,true);portrait.Height.Set(150,0);portrait.Top.Set(6,0);Append(portrait);
         name=new BookText(NpcQuestSystem.ResidentName(key),1.5f,ResidentBookJournal.Ink){SingleLine=true,MinScale=1f};Append(name);
         if(!string.IsNullOrEmpty(epithetText)){epithet=new BookText(epithetText,.82f,DingDongUiTheme.Gold){SingleLine=true};Append(epithet);}
-        reputation=new BookText(BookUiText.Get("Reputation"),.94f,ResidentBookJournal.Ink);Append(reputation);
+        reputation=new BookText(BookStandingBar.Caption,.94f,ResidentBookJournal.Ink);Append(reputation);
         // S23/30.10: the bar is the reader's own standing with this resident (-1000..+1000), not the old 0..100 trust.
         int standing=ResidentReputationSystem.Local(key);
-        bar=new BookProgressBar((standing-ResidentReputationSystem.Min)/(float)(ResidentReputationSystem.Max-ResidentReputationSystem.Min));bar.Height.Set(16,0);Append(bar);
-        amount=new BookText(BookUiText.Format("Count",standing,ResidentReputationSystem.Max),1.0f,ResidentBookJournal.Ink){SingleLine=true,MinScale=.7f};Append(amount);
+        bar=new BookStandingBar(standing);bar.Height.Set(16,0);Append(bar);
+        amount=new BookText(BookStandingBar.FormatStanding(standing),1.0f,BookStandingBar.StandingColor(standing)){SingleLine=true,MinScale=.7f};Append(amount);
         // Measured once: the widest value must fit whatever the font and language (item 8 review).
-        amountWidth=FontAssets.MouseText.Value.MeasureString(BookUiText.Format("Count",-1000,1000)).X+8f;
+        amountWidth=Math.Max(FontAssets.MouseText.Value.MeasureString(BookStandingBar.FormatStanding(ResidentReputationSystem.Min)).X,
+            FontAssets.MouseText.Value.MeasureString(BookStandingBar.FormatStanding(ResidentReputationSystem.Max)).X)+8f;
         quote=new BookText(words??string.Empty,.87f,ResidentBookJournal.Ink);Append(quote);
     }
     public override void Recalculate()

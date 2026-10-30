@@ -559,10 +559,10 @@ internal sealed class BookResidentRow : UIElement
     private readonly bool selected, mainStory;
     private readonly QuestTargetIcon portrait;
     private readonly BookText title, amount, status;
-    private readonly BookProgressBar bar;
+    private readonly BookStandingBar bar;
     private readonly BookItemGlyph role, star;
     private readonly float amountWidth;
-    // Reference layout (owner item 8): portrait | name, reputation bar and "40 / 100" | role glyph above the status.
+    // Book list shares the signed standing display with the detailed resident header.
     internal BookResidentRow(string name, int reputation, int npcType, bool selected, BookQuestStatus state, string stateText, string stateHover, bool mainStory, string npcKey, string roleHover)
     {
         this.selected = selected; this.mainStory = mainStory; Width.Set(0, 1); Height.Set(RowHeight, 0); SetPadding(7);
@@ -574,11 +574,11 @@ internal sealed class BookResidentRow : UIElement
             // Main storyline marker (owner item 11): a fallen star before the name, explained on hover.
             star = new BookItemGlyph(ItemID.FallenStar, 22, BookUiText.Get("MainStory"), Color.White); Append(star);
         }
-        bar = new BookProgressBar((reputation - ResidentReputationSystem.Min) / (float)(ResidentReputationSystem.Max - ResidentReputationSystem.Min)); bar.Height.Set(14, 0); Append(bar);
-        string amountText = reputation.ToString();
+        bar = new BookStandingBar(reputation); bar.Height.Set(14, 0); Append(bar);
+        string amountText = BookStandingBar.FormatStanding(reputation);
         // Measured, so "100 / 100" never overflows a fixed column (item 8 review).
-        amountWidth = FontAssets.MouseText.Value.MeasureString(BookUiText.Format("Count", 100, 100)).X * .86f + 6f;
-        amount = new BookText(amountText, .86f, ResidentBookJournal.Ink) { SingleLine = true, MinScale = .6f }; Append(amount);
+        amountWidth = Math.Max(FontAssets.MouseText.Value.MeasureString(BookStandingBar.FormatStanding(ResidentReputationSystem.Min)).X, FontAssets.MouseText.Value.MeasureString(BookStandingBar.FormatStanding(ResidentReputationSystem.Max)).X) * .86f + 6f;
+        amount = new BookText(amountText, .86f, BookStandingBar.StandingColor(reputation)) { SingleLine = true, MinScale = .6f }; Append(amount);
         bool dim = state == BookQuestStatus.Find;
         int roleItem = ResidentRoleIcons.Get(npcKey, npcKey == null ? "" : PersonalResidentQuestCatalog.Force(npcKey));
         // The glyph explains the resident's role and force; the status has its own caption (item 8 review).
