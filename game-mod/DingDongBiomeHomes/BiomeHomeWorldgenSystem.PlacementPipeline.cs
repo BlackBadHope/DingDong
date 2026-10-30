@@ -57,6 +57,7 @@ public sealed partial class BiomeHomeWorldgenSystem
 			if (Worldgen.Compiler.Runtime.WorldCompilerActivation.IsActive)
 				throw new InvalidOperationException(
 					$"Compiler residence planning failed before mutation: {planningFailure}.");
+			SettlementSkipNotice.Record($"plan-failed:attempts={attempts}");
 			progress.Message = "DingDong residences skipped safely";
 			Mod.Logger.Warn($"DINGDONG_WORLDGEN_END|verdict=DEGRADED|phase=simultaneous-plan|failure={planningFailure}|mutated=0|planned=0/61|worldgenContinues=True");
 			return;

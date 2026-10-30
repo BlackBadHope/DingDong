@@ -41,21 +41,25 @@ public sealed partial class BiomeHomeWorldgenSystem
 	public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
 	{
 		scheduledResidencePass = null;
+		SettlementSkipNotice.Record(null);
 		if (Worldgen.Compiler.Runtime.WorldCompilerActivation.IsActive) return;
 		if (!ModContent.GetInstance<DingDongServerConfig>().GenerateAuthoredSettlements)
 		{
+			SettlementSkipNotice.Record("config-disabled");
 			Mod.Logger.Info("Authored biome settlement generation disabled by server config.");
 			return;
 		}
 		if (!NpcAuthoredPresetManifest.IsCandidateComplete ||
 			!AuthoredCandidateDeploymentManifest.IsComplete)
 		{
+			SettlementSkipNotice.Record($"manifest-incomplete:{NpcAuthoredPresetManifest.CandidateCount}/{AuthoredCandidateDeploymentManifest.Count}");
 			Mod.Logger.Error($"Authored settlement generation withheld: technical candidate/deployment manifests are incomplete ({NpcAuthoredPresetManifest.CandidateCount}/{NpcTownManifest.AuthoredCount}, {AuthoredCandidateDeploymentManifest.Count}/{NpcTownManifest.AuthoredCount}). Procedural fallback is forbidden.");
 			return;
 		}
 		if (!ContinentalWorldDimensions.SupportsAuthoredSettlements)
 		{
 			// Presets 28.10 (design step 10): vanilla sizes (and unreleased presets) are skipped.
+			SettlementSkipNotice.Record($"not-continental:{Main.maxTilesX}x{Main.maxTilesY}");
 			Mod.Logger.Warn($"DINGDONG_WORLDGEN_SETTLEMENTS|verdict=SKIPPED|reason=not-a-continental-preset|current={Main.maxTilesX}x{Main.maxTilesY}" +
 				$"|available={string.Join(",", System.Linq.Enumerable.Select(Worldgen.ContinentalWorldDimensions.Available, p => p.Id))}" +
 				". Authored 61-residence generation needs a Ding Dong world preset; generation skipped without procedural fallback.");

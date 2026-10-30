@@ -1,0 +1,10 @@
+{
+  "NoResidences": "Ding Dong: this world has no resident residences. {0} Create a new world with the \"Ding Dong Continent\" button. Details are in client.log (DINGDONG_WORLDGEN lines).",
+  "Reason": {
+    "plan-failed": "The generator could not place all 61 residences in this variant of the world. The same seed comes out slightly differently, and creating the world again usually works.",
+    "config-disabled": "\"Generate Authored Settlements\" is turned off in the mod config.",
+    "not-continental": "The world was not created with the \"Ding Dong Continent\" size.",
+    "manifest-incomplete": "The mod build is incomplete: residence definitions are missing.",
+    "unknown": "No reason recorded: the world was made before 0.29.43 or on a server."
+  }
+}

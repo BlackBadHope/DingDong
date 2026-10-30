@@ -16,8 +16,11 @@ namespace DingDongBiomeHomes.Worldgen;
 // and then edit one cell. The noise test is evaluated here on all cores; the edits stay
 // sequential in the original order with the original genRand calls, so the world is the same.
 //
-// DINGDONG_SS1_NOISE: "fast" replaces both methods, "shadow" lets Calamity run and compares its
-// edit points and final genRand state with the plan, "off" (default until verified) does nothing.
+// DINGDONG_SS1_NOISE: "fast" replaces both methods, "ref" runs Calamity unchanged, "off" (default
+// until verified) does nothing. Both "fast" and "ref" log an FNV hash of the biome cells (tile,
+// wall, liquid, frames, slope) and of the genRand state before and after each step, so a "ref" and
+// a "fast" run of the same seed prove or refute an identical world. (Tracing WorldUtils.Gen did not
+// work: the JIT inlines it into Calamity's loop, and tile framing draws from genRand too.)
 internal sealed class SulphurSeaNoiseAccelerator : ModSystem
 {
 	private delegate void Original();
@@ -28,7 +31,6 @@ internal sealed class SulphurSeaNoiseAccelerator : ModSystem
 	private static float[] spaghettiThresholds;
 	private static ushort unsafeSandWall, sand, hardSandstone, hardSandstoneWall;
 	private static bool typesResolved;
-	[ThreadStatic] private static List<Point> recorded;
 	private static readonly FieldInfo seedArray = typeof(UnifiedRandom).GetField("SeedArray", BindingFlags.Instance | BindingFlags.NonPublic);
 	private static readonly FieldInfo inext = typeof(UnifiedRandom).GetField("inext", BindingFlags.Instance | BindingFlags.NonPublic);
 	private static readonly FieldInfo inextp = typeof(UnifiedRandom).GetField("inextp", BindingFlags.Instance | BindingFlags.NonPublic);
@@ -36,7 +38,7 @@ internal sealed class SulphurSeaNoiseAccelerator : ModSystem
 	public override void Load()
 	{
 		mode = (Environment.GetEnvironmentVariable("DINGDONG_SS1_NOISE") ?? "off").Trim().ToLowerInvariant();
-		if (mode != "fast" && mode != "shadow") { mode = "off"; return; }
+		if (mode != "fast" && mode != "ref") { mode = "off"; return; }
 		if (!ModLoader.TryGetMod("CalamityMod", out Mod calamity)) { mode = "off"; return; }
 		try
 		{
@@ -51,9 +53,6 @@ internal sealed class SulphurSeaNoiseAccelerator : ModSystem
 			if (seedArray == null || inext == null || inextp == null) throw new MissingFieldException("UnifiedRandom state");
 			MonoModHooks.Add(sea.GetMethod("GenerateSpaghettiWaterCaves", any), (Action<Original>)Spaghetti);
 			MonoModHooks.Add(sea.GetMethod("DecideHardSandstoneLine", any), (Action<Original>)HardSandstone);
-			if (mode == "shadow")
-				MonoModHooks.Add(typeof(WorldUtils).GetMethod(nameof(WorldUtils.Gen), new[] { typeof(Point), typeof(GenShape), typeof(GenAction) }),
-					(Func<Func<Point, GenShape, GenAction, bool>, Point, GenShape, GenAction, bool>)RecordGen);
 			Mod.Logger.Info($"DINGDONG_SS1_NOISE|state=ARMED|mode={mode}|thresholds={spaghettiThresholds.Length}");
 		}
 		catch (Exception error)
@@ -78,12 +77,6 @@ internal sealed class SulphurSeaNoiseAccelerator : ModSystem
 			return false;
 		unsafeSandWall = unsafeWall.Type; sand = sandTile.Type; hardSandstone = hardTile.Type; hardSandstoneWall = hardWall.Type;
 		return typesResolved = true;
-	}
-
-	private static bool RecordGen(Func<Point, GenShape, GenAction, bool> orig, Point origin, GenShape shape, GenAction action)
-	{
-		recorded?.Add(origin);
-		return orig(origin, shape, action);
 	}
 
 	// Mirror of the per-cell carve test (IL 0026–0105): carve when |Lerp(n, sign(n), w)| < threshold.
@@ -120,8 +113,10 @@ internal sealed class SulphurSeaNoiseAccelerator : ModSystem
 		if (mode == "off" || !WorldGen.gen || !ResolveTypes()) { orig(); return; }
 		var clock = Stopwatch.StartNew();
 		int width = biomeWidth(), depth = (int)(blockDepth() * 0.96f), top = yStart();
-		UnifiedRandom random = mode == "fast" ? WorldGen.genRand : Clone(WorldGen.genRand);
-		var plan = new List<Point>();
+		string before = Fingerprint(width, depth, top);
+		if (mode == "ref") { orig(); Report("spaghetti", before, -1, clock, width, depth, top); return; }
+		UnifiedRandom random = WorldGen.genRand;
+		int edits = 0;
 		for (int c = 0; c < spaghettiThresholds.Length; c++)
 		{
 			int seed = random.Next();
@@ -135,13 +130,12 @@ internal sealed class SulphurSeaNoiseAccelerator : ModSystem
 					if (!mask[i * depth + dy]) continue;
 					var point = new Point(x, top + dy);
 					byte liquid = (byte)(random.NextFloat() > 0.91f ? 0 : 255);
-					plan.Add(point);
-					if (mode == "fast")
-						WorldUtils.Gen(point, new Shapes.Rectangle(1, 1), Actions.Chain(new Actions.ClearTile(true), new Actions.PlaceWall(unsafeSandWall, true), new Actions.SetLiquid(0, liquid), new Actions.Smooth(true)));
+					edits++;
+					WorldUtils.Gen(point, new Shapes.Rectangle(1, 1), Actions.Chain(new Actions.ClearTile(true), new Actions.PlaceWall(unsafeSandWall, true), new Actions.SetLiquid(0, liquid), new Actions.Smooth(true)));
 				}
 			}
 		}
-		Report("spaghetti", plan, random, clock, orig);
+		Report("spaghetti", before, edits, clock, width, depth, top);
 	}
 
 	private static void HardSandstone(Original orig)
@@ -149,10 +143,11 @@ internal sealed class SulphurSeaNoiseAccelerator : ModSystem
 		if (mode == "off" || !WorldGen.gen || !ResolveTypes()) { orig(); return; }
 		var clock = Stopwatch.StartNew();
 		int width = biomeWidth(), depth = blockDepth(), top = yStart();
-		UnifiedRandom random = mode == "fast" ? WorldGen.genRand : Clone(WorldGen.genRand);
-		int seed = random.Next();
+		string before = Fingerprint(width, depth, top);
+		if (mode == "ref") { orig(); Report("hardsandstone", before, -1, clock, width, depth, top); return; }
+		int seed = WorldGen.genRand.Next();
 		bool[] mask = Mask(0, width, depth, (i, dy) => BelowHardLine(i, top + dy, seed, width, depth, top));
-		var plan = new List<Point>();
+		int edits = 0;
 		for (int i = 0; i < width; i++)
 		{
 			int x = actualX(i);
@@ -162,55 +157,43 @@ internal sealed class SulphurSeaNoiseAccelerator : ModSystem
 				var point = new Point(x, top + dy);
 				Tile tile = Main.tile[point.X, point.Y];
 				if (!tile.HasTile || tile.TileType != sand) continue;
-				plan.Add(point);
-				if (mode == "fast")
-					WorldUtils.Gen(point, new Shapes.Rectangle(1, 1), Actions.Chain(new Actions.SetTile(hardSandstone, true, true), new Actions.PlaceWall(hardSandstoneWall, true), new Actions.SetLiquid(0, 255)));
+				edits++;
+				WorldUtils.Gen(point, new Shapes.Rectangle(1, 1), Actions.Chain(new Actions.SetTile(hardSandstone, true, true), new Actions.PlaceWall(hardSandstoneWall, true), new Actions.SetLiquid(0, 255)));
 			}
 		}
-		Report("hardsandstone", plan, random, clock, orig);
+		Report("hardsandstone", before, edits, clock, width, depth, top);
 	}
 
-	// Fast mode logs the edit count; shadow mode runs Calamity, records its edit points through
-	// WorldUtils.Gen and compares them and the genRand state with the plan computed on a clone.
-	private static void Report(string step, List<Point> plan, UnifiedRandom random, Stopwatch clock, Original orig)
+	private static void Report(string step, string before, int edits, Stopwatch clock, int width, int depth, int top)
 	{
-		Mod mod = ModContent.GetInstance<SulphurSeaNoiseAccelerator>().Mod;
-		long planMs = clock.ElapsedMilliseconds;
-		if (mode == "fast")
-		{
-			mod.Logger.Info($"DINGDONG_SS1_NOISE|mode=fast|step={step}|edits={plan.Count}|ms={planMs}");
-			return;
-		}
-		clock.Restart();
-		recorded = new List<Point>();
-		try { orig(); }
-		finally
-		{
-			List<Point> actual = recorded; recorded = null;
-			long origMs = clock.ElapsedMilliseconds;
-			int mismatches = Math.Abs(actual.Count - plan.Count), first = -1;
-			for (int k = 0; k < Math.Min(actual.Count, plan.Count); k++)
-				if (actual[k] != plan[k]) { mismatches++; if (first < 0) first = k; }
-			bool rngSame = SameState(random, WorldGen.genRand);
-			mod.Logger.Info($"DINGDONG_SS1_NOISE|mode=shadow|step={step}|planned={plan.Count}|actual={actual.Count}|mismatches={mismatches}|first={first}" +
-				$"|rngSame={rngSame}|planMs={planMs}|originalMs={origMs}|verdict={(mismatches == 0 && rngSame ? "IDENTICAL" : "DIFFERENT")}");
-		}
+		long ms = clock.ElapsedMilliseconds;
+		ModContent.GetInstance<SulphurSeaNoiseAccelerator>().Mod.Logger.Info(
+			$"DINGDONG_SS1_NOISE|mode={mode}|step={step}|edits={edits}|ms={ms}|before={before}|after={Fingerprint(width, depth, top)}");
 	}
 
-	private static UnifiedRandom Clone(UnifiedRandom source)
+	// Cells of columns 0..width-1 (plus two on each side for framing and smoothing of neighbours)
+	// from YStart-2 to YStart+depth+2, then the genRand state.
+	private static string Fingerprint(int width, int depth, int top)
 	{
-		var copy = new UnifiedRandom(0);
-		seedArray.SetValue(copy, ((int[])seedArray.GetValue(source)).Clone());
-		inext.SetValue(copy, inext.GetValue(source));
-		inextp.SetValue(copy, inextp.GetValue(source));
-		return copy;
-	}
-
-	private static bool SameState(UnifiedRandom a, UnifiedRandom b)
-	{
-		if (!Equals(inext.GetValue(a), inext.GetValue(b)) || !Equals(inextp.GetValue(a), inextp.GetValue(b))) return false;
-		int[] x = (int[])seedArray.GetValue(a), y = (int[])seedArray.GetValue(b);
-		for (int k = 0; k < x.Length; k++) if (x[k] != y[k]) return false;
-		return true;
+		int x0 = int.MaxValue, x1 = int.MinValue;
+		for (int i = 0; i < width; i++) { int x = actualX(i); x0 = Math.Min(x0, x); x1 = Math.Max(x1, x); }
+		x0 = Math.Max(0, x0 - 2); x1 = Math.Min(Main.maxTilesX - 1, x1 + 2);
+		int y0 = Math.Max(0, top - 2), y1 = Math.Min(Main.maxTilesY - 1, top + depth + 2);
+		ulong h = 14695981039346656037UL;
+		void Mix(ulong v) { h ^= v; h *= 1099511628211UL; }
+		for (int x = x0; x <= x1; x++)
+			for (int y = y0; y <= y1; y++)
+			{
+				Tile t = Main.tile[x, y];
+				Mix(t.HasTile ? 1UL + t.TileType : 0UL);
+				Mix(((ulong)t.WallType << 16) | ((ulong)t.LiquidType << 8) | t.LiquidAmount);
+				Mix(((ulong)(ushort)t.TileFrameX << 32) | ((ulong)(ushort)t.TileFrameY << 16) | ((ulong)(int)t.Slope << 1) | (t.IsHalfBlock ? 1UL : 0UL));
+				Mix(((ulong)(ushort)t.WallFrameX << 16) | (ushort)t.WallFrameY);
+			}
+		ulong world = h;
+		h = 14695981039346656037UL;
+		Mix((ulong)(int)inext.GetValue(WorldGen.genRand)); Mix((ulong)(int)inextp.GetValue(WorldGen.genRand));
+		foreach (int v in (int[])seedArray.GetValue(WorldGen.genRand)) Mix((ulong)(uint)v);
+		return $"{world:x16}/{h:x16}/{x0}-{x1}x{y0}-{y1}";
 	}
 }

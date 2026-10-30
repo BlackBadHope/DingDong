@@ -31,7 +31,10 @@ public static partial class CandidateDeploymentSitePlanner
 	// Owner's world 29.10 (seed 2097116013): the surface layer ended one pair short of a full plan
 	// and the world got no residences at all. A failed plan is retried with another search key;
 	// retry 0 keeps the historic key exactly, so worlds that already plan are unchanged.
-	internal const int PlanningRetries = 5; // 30.10: the owner seed sits at the edge of surface capacity
+	// 30.10 evening: a failed x10 plan was retried 12 times on the owner seed and every attempt ended
+	// with the same protected-envelope conflicts (~3 min each), so extra attempts only slow a failing
+	// world down. Six attempts stay; the player is told why a world has no residences (SettlementSkipNotice).
+	internal const int PlanningRetries = 5;
 	internal static int PlanningRetry;
 	internal static string PlanningSeedKey => PlanningRetry == 0
 		? $"{Main.ActiveWorldFileData?.Seed}" : $"{Main.ActiveWorldFileData?.Seed}#retry{PlanningRetry}";
