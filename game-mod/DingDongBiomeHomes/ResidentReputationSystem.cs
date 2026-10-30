@@ -5,6 +5,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
@@ -93,8 +94,44 @@ public sealed class ResidentReputationSystem : ModSystem
 		int before = Get(id, npcKey), after = Math.Clamp(before + delta, Min, Max);
 		values[(id, npcKey)] = after;
 		dirty = true;
-		if (before > HostileAt && after <= HostileAt) NpcQuestSystem.Notify(player, "Mods.DingDongBiomeHomes.Reputation.Hostile", ResidentName(npcKey));
-		else if (before > QuestBanAt && after <= QuestBanAt) NpcQuestSystem.Notify(player, "Mods.DingDongBiomeHomes.Reputation.QuestBan", ResidentName(npcKey));
+		AnnounceThresholds(player, npcKey, before, after);
+	}
+
+	// Owner, 30.10: every threshold crossing, in either direction, is announced in chat.
+	private static void AnnounceThresholds(Player player, string npcKey, int before, int after)
+	{
+		string name = ResidentName(npcKey), key = null;
+		if (after < before)
+		{
+			if (before > HostileAt && after <= HostileAt) key = "Hostile";
+			else if (before > QuestBanAt && after <= QuestBanAt) key = "QuestBan";
+			else if (before > GrumbleAt && after <= GrumbleAt) key = "Grumble";
+			else if (before >= DevotedAt && after < DevotedAt) key = "DevotedLost";
+			else if (before >= FriendlyAt && after < FriendlyAt) key = "FriendlyLost";
+		}
+		else
+		{
+			if (before < DevotedAt && after >= DevotedAt) key = "Devoted";
+			else if (before < FriendlyAt && after >= FriendlyAt) key = "Friendly";
+			else if (before <= GrumbleAt && after > GrumbleAt) key = "GrumbleLifted";
+			else if (before <= QuestBanAt && after > QuestBanAt) key = "QuestBanLifted";
+			else if (before <= HostileAt && after > HostileAt) key = "HostileLifted";
+		}
+		if (key != null) NpcQuestSystem.Notify(player, "Mods.DingDongBiomeHomes.Reputation." + key, name, after);
+	}
+
+	// Owner, 30.10: breaking a house block shows the loss above it, like a damage number.
+	private static void ShowLoss(string npcKey, int x, int y, int penalty, int total)
+	{
+		var position = new Vector2(x * 16 + 8, y * 16);
+		var color = new Color(235, 90, 70);
+		const string key = "Mods.DingDongBiomeHomes.Reputation.Loss";
+		if (Main.netMode == NetmodeID.Server)
+			NetMessage.SendData(MessageID.CombatTextString, -1, -1, NetworkText.FromKey(key, ResidentName(npcKey), -penalty, total),
+				(int)color.PackedValue, position.X, position.Y);
+		else if (!Main.dedServ)
+			CombatText.NewText(new Rectangle((int)position.X - 8, (int)position.Y - 8, 16, 16), color,
+				Language.GetTextValue(key, ResidentName(npcKey), -penalty, total));
 	}
 
 	internal static string ResidentName(string npcKey) =>
@@ -111,6 +148,7 @@ public sealed class ResidentReputationSystem : ModSystem
 		int penalty = wall ? WallPenalty(itemType) : TilePenalty(type, itemType);
 		if (penalty <= 0) return;
 		Add(player, npcKey, -penalty);
+		ShowLoss(npcKey, x, y, penalty, Get(player.GetModPlayer<NpcQuestPlayer>().PersistentId, npcKey));
 		broken.Add(new BrokenBlock { Id = nextBrokenId++, NpcKey = npcKey, PlayerId = player.GetModPlayer<NpcQuestPlayer>().PersistentId, X = x, Y = y, Type = type, Style = style, ItemType = itemType, Penalty = penalty, Wall = wall });
 		if (broken.Count > MaxBroken) broken.RemoveRange(0, broken.Count - MaxBroken);
 		dirty = true;

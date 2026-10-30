@@ -56,6 +56,16 @@ internal static class RamOptAdmissionPolicy
 		if (physical > 0 && commit > 0 && physical >= fast.RequiredPhysicalSafety && commit >= fastRequired)
 			return new(true, FastTier, fastRequired, lowMemory?.RequiredHeadroom ?? fastRequired,
 				fast.RequiredPhysicalSafety, 0, null);
+		// Owner, 30.10 (32 GB RAM, 13 GB free, 3.9 GiB commit left with the game client at the menu):
+		// loading refused although Windows grows a system-managed page file on demand. Loading
+		// allocates its planes at once when it starts, so a page file that cannot grow fails
+		// immediately rather than after tens of minutes; it may use the same bounded credit.
+		if (!lowMemory.HasValue && physical > 0 && commit > 0 && physical >= fast.RequiredPhysicalSafety)
+		{
+			long loadDeficit = fastRequired - commit;
+			if (pagefile.Known && loadDeficit <= MaxPagefileCreditBytes && pagefile.GrowthBytes >= checked(2 * loadDeficit))
+				return new(true, PagefileTier, fastRequired, fastRequired, fast.RequiredPhysicalSafety, loadDeficit, null);
+		}
 		if (lowMemory is ContinentalMemoryBudget low && physical > 0 && commit > 0 &&
 			physical >= low.RequiredPhysicalSafety)
 		{

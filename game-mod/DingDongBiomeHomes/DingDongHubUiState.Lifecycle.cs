@@ -25,21 +25,23 @@ internal sealed partial class DingDongHubUiState
 		shell.MaxHeight.Set(820f, 0f);
 		shell.HAlign = 0.5f;
 		shell.VAlign = 0.5f;
-		shell.SetPadding(44f);shell.PaddingLeft=84;shell.PaddingRight=84;shell.PaddingBottom=52;
+		// Owner, 30.10: list rows and the standing bar ran under the corner vines; both page edges move
+		// 34 px inwards (symmetric, so the spine split stays where the art has it).
+		shell.SetPadding(44f);shell.PaddingLeft=118;shell.PaddingRight=118;shell.PaddingBottom=52;
 		Append(shell);
         BookText title = new(Text("Title"),1.6f,Ink);
-		title.Left.Set(104f,0f);title.Top.Set(2f, 0f);
+		title.Left.Set(70f,0f);title.Top.Set(2f, 0f);
 		title.Width.Set(-8f, .48f);
 		shell.Append(title);
         // 29.10: one line that shrinks, ending before the corner flowers of the page.
         tagline = new BookText(Text("Tagline"),.90f,InkSoft) { SingleLine = true, MinScale = .66f };
-		tagline.Left.Set(104f,0f);tagline.Top.Set(41f, 0f);
+		tagline.Left.Set(70f,0f);tagline.Top.Set(41f, 0f);
 		tagline.Width.Set(-40f, .48f);
 		shell.Append(tagline);
 		JournalCloseButton close = new();
 		close.Width.Set(32f, 0f);
 		close.Height.Set(32f, 0f);
-		close.Left.Set(8f, 1f);
+		close.Left.Set(42f, 1f); // +34: keeps the close button on the corner after the 30.10 page inset
 		close.Top.Set(-32f, 0f);
 		close.OnLeftClick += (_, _) =>
 		{

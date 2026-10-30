@@ -106,6 +106,7 @@ public sealed class WorldCreationBookSystem : ModSystem
 		private readonly List<UIPanel> panels = new();
 		private readonly List<UIText> text = new();
 		private readonly List<UITextPanel<LocalizedText>> textPanels = new();
+		private readonly List<(UITextPanel<LocalizedText> Panel, FieldInfo Scale)> hiddenCaptionScales = new();
 		private readonly List<IGroupOptionButton> options = new();
 		private readonly UISlicedImage descriptionPlate;
 		private readonly UIText hint;
@@ -161,7 +162,13 @@ public sealed class WorldCreationBookSystem : ModSystem
 			if (node is UITextPanel<LocalizedText> textPanel)
 			{
 				Color previous = textPanel.TextColor;
-				restoreStyles.Add(() => textPanel.TextColor = previous);
+				// Owner, 30.10: a transparent caption still drew Terraria's black outline under the
+				// book's own caption ("Back"/"Create" became black blots). The vanilla caption is
+				// scaled to zero instead; DrawLabels draws the only visible caption.
+				FieldInfo scaleField = FindField(textPanel.GetType(), "_textScale");
+				object scale = scaleField?.GetValue(textPanel);
+				restoreStyles.Add(() => { textPanel.TextColor = previous; if (scaleField != null) scaleField.SetValue(textPanel, scale); });
+				hiddenCaptionScales.Add((textPanel, scaleField));
 				textPanels.Add(textPanel);
 			}
 			if (node is IGroupOptionButton option)
@@ -207,6 +214,7 @@ public sealed class WorldCreationBookSystem : ModSystem
 			// DrawLabels in the book's font, because text panels always draw an outline.
 			foreach (UIText label in text) { label.TextColor = WorldChronicleSkin.Ink; label.ShadowColor = Color.Transparent; }
 			foreach (UITextPanel<LocalizedText> label in textPanels) label.TextColor = Color.Transparent;
+			foreach ((UITextPanel<LocalizedText> panel, FieldInfo field) in hiddenCaptionScales) field?.SetValue(panel, 0f);
 			if (descriptionPlate != null) descriptionPlate.Color = Color.Transparent;
 			// Long hints (the Legendary lock) ran across both pages; keep them inside the page.
 			if (hint != null && !hint.IsWrapped) { hint.IsWrapped = true; changed = true; }

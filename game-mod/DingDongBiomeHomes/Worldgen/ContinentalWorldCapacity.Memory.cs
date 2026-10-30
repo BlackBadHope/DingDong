@@ -94,8 +94,9 @@ internal static partial class ContinentalWorldCapacity
 		}
 		// RamOpt 28.10: fast tier = previous rule; lower tiers only where measured.
 		// Review fix: the pagefile-growth tier is opt-in (unverified on a real x10 run).
+		// Owner, 30.10: loading (no low-memory tier) always counts page-file growth; see Evaluate.
 		RamOptPagefileEstimate pagefile = !lowMemory.HasValue
-			? new(false, 0, "not-evaluated")
+			? (generation ? new(false, 0, "not-evaluated") : RamOptAdmissionPolicy.EstimatePagefileGrowth(memory))
 			: RamOptAdmissionPolicy.PagefileTierEnabled
 				? RamOptAdmissionPolicy.EstimatePagefileGrowth(memory)
 				: new(false, 0, "disabled-default(" + RamOptAdmissionPolicy.PagefileOptInVariable + "=1 enables)");
@@ -130,7 +131,7 @@ internal static partial class ContinentalWorldCapacity
 		{
 			string warning = $"DingDong: {PresetLabel(preset)} world admitted in the slower low-memory mode (tier={decision.Tier}); " +
 				$"normal mode needs {decision.FastRequired / (double)GiB:F2} GiB available commit, " +
-				$"available {memory.AvailableCommitBytes / (double)GiB:F2} GiB. Generation will take longer" +
+				$"available {memory.AvailableCommitBytes / (double)GiB:F2} GiB. {(generation ? "Generation" : "Loading")} will take longer" +
 				(decision.Tier == RamOptAdmissionPolicy.PagefileTier ? " and Windows will enlarge the page file." : ".");
 			DingDongBiomeHomes.Instance?.Logger.Warn("DINGDONG_CONTINENTAL_MEMORY|warning=LOW_MEMORY_MODE|" + warning);
 			if (Main.dedServ) Console.WriteLine(warning);

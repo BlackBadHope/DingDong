@@ -112,7 +112,10 @@ public sealed class WorldCreationBackdropSystem : ModSystem
         // Owner, 29.10: the book filled only the top-left part of the screen. On the menu the UI
         // matrix does not carry the UI scale, so dividing by it shrank the book twice; this screen
         // is drawn in plain screen pixels and the book scales itself to fit.
-        var screen = new Rectangle(0, 0, Main.screenWidth, Main.screenHeight);
+        // Owner, 30.10 (1920x1080, UI scale 1.2): the book still covered only 1600x900. Main.screenWidth
+        // on this menu is the scaled logical size; the viewport is the surface actually drawn on.
+        Viewport view = Main.instance.GraphicsDevice.Viewport;
+        var screen = new Rectangle(0, 0, Math.Max(view.Width, Main.screenWidth), Math.Max(view.Height, Main.screenHeight));
         if (screen.Width < 800 || screen.Height < 500) return;
         SpriteBatch batch = Main.spriteBatch; bool begun = false;
         try

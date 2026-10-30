@@ -1,4 +1,13 @@
 {
+  "Loss": "{0}: {1} (total {2})",
+  "Grumble": "{0} is unhappy with you and grumbles (reputation {1}).",
+  "GrumbleLifted": "{0} no longer grumbles (reputation {1}).",
+  "QuestBanLifted": "{0} will give you quests again (reputation {1}).",
+  "HostileLifted": "{0} no longer sees you as an enemy (reputation {1}).",
+  "Friendly": "{0} is friendly towards you (reputation {1}).",
+  "Devoted": "{0} is now devoted to you (reputation {1}).",
+  "FriendlyLost": "{0} is less friendly now (reputation {1}).",
+  "DevotedLost": "{0} is no longer unconditionally devoted to you (reputation {1}).",
   "Hostile": "{0} now treats you as an enemy and will attack you. Buy back what you broke in the quest book.",
   "QuestBan": "{0} no longer trusts you and will not give you new quests.",
   "Refused": "{0} refuses to give you a quest: your reputation is {1}.",
