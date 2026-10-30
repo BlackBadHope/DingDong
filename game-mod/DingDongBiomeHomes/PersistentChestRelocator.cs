@@ -14,6 +14,8 @@ namespace DingDongBiomeHomes;
 public static partial class PersistentChestRelocator
 {
 	private const int ObjectClearance = 8;
-	private const int MaxHorizontalSearch = 1200;
+	// 30.10: an island house in the open ocean is up to ~4500 tiles from dry land; 1200 left its
+	// displaced chest without a destination and failed the whole layout (owner seed, S25).
+	private const int MaxHorizontalSearch = 4800;
 	private const int MaxVerticalSearch = 260;
 }

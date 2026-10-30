@@ -38,6 +38,7 @@ internal sealed class NativeTerrariaWorldgenPass : GenPass
 		NativeReservationProbe.AfterPass(Name);
 		if (Name == "Underworld") NativeUnderworldSystem.Generated();
 		NativeTerrariaWorldgenReceipt.Record(Name);
+		ForeignPassProfiler.AfterPass(Name);
 		using Process process = Process.GetCurrentProcess();
 		log($"DINGDONG_NATIVE_PASS|state=END|name={Name}" +
 			$"|ms={Stopwatch.GetElapsedTime(start).TotalMilliseconds:F0}" +
