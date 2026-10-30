@@ -22,6 +22,7 @@ internal sealed class ForeignPassProfiler : ModSystem
 
 	public override void Load()
 	{
+		DumpRequestedIl();
 		string filter = Environment.GetEnvironmentVariable("DINGDONG_FOREIGN_PROFILE");
 		if (string.IsNullOrWhiteSpace(filter) || !ModLoader.TryGetMod("CalamityMod", out Mod calamity)) return;
 		string[] parts = filter.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
@@ -59,6 +60,48 @@ internal sealed class ForeignPassProfiler : ModSystem
 		}
 		Mod.Logger.Info($"DINGDONG_FOREIGN_PROFILE|state=ARMED|filter={filter}|methods={hooks.Count}|failed={failed}");
 	}
+
+	// DINGDONG_FOREIGN_IL_DUMP=Type.Method;Type.Method logs the IL of those Calamity methods once
+	// at load (read-only: the hook body changes nothing and is disposed right away).
+	private void DumpRequestedIl()
+	{
+		string request = Environment.GetEnvironmentVariable("DINGDONG_FOREIGN_IL_DUMP");
+		if (string.IsNullOrWhiteSpace(request) || !ModLoader.TryGetMod("CalamityMod", out Mod calamity)) return;
+		Type[] types = LoadableTypes(calamity.Code).ToArray();
+		foreach (string entry in request.Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
+		{
+			int dot = entry.LastIndexOf('.');
+			if (dot <= 0) continue;
+			string typeName = entry[..dot], methodName = entry[(dot + 1)..];
+			foreach (Type type in types.Where(t => t.Name == typeName))
+			foreach (MethodInfo method in type.GetMethods(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).Where(m => m.Name == methodName && m.GetMethodBody() != null))
+			{
+				var lines = new List<string>();
+				try
+				{
+					using (new ILHook(method, il =>
+					{
+						foreach (var local in il.Body.Variables) lines.Add($"local V_{local.Index}: {local.VariableType.FullName}");
+						for (int i = 0; i < il.Instrs.Count; i++) lines.Add($"{i:D4}: {il.Instrs[i].OpCode.Name} {FormatOperand(il, il.Instrs[i].Operand)}");
+					})) { }
+				}
+				catch (Exception error) { lines.Add("dump-failed: " + error.Message); }
+				Mod.Logger.Info($"DINGDONG_FOREIGN_IL|method={type.FullName}.{method.Name}|count={lines.Count}");
+				foreach (string line in lines) Mod.Logger.Info("DINGDONG_FOREIGN_IL|" + line);
+			}
+		}
+	}
+
+	private static string FormatOperand(ILContext il, object operand) => operand switch
+	{
+		null => string.Empty,
+		ILLabel label => "-> " + il.IndexOf(label.Target).ToString("D4"),
+		Mono.Cecil.Cil.Instruction target => "-> " + il.IndexOf(target).ToString("D4"),
+		ILLabel[] labels => "switch " + string.Join(",", labels.Select(l => il.IndexOf(l.Target).ToString("D4"))),
+		Mono.Cecil.Cil.Instruction[] targets => "switch " + string.Join(",", targets.Select(t => il.IndexOf(t).ToString("D4"))),
+		string text => "\"" + text + "\"",
+		_ => operand.ToString()
+	};
 
 	private static IEnumerable<Type> LoadableTypes(Assembly assembly)
 	{

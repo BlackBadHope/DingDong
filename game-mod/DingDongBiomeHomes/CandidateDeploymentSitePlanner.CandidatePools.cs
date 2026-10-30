@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria.ModLoader;
 using DingDongBiomeHomes.Worldgen;
 
@@ -44,14 +45,17 @@ public static partial class CandidateDeploymentSitePlanner
 			// digest and the solver input stay identical to the sequential build.
 			var built = new List<RankedLayoutCandidate>[profiles.Count];
 			var reasons = new string[profiles.Count];
+			var profileMs = new long[profiles.Count];
 			var clock = System.Diagnostics.Stopwatch.StartNew();
 			int threads = ParallelCandidatePools ? Math.Clamp(Environment.ProcessorCount - 2, 1, 12) : 1;
 			try
 			{
 				System.Threading.Tasks.Parallel.For(0, profiles.Count, new System.Threading.Tasks.ParallelOptions { MaxDegreeOfParallelism = threads }, i =>
 				{
+					long started = System.Diagnostics.Stopwatch.GetTimestamp();
 					if (!TryBuildProfilePool(profiles[i], out List<RankedLayoutCandidate> pool, out string reason)) reasons[i] = reason;
 					else built[i] = pool;
+					profileMs[i] = (System.Diagnostics.Stopwatch.GetTimestamp() - started) * 1000 / System.Diagnostics.Stopwatch.Frequency;
 				});
 			}
 			catch (AggregateException error) when (error.InnerExceptions.Count > 0)
@@ -59,6 +63,9 @@ public static partial class CandidateDeploymentSitePlanner
 				System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(error.InnerExceptions[0]).Throw();
 			}
 			mod.Logger.Info($"DINGDONG_PLANNER_POOL_TIMING|threads={threads}|profiles={profiles.Count}|ms={clock.ElapsedMilliseconds}");
+			// The pool phase lasts as long as its slowest residents; name them for the order search.
+			mod.Logger.Info("DINGDONG_PLANNER_POOL_SLOWEST|" + string.Join(";", Enumerable.Range(0, profiles.Count).OrderByDescending(i => profileMs[i]).Take(8)
+				.Select(i => $"{profiles[i].NpcKey}/{profiles[i].PresetId}={profileMs[i]}")) + $"|sumMs={profileMs.Sum()}");
 			for (int i = 0; i < profiles.Count; i++)
 			{
 				AuthoredDeploymentProfile profile = profiles[i];
