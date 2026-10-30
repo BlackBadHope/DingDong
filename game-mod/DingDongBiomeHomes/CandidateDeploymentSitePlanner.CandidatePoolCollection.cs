@@ -64,7 +64,7 @@ public static partial class CandidateDeploymentSitePlanner
 					return true;
 				lastAdmissionReason = rejection;
 				admissionRejected++;
-				structureMapRejected++;
+				System.Threading.Interlocked.Increment(ref structureMapRejected);
 				if (layoutSalt == 1 && admissionRejected <= 3)
 					mod.Logger.Info($"DINGDONG_PLANNER_RESERVATION_REJECT|npc={profile.NpcKey}|reason={rejection}|asset={candidate.AssetArea}|protected={candidate.ProtectedArea}|conflicts={ResidenceReservationDiagnostics.Describe(candidate.ProtectedArea)}");
 				return false;
@@ -99,7 +99,7 @@ public static partial class CandidateDeploymentSitePlanner
 					ranked.Add((fallbackSite, 0));
 				else
 				{
-					structureMapRejected++;
+					System.Threading.Interlocked.Increment(ref structureMapRejected);
 					lastReason = fallbackFailure;
 				}
 			}
@@ -108,7 +108,7 @@ public static partial class CandidateDeploymentSitePlanner
 				if (!AuthoredResidenceStructureReservation.CanReserve(candidate,
 					structureOnly, out string admissionFailure))
 				{
-					structureMapRejected++;
+					System.Threading.Interlocked.Increment(ref structureMapRejected);
 					lastReason = admissionFailure;
 					continue;
 				}

@@ -45,8 +45,14 @@ internal static class AutoTrashSlot
   ItemSlot.LeftClick(slot, ItemSlot.Context.TrashItem, 0);
   SetItem(player, slot[0]);
   var rules = Filters(player);
-  if (slot[0].IsAir) rules.RemoveAll(i => i.type == previous.type);
-  else if (!rules.Any(i => i.type == slot[0].type)) rules.Add(new Item(slot[0].type));
+  // Rules keep the prefix too (AutoTrashPrefixGuard): a Legendary blade is its own rule.
+  if (slot[0].IsAir) rules.RemoveAll(i => i.type == previous.type && i.prefix == previous.prefix);
+  else if (!rules.Any(i => i.type == slot[0].type && i.prefix == slot[0].prefix))
+  {
+   var rule = new Item(slot[0].type);
+   if (slot[0].prefix > 0) rule.Prefix(slot[0].prefix);
+   rules.Add(rule);
+  }
   if (!ReferenceEquals(previous, slot[0]) && !slot[0].IsAir) sold.Invoke(state, null);
   Recipe.FindRecipes();
   return true;

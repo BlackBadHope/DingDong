@@ -107,9 +107,11 @@ public sealed partial class BiomeHomeWorldgenSystem
 		// carved around every reserved structure; the foreign guard below repairs
 		// anything a provider did not register.
 		// S12 28.10: attribute foreign-structure changes to residences vs transit (read-only).
+		Worldgen.SceneEdgeFeather.Apply(Mod);
 		foreignGuard?.Census(Mod, "after-residences");
 		progress.Message = "DingDong residence transit: metro and hellevator";
 		Worldgen.ResidenceTransitBuilder.Build(Mod);
+		Worldgen.HomeBiomePatchBuilder.Build(Mod, Worldgen.ForeignStructureIntegrityGuard.ReadReservations());
 		foreignGuard?.Census(Mod, "after-transit");
 		foreignGuard?.RepairAndValidate(Mod);
 		Worldgen.NativePyramidProtection.Validate(Mod, "authored-residences");

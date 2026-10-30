@@ -19,7 +19,7 @@ namespace DingDongBiomeHomes.Ui;
 public sealed class WorldCreationBackdropSystem : ModSystem
 {
     private static readonly Stopwatch Clock = new();
-    private static bool failed, loading;
+    private static bool failed, loading, saving;
     private static double loadStart, lastEtaSample = -1, eta = -1, etaGeneration = -1;
     public override void Load()
     {
@@ -29,6 +29,10 @@ public sealed class WorldCreationBackdropSystem : ModSystem
         On_GenPass.Apply += ObservePass;
         On_Main.DrawMenu += DrawLocalLoading;
     }
+    // Owner, 30.10: leaving a world showed "Loading a world" with the time since the world was
+    // entered (22:23). The menu is not drawn while playing, so the screen is reset here instead.
+    public override void OnWorldLoad() { loading = false; saving = false; }
+    public override void PreSaveAndQuit() { loading = false; saving = true; }
     public override void Unload()
     {
         if (!Main.dedServ) { On_UIWorldLoad.Draw -= DrawGeneration; On_GenPass.Apply -= ObservePass; On_Main.DrawMenu -= DrawLocalLoading; }
@@ -101,7 +105,7 @@ public sealed class WorldCreationBackdropSystem : ModSystem
     {
         orig(self, gameTime);
         bool active = Main.gameMenu && Main.menuMode == 10 && Main.netMode == 0;
-        if (!active) { loading = false; return; }
+        if (!active) { loading = false; saving = false; return; }
         if (failed || !WorldChronicleSkin.Ready) return;
         double now = Clock.Elapsed.TotalSeconds;
         if (!loading) { loading = true; loadStart = now; }
@@ -117,11 +121,11 @@ public sealed class WorldCreationBackdropSystem : ModSystem
             batch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Matrix.Identity); begun = true;
             WorldChronicleSkin.Draw(batch, screen, now, loading: true);
             Rectangle b = WorldChronicleSkin.BookBounds(screen), page = WorldChronicleSkin.RightPage(b); float u = b.Width / 1500f;
-            WorldChronicleSkin.Heading(batch, WorldChronicleSkin.Local("LoadTitle"), At(page, u, 0, 0, page.Width / u, 50), .92f * u);
+            WorldChronicleSkin.Heading(batch, WorldChronicleSkin.Local(saving ? "SaveTitle" : "LoadTitle"), At(page, u, 0, 0, page.Width / u, 50), .92f * u);
             FitText(batch, Main.ActiveWorldFileData?.Name ?? Main.worldName, page, 64 * u, 1.02f * u, WorldChronicleSkin.Muted);
             WorldChronicleSkin.Wrapped(batch, Main.statusText, At(page, u, 0, 160, page.Width / u, 110), 1.02f * u);
             FitText(batch, string.Format(WorldChronicleSkin.Local("Elapsed"), FormatTime(now - loadStart)), page, 292 * u, .84f * u, WorldChronicleSkin.Muted);
-            WorldChronicleSkin.Wrapped(batch, WorldChronicleSkin.Local("LoadNote"), At(page, u, 0, 340, page.Width / u, 96), .84f * u, WorldChronicleSkin.Muted);
+            WorldChronicleSkin.Wrapped(batch, WorldChronicleSkin.Local(saving ? "SaveNote" : "LoadNote"), At(page, u, 0, 340, page.Width / u, 96), .84f * u, WorldChronicleSkin.Muted);
             // Saved-world loading exposes no trustworthy total. Do not invent a % or ETA.
         }
         catch (Exception ex) { Disable(ex); }

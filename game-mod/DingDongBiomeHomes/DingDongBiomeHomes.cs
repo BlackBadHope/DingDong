@@ -81,6 +81,11 @@ public sealed class DingDongBiomeHomes : Mod
 			ContinentalSectionStreamingNetwork.HandlePacket(reader, whoAmI, packetKind);
 			return;
 		}
+		if (Economy.ResidentPurseSystem.IsPacket(packetKind))
+		{
+			Economy.ResidentPurseSystem.HandlePacket(packetKind, reader, whoAmI);
+			return;
+		}
 		if (ResidentReputationSystem.IsPacket(packetKind))
 		{
 			ResidentReputationSystem.HandlePacket(packetKind, reader, whoAmI);

@@ -10,7 +10,15 @@ public static partial class DingDongAuthoredStructureLoader
 	// byte-budgeted (LRU) cache would re-decode rarely or on every request.
 	private static int cacheHits, cacheLoads;
 
+	private static readonly object cacheLock = new();
+
+	// Candidate pools are collected on several threads; one structure decodes once.
 	private static StructureData GetOrLoad(Mod mod, string resourcePath)
+	{
+		lock (cacheLock) return GetOrLoadLocked(mod, resourcePath);
+	}
+
+	private static StructureData GetOrLoadLocked(Mod mod, string resourcePath)
 	{
 		if (Cache.TryGetValue(resourcePath, out StructureData cached))
 		{

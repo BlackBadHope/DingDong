@@ -79,7 +79,7 @@ WorldCreation: {
 
 	// 28.10: "First Word" backdrop of the world-generation screen.
 	Backdrop: {
-		Title: Первое слово было
+		Title: First Word Was
 		Subtitle: Мир произносится…
 		Preparing: "Подготовка…"
 		Stage: "Этап {0} из {1}: {2}"

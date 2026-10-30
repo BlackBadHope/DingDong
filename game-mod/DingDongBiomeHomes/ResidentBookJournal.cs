@@ -34,6 +34,7 @@ internal sealed class ResidentBookJournal : UIElement
     private readonly UIElement questFooter = new();
     private const float FilterHeight = 34f;
     private int selectedIndex;
+    private int buybackCursor;
     private bool loaded, confirmAbandon;
     private string notice = string.Empty;
     private string selected = "Terraria/Guide";
@@ -121,7 +122,7 @@ internal sealed class ResidentBookJournal : UIElement
             string statusHover = status is BookQuestStatus.Busy or BookQuestStatus.Paused && p.AssignedName.Length > 0
                 ? BookUiText.Format("StatusBusyBy", p.AssignedName) : statusText;
             string roleHover = BookUiText.Format("RoleHover", name, BookLore.ForceName(PersonalResidentQuestCatalog.Force(key)));
-            var row = new BookResidentRow(name, ResidentTrustPolicy.Percent(p, npc), NpcResidentRegistry.TryGetType(key, out int t) ? t : 0, key == selected,
+            var row = new BookResidentRow(name, ResidentReputationSystem.Local(key), NpcResidentRegistry.TryGetType(key, out int t) ? t : 0, key == selected,
                 status, statusText, statusHover, ResidentStoryRoles.IsMain(key), key, roleHover);
             row.OnLeftClick += (_, _) => SelectResident(key);
             residents.Add(row);
@@ -191,6 +192,9 @@ internal sealed class ResidentBookJournal : UIElement
             float fraction = p.Active ? Math.Min(1, objectiveProgress / (float)Math.Max(1, d.Goal)) : 0;
             objective.Add(new BookSlotRow(new QuestTargetIcon(TargetItem(step), step.TargetNpcType, 34), ObjectiveLabel(npc, step, stageIndex, p),
                 .88f, null, fraction, CountText(step, d, p.Active ? objectiveProgress : 0)));
+            // Owner, 30.10: at 45/45 nothing said what comes next.
+            if (p.Active && fraction >= 1f)
+                objective.Add(new BookText(BookUiText.Format("Hints.ReadyTurnIn", name), .82f, new Color(46, 112, 40)));
             string chosen = BookQuestBridge.Choice(selected, stageIndex, p);
             if (chosen != null && step.Kind == "DialogueChoice")
             {
@@ -410,6 +414,7 @@ internal sealed class ResidentBookJournal : UIElement
             : pending ? BookUiText.Get("Hints.FindFirst")
             : paused ? BookUiText.Get("Hints.Paused")
             : !mine ? BookUiText.Format("Hints.AssignedTo", p.AssignedName)
+            : ready && near < 0 ? BookUiText.Format("Hints.ReadyTurnIn", NpcQuestSystem.ResidentName(selected))
             : near < 0 && p.Active && !ready && !complete ? BookUiText.Get("Hints.MeetToSpeak") : string.Empty;
         if (!confirmAbandon)
         {
@@ -417,20 +422,44 @@ internal sealed class ResidentBookJournal : UIElement
         }
         // Reference: the chain sits in its own framed card; the residence lock gets a full caption beside it.
         var trail = new ResidentStoryTrail(selected, p.Completed); trail.Top.Set(68, 0); trail.Width.Set(-170, 1); trail.Height.Set(104, 0); questFooter.Append(trail);
-        var house = new BookAssetIcon(moved ? BookGlyph.Residents : BookGlyph.Residence); house.Left.Set(-160, 1); house.Top.Set(62, 0); house.Width.Set(150, 0); house.Height.Set(60, 0); questFooter.Append(house);
+        var house = new BookAssetIcon(moved ? BookGlyph.Residents : BookGlyph.Residence); house.Left.Set(-160, 1); house.Top.Set(62, 0); house.Width.Set(150, 0); house.Height.Set(40, 0); questFooter.Append(house);
         // S23: residences are no longer locked; the caption shows the reader's standing with this resident instead.
         int standing = ResidentReputationSystem.Local(selected);
         string mood = standing <= ResidentReputationSystem.HostileAt ? "Hostile" : standing <= ResidentReputationSystem.QuestBanAt ? "Banned"
             : standing <= ResidentReputationSystem.GrumbleAt ? "Grumbling" : standing >= 700 ? "Devoted" : standing >= 300 ? "Friendly" : "Neutral";
         string caption = moved ? BookUiText.Get("ResidenceMoved")
             : Language.GetTextValue("Mods.DingDongBiomeHomes.Reputation.Line", standing) + " · " + Language.GetTextValue("Mods.DingDongBiomeHomes.Reputation.Mood." + mood);
-        var homeText = new BookText(caption, .62f, standing <= ResidentReputationSystem.QuestBanAt ? new Color(150, 40, 30) : Ink) { Centered = true }; homeText.Left.Set(-162, 1); homeText.Top.Set(122, 0); homeText.Width.Set(156, 0); questFooter.Append(homeText);
+        var homeText = new BookText(caption, .62f, standing <= ResidentReputationSystem.QuestBanAt ? new Color(150, 40, 30) : Ink) { Centered = true }; homeText.Left.Set(-162, 1); homeText.Top.Set(102, 0); homeText.Width.Set(156, 0); questFooter.Append(homeText);
         var (brokenCount, brokenPrice) = ResidentReputationSystem.LocalBroken(selected);
+        var entries = ResidentReputationSystem.LocalEntries(selected);
         if (!moved && brokenCount > 0)
         {
+            // One broken block at a time (‹ › pick, the middle button pays for it), or everything at once below.
+            if (entries.Count > 0)
+            {
+                buybackCursor = Math.Clamp(buybackCursor, 0, entries.Count - 1);
+                var (entryId, entryItem, entryPrice) = entries[buybackCursor];
+                string one = QuestRewardBalance.FormatCoins((int)Math.Min(int.MaxValue, entryPrice));
+                var prev = new BookActionButton("‹", .7f) { Available = buybackCursor > 0 };
+                prev.Left.Set(-162, 1); prev.Top.Set(120, 0); prev.Width.Set(24, 0); prev.Height.Set(24, 0);
+                prev.OnLeftClick += (_, _) => { if (buybackCursor > 0) { buybackCursor--; SoundEngine.PlaySound(SoundID.MenuTick); Reload(); } };
+                var next = new BookActionButton("›", .7f) { Available = buybackCursor < entries.Count - 1 };
+                next.Left.Set(-30, 1); next.Top.Set(120, 0); next.Width.Set(24, 0); next.Height.Set(24, 0);
+                next.OnLeftClick += (_, _) => { if (buybackCursor < entries.Count - 1) { buybackCursor++; SoundEngine.PlaySound(SoundID.MenuTick); Reload(); } };
+                string blockName = entryItem > 0 ? Lang.GetItemNameValue(entryItem) : "?";
+                var buyOne = new BookActionButton(Language.GetTextValue("Mods.DingDongBiomeHomes.Reputation.BuybackOne", blockName, one), .5f) { Warning = !Main.LocalPlayer.CanAfford(entryPrice) };
+                buyOne.Left.Set(-136, 1); buyOne.Top.Set(120, 0); buyOne.Width.Set(104, 0); buyOne.Height.Set(24, 0);
+                buyOne.OnLeftClick += (_, _) =>
+                {
+                    SoundEngine.PlaySound(SoundID.Coins);
+                    notice = ResidentReputationSystem.RequestBuyback(selected, entryId) ? string.Empty : Language.GetTextValue("Mods.DingDongBiomeHomes.Reputation.BuybackPoor", one);
+                    Reload();
+                };
+                questFooter.Append(prev); questFooter.Append(buyOne); questFooter.Append(next);
+            }
             string coins = QuestRewardBalance.FormatCoins((int)Math.Min(int.MaxValue, brokenPrice));
-            var buyback = new BookActionButton(Language.GetTextValue("Mods.DingDongBiomeHomes.Reputation.Buyback", brokenCount, coins), .58f) { Warning = !Main.LocalPlayer.CanAfford(brokenPrice) };
-            buyback.Left.Set(-162, 1); buyback.Top.Set(142, 0); buyback.Width.Set(156, 0); buyback.Height.Set(30, 0);
+            var buyback = new BookActionButton(Language.GetTextValue("Mods.DingDongBiomeHomes.Reputation.BuybackAll", brokenCount, coins), .55f) { Warning = !Main.LocalPlayer.CanAfford(brokenPrice) };
+            buyback.Left.Set(-162, 1); buyback.Top.Set(147, 0); buyback.Width.Set(156, 0); buyback.Height.Set(25, 0);
             buyback.OnLeftClick += (_, _) =>
             {
                 SoundEngine.PlaySound(SoundID.Coins);
@@ -545,8 +574,8 @@ internal sealed class BookResidentRow : UIElement
             // Main storyline marker (owner item 11): a fallen star before the name, explained on hover.
             star = new BookItemGlyph(ItemID.FallenStar, 22, BookUiText.Get("MainStory"), Color.White); Append(star);
         }
-        bar = new BookProgressBar(reputation / 100f); bar.Height.Set(14, 0); Append(bar);
-        string amountText = BookUiText.Format("Count", reputation, 100);
+        bar = new BookProgressBar((reputation - ResidentReputationSystem.Min) / (float)(ResidentReputationSystem.Max - ResidentReputationSystem.Min)); bar.Height.Set(14, 0); Append(bar);
+        string amountText = reputation.ToString();
         // Measured, so "100 / 100" never overflows a fixed column (item 8 review).
         amountWidth = FontAssets.MouseText.Value.MeasureString(BookUiText.Format("Count", 100, 100)).X * .86f + 6f;
         amount = new BookText(amountText, .86f, ResidentBookJournal.Ink) { SingleLine = true, MinScale = .6f }; Append(amount);

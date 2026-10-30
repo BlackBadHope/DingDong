@@ -39,14 +39,35 @@ public static partial class CandidateDeploymentSitePlanner
 		{
 			pools = new Dictionary<string, IReadOnlyList<RankedLayoutCandidate>>(StringComparer.Ordinal);
 			List<string> emptyDomains = new();
-			foreach (AuthoredDeploymentProfile profile in profiles)
+			// Order search, 30.10: each resident's pool reads the finished world and nothing else,
+			// so the pools are collected in parallel and merged in profile order. The pools, their
+			// digest and the solver input stay identical to the sequential build.
+			var built = new List<RankedLayoutCandidate>[profiles.Count];
+			var reasons = new string[profiles.Count];
+			var clock = System.Diagnostics.Stopwatch.StartNew();
+			int threads = ParallelCandidatePools ? Math.Clamp(Environment.ProcessorCount - 2, 1, 12) : 1;
+			try
 			{
-				if (!TryBuildProfilePool(profile, out List<RankedLayoutCandidate> pool, out string reason))
+				System.Threading.Tasks.Parallel.For(0, profiles.Count, new System.Threading.Tasks.ParallelOptions { MaxDegreeOfParallelism = threads }, i =>
 				{
-					emptyDomains.Add($"{profile.NpcKey}/{profile.PresetId}:{reason}");
+					if (!TryBuildProfilePool(profiles[i], out List<RankedLayoutCandidate> pool, out string reason)) reasons[i] = reason;
+					else built[i] = pool;
+				});
+			}
+			catch (AggregateException error) when (error.InnerExceptions.Count > 0)
+			{
+				System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(error.InnerExceptions[0]).Throw();
+			}
+			mod.Logger.Info($"DINGDONG_PLANNER_POOL_TIMING|threads={threads}|profiles={profiles.Count}|ms={clock.ElapsedMilliseconds}");
+			for (int i = 0; i < profiles.Count; i++)
+			{
+				AuthoredDeploymentProfile profile = profiles[i];
+				if (built[i] == null)
+				{
+					emptyDomains.Add($"{profile.NpcKey}/{profile.PresetId}:{reasons[i]}");
 					continue;
 				}
-				pools.Add(profile.NpcKey, pool);
+				pools.Add(profile.NpcKey, built[i]);
 			}
 			// Build the final digest/counts only after the one bounded refinement;
 			// old candidates are retained verbatim, not pruned a second time.

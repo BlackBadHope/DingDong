@@ -21,6 +21,11 @@ public static partial class DingDongAuthoredStructureLoader
 {
 	private static StructureWritePlan GetWritePlan(StructureData data, string resourcePath, AuthoredDeploymentProfile profile)
 	{
+		lock (cacheLock) return GetWritePlanLocked(data, resourcePath, profile);
+	}
+
+	private static StructureWritePlan GetWritePlanLocked(StructureData data, string resourcePath, AuthoredDeploymentProfile profile)
+	{
 		bool integrateNaturalBoundary = profile?.BoundaryPolicy == DeploymentBoundaryPolicy.PreserveBoundaryConnectedExterior;
 		var plans = integrateNaturalBoundary ? IntegratedWritePlanCache : RawWritePlanCache;
 		if (plans.TryGetValue(resourcePath, out StructureWritePlan cached))

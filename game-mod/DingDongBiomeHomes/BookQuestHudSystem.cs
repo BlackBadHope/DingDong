@@ -199,7 +199,8 @@ public sealed class BookQuestHudSystem : ModSystem
 
 	private static bool DrawTracker()
 	{
-		if (trackCountTotal == 0 || Main.gameMenu || Main.playerInventory || Main.inFancyUI || Main.ingameOptionsWindow || Main.mapFullscreen || Main.LocalPlayer.dead)
+		// Owner, 30.10: the card covered the last NPC chat button; it steps aside while a resident talks.
+		if (trackCountTotal == 0 || Main.gameMenu || Main.playerInventory || Main.inFancyUI || Main.ingameOptionsWindow || Main.mapFullscreen || Main.LocalPlayer.dead || Main.LocalPlayer.talkNPC >= 0)
 			return true;
 		SpriteBatch batch = Main.spriteBatch;
 		DynamicSpriteFont font = FontAssets.MouseText.Value;

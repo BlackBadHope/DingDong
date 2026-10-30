@@ -17,19 +17,23 @@ public sealed class AutoUncraftPlayer : ModPlayer
  internal string LastError = "";
  private int scan, cooldown;
  public override void Initialize() { Enabled = false; Filters = new(); LastItem = new(); Input = new[] { new Item() }; scan = cooldown = 0; }
+ // Owner, 27.10: a rule is the item together with its prefix, so a plain sword on the list never
+ // takes a Legendary one with it (and the reverse).
+ private static bool Same(Item rule, Item item) => rule.type == item.type && rule.prefix == item.prefix;
+ private static Item Rule(Item item) { var rule = new Item(item.type); if (item.prefix > 0) rule.Prefix(item.prefix); return rule; }
  internal void AddRule(Item item) {
   if (item != null && !item.IsAir && !Includes(item) && UncraftRecipeCompatibility.BasicRecipe(item) != null)
-   Filters.Add(new Item(item.type));
+   Filters.Add(Rule(item));
  }
- internal bool Includes(Item item) => item != null && !item.IsAir && Filters.Any(i => i.type == item.type);
+ internal bool Includes(Item item) => item != null && !item.IsAir && Filters.Any(i => Same(i, item));
  internal bool Eligible(Item item) => Enabled && item != null && !item.IsAir && !item.favorited && Includes(item);
  internal bool Toggle(Item item)
  {
   if (item == null || item.IsAir) return false;
-  int existing = Filters.FindIndex(i => i.type == item.type);
+  int existing = Filters.FindIndex(i => Same(i, item));
   if (existing >= 0) { Filters.RemoveAt(existing); return true; }
   if (UncraftRecipeCompatibility.BasicRecipe(item) == null) return false;
-  Filters.Add(new Item(item.type)); return true;
+  Filters.Add(Rule(item)); return true;
  }
  public override void SaveData(TagCompound tag)
  {
@@ -45,7 +49,7 @@ public sealed class AutoUncraftPlayer : ModPlayer
   if (AutoTrashSlot.Installed && tag.ContainsKey("AutoTrashRecovery")) AutoTrashSlot.SetItem(Player, ItemIO.Load(tag.GetCompound("AutoTrashRecovery")));
   if (tag.ContainsKey("AutoUncraftFilters"))
    foreach (TagCompound entry in tag.GetList<TagCompound>("AutoUncraftFilters")) {
-    Item item = ItemIO.Load(entry); if (!item.IsAir && !Filters.Any(i => i.type == item.type)) Filters.Add(item);
+    Item item = ItemIO.Load(entry); if (!item.IsAir && !Filters.Any(i => Same(i, item))) Filters.Add(item);
    }
  }
  public override void PostUpdate()

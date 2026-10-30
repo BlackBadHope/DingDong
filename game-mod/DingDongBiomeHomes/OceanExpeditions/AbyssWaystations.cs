@@ -30,10 +30,11 @@ internal static class AbyssWaystations
     // edge ~510) and native caves. Each preferred site now searches +-84 along
     // its crossing; up to three per floor, the first accepted one holds the
     // cache. The geometry's flat sites (beside each shaft, the middle) go first.
-    private const int SearchSpan = 84, SearchStep = 6, StationsPerFloor = 3;
+    // 30.10: O9 still lost 8/33 (slope 367, route 281 probe misses), so the search is wider.
+    private const int SearchSpan = 132, SearchStep = 6, StationsPerFloor = 3;
     // V03 28.10: off the flat sites the bed meanders; a slab levels at most this
     // many rows of slope, with a foundation down to each column's own bed.
-    private const int MaxBedStep = 4;
+    private const int MaxBedStep = 7;
     private enum Reject { None, Route, Shaft, Slope, Bed, Chest }
     private static int crossings;
 
@@ -85,7 +86,7 @@ internal static class AbyssWaystations
             {
                 accepted.Clear();
                 bool cacheWanted = true;
-                int[] preferred = { AbyssRouteGeometry.Site(top, k, 0), AbyssRouteGeometry.Site(top, k, 2), AbyssRouteGeometry.MiddleSite, 330, 680 };
+                int[] preferred = { AbyssRouteGeometry.Site(top, k, 0), AbyssRouteGeometry.Site(top, k, 2), AbyssRouteGeometry.MiddleSite, 330, 680, 180, 520, 840 };
                 foreach (int site in preferred)
                 {
                     if (accepted.Count == StationsPerFloor) break;

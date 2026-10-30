@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.ID;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.Localization;
@@ -148,25 +149,30 @@ public sealed class ResidenceQuestMapLayer : ModMapLayer
 	internal static int MapRingRadius(int objectiveRadiusTiles) =>
 		Math.Clamp(Math.Max(1, objectiveRadiusTiles) * 2, MinimumRingRadiusTiles, MaximumRingRadiusTiles);
 
+	// Owner, 30.10: the old marker drew the whole MapPing sheet (five frames stacked) as one
+	// image, a column of rings. The quest place is now a quest-book icon with the animated
+	// ping ring under it, one frame at a time.
 	private static bool DrawDottedRing(
 		ref MapOverlayDrawContext context,
 		Point center,
 		int objectiveRadiusTiles,
 		Color color)
 	{
-		// MagicPixel is stretched by the map transform and becomes a full-height
-		// beam. MapPing is a real bounded icon in every map mode.
-		float scale = 0.7f + MapRingRadius(objectiveRadiusTiles) / (float)MaximumRingRadiusTiles * 0.2f;
-		return DrawPoint(ref context, TextureAssets.MapPing.Value, center.ToVector2(), color, scale, scale + 0.15f);
+		float scale = 0.55f + MapRingRadius(objectiveRadiusTiles) / (float)MaximumRingRadiusTiles * 0.25f;
+		var ping = new SpriteFrame(1, PingFrames, 0, (byte)((int)(Main.GlobalTimeWrappedHourly * 10f) % PingFrames));
+		return context.Draw(TextureAssets.MapPing.Value, center.ToVector2(), color, ping, scale, scale + 0.15f, Alignment.Center).IsMouseOver;
 	}
+
+	private const int PingFrames = 5;
 
 	private static bool DrawTargetCross(
 		ref MapOverlayDrawContext context,
 		Point target,
 		int radiusTiles)
 	{
-		float pulse = 0.28f + 0.06f * MathF.Sin((float)(Main.GameUpdateCount % 120) * MathHelper.TwoPi / 120f);
-		return DrawPoint(ref context, TextureAssets.MapPing.Value, target.ToVector2(), TargetColor, pulse, pulse + 0.08f);
+		Main.instance.LoadItem(ItemID.Book);
+		float bob = 1f + 0.06f * MathF.Sin((float)(Main.GameUpdateCount % 120) * MathHelper.TwoPi / 120f);
+		return DrawPoint(ref context, TextureAssets.Item[ItemID.Book].Value, target.ToVector2(), Color.White, bob, bob + 0.2f);
 	}
 
 	private static bool DrawPoint(

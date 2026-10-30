@@ -110,9 +110,13 @@ internal static partial class NpcQuestSystem
 
 		if (!progress.Active)
 		{
-            if (PersonalResidentQuestCatalog.Complete(npcKey, progress.Completed))
-            { Notify(player, "Mods.DingDongBiomeHomes.SharedQuests.StoryComplete"); return; }
-			ResidentQuestDefinition selected = ResidentQuestCatalog.SelectAvailable(questPlayer.PersistentId, identity, progress.Completed, allowResidenceObjectives: hasResidence);
+			bool repeat = PersonalResidentQuestCatalog.Complete(npcKey, progress.Completed);
+			// 30.10 (owner): a finished chain repeats for reputation, one in-game day after the last stage.
+			if (repeat && !ResidentReputationSystem.RepeatReady(npcKey))
+			{ Notify(player, "Mods.DingDongBiomeHomes.SharedQuests.StoryComplete"); Notify(player, "Mods.DingDongBiomeHomes.Reputation.RepeatTomorrow"); return; }
+			ResidentQuestDefinition selected = repeat
+				? PersonalResidentQuestCatalog.ResolveRepeat(identity, progress.Completed)
+				: ResidentQuestCatalog.SelectAvailable(questPlayer.PersistentId, identity, progress.Completed, allowResidenceObjectives: hasResidence);
 			ResidentQuestDefinition scaled = QuestRewardBalance.Scale(selected, out int rewardCopper, out int difficultyRank);
 			progress.Begin(scaled, rewardCopper, difficultyRank);
 			progress.AssignedTo = questPlayer.PersistentId;

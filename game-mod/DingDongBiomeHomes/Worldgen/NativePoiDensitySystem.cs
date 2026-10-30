@@ -108,6 +108,10 @@ internal sealed class NativePoiDensitySystem : ModSystem
 			Active, range.ScaleWith == WorldGenRange.ScalingMode.WorldWidth, horizontal);
 		if (Active) NativePoiDensityReceipt.Record(kind, native, target,
 			horizontal ? "WorldWidth-horizontal" : range.ScaleWith.ToString());
+		// Owner, 30.10: five tiers of rails in one map screen. Standard tracks keep a third of
+		// the vanilla Large density (the receipt above records the policy target it audits);
+		// the long ones and the Ding Dong metro are unchanged.
+		if (Active && kind == "standard-tracks") target = Math.Max(1, target / 3);
 		return target;
 	}
 }

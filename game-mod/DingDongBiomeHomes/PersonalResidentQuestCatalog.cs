@@ -164,6 +164,18 @@ internal static class PersonalResidentQuestCatalog
         };
         return new(FirstId + chapter, kind, chapter, s.ItemType, goal, radius, targetKey, targetName, s.Coins, s.Key, s.RewardType, s.RewardCount);
     }
+    /// <summary>A repeat of a finished chain cycles its stages; dialogue choices and waits are the
+    /// world's one-time answers, so those stages are skipped.</summary>
+    internal static ResidentQuestDefinition ResolveRepeat(NpcTownIdentity npc, int completed)
+    {
+        EnsureLoaded(); var steps = Stories[npc.NpcKey].Steps; int length = steps.Length;
+        for (int i = 0; i < length; i++)
+        {
+            int chapter = (completed + i) % length;
+            if (steps[chapter].Kind is not ("DialogueChoice" or "Delayed")) return Resolve(npc, chapter);
+        }
+        return Resolve(npc, completed % length);
+    }
     internal static bool TryResolve(string key, out ResidentQuestDefinition definition)
     {
         var step = Step(key);

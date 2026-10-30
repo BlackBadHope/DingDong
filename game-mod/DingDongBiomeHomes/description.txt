@@ -1,1 +1,3 @@
+Ding Dong > Biome Homes > First Word Was. Ding Dong is the mod; Biome Homes was the previous update; First Word Was is the story update.
+
 Expands the Ding Dong bundle with hand-authored biome settlements, resident quests, cross-mod damage rules, AI-designed weapons, mob relics, fifteen synergy armor sets, and Goblin accessory upgrading and fusion. World placement is seed-aware and atomic; gameplay state and transactions use server-authoritative multiplayer packets. Bundled Structify assets are MIT licensed, with builders and license listed in ThirdPartyNotices.

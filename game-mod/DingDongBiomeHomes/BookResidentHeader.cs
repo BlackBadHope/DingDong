@@ -21,10 +21,12 @@ internal sealed class BookResidentHeader:UIElement
         name=new BookText(NpcQuestSystem.ResidentName(key),1.5f,ResidentBookJournal.Ink){SingleLine=true,MinScale=1f};Append(name);
         if(!string.IsNullOrEmpty(epithetText)){epithet=new BookText(epithetText,.82f,DingDongUiTheme.Gold){SingleLine=true};Append(epithet);}
         reputation=new BookText(BookUiText.Get("Reputation"),.94f,ResidentBookJournal.Ink);Append(reputation);
-        bar=new BookProgressBar(percent/100f);bar.Height.Set(16,0);Append(bar);
-        amount=new BookText(BookUiText.Format("Count",percent,100),1.0f,ResidentBookJournal.Ink){SingleLine=true,MinScale=.7f};Append(amount);
-        // Measured once: "100 / 100" must fit whatever the font and language (item 8 review).
-        amountWidth=FontAssets.MouseText.Value.MeasureString(BookUiText.Format("Count",100,100)).X+8f;
+        // S23/30.10: the bar is the reader's own standing with this resident (-1000..+1000), not the old 0..100 trust.
+        int standing=ResidentReputationSystem.Local(key);
+        bar=new BookProgressBar((standing-ResidentReputationSystem.Min)/(float)(ResidentReputationSystem.Max-ResidentReputationSystem.Min));bar.Height.Set(16,0);Append(bar);
+        amount=new BookText(BookUiText.Format("Count",standing,ResidentReputationSystem.Max),1.0f,ResidentBookJournal.Ink){SingleLine=true,MinScale=.7f};Append(amount);
+        // Measured once: the widest value must fit whatever the font and language (item 8 review).
+        amountWidth=FontAssets.MouseText.Value.MeasureString(BookUiText.Format("Count",-1000,1000)).X+8f;
         quote=new BookText(words??string.Empty,.87f,ResidentBookJournal.Ink);Append(quote);
     }
     public override void Recalculate()

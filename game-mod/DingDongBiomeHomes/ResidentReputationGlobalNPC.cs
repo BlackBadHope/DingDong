@@ -24,6 +24,20 @@ public sealed class ResidentReputationGlobalNPC : GlobalNPC
         npc.knockBackResist = Math.Min(npc.knockBackResist, 0.1f);
     }
 
+    // Standing shows at the counter: +300 is 10 % off, +700 is 20 % off, −100 and below pays 20 % more.
+    public override void ModifyActiveShop(NPC npc, string shopName, Item[] items)
+    {
+        if (!NpcResidentRegistry.TryGet(npc, out string key, out _)) return;
+        float factor = ResidentReputationSystem.ShopFactor(ResidentReputationSystem.Local(key));
+        if (factor == 1f) return;
+        foreach (Item item in items)
+        {
+            if (item == null || item.IsAir) continue;
+            int price = item.shopCustomPrice ?? item.value;
+            if (price > 0) item.shopCustomPrice = Math.Max(1, (int)Math.Round(price * factor));
+        }
+    }
+
     internal static bool IsHostileTo(Player player, string npcKey)
     {
         if (player == null || !player.active) return false;

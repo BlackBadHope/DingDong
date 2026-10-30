@@ -16,30 +16,35 @@ namespace DingDongBiomeHomes;
 // buying the broken blocks back earn it again. Numbers: Fix-R39/V03/RESIDENCE-REPUTATION-DESIGN-20261030.md.
 public sealed class ResidentReputationSystem : ModSystem
 {
-	internal const int Min = -1000, Max = 1000, GrumbleAt = -100, QuestBanAt = -300, HostileAt = -600;
+	internal const int Min = -1000, Max = 1000, GrumbleAt = -100, QuestBanAt = -300, HostileAt = -600, FriendlyAt = 300, DevotedAt = 700;
+	private const int ListedPerResident = 30;
 	internal const byte SnapshotPacket = 90, BuybackPacket = 91;
 	private const int MaxBroken = 4000, CopperPerGold = 10000;
 
 	internal sealed class BrokenBlock
 	{
 		internal string NpcKey = string.Empty, PlayerId = string.Empty;
-		internal int X, Y, Type, Style, ItemType, Penalty;
+		internal int Id, X, Y, Type, Style, ItemType, Penalty;
 		internal bool Wall;
 		internal long Price => Math.Max(1, ContentSamples.ItemsByType.TryGetValue(ItemType, out Item item) && item.value > 0 ? (long)item.value * 10 : CopperPerGold);
 	}
 
 	private static readonly Dictionary<(string Player, string Npc), int> values = new();
 	private static readonly List<BrokenBlock> broken = new();
+	// World quest clock of each resident's last handed-in stage: a finished chain repeats a day later.
+	private static readonly Dictionary<string, long> lastCompletion = new(StringComparer.Ordinal);
+	private static int nextBrokenId = 1;
 	private static HashSet<int> craftingStations;
 	private static bool dirty;
 
 	// Client view: the local player's reputation per resident and the buyback summary per resident.
 	private static readonly Dictionary<string, int> localValues = new(StringComparer.Ordinal);
 	private static readonly Dictionary<string, (int Count, long Price)> localBroken = new(StringComparer.Ordinal);
+	private static readonly Dictionary<string, List<(int Id, int Item, long Price)>> localEntries = new(StringComparer.Ordinal);
 
 	public override void ClearWorld()
 	{
-		values.Clear(); broken.Clear(); localValues.Clear(); localBroken.Clear(); dirty = false;
+		values.Clear(); broken.Clear(); lastCompletion.Clear(); localValues.Clear(); localBroken.Clear(); localEntries.Clear(); nextBrokenId = 1; dirty = false;
 	}
 
 	internal static int Get(string playerId, string npcKey) =>
@@ -56,6 +61,29 @@ public sealed class ResidentReputationSystem : ModSystem
 		var own = broken.Where(b => b.NpcKey == npcKey).ToList();
 		return (own.Count, own.Sum(b => b.Price));
 	}
+
+	/// <summary>The most recent broken blocks of a resident, newest first, for picking one to buy back.</summary>
+	internal static IReadOnlyList<(int Id, int Item, long Price)> LocalEntries(string npcKey)
+	{
+		if (Main.netMode == NetmodeID.MultiplayerClient)
+			return localEntries.TryGetValue(npcKey, out var list) ? list : Array.Empty<(int, int, long)>();
+		return Listed(npcKey);
+	}
+
+	private static List<(int Id, int Item, long Price)> Listed(string npcKey) =>
+		broken.Where(b => b.NpcKey == npcKey).OrderByDescending(b => b.Id).Take(ListedPerResident).Select(b => (b.Id, b.ItemType, b.Price)).ToList();
+
+	/// <summary>Shop price factor for a player's standing: friends pay less, a grumbling resident charges more.</summary>
+	internal static float ShopFactor(int standing) =>
+		standing >= DevotedAt ? .8f : standing >= FriendlyAt ? .9f : standing <= GrumbleAt ? 1.2f : 1f;
+
+	/// <summary>Quest reward for a devoted player is a quarter higher.</summary>
+	internal static int ScaleReward(string playerId, string npcKey, int reward) =>
+		Get(playerId, npcKey) >= DevotedAt ? (int)Math.Min(int.MaxValue, reward * 5L / 4) : reward;
+
+	/// <summary>A finished chain is offered again one in-game day after its last handed-in stage.</summary>
+	internal static bool RepeatReady(string npcKey) =>
+		!lastCompletion.TryGetValue(npcKey, out long at) || NpcQuestWorldLedger.Clock < at || NpcQuestWorldLedger.Clock - at >= PersonalResidentQuestCatalog.TicksPerDay;
 
 	internal static void Add(Player player, string npcKey, int delta)
 	{
@@ -83,7 +111,7 @@ public sealed class ResidentReputationSystem : ModSystem
 		int penalty = wall ? WallPenalty(itemType) : TilePenalty(type, itemType);
 		if (penalty <= 0) return;
 		Add(player, npcKey, -penalty);
-		broken.Add(new BrokenBlock { NpcKey = npcKey, PlayerId = player.GetModPlayer<NpcQuestPlayer>().PersistentId, X = x, Y = y, Type = type, Style = style, ItemType = itemType, Penalty = penalty, Wall = wall });
+		broken.Add(new BrokenBlock { Id = nextBrokenId++, NpcKey = npcKey, PlayerId = player.GetModPlayer<NpcQuestPlayer>().PersistentId, X = x, Y = y, Type = type, Style = style, ItemType = itemType, Penalty = penalty, Wall = wall });
 		if (broken.Count > MaxBroken) broken.RemoveRange(0, broken.Count - MaxBroken);
 		dirty = true;
 	}
@@ -155,6 +183,8 @@ public sealed class ResidentReputationSystem : ModSystem
 		if (Main.hardMode) gain *= 2;
 		if (chainLength > 0 && completedTotal == chainLength) gain += 150;
 		Add(player, npcKey, gain);
+		lastCompletion[npcKey] = NpcQuestWorldLedger.Clock;
+		dirty = true;
 	}
 
 	public override void PostUpdateWorld()
@@ -174,23 +204,30 @@ public sealed class ResidentReputationSystem : ModSystem
 
 	// ---- Buyback ---------------------------------------------------------------------------
 
-	/// <summary>Client: pays for every broken block of this resident and asks the server to restore them.</summary>
-	internal static bool RequestBuyback(string npcKey)
+	/// <summary>Client: pays for one broken block (<paramref name="id"/>) or all of them (-1) and asks the server to restore them.</summary>
+	internal static bool RequestBuyback(string npcKey, int id = -1)
 	{
-		var (count, price) = LocalBroken(npcKey);
-		if (count == 0 || !Main.LocalPlayer.CanAfford(price) || !Main.LocalPlayer.BuyItem(price)) return false;
+		long price;
+		if (id < 0) price = LocalBroken(npcKey).Price;
+		else
+		{
+			var entry = LocalEntries(npcKey).FirstOrDefault(e => e.Id == id);
+			if (entry.Id != id) return false;
+			price = entry.Price;
+		}
+		if (price <= 0 || !Main.LocalPlayer.CanAfford(price) || !Main.LocalPlayer.BuyItem(price)) return false;
 		if (Main.netMode == NetmodeID.MultiplayerClient)
 		{
 			ModPacket packet = DingDongBiomeHomes.Instance.GetPacket();
-			packet.Write(BuybackPacket); packet.Write(npcKey); packet.Send();
+			packet.Write(BuybackPacket); packet.Write(npcKey); packet.Write(id); packet.Send();
 		}
-		else Restore(Main.LocalPlayer, npcKey);
+		else Restore(Main.LocalPlayer, npcKey, id);
 		return true;
 	}
 
-	private static void Restore(Player payer, string npcKey)
+	private static void Restore(Player payer, string npcKey, int id)
 	{
-		foreach (BrokenBlock block in broken.Where(b => b.NpcKey == npcKey).ToList())
+		foreach (BrokenBlock block in broken.Where(b => b.NpcKey == npcKey && (id < 0 || b.Id == id)).ToList())
 		{
 			if (block.Wall)
 			{
@@ -222,17 +259,26 @@ public sealed class ResidentReputationSystem : ModSystem
 		if (kind == BuybackPacket && Main.netMode == NetmodeID.Server)
 		{
 			string npcKey = reader.ReadString();
+			int id = reader.ReadInt32();
 			if (whoAmI >= 0 && whoAmI < Main.maxPlayers && Main.player[whoAmI].active && NpcTownManifest.TryGet(npcKey, out _))
-				Restore(Main.player[whoAmI], npcKey);
+				Restore(Main.player[whoAmI], npcKey, id);
 			return;
 		}
 		if (kind == SnapshotPacket && Main.netMode == NetmodeID.MultiplayerClient)
 		{
-			localValues.Clear(); localBroken.Clear();
+			localValues.Clear(); localBroken.Clear(); localEntries.Clear();
 			int count = reader.ReadInt16();
 			for (int i = 0; i < count; i++) localValues[reader.ReadString()] = reader.ReadInt16();
 			count = reader.ReadInt16();
-			for (int i = 0; i < count; i++) localBroken[reader.ReadString()] = (reader.ReadInt16(), reader.ReadInt64());
+			for (int i = 0; i < count; i++)
+			{
+				string npcKey = reader.ReadString();
+				localBroken[npcKey] = (reader.ReadInt16(), reader.ReadInt64());
+				int listed = reader.ReadByte();
+				var list = new List<(int, int, long)>(listed);
+				for (int j = 0; j < listed; j++) list.Add((reader.ReadInt32(), reader.ReadInt32(), reader.ReadInt64()));
+				localEntries[npcKey] = list;
+			}
 		}
 	}
 
@@ -246,7 +292,13 @@ public sealed class ResidentReputationSystem : ModSystem
 		packet.Write((short)mine.Count);
 		foreach (var entry in mine) { packet.Write(entry.Key.Npc); packet.Write((short)entry.Value); }
 		packet.Write((short)summary.Count);
-		foreach (var entry in summary) { packet.Write(entry.Key); packet.Write((short)Math.Min(short.MaxValue, entry.Count)); packet.Write(entry.Price); }
+		foreach (var entry in summary)
+		{
+			packet.Write(entry.Key); packet.Write((short)Math.Min(short.MaxValue, entry.Count)); packet.Write(entry.Price);
+			var listed = Listed(entry.Key);
+			packet.Write((byte)listed.Count);
+			foreach (var (blockId, item, price) in listed) { packet.Write(blockId); packet.Write(item); packet.Write(price); }
+		}
 		packet.Send(whoAmI);
 	}
 
@@ -259,20 +311,27 @@ public sealed class ResidentReputationSystem : ModSystem
 		tag["ReputationV1"] = values.Select(v => new TagCompound { ["p"] = v.Key.Player, ["n"] = v.Key.Npc, ["v"] = v.Value }).ToList();
 		tag["BrokenV1"] = broken.Select(b => new TagCompound
 		{
-			["n"] = b.NpcKey, ["p"] = b.PlayerId, ["x"] = b.X, ["y"] = b.Y, ["t"] = b.Type, ["s"] = b.Style, ["i"] = b.ItemType, ["c"] = b.Penalty, ["w"] = b.Wall
+			["id"] = b.Id, ["n"] = b.NpcKey, ["p"] = b.PlayerId, ["x"] = b.X, ["y"] = b.Y, ["t"] = b.Type, ["s"] = b.Style, ["i"] = b.ItemType, ["c"] = b.Penalty, ["w"] = b.Wall
 		}).ToList();
+		tag["RepeatClockV1"] = lastCompletion.Select(v => new TagCompound { ["n"] = v.Key, ["c"] = v.Value }).ToList();
 	}
 
 	public override void LoadWorldData(TagCompound tag)
 	{
-		values.Clear(); broken.Clear();
+		values.Clear(); broken.Clear(); lastCompletion.Clear();
 		foreach (TagCompound entry in tag.GetList<TagCompound>("ReputationV1"))
 			values[(entry.GetString("p"), entry.GetString("n"))] = Math.Clamp(entry.GetInt("v"), Min, Max);
 		foreach (TagCompound entry in tag.GetList<TagCompound>("BrokenV1"))
 			broken.Add(new BrokenBlock
 			{
 				NpcKey = entry.GetString("n"), PlayerId = entry.GetString("p"), X = entry.GetInt("x"), Y = entry.GetInt("y"), Type = entry.GetInt("t"),
+				Id = entry.ContainsKey("id") ? entry.GetInt("id") : 0,
 				Style = entry.GetInt("s"), ItemType = entry.GetInt("i"), Penalty = entry.GetInt("c"), Wall = entry.GetBool("w")
 			});
+		// S23 saves had no ids: number those after the highest id kept.
+		nextBrokenId = broken.Count == 0 ? 1 : broken.Max(b => b.Id) + 1;
+		foreach (BrokenBlock block in broken.Where(b => b.Id == 0)) block.Id = nextBrokenId++;
+		foreach (TagCompound entry in tag.GetList<TagCompound>("RepeatClockV1"))
+			lastCompletion[entry.GetString("n")] = entry.GetLong("c");
 	}
 }

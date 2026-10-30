@@ -40,6 +40,16 @@ public sealed partial class OceanExpeditionWorldSystem : ModSystem
             Generate();
         }, 1.6));
         weight += 1.6;
+        // Owner, 30.10: vanilla liquid settling turns water below the lava line into lava, so the
+        // deep sea caves came out as lava lakes. After each settling pass the sea's own cells get
+        // their water back.
+        foreach (string after in new[] { "Settle Liquids", "Final Cleanup" })
+        {
+            int index = tasks.FindIndex(at + 1, t => t.Name.Contains(after));
+            if (index < 0) continue;
+            tasks.Insert(index + 1, new PassLegacy("DingDong sea caves keep water (" + after + ")", (p, _) => RestoreSeaWater(), .1));
+            weight += .1;
+        }
         OceanForeignFootprint.Arm(true);
         // V03 29.10: SOTS Pyramid/AbandonedVillage/Sanctuary/GemStructures run after the sea;
         // the receipt follows the last foreign pass.
@@ -53,6 +63,23 @@ public sealed partial class OceanExpeditionWorldSystem : ModSystem
             }, 0.01));
             weight += 0.01;
         }
+    }
+    private static void RestoreSeaWater()
+    {
+        OceanExpeditionLayout p = Layout;
+        if (p == null || p.IslandLayout < 3) return;
+        long restored = 0;
+        for (int edge = 20; edge < p.Width; edge++)
+        {
+            int x = p.X(edge);
+            for (int y = p.SeaLevel; y < p.Bottom; y++)
+            {
+                Tile t = Main.tile[x, y];
+                if (t.LiquidAmount == 0 || t.LiquidType == LiquidID.Water || !p.Owns(edge, y)) continue;
+                t.LiquidType = LiquidID.Water; restored++;
+            }
+        }
+        ModContent.GetInstance<OceanExpeditionWorldSystem>().Mod.Logger.Info($"DINGDONG_SEA_CAVES_WATER|side={(p.Left ? "left" : "right")}|lavaToWater={restored}");
     }
     private static void Generate()
     {

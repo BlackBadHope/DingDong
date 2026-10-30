@@ -14,5 +14,8 @@
   },
   "Buyback": "Buy back {0} broken: {1}",
   "BuybackNone": "Nothing broken here",
-  "BuybackPoor": "Not enough money: {0}"
+  "BuybackPoor": "Not enough money: {0}",
+  "BuybackAll": "All ({0}): {1}",
+  "BuybackOne": "{0}: {1}",
+  "RepeatTomorrow": "The chain can be repeated for reputation after one in-game day."
 }

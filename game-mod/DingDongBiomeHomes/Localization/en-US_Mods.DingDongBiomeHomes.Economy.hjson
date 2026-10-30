@@ -1,0 +1,4 @@
+{
+  "RichName": "Rich {0}",
+  "PurseEmpty": "{0} cannot pay that much: the purse holds {1}, the sale is worth {2}. Resident purses refill at midnight every fourth night; the Merchant, Party Girl, Tax Collector and Travelling Merchant always pay."
+}

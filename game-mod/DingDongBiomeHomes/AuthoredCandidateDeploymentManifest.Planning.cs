@@ -14,6 +14,9 @@ public static partial class AuthoredCandidateDeploymentManifest
 	private static HomeBiome ResolveTargetBiome(string npcKey, HomeBiome homeBiome,
 		AuthoredPlacementMode sourceMode)
 	{
+		// 30.10: the compact cavern houses keep the forest-column target they were tuned for,
+		// whoever lives in them (now the residents that love the Underground).
+		if (npcKey is "ThoriumMod/Blacksmith" or "MagicStorage/Golem" or "Terraria/GoblinTinkerer") return HomeBiome.Forest;
 		if (sourceMode != AuthoredPlacementMode.TerrainScene ||
 			homeBiome != HomeBiome.Underground) return homeBiome;
 		return npcKey == "Terraria/Clothier" ? HomeBiome.Desert : HomeBiome.Forest;
@@ -26,7 +29,8 @@ public static partial class AuthoredCandidateDeploymentManifest
 		// worldSurface band. Only self-contained compact structures are reassigned
 		// underground. TerrainScene assets preserve a boundary connected to natural
 		// surface terrain and cannot keep housing closed in an open compiler cavern.
-		if (npcKey is "AlchemistNPCLite/Jeweler" or "AlchemistNPCLite/Operator" or "AlchemistNPCLite/Tinkerer")
+		// 30.10: the three compact cavern houses moved to the residents that love the Underground.
+		if (npcKey is "ThoriumMod/Blacksmith" or "MagicStorage/Golem" or "Terraria/GoblinTinkerer")
 		{
 			return DeploymentTargetAnchor.OrganicCavernEnvelope;
 		}

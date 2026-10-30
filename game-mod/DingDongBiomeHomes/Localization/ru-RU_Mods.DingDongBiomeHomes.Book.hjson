@@ -2,9 +2,9 @@
 # Owner items 8 and 11 (28.10): new book UI — filters, statuses, chronicle, tracker, markers.
 MainStory: Сюжетная линия
 SideStory: Побочная линия
-Reputation: Репутация мира
+Reputation: Репутация
 StagesTitle: Этапы цепочки (общие)
-ResidenceProtected: Резиденция защищена до переезда
+ResidenceProtected: Дом жителя
 ResidenceMoved: Переезд завершён
 AcceptOnMeet: Принять при встрече
 TurnInOnMeet: Сдать при встрече
@@ -94,6 +94,7 @@ Buttons: {
 }
 
 Hints: {
+	ReadyTurnIn: "✔ Цель выполнена! Вернись к жителю ({0}) и сдай задание."
 	FindFirst: Сначала найди и освободи жителя.
 	AssignedTo: "Задание выполняет: {0}"
 	MeetToSpeak: Подойди к жителю, чтобы поговорить.
@@ -188,7 +189,7 @@ Residents: {
 	Biome: "Биом: {0}"
 	House: "Дом № {0}"
 	Coords: "Центр постройки: {0}, {1} (в блоках)"
-	ProtectedNote: Пока житель не переехал, постройку нельзя разрушить или разграбить.
+	ProtectedNote: Ломать можно всё, но блоки этого дома стоят репутации у жителя. Сломанное можно выкупить в книге заданий.
 	MovedNote: Житель переехал к тебе, за старую резиденцию репутация больше не снимается.
 	OpenQuests: Открыть задания жителя
 }

@@ -12,6 +12,8 @@ Remaining: "About {0} remaining"
 Estimating: Estimating the remaining time…
 Finishing: Finishing and saving the world…
 LoadNote: Returning to what was written. The current world-loading step is shown above.
+SaveTitle: Saving the world
+SaveNote: Writing down what happened. The current saving step is shown above.
 Help: {
   Residences: Placing authored residences and checking their surroundings.
   Ocean: Shaping the ocean, coastlines and marine regions.

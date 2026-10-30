@@ -125,7 +125,7 @@ public sealed partial class OceanExpeditionWorldSystem
             int end = caves ? p.Bottom : floor + 24;
             for (int y = p.SeaLevel - 64; y < end; y++)
             {
-                if (!admission.Allows(x, y)) { retained++; continue; }
+                if (!admission.Allows(x, y) || !p.Owns(edge, y)) { retained++; continue; }
                 Tile t = Main.tile[x, y];
                 t.ClearEverything();
                 bool island = y>=column.Top&&y<=column.Bottom;
@@ -565,7 +565,7 @@ public sealed partial class OceanExpeditionWorldSystem
         {
             if (x < 0 || x >= Main.maxTilesX || y < 0 || y >= Main.maxTilesY) return false;
             int edge = p.Edge(x);
-            return edge >= 20 && edge < p.Width && y >= p.SeaLevel - 64 && y < (p.IslandLayout >= 3 ? p.Bottom : p.Floor(edge) + 24) && admission.Allows(x, y);
+            return p.Owns(edge, y) && admission.Allows(x, y);
         }
         long count = 0;
         for (int i = 0; i < Main.maxChests; i++)
@@ -717,7 +717,7 @@ public sealed partial class OceanExpeditionWorldSystem
                     int x = p.X(e);
                     Tile t = Main.tile[x, yy];
                     // A TileRunner vein wanders up to ~30 tiles: keep it clear of every protected cell.
-                    if (!t.HasTile || !Main.tileSolid[t.TileType] || !admission.Allows(new Rectangle(x - 40, yy - 40, 81, 81))) continue;
+                    if (!t.HasTile || !Main.tileSolid[t.TileType] || !p.Owns(e, yy) || !admission.Allows(new Rectangle(x - 40, yy - 40, 81, 81))) continue;
                     double depth = (yy - floor) / (double)Math.Max(1, p.Bottom - floor);
                     ushort[] set = depth < .3 ? shallow : depth < .7 ? middle : deep;
                     WorldGen.TileRunner(x, yy, random.Next(5, 11), random.Next(8, 20), set[random.Next(set.Length)]);
@@ -735,7 +735,7 @@ public sealed partial class OceanExpeditionWorldSystem
                     for (int yy = top; yy < Math.Min(top + 160, p.Bottom - CaveSealRows); yy++)
                         if (Main.tile[x, yy].LiquidAmount > 0 && !Main.tile[x, yy].HasTile &&
                             Main.tile[x, yy + 1].HasTile && Main.tileSolid[Main.tile[x, yy + 1].TileType]) { found = yy; break; }
-                    if (found < 0 || !admission.Allows(new Rectangle(x - 6, found - 6, 13, 10)) || !OceanContentKit.NoChestNear(x, found, 40)) continue;
+                    if (found < 0 || !p.Owns(e, found) || !admission.Allows(new Rectangle(x - 6, found - 6, 13, 10)) || !OceanContentKit.NoChestNear(x, found, 40)) continue;
                     double depth = (found - floor) / (double)Math.Max(1, p.Bottom - floor);
                     int roll = random.Next(100);
                     if (roll < 34) { PlaceCache(x, found + 1, depth < .35 ? 1 : depth < .7 ? 2 : 3); chests++; }

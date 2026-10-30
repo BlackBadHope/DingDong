@@ -2,9 +2,9 @@
 # Owner items 8 and 11 (28.10): new book UI — filters, statuses, chronicle, tracker, markers.
 MainStory: Main storyline
 SideStory: Side story
-Reputation: World reputation
+Reputation: Reputation
 StagesTitle: Chain stages (shared by all players)
-ResidenceProtected: Residence protected until relocation
+ResidenceProtected: Resident home
 ResidenceMoved: Relocation complete
 AcceptOnMeet: Accept when you meet
 TurnInOnMeet: Turn in when you meet
@@ -94,6 +94,7 @@ Buttons: {
 }
 
 Hints: {
+	ReadyTurnIn: "✔ Objective done! Return to the resident ({0}) to hand it in."
 	FindFirst: Find and rescue this resident first.
 	AssignedTo: "Assigned to: {0}"
 	MeetToSpeak: Meet this resident to speak.
@@ -188,7 +189,7 @@ Residents: {
 	Biome: "Biome: {0}"
 	House: "House #{0}"
 	Coords: "Building centre: {0}, {1} (in tiles)"
-	ProtectedNote: Until the resident moves, the building cannot be broken or looted.
+	ProtectedNote: Anything can be broken, but this house's blocks cost reputation with the resident. Broken blocks can be bought back in the quest book.
 	MovedNote: The resident has moved to you; the old residence no longer costs reputation.
 	OpenQuests: Open the resident's quests
 }

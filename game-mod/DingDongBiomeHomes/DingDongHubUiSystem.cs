@@ -17,10 +17,22 @@ namespace DingDongBiomeHomes;
 public sealed class DingDongHubUiSystem : ModSystem
 {
 	private static DingDongHubUiState hubState;
+	// Owner, 30.10: after switching the game to Russian the book kept English tabs and filters;
+	// they are built once, so the book is rebuilt when the language changes.
+	private static string hubCulture;
 	public override void Load()
 	{
 		if (!Main.dedServ)
 			hubState = new DingDongHubUiState();
+	}
+
+	private static void RebuildOnLanguageChange()
+	{
+		string culture = Language.ActiveCulture.Name;
+		if (hubCulture == null) { hubCulture = culture; return; }
+		if (hubCulture == culture) return;
+		hubCulture = culture;
+		hubState = new DingDongHubUiState();
 	}
 
 	public override void Unload()
@@ -32,6 +44,7 @@ public sealed class DingDongHubUiSystem : ModSystem
 	{
 		if (Main.dedServ || hubState == null)
 			return;
+		RebuildOnLanguageChange();
 		hubState.SelectTab(tab);
 		IngameFancyUI.OpenUIState(hubState);
 	}
@@ -41,6 +54,7 @@ public sealed class DingDongHubUiSystem : ModSystem
 	{
 		if (Main.dedServ || hubState == null)
 			return;
+		RebuildOnLanguageChange();
 		hubState.ShowResidentQuests(npcKey);
 		if (Main.InGameUI.CurrentState != hubState)
 			IngameFancyUI.OpenUIState(hubState);
@@ -50,6 +64,7 @@ public sealed class DingDongHubUiSystem : ModSystem
 	{
 		if (Main.dedServ || hubState == null)
 			return;
+		RebuildOnLanguageChange();
 		hubState.SelectDamagePage(page);
 		hubState.SelectTab(DingDongHubTab.Combat);
 		IngameFancyUI.OpenUIState(hubState);
@@ -59,6 +74,7 @@ public sealed class DingDongHubUiSystem : ModSystem
 	{
 		if (Main.dedServ || hubState == null)
 			return;
+		RebuildOnLanguageChange();
 		hubState.SelectDamagePage(page);
 		hubState.SelectTab(DingDongHubTab.Combat);
 		Main.MenuUI.SetState(hubState);

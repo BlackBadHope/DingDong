@@ -20,5 +20,6 @@ public static partial class CandidateDeploymentSitePlanner
 {
 	public static string LastSolverTrace { get; private set; } = "not-run";
 
-	private static RankedCandidateCollector ActiveRankedCollector;
+	// Per thread: candidate pools for different residents are collected in parallel.
+	[ThreadStatic] private static RankedCandidateCollector ActiveRankedCollector;
 }

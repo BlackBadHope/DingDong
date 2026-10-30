@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -39,6 +40,8 @@ internal static class ResidenceTransitBuilder
 		(int trackCells, int leftEnd, int rightEnd, int skipped, int metroFramed) = CarveMetro(floorY, reservations, metroObjects);
 		int shaftX = ShaftColumn(out string shaftOrigin, out int groundHint);
 		(int shaftTop, int shaftBottom, int shaftCells, int shaftSkipped, int lavaCleared, int shaftFramed, int trackKept, int bedPlatforms) = CarveShaft(shaftX, floorY, groundHint, reservations, shaftObjects);
+		string sceneRails = ExtendSceneRails(floorY, reservations, metroObjects);
+		mod.Logger.Info($"DINGDONG_SCENE_RAILS|{sceneRails}");
 		mod.Logger.Info($"DINGDONG_TRANSIT|verdict=PASS|groundHint={groundHint}|metroY={floorY}|left={leftEnd}|right={rightEnd}|trackCells={trackCells}|metroSkippedColumns={skipped}|metroFramed={metroFramed}|shaftX={shaftX}|shaftOrigin={shaftOrigin}|shaftTop={shaftTop}|shaftBottom={shaftBottom}|shaftCells={shaftCells}|shaftSkippedRows={shaftSkipped}|shaftFramed={shaftFramed}|lavaCleared={lavaCleared}|protectedRegions={reservations.Length}|shaftTrackKept={trackKept}|shaftBedPlatforms={bedPlatforms}|metroObjectsCleared={metroObjects.Cleared}|metroObjectsKept={metroObjects.Kept}|shaftObjectsCleared={shaftObjects.Cleared}|shaftObjectsKept={shaftObjects.Kept}|chestsDestroyed={metroObjects.Chests + shaftObjects.Chests}|tileEntitiesRemoved={metroObjects.Entities + shaftObjects.Entities}|objectRingFramed={metroObjects.Framed + shaftObjects.Framed}");
 	}
 
@@ -206,6 +209,39 @@ internal static class ResidenceTransitBuilder
 				return true;
 		}
 		return false;
+	}
+
+	// Owner, 30.10 ("To the end of map"): a residence whose own rail reaches its outer wall (the
+	// Deeps' cavern station) got a dead-end stub. Such a rail now runs on from the wall to both
+	// sea bands like the main metro, at its own depth; rows within 30 tiles of the metro are left
+	// to the metro itself.
+	private static string ExtendSceneRails(int metroY, Rectangle[] reservations, ObjectLedger objects)
+	{
+		int lines = 0, cells = 0, skipped = 0;
+		var done = new HashSet<int>();
+		foreach (SettlementResidenceReport home in SettlementWorldState.Residences)
+		{
+			Rectangle area = home.Area;
+			foreach ((int edgeX, int step) in new[] { (area.Left, -1), (area.Right - 1, +1) })
+			{
+				for (int y = area.Top; y < area.Bottom; y++)
+				{
+					bool rail = false;
+					for (int k = 0; k < 3 && !rail; k++)
+					{
+						int x = edgeX - step * k;
+						rail = x > 0 && x < Main.maxTilesX && Main.tile[x, y].HasTile && Main.tile[x, y].TileType == TileID.MinecartTrack;
+					}
+					if (!rail || Math.Abs(y - metroY) < 30 || !done.Add(y * 2 + (step > 0 ? 1 : 0))) continue;
+					var band = new ProtectionBand(new Rectangle(0, y - MetroHeight - 2, Main.maxTilesX, MetroHeight + 6), reservations);
+					int start = edgeX + step;
+					int end = Sweep(band, objects, start, step, y, ref cells, ref skipped);
+					band.Frame(Math.Min(start, end) - 1, y - MetroHeight - 1, Math.Max(start, end) + 1, y + 2);
+					lines++;
+				}
+			}
+		}
+		return $"lines={lines}|cells={cells}|skipped={skipped}";
 	}
 
 	private static (int Cells, int Left, int Right, int Skipped, int Framed) CarveMetro(int floorY, Rectangle[] reservations, ObjectLedger objects)

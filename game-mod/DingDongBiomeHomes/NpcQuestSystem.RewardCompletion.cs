@@ -23,7 +23,7 @@ internal static partial class NpcQuestSystem
 		ResidentQuestDefinition definition = progress.Definition(identity);
 		int completedQuest = progress.ActiveQuestId;
 		bool unlockedTrust = progress.Completed < required;
-		int reward = progress.RewardCopper;
+		int reward = ResidentReputationSystem.ScaleReward(questPlayer.PersistentId, npcKey, progress.RewardCopper);
 		int rewardDifficulty = progress.DifficultyRank;
 		if (definition.Kind == ResidentQuestKind.DialogueChoice && definition.StoryKey.Length > 0)
 		{

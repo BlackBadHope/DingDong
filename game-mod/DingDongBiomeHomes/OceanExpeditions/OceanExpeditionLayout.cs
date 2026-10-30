@@ -196,10 +196,52 @@ public sealed class OceanExpeditionLayout
         galleryCount = count; galleryCentres = gCentres; galleryHalves = gHalves;
         shaftHalves = halves; shaftCentres = centres;
     }
+    // Owner, 30.10: the cave sea ended in a ruler-straight wall on the land side and a flat floor
+    // over the Underworld ("boxes"). Under the crust the land-side edge now wanders up to 340
+    // tiles inland of the coast column and the bottom up to 110 rows, both by smooth noise; the
+    // host's own terrain stays beyond them, and a solid band keeps the water in.
+    public const int LandBlend = 340, BottomBlend = 110, BlendSeal = 14;
+    private int[] landLimits, bottomLimits;
+    public int LandLimit(int y)
+    {
+        // Tabulated like the cave tables: CaveOpen asks for it on every cell.
+        if (landLimits == null)
+        {
+            var limits = new int[Math.Max(1, Bottom - SeaLevel + 64)];
+            for (int r = 0; r < limits.Length; r++)
+            {
+                int row = SeaLevel - 64 + r, ramp = Math.Clamp((row - (SeaLevel + ShelfDepth)) / 2, 0, LandBlend);
+                limits[r] = Width - (int)(Fbm(row / 150.0, 3.7, 23) * ramp * 1.35);
+            }
+            landLimits = limits;
+        }
+        int i = y - (SeaLevel - 64);
+        return i < 0 ? Width : landLimits[Math.Min(i, landLimits.Length - 1)];
+    }
+    public int BottomLimit(int edge)
+    {
+        if (bottomLimits == null)
+        {
+            var limits = new int[Math.Max(1, Width)];
+            for (int e = 0; e < limits.Length; e++) limits[e] = Bottom - (int)(Fbm(e / 130.0, 8.1, 29) * BottomBlend * 1.35);
+            bottomLimits = limits;
+        }
+        return bottomLimits[Math.Clamp(edge, 0, bottomLimits.Length - 1)];
+    }
+    /// <summary>Whether the ocean pass writes this cell (layout 3 leaves the host beyond the blended edges).</summary>
+    public bool Owns(int edge, int y)
+    {
+        if (edge < 20 || edge >= Width || y < SeaLevel - 64) return false;
+        if (IslandLayout < 3) return y < Floor(edge) + 24;
+        if (y >= Bottom) return false;
+        if (y < Floor(edge) + CrustDepth) return true;
+        return edge < LandLimit(y) && y < BottomLimit(edge);
+    }
     public bool CaveOpen(int edge, int y, int floor)
     {
         // Shafts open at the floor row itself; chambers and galleries only under the crust.
         if (IslandLayout < 3 || y < floor || y >= Bottom - CaveSeal || edge < 60 || edge > Width - 100) return false;
+        if (y > floor + CrustDepth && (edge >= LandLimit(y) - BlendSeal || y >= BottomLimit(edge) - CaveSeal)) return false;
         if (shaftCentres == null) BuildCaveTables();
         int rows = Bottom - SeaLevel, row = y - SeaLevel;
         for (int k = 0; k < ShaftCount; k++)

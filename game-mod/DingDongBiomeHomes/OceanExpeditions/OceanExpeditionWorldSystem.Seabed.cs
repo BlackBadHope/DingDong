@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -17,6 +18,12 @@ public sealed partial class OceanExpeditionWorldSystem
 {
     private const int SeabedEdgeFrom = AmberBankEdgeTo + 20;
     private const int SeabedSurfaceClearance = 24;
+    // S20 cave ocean: the open floor undulates, so a 4-tile flatness rule rejected almost every
+    // wreck and ruin (O9: wrecks 1/5, ruins 0/3). The builders fill sand under each column, so
+    // 10 tiles of relief are safe; the reasons are counted for the receipt.
+    private const int SeabedMaxRelief = 10;
+    private static readonly Dictionary<string, int> seabedRejects = new();
+    private static bool Reject(string reason) { seabedRejects[reason] = seabedRejects.GetValueOrDefault(reason) + 1; return false; }
 
     private static string DecorateSeabed(OceanExpeditionLayout p, Admission admission)
     {
@@ -25,6 +32,7 @@ public sealed partial class OceanExpeditionWorldSystem
         int gardenTarget = Math.Clamp(width / 300, 4, 16), kelpTarget = Math.Clamp(width / 450, 3, 12);
         int wrecks = 0, ruins = 0, gardens = 0, kelp = 0, chests = 0, plants = 0, rejected = 0;
         var taken = new List<Rectangle>();
+        seabedRejects.Clear();
         var random = new Random(p.Seed ^ 0x5EABED07);
         bool isolated = IsolatedGenRand.Run(p.Seed ^ 0x2E5EA8ED, () =>
         {
@@ -57,12 +65,21 @@ public sealed partial class OceanExpeditionWorldSystem
             {
                 int hw = 18 + random.Next(15);
                 int target = Spread(SeabedEdgeFrom, width - 60, i, kelpTarget, random);
-                if (!FindSeabedSite(p, admission, taken, target, hw, 28, out Rectangle area, out int centerEdge, out _)) { rejected++; continue; }
+                if (!FindSeabedSite(p, admission, taken, target, hw, 18, out Rectangle area, out int centerEdge, out _))
+                {
+                    // 30.10 (O10: kelp 0/10): kelp only needs open floor, so a site the strict
+                    // check refused still gets planted where the builder finds room.
+                    int c = Math.Clamp(target, SeabedEdgeFrom + hw, width - 60 - hw);
+                    Rectangle loose = new(Math.Min(p.X(c - hw), p.X(c + hw)), p.Floor(c) - 26, hw * 2 + 1, 28);
+                    int got = admission.Allows(loose) ? BuildKelpBed(p, c, hw, random) : 0;
+                    if (got > 3) { plants += got; Finish(loose); kelp++; } else rejected++;
+                    continue;
+                }
                 plants += BuildKelpBed(p, centerEdge, hw, random);
                 Finish(area); taken.Add(area); kelp++;
             }
         });
-        return $"wrecks={wrecks}/{wreckTarget}|ruins={ruins}/{ruinTarget}|coralGardens={gardens}/{gardenTarget}|kelpBeds={kelp}/{kelpTarget}|lootChests={chests}|plants={plants}|rejectedSites={rejected}|genRandIsolated={isolated}";
+        return $"wrecks={wrecks}/{wreckTarget}|ruins={ruins}/{ruinTarget}|coralGardens={gardens}/{gardenTarget}|kelpBeds={kelp}/{kelpTarget}|lootChests={chests}|plants={plants}|rejectedSites={rejected}|rejectReasons={string.Join(",", seabedRejects.Select(r => r.Key + ":" + r.Value))}|genRandIsolated={isolated}";
     }
 
     private static int Spread(int from, int to, int index, int count, Random random)
@@ -85,7 +102,7 @@ public sealed partial class OceanExpeditionWorldSystem
     private static bool FindSeabedSite(OceanExpeditionLayout p, Admission admission, List<Rectangle> taken,
         int target, int halfWidth, int height, out Rectangle area, out int centerEdge, out int baseFloor)
     {
-        foreach (int shift in new[] { 0, 40, -40, 80, -80, 120, -120, 170, -170, 220, -220, 280, -280 })
+        foreach (int shift in new[] { 0, 40, -40, 80, -80, 120, -120, 170, -170, 220, -220, 280, -280, 360, -360, 450, -450, 560, -560 })
         {
             centerEdge = target + shift;
             if (SeabedSiteFree(p, admission, taken, centerEdge, halfWidth, height, out area, out baseFloor)) return true;
@@ -99,7 +116,7 @@ public sealed partial class OceanExpeditionWorldSystem
     {
         area = default; baseFloor = 0;
         int from = centerEdge - halfWidth, to = centerEdge + halfWidth;
-        if (from < SeabedEdgeFrom || to >= p.Width - 24) return false;
+        if (from < SeabedEdgeFrom || to >= p.Width - 24) return Reject("edge");
         int low = int.MaxValue, high = int.MinValue;
         for (int edge = from; edge <= to; edge++)
         {
@@ -107,23 +124,23 @@ public sealed partial class OceanExpeditionWorldSystem
             low = Math.Min(low, f); high = Math.Max(high, f);
         }
         // A flat enough bed: the content never bridges a slope with open water below.
-        if (high - low > 4) return false;
+        if (high - low > SeabedMaxRelief) return Reject("relief");
         baseFloor = p.Floor(centerEdge);
         area = new Rectangle(Math.Min(p.X(from), p.X(to)), low - height, to - from + 1, high - low + height + 4);
-        if (area.Top < p.SeaLevel + SeabedSurfaceClearance) return false;
+        if (area.Top < p.SeaLevel + SeabedSurfaceClearance) return Reject("shallow");
         Rectangle envelope = area; envelope.Inflate(4, 4);
-        if (!p.Bounds.Contains(envelope) || !admission.Allows(envelope)) return false;
+        if (!p.Bounds.Contains(envelope) || !admission.Allows(envelope)) return Reject("admission");
         foreach (var room in p.Grottos)
         {
             Rectangle padded = room.Bounds; padded.Inflate(24, 24);
-            if (padded.Intersects(area)) return false;
+            if (padded.Intersects(area)) return Reject("grotto");
         }
         foreach (var mark in p.Landmarks)
-            if (new Rectangle(mark.Floor.X - 56, mark.Floor.Y - 44, 113, 94).Intersects(area)) return false;
+            if (new Rectangle(mark.Floor.X - 56, mark.Floor.Y - 44, 113, 94).Intersects(area)) return Reject("landmark");
         foreach (var other in taken)
         {
             Rectangle padded = other; padded.Inflate(16, 16);
-            if (padded.Intersects(area)) return false;
+            if (padded.Intersects(area)) return Reject("taken");
         }
         for (int x = area.Left; x < area.Right; x++)
         {
@@ -134,13 +151,13 @@ public sealed partial class OceanExpeditionWorldSystem
                 if (y < f)
                 {
                     // Owned open water; the basin's own scattered coral may be replaced.
-                    if (t.HasTile && t.TileType != TileID.Coral && t.TileType != TileID.Seaweed) return false;
-                    if (t.LiquidAmount < 200 || t.LiquidType != LiquidID.Water) return false;
+                    if (t.HasTile && t.TileType != TileID.Coral && t.TileType != TileID.Seaweed) return Reject("blocked");
+                    if (t.LiquidAmount < 200 || t.LiquidType != LiquidID.Water) return Reject("dry");
                 }
-                else if (!t.HasTile || !Main.tileSolid[t.TileType]) return false;
+                else if (!t.HasTile || !Main.tileSolid[t.TileType]) return Reject("hollowBed");
             }
         }
-        return NoChestNear(p.X(centerEdge), baseFloor, 30);
+        return NoChestNear(p.X(centerEdge), baseFloor, 30) || Reject("chestNear");
     }
 
     // A broken hull half sunk into the sand: keel, curved bottom, end walls with
