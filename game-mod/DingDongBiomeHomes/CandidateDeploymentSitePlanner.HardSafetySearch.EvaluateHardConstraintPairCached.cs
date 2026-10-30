@@ -32,7 +32,7 @@ public static partial class CandidateDeploymentSitePlanner
 		AuthoredResidencePlacementContract rightContract = AuthoredResidencePlacementManifest.Required(rightVariable);
 		bool sharedPortSettlement = AuthoredResidenceLayoutPolicy.CanSharePortSettlement(leftContract, rightContract);
 		bool visualFocusCompatible = sharedPortSettlement || !IntersectsPlannedVisualFocus(leftSite.AssetArea, leftMask, leftContract.BroadLayer, rightSite, rightMask, rightContract.BroadLayer);
-		bool protectedAreasDisjoint = !leftSite.ProtectedArea.Intersects(rightSite.ProtectedArea);
+		bool protectedAreasDisjoint = !ResidenceEnvelopesOverlap(leftSite, rightSite);
 		bool exactMutationOverlap = leftMask.IntersectsTranslated(leftSite.AssetArea.Location, rightMask, rightSite.AssetArea.Location);
 		bool hardPairValid = AuthoredResidenceLayoutPolicy.TryValidateHardPair(leftContract, leftMask, leftSite, rightContract, rightMask, rightSite, out _);
 		// Only explicitly shareable port residences may relax the visual gap.

@@ -29,7 +29,7 @@ public static partial class CandidateDeploymentSitePlanner
 		AuthoredResidencePlacementContract leftContract = AuthoredResidencePlacementManifest.Required(pair.Left);
 		AuthoredResidencePlacementContract rightContract = AuthoredResidencePlacementManifest.Required(pair.Right);
 		string reason;
-		if (leftSite.ProtectedArea.Intersects(rightSite.ProtectedArea))
+		if (ResidenceEnvelopesOverlap(leftSite, rightSite))
 			reason = "protected-envelope";
 		else if (leftMask.IntersectsTranslated(leftSite.AssetArea.Location, rightMask, rightSite.AssetArea.Location))
 			reason = "exact-mutation-mask";

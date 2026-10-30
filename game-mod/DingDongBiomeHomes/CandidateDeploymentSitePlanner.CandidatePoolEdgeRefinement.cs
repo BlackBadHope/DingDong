@@ -45,7 +45,7 @@ public static partial class CandidateDeploymentSitePlanner
 				// as full solver compatibility; it merely avoids extra scanning.
 				var support = CandidatePairSupportRefinement.Check(
 					pools[profiles[pair.Left].NpcKey], pools[profiles[pair.Right].NpcKey],
-					static (a, b) => a.Site.ProtectedArea.Intersects(b.Site.ProtectedArea), checks);
+					static (a, b) => ResidenceEnvelopesOverlap(a.Site, b.Site), checks);
 				if (support == CandidatePairSupportRefinement.Support.Unknown) { unknown++; continue; }
 				if (support != CandidatePairSupportRefinement.Support.Unsupported) continue;
 				unsupported++;

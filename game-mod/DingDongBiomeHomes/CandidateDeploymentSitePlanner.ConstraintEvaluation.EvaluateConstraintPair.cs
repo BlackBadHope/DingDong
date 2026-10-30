@@ -35,7 +35,7 @@ public static partial class CandidateDeploymentSitePlanner
 			return false;
 		}
 
-		if (leftSite.ProtectedArea.Intersects(rightSite.ProtectedArea))
+		if (ResidenceEnvelopesOverlap(leftSite, rightSite))
 		{
 			RejectConstraintCandidate(leftProfile.NpcKey, "protected-envelope", rejectionReasons);
 			return false;

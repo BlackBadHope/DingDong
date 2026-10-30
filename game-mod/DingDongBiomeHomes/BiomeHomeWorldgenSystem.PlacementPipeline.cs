@@ -18,7 +18,11 @@ public sealed partial class BiomeHomeWorldgenSystem
 			using var cache = DingDongAuthoredStructureLoader.UseTransientCaches();
 			GenerateHomesCore(progress, configuration);
 		}
-		finally { DingDongAuthoredStructureLoader.ReportCacheRelease(Mod, "authored-residences-finally"); }
+		finally
+		{
+			CandidateDeploymentSitePlanner.UseWriteEnvelopeSpacing = false;
+			DingDongAuthoredStructureLoader.ReportCacheRelease(Mod, "authored-residences-finally");
+		}
 	}
 
 	private void GenerateHomesCore(GenerationProgress progress, GameConfiguration configuration)
@@ -38,10 +42,11 @@ public sealed partial class BiomeHomeWorldgenSystem
 		for (int retry = 0; retry <= CandidateDeploymentSitePlanner.PlanningRetries && !planned; retry++)
 		{
 			CandidateDeploymentSitePlanner.PlanningRetry = retry;
+			CandidateDeploymentSitePlanner.UseWriteEnvelopeSpacing = retry >= CandidateDeploymentSitePlanner.WriteEnvelopeFromRetry;
 			if (retry > 0)
 			{
 				progress.Message = $"Planning 61 authored biome residences (attempt {retry + 1})";
-				Mod.Logger.Warn($"DINGDONG_PLANNER_RETRY|attempt={retry + 1}|previousFailure={planningFailure}");
+				Mod.Logger.Warn($"DINGDONG_PLANNER_RETRY|attempt={retry + 1}|writeEnvelopeSpacing={CandidateDeploymentSitePlanner.UseWriteEnvelopeSpacing}|previousFailure={planningFailure}");
 			}
 			planned = CandidateDeploymentSitePlanner.TryPlanSimultaneous(Mod,
 				AuthoredCandidateDeploymentManifest.All, out sites, out planningFailure);
@@ -63,7 +68,7 @@ public sealed partial class BiomeHomeWorldgenSystem
 			return;
 		}
 
-		Mod.Logger.Info($"DINGDONG_PLANNER_TRACE|verdict=PASS|attempts={attempts}|{CandidateDeploymentSitePlanner.LastSolverTrace}");
+		Mod.Logger.Info($"DINGDONG_PLANNER_TRACE|verdict=PASS|attempts={attempts}|writeEnvelopeSpacing={CandidateDeploymentSitePlanner.UseWriteEnvelopeSpacing}|{CandidateDeploymentSitePlanner.LastSolverTrace}");
 		if (sites.Count != NpcTownManifest.AuthoredCount)
 			throw new InvalidOperationException(
 				$"DingDong simultaneous layout is incomplete: {sites.Count}/{NpcTownManifest.AuthoredCount}.");

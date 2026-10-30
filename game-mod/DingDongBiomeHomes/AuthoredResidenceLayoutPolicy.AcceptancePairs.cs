@@ -22,7 +22,7 @@ public static partial class AuthoredResidenceLayoutPolicy
                 }
 
                 // Physical conflicts are never aesthetic spacing-budget exceptions.
-                if (site.ProtectedArea.Intersects(otherSite.ProtectedArea) ||
+                if (CandidateDeploymentSitePlanner.ResidenceEnvelopesOverlap(site, otherSite) ||
                     mask.IntersectsTranslated(site.AssetArea.Location, otherMask, otherSite.AssetArea.Location))
                 {
                     failure = $"physical-envelope-overlap:{site.NpcKey}/{otherSite.NpcKey}";
