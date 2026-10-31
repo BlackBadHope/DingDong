@@ -1,6 +1,7 @@
 Mods: {
 	DingDongBiomeHomes: {
 		NPCs: {
+			Orca145.DisplayName: Косатка
 			PelagicTitan.DisplayName: Пелагический титан
 			HadalMaw.DisplayName: Глубинная пасть
 			CoralPincher.DisplayName: Коралловый клешнехват

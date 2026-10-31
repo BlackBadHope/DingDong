@@ -1,6 +1,7 @@
 Mods: {
 	DingDongBiomeHomes: {
 		NPCs: {
+			Orca145.DisplayName: Orca
 			PelagicTitan.DisplayName: Pelagic Titan
 			HadalMaw.DisplayName: Hadal Maw
 			CoralPincher.DisplayName: Coral Pincher
