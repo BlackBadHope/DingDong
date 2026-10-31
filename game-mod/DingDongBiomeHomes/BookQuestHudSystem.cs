@@ -204,17 +204,10 @@ public sealed class BookQuestHudSystem : ModSystem
 			return true;
 		SpriteBatch batch = Main.spriteBatch;
 		DynamicSpriteFont font = FontAssets.MouseText.Value;
-		float screenWidth = Main.screenWidth / Main.UIScale;
-		float top = Main.mapEnabled && Main.mapStyle == 1 ? Main.miniMapY + Main.miniMapHeight + 70f : 110f;
-		// Below the info-accessory lines (22 px each, 20 on short screens) instead of over them,
-		// and clear of the mana column at the right edge; kept on screen when the list is long.
-		top += infoLines * (Main.screenHeight < 650 ? 20f : 22f) + (infoLines > 0 ? 10f : 0f);
-		float height = HeaderHeight + trackCountTotal * EntryHeight + 10f;
-		top = Math.Max(0f, Math.Min(top, Main.screenHeight / Main.UIScale - height - 12f));
-		var area = new Rectangle((int)(screenWidth - TrackerWidth - 52f), (int)top, (int)TrackerWidth, (int)height);
-		// Beside the minimap, top right, when it is shown and the card fits to its left.
-		if (Main.mapEnabled && Main.mapStyle == 1 && Main.miniMapX - TrackerWidth - 14f >= 0f && Main.miniMapY + height <= Main.screenHeight / Main.UIScale)
-			area = new Rectangle((int)(Main.miniMapX - TrackerWidth - 14f), Main.miniMapY, (int)TrackerWidth, (int)height);
+		// InterfaceScaleType.UI has already converted both screen and mouse coordinates.
+		var area = CalculateTrackerBounds(Main.screenWidth, Main.screenHeight, trackCountTotal, infoLines,
+			Main.mapEnabled && Main.mapStyle == 1,
+			new Rectangle(Main.miniMapX, Main.miniMapY, Main.miniMapWidth, Main.miniMapHeight));
 		bool hovered = area.Contains(Main.MouseScreen.ToPoint());
 		DingDongUiAssets.DrawBookCard(batch, area, Color.White * (hovered ? .98f : .86f));
 		batch.DrawString(font, trackerTitle, new Vector2(area.X + 12, area.Y + 7), ResidentBookJournal.Ink, 0f, Vector2.Zero, .78f, SpriteEffects.None, 0f);
@@ -241,5 +234,19 @@ public sealed class BookQuestHudSystem : ModSystem
 			}
 		}
 		return true;
+	}
+
+	// Pure presentation geometry: callers supply the UI coordinates provided by the interface layer.
+	internal static Rectangle CalculateTrackerBounds(int uiWidth, int uiHeight, int entries, int informationLines,
+		bool minimapVisible, Rectangle minimap)
+	{
+		float top = minimapVisible ? minimap.Bottom + 70f : 110f;
+		top += informationLines * (uiHeight < 650 ? 20f : 22f) + (informationLines > 0 ? 10f : 0f);
+		float height = HeaderHeight + entries * EntryHeight + 10f;
+		top = Math.Max(0f, Math.Min(top, uiHeight - height - 12f));
+		var area = new Rectangle((int)(uiWidth - TrackerWidth - 52f), (int)top, (int)TrackerWidth, (int)height);
+		if (minimapVisible && minimap.X - TrackerWidth - 14f >= 0f && minimap.Y + height <= uiHeight)
+			area = new Rectangle((int)(minimap.X - TrackerWidth - 14f), minimap.Y, (int)TrackerWidth, (int)height);
+		return area;
 	}
 }

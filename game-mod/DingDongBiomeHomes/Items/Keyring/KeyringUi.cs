@@ -122,7 +122,7 @@ public sealed class KeyringUi : ModSystem
 			Main.HoverItem = shown.Clone();
 			Main.hoverItemName = shown.Name + "\n" + Language.GetTextValue("Mods.DingDongBiomeHomes.Keyring.TakeHint");
 			// Same Take operation and preconditions as the source UI: one, or a maxStack with left Shift.
-			if (Main.mouseLeft && Main.mouseLeftRelease && Main.mouseItem.IsAir)
+			if (Main.mouseLeft && Main.mouseLeftRelease && Main.mouseItem.IsAir && !InventoryTransactionGuard.IsBlocked(Main.LocalPlayer))
 			{
 				Main.mouseLeftRelease = false;
 				int count = Main.keyState.IsKeyDown(Keys.LeftShift) ? shown.maxStack : 1;

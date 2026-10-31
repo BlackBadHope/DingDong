@@ -105,6 +105,21 @@ internal static partial class ContinentalWorldCapacity
 			PresetLabel(preset), ContinentalWorldDimensions.NextSmaller(preset)?.Id);
 		string planes = $"{RamOptTilePlanes.AllKnownBytesPerCell(out string known)}:{known}" +
 			$"|registeredBytesPerCell={RamOptTilePlanes.RegisteredBytesPerCell(out string registered)}:{registered}";
+		// Owner, 31.10: grow the page file now instead of mid-generation; refuse if Windows cannot.
+		if (decision.Admitted && decision.Tier == RamOptAdmissionPolicy.PagefileTier)
+		{
+			bool grown = RamOptAdmissionPolicy.ForcePagefileGrowth(memory.AvailableCommitBytes, decision.PagefileCreditBytes);
+			long limitAfter = -1, commitAfter = -1;
+			try { var after = ContinentalMemoryStatus.Read(); limitAfter = after.CommitLimitBytes; commitAfter = after.AvailableCommitBytes; }
+			catch (Exception ex) when (ex is PlatformNotSupportedException or System.ComponentModel.Win32Exception) { }
+			DingDongBiomeHomes.Instance?.Logger.Info(
+				$"DINGDONG_CONTINENTAL_MEMORY|pagefileGrowth={(grown ? "PASS" : "FAIL")}|scope={scope}" +
+				$"|commitLimitBefore={memory.CommitLimitBytes}|commitLimitAfter={limitAfter}" +
+				$"|commitBefore={memory.AvailableCommitBytes}|commitAfter={commitAfter}|credit={decision.PagefileCreditBytes}");
+			if (!grown)
+				decision = decision with { Admitted = false, Tier = RamOptAdmissionPolicy.DeniedTier,
+					Message = DenyAfterGrowth(memory, decision) };
+		}
 		if (!decision.Admitted)
 		{
 			DingDongBiomeHomes.Instance?.Logger.Warn(
@@ -136,6 +151,15 @@ internal static partial class ContinentalWorldCapacity
 			DingDongBiomeHomes.Instance?.Logger.Warn("DINGDONG_CONTINENTAL_MEMORY|warning=LOW_MEMORY_MODE|" + warning);
 			if (Main.dedServ) Console.WriteLine(warning);
 		}
+	}
+
+	private static string DenyAfterGrowth(ContinentalMemorySnapshot memory, RamOptAdmission decision)
+	{
+		bool ru = Terraria.Localization.Language.ActiveCulture?.Name?.StartsWith("ru", StringComparison.OrdinalIgnoreCase) == true;
+		double need = decision.PagefileCreditBytes / (double)GiB;
+		return ru
+			? $"Windows не смогла увеличить файл подкачки ещё на {need:F2} ГиБ (свободно commit {memory.AvailableCommitBytes / (double)GiB:F2} ГиБ). Закройте другие приложения и повторите."
+			: $"Windows could not grow the page file by another {need:F2} GiB (available commit {memory.AvailableCommitBytes / (double)GiB:F2} GiB). Close other applications and retry.";
 	}
 
 	// Presets 28.10: "x10" for ram32 keeps the previous texts byte-identical.

@@ -100,6 +100,7 @@ public sealed class AutoUncraftUI : ModSystem
   }
  }
  internal static bool TransferUncraft(AutoUncraftPlayer player, bool right) {
+  if (InventoryTransactionGuard.IsBlocked(player.Player)) return false;
   if (!Main.mouseItem.IsAir && (Main.mouseItem.favorited || UncraftRecipeCompatibility.BasicRecipe(Main.mouseItem) == null)) {
    Main.NewText(Text(Main.mouseItem.favorited ? "FavoriteHint" : "CannotUncraft")); return false;
   }

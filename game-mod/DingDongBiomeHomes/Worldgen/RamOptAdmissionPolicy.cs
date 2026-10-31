@@ -35,14 +35,36 @@ internal static class RamOptAdmissionPolicy
 	internal const long MaxPagefileCreditBytes = 2L * GiB;
 	internal const string PagefileOptInVariable = "DINGDONG_RAMOPT_PAGEFILE_GROWTH";
 
-	// Review fix 28.10: the pagefile-growth tier is unverified, so it is opt-in.
+	// Owner, 31.10 (32 GB RAM, 13.9 GB free, creation refused for 0.38 GiB of commit): the tier is
+	// on by default; DINGDONG_RAMOPT_PAGEFILE_GROWTH=0 turns it off. The review's concern (a page file
+	// that does not grow in time, OOM tens of minutes later) is closed by ForcePagefileGrowth: the
+	// shortfall is committed once at admission, so Windows grows the page file before generation.
 	internal static bool PagefileTierEnabled
 	{
 		get
 		{
 			string value = Environment.GetEnvironmentVariable(PagefileOptInVariable)?.Trim();
-			return value is "1" || string.Equals(value, "true", StringComparison.OrdinalIgnoreCase);
+			return !(value is "0" || string.Equals(value, "false", StringComparison.OrdinalIgnoreCase));
 		}
+	}
+
+	// Commits (does not touch) everything still available plus the shortfall and a margin, then
+	// releases it at once. Only a commit beyond the current limit makes Windows grow a system-managed
+	// or custom-maximum page file (S32 probe: committing the shortfall alone fit and grew nothing;
+	// the full commit grew the limit 38.70 -> 39.46 GB). Windows may trim the file again later and
+	// regrows it on demand. Windows extends the file asynchronously, so a refused commit
+	// is retried briefly. False when Windows could not provide it: then the world is refused.
+	internal static bool ForcePagefileGrowth(long availableCommitBytes, long deficitBytes)
+	{
+		long bytes = Math.Max(0, availableCommitBytes) + Math.Max(0, deficitBytes) + 256L * MiB;
+		for (int attempt = 0; attempt < 6; attempt++)
+		{
+			IntPtr block = IntPtr.Zero;
+			try { block = System.Runtime.InteropServices.Marshal.AllocHGlobal(new IntPtr(bytes)); return true; }
+			catch (OutOfMemoryException) { System.Threading.Thread.Sleep(500); }
+			finally { if (block != IntPtr.Zero) System.Runtime.InteropServices.Marshal.FreeHGlobal(block); }
+		}
+		return false;
 	}
 
 	// Presets 28.10: presetLabel/smallerPresetId only change the denial text ("x10"/null = ram32

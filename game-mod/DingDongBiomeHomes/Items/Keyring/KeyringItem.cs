@@ -74,6 +74,7 @@ public sealed class KeyringItem : ModItem
 	/// <summary>Moves the whole stack into the ring; returns what could not fit.</summary>
 	internal int Store(Item item)
 	{
+		if (InventoryTransactionGuard.IsBlocked(Main.LocalPlayer)) return item?.stack ?? 0;
 		if (!IsKey(item)) return item?.stack ?? 0;
 		int remaining = item.stack;
 		foreach (Item slot in Stored.Where(i => i.stack < i.maxStack && Stackable(i, item)))
@@ -94,6 +95,7 @@ public sealed class KeyringItem : ModItem
 	/// <summary>Takes up to <paramref name="count"/> of one stored item (a clone of the newest entry plus entries that stack with it).</summary>
 	internal Item Take(int type, int count)
 	{
+		if (InventoryTransactionGuard.IsBlocked(Main.LocalPlayer)) return new Item();
 		Item result = null;
 		for (int i = Stored.Count - 1; i >= 0 && (result == null || result.stack < count); i--)
 		{
@@ -109,9 +111,10 @@ public sealed class KeyringItem : ModItem
 		return result;
 	}
 
-	public override bool CanRightClick() => true;
+	public override bool CanRightClick() => !InventoryTransactionGuard.IsBlocked(Main.LocalPlayer);
 	public override void RightClick(Player player)
 	{
+		if (InventoryTransactionGuard.IsBlocked(player)) return;
 		if (!Main.mouseItem.IsAir)
 		{
 			if (!IsKey(Main.mouseItem)) { Main.NewText(Language.GetTextValue("Mods.DingDongBiomeHomes.Keyring.NotAKey"), new Color(244, 161, 118)); return; }
@@ -170,6 +173,7 @@ public sealed class KeyringPickup : GlobalItem
 	// Keys picked up while a ring is carried go straight into it.
 	public override bool OnPickup(Item item, Player player)
 	{
+		if (InventoryTransactionGuard.IsBlocked(player)) return true;
 		KeyringItem ring = KeyringItem.Find(player);
 		if (ring == null || !KeyringItem.IsKey(item) || item.ModItem is KeyringItem) return true;
 		int left = ring.Store(item);
@@ -197,6 +201,7 @@ public sealed class KeyringChestSupply : GlobalTile
 	{
 		if (Main.dedServ || type is not (TileID.Containers or TileID.Containers2) || !Chest.IsLocked(i, j)) return;
 		Player player = Main.LocalPlayer;
+		if (InventoryTransactionGuard.IsBlocked(player)) return;
 		KeyringItem ring = KeyringItem.Find(player);
 		if (ring == null) return;
 		int key = KeyFor(type, Main.tile[i, j].TileFrameX);

@@ -104,6 +104,7 @@ public sealed class UncraftRecipeCompatibility : ModSystem
 	}
 	private static void QuickUncraft(object provider, Item input, bool all)
 	{
+		if (InventoryTransactionGuard.IsBlocked(Main.LocalPlayer)) return;
 		var choices = (List<Recipe>)find.Invoke(provider, [input]);
 		if (choices.Count == 0) { Main.NewText(Language.GetTextValue("Mods.DingDongBiomeHomes.Uncraft.NoBasicRecipe")); return; }
 		object result = uncraft.Invoke(provider, [input, choices[0], all]);
@@ -123,6 +124,7 @@ public sealed class UncraftRecipeCompatibility : ModSystem
 	internal static bool TryBatch(Item input, out string reason)
 	{
 		reason = "";
+		if (InventoryTransactionGuard.IsBlocked(Main.LocalPlayer)) return false;
 		Recipe recipe = BasicRecipe(input);
 		if (recipe == null || input.favorited || input.stack < recipe.createItem.stack) return false;
 		object result = uncraft.Invoke(ModLoader.GetMod("LansUncraftItems"), [input, recipe, false]);

@@ -41,7 +41,7 @@ public sealed class InventoryTrashCompatibility : ModSystem
   hooks.Add(new ILHook(R19CompatibilitySystem.Method(frontend, "DrawUpdateAutoTrash"), il => { Clear(il); new ILCursor(il).Emit(OpCodes.Ret); }));
   hooks.Add(new ILHook(R19CompatibilitySystem.Method(auto, "ShouldItemBeTrashed"), il => {
    var c = new ILCursor(il); Instruction original = il.Body.Instructions[0];
-   c.Emit(OpCodes.Ldarg_1); c.EmitDelegate<Func<Item, bool>>(item => Main.LocalPlayer.GetModPlayer<AutoUncraftPlayer>().Eligible(item));
+   c.Emit(OpCodes.Ldarg_1); c.EmitDelegate<Func<Item, bool>>(item => InventoryTransactionGuard.IsBlocked(Main.LocalPlayer) || Main.LocalPlayer.GetModPlayer<AutoUncraftPlayer>().Eligible(item));
    c.Emit(OpCodes.Brfalse, original); c.Emit(OpCodes.Ldc_I4_0); c.Emit(OpCodes.Ret);
   }));
  }

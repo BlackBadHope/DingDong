@@ -31,8 +31,9 @@ internal static class AutoTrashSlot
  internal static void SetEnabled(Player player, bool value) => enabled.SetValue(State(player), value);
  internal static List<Item> Filters(Player player) => (List<Item>)filters.GetValue(State(player));
  internal static Item Item(Player player) => (Item)item.GetValue(State(player));
- internal static void SetItem(Player player, Item value) => item.SetValue(State(player), value);
+ internal static void SetItem(Player player, Item value) { if (!InventoryTransactionGuard.IsBlocked(player)) item.SetValue(State(player), value); }
  internal static bool Click(Player player) {
+  if (InventoryTransactionGuard.IsBlocked(player)) return false;
   if (Main.mouseItem.favorited) return false;
   var state = State(player); Item previous = Item(player);
   bool selling = (bool)sellInstead.Invoke(clientConfig, null);

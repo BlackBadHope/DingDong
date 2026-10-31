@@ -54,12 +54,13 @@ public sealed class AutoUncraftPlayer : ModPlayer
  }
  public override void PostUpdate()
  {
-  if (Main.dedServ || Player.whoAmI != Main.myPlayer || Main.gameMenu || Player.dead || !Enabled || Filters.Count == 0) return;
+  if (Main.dedServ || Player.whoAmI != Main.myPlayer || Main.gameMenu || Player.dead || !Enabled || Filters.Count == 0 || InventoryTransactionGuard.IsBlocked(Player)) return;
   if (++cooldown < 6) return;
   cooldown = 0; ProcessSlice();
  }
  internal int ProcessSlice()
  {
+  if (InventoryTransactionGuard.IsBlocked(Player)) return 0;
   // Native UncraftItem performs one atomic recipe batch and restores the inventory on failure.
   // Bound both calls and wall time; never drain an unbounded stack on the game thread.
   var timer = Stopwatch.StartNew(); int completed = 0;
