@@ -41,6 +41,16 @@ public sealed partial class FishingWaterWorldSystem
 				p.Message = "Sealing sea shores and beds"; SealOceanShores(stage, face); }, 0.2));
 			weight += 0.2;
 		}
+		// Owner, 31.10 ("the ocean is full of void"): on the Calamity side the sulphur sea drains into
+		// the expanded Abyss below and settles 130-320 rows under the sea level, leaving huge dry
+		// caverns with sea walls. Top the sea body back up to the sea level after the coast seal.
+		int coastSeal = tasks.FindIndex(p => p.Name == "DingDong shore seal coast");
+		if (coastSeal >= 0)
+		{
+			tasks.Insert(coastSeal + 1, new PassLegacy("DingDong sulphur sea refill", (p, _) => {
+				p.Message = "Refilling the sulphur sea"; RefillSulphurSeas(); }, 0.2));
+			weight += 0.2;
+		}
 	}
 
 	private static void SealOceanShores(string stage, bool face)

@@ -142,7 +142,12 @@ public sealed partial class OceanExpeditionWorldSystem
                         y < floor + FloorSandDepth(edge) ? (caves && p.CaveOpen(edge, y + 1, floor) ? TileID.Coralstone : TileID.Sand) :
                         caves ? CaveRock(p, edge, y, floor) : TileID.Stone;
                 }
-                else if (y >= p.SeaLevel) { t.LiquidType = LiquidID.Water; t.LiquidAmount = 255; carved++; }
+                else if (y >= p.SeaLevel)
+                {
+                    t.LiquidType = LiquidID.Water; t.LiquidAmount = 255; carved++;
+                    // Layout 4: the islet's background continues down to the floor (owner, 31.10).
+                    if (p.InGhost(edge, y)) t.WallType = p.GhostWall(edge, y);
+                }
             }
         }
         long orphans = 0, embedded = 0; string seamountContent = "none";
@@ -151,7 +156,7 @@ public sealed partial class OceanExpeditionWorldSystem
             orphans = ClearOrphanedObjects(p, admission);
             embedded = EmbedProviderStructures(p, admission);
             long skinned = SkinSeamounts(p, admission);
-            seamountContent = DecorateSeamounts(p, admission) + ",skin:" + skinned + "|caves=water:" + caveWater + "," + DecorateCaves(p, admission);
+            seamountContent = (p.IslandLayout >= 4 ? DecorateGhostStems(p, admission) : DecorateSeamounts(p, admission)) + ",skin:" + skinned + "|caves=water:" + caveWater + "," + DecorateCaves(p, admission);
         }
         // The basin floor now sits in the cavern layer. Natural caves right under
         // the floor band drain the sea when the world settles, so plug them with
@@ -315,6 +320,7 @@ public sealed partial class OceanExpeditionWorldSystem
         // Roadmap item 7: wrecks, ruins, coral gardens and kelp on the floor,
         // placed before the settle so the refill receipt covers them too.
         string seabed = DecorateSeabed(p, admission);
+        if (p.IslandLayout >= 4) seabed += "|" + DressOpenFloor(p, admission);
         Mod owner = ModContent.GetInstance<OceanExpeditionWorldSystem>().Mod;
         owner.Logger.Info("DINGDONG_OPEN_OCEAN_CONTENT|" + seabed);
         string settlement = SettleAndRefill(p, admission, owner);
@@ -623,7 +629,9 @@ public sealed partial class OceanExpeditionWorldSystem
                     if (x < 2 || x >= Main.maxTilesX - 2) continue;
                     int edge = p.Edge(x);
                     if (edge < 20 || edge >= p.Width || y >= p.Floor(edge)) continue;
-                    if (Open(x, y)) Rock(x, y);
+                    // Layout 4: a background column joins the structure to the floor instead of rock.
+                    if (p.IslandLayout >= 4) { if (Open(x, y)) Main.tile[x, y].WallType = p.GhostWall(edge, y); }
+                    else if (Open(x, y)) Rock(x, y);
                 }
             }
         }
@@ -762,6 +770,86 @@ public sealed partial class OceanExpeditionWorldSystem
         return $"veins:{veins},caches:{chests},lifeCrystals:{crystals},pots:{pots},coral:{coral}";
     }
     private const int CaveSealRows = OceanExpeditionLayout.CaveSeal + 2;
+
+    // Layout 4: hanging reef ledges inside each islet's wall cone, every 55-90 rows from under the
+    // keel to above the floor: coral stone with a sand skin, seaweed and coral on top, a coral torch,
+    // pots on some ledges and one depth-tiered cache per islet. Backed by the cone's walls, so a
+    // ledge reads as part of the reef, not a block hanging in the sea.
+    private static string DecorateGhostStems(OceanExpeditionLayout p, Admission admission)
+    {
+        OceanModDecor.Resolve();
+        int ledges = 0, chests = 0, pots = 0, plants = 0, lights = 0;
+        var random = new Random(p.Seed ^ 0x6057AE);
+        IsolatedGenRand.Run(p.Seed ^ 0x60577E, () =>
+        {
+            foreach (var island in p.Islands)
+            {
+                int centre = island.Edge, floor = p.Floor(centre), top = p.GhostTop(centre);
+                if (top >= floor - 90) continue;
+                bool cache = false; int n = 0;
+                for (int y = top + 40 + random.Next(20); y < floor - 45; y += 55 + random.Next(36), n++)
+                {
+                    int l = centre, r = centre;
+                    while (l > 21 && p.InGhost(l - 1, y)) l--;
+                    while (r < p.Width - 2 && p.InGhost(r + 1, y)) r++;
+                    int span = r - l;
+                    if (span < 40) continue;
+                    int len = (int)(span * (.28 + .27 * random.NextDouble()));
+                    int start = n % 2 == 0 ? l + 6 + random.Next(Math.Max(1, span / 6)) : r - 6 - len - random.Next(Math.Max(1, span / 6));
+                    var tops = new List<(int Edge, int Row)>();
+                    for (int e = start; e <= start + len; e++)
+                    {
+                        double t = (e - start) / (double)Math.Max(1, len);
+                        int row = y + (int)Math.Round(Math.Sin(e * .12 + n) * 1.5);
+                        int thick = Math.Max(1, (int)(Math.Sin(t * Math.PI) * (3 + 2 * Math.Abs(Math.Sin(e * .31)))));
+                        int x = p.X(e);
+                        bool ok = true;
+                        for (int k = -1; k <= thick && ok; k++) ok = p.InGhost(e, row + k) && admission.Allows(x, row + k);
+                        if (!ok) continue;
+                        for (int k = 0; k < thick; k++) Solid(x, row + k, k == 0 && thick > 1 ? TileID.Sand : TileID.Coralstone);
+                        tops.Add((e, row));
+                    }
+                    if (tops.Count < 12) continue;
+                    ledges++;
+                    foreach (var (e, row) in tops)
+                    {
+                        int x = p.X(e);
+                        if (Main.tile[x, row].TileType != TileID.Sand) continue;
+                        // Mod decor (Calamity corals, Spirit kelp and corals when installed), else vanilla.
+                        if (random.Next(3) > 0) plants += OceanModDecor.Dress(x, row, true, (row - p.SeaLevel) / (double)p.Depth, random);
+                        else if (random.Next(2) == 0) plants += Coral(x, row) ? 1 : 0;
+                    }
+                    var (le, lr) = tops[tops.Count / 3];
+                    int lx = p.X(le);
+                    if (!Main.tile[lx, lr - 1].HasTile)
+                    {
+                        WorldGen.PlaceTile(lx, lr - 1, TileID.Torches, mute: true, forced: true, style: TorchID.Coral);
+                        if (Main.tile[lx, lr - 1].HasTile && Main.tile[lx, lr - 1].TileType == TileID.Torches) lights++;
+                    }
+                    if (random.Next(2) == 0)
+                    {
+                        var (pe, pr) = tops[tops.Count * 2 / 3];
+                        int px = p.X(pe);
+                        if (!Main.tile[px, pr - 1].HasTile && WorldGen.PlacePot(px, pr - 1, 28, random.Next(4))) pots++;
+                    }
+                    // One cache per islet, on the ledge closest to mid-depth.
+                    if (!cache && y > top + (floor - top) / 3)
+                    {
+                        var (ce, cr) = tops[tops.Count / 2];
+                        int cx = p.X(ce);
+                        if (admission.Allows(new Rectangle(cx - 2, cr - 4, 5, 6)) && OceanContentKit.NoChestNear(cx, cr, 40))
+                        {
+                            int depth = cr - p.SeaLevel;
+                            PlaceCache(cx, cr, depth < 160 ? 1 : depth < 320 ? 2 : 3); chests++; cache = true;
+                        }
+                    }
+                    int x0 = Math.Min(p.X(tops[0].Edge), p.X(tops[^1].Edge)), x1 = Math.Max(p.X(tops[0].Edge), p.X(tops[^1].Edge));
+                    WorldGen.RangeFrame(x0 - 2, y - 14, x1 + 2, y + 8);
+                }
+            }
+        });
+        return $"ghostLedges:{ledges},ghostCaches:{chests},ghostPots:{pots},ghostPlants:{plants},ghostLights:{lights}";
+    }
 
     private static string DecorateSeamounts(OceanExpeditionLayout p, Admission admission)
     {

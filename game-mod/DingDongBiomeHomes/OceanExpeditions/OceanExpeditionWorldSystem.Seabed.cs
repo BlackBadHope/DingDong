@@ -82,6 +82,49 @@ public sealed partial class OceanExpeditionWorldSystem
         return $"wrecks={wrecks}/{wreckTarget}|ruins={ruins}/{ruinTarget}|coralGardens={gardens}/{gardenTarget}|kelpBeds={kelp}/{kelpTarget}|lootChests={chests}|plants={plants}|rejectedSites={rejected}|rejectReasons={string.Join(",", seabedRejects.Select(r => r.Key + ":" + r.Value))}|genRandIsolated={isolated}";
     }
 
+    // Layout 4: the whole open floor is dressed, not only the wreck/ruin/garden/kelp sites: up to two
+    // Calamity sunken ships on flat deep floor, vent fields in the deep, then a scatter along the floor
+    // (dense kelp and coral on the reef flat, sparse corals, anemones, piles and driftwood further out).
+    private static string DressOpenFloor(OceanExpeditionLayout p, Admission admission)
+    {
+        OceanModDecor.Resolve();
+        int placed = 0, ships = 0, vents = 0;
+        var random = new Random(p.Seed ^ 0x0DEC0A);
+        bool Free(int edge)
+        {
+            if (edge < 20 || edge >= p.Width) return false;
+            int x = p.X(edge), f = p.Floor(edge);
+            Tile above = Main.tile[x, f - 1], ground = Main.tile[x, f];
+            return !above.HasTile && above.LiquidAmount >= 200 && ground.HasTile && Main.tileSolid[ground.TileType] &&
+                admission.Allows(x, f - 1) && admission.Allows(x, f) && !p.IslandSolid(edge, f - 1);
+        }
+        bool isolated = IsolatedGenRand.Run(p.Seed ^ 0x0DEC0B, () =>
+        {
+            for (int tries = 0; ships < 2 && tries < 80; tries++)
+            {
+                int e = SeabedEdgeFrom + random.Next(Math.Max(1, (int)(p.Width * .62) - SeabedEdgeFrom)), f = p.Floor(e);
+                bool flat = true;
+                for (int d = -1; d < 16 && flat; d++) flat = Math.Abs(p.Floor(e + d) - f) <= 1 && Free(e + d);
+                if (!flat || !admission.Allows(new Rectangle(Math.Min(p.X(e), p.X(e + 15)) - 2, f - 12, 20, 14))) continue;
+                if (OceanModDecor.SunkenShip(Math.Min(p.X(e), p.X(e + 15)), f, random)) ships++;
+            }
+            for (int e = 300 + random.Next(200); e < (int)(p.Width * .78); e += 420 + random.Next(320))
+            {
+                if (!Free(e) || p.Floor(e) - p.SeaLevel < 300) continue;
+                vents += OceanModDecor.VentField(p.X(e), p.Floor(e), x => p.Floor(p.Edge(x)),
+                    (x, y) => admission.Allows(x, y) && p.Owns(p.Edge(x), y) && !p.IslandSolid(p.Edge(x), y), random);
+            }
+            for (int e = 60; e < p.Width - 30; e += 2 + random.Next(3))
+            {
+                if (!Free(e)) continue;
+                int f = p.Floor(e);
+                bool reef = p.Width - e < 720 && f - p.SeaLevel < 130;
+                placed += OceanModDecor.Dress(p.X(e), f, reef, (f - p.SeaLevel) / (double)p.Depth, random);
+            }
+        });
+        return $"floorDecor={placed}|sunkenShips={ships}|ventFields={vents}|{OceanModDecor.Inventory()}|decorIsolated={isolated}";
+    }
+
     private static int Spread(int from, int to, int index, int count, Random random)
     {
         int pitch = Math.Max(1, (to - from) / Math.Max(1, count));

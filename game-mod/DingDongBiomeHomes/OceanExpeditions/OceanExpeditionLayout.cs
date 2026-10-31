@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 
 namespace DingDongBiomeHomes.OceanExpeditions;
@@ -21,7 +22,13 @@ public sealed class OceanExpeditionLayout
     // Layout 3 (v0.3, owner 28.10): the sea floor falls from a coastal shelf down a
     // continental slope to an abyssal plain just above the Underworld, and every
     // islet is the peak of a seamount rooted on that floor instead of a hanging bowl.
-    public const int CurrentIslandLayout = 3;
+    // Layout 4 (owner, 31.10): "a hanging object is not illogical in Terraria when its background
+    // joins the background behind it". The islands of layout 3 stood on 430-tile stone stems like
+    // chimneys. Now an islet is solid only in its crown and a shallow keel; under it a cone of reef
+    // and cave WALLS (background) runs down to the floor, full of water, with hanging reef ledges
+    // that carry ocean content (seaweed, coral, pots, coral torches, a cache). The floor carries
+    // dunes and swells and a submerged knoll where the floor has room.
+    public const int CurrentIslandLayout = 4;
     public int WorldWidth { get; }
     public int WorldHeight { get; }
     public bool Left { get; }
@@ -110,7 +117,19 @@ public sealed class OceanExpeditionLayout
             if(harbor)radius=Math.Max(radius,Math.Clamp(Width/30,60,124));
             int crown = random.Next(16, 42);
             int keel = harbor ? random.Next(85, 125) : random.Next(90, 170) + (i % 2) * Depth / 20;
+            // Layout 4: the plain islets are small wooded isles; the random stream stays unchanged.
+            if (IslandLayout >= 4 && !harbor) radius = 44 + (int)(32 * Hash01(edge, 10));
             Islands.Add(new(edge, radius, crown, keel, harbor));
+        }
+    }
+    // Deterministic per-feature parameters without consuming the layout's random stream.
+    private double Hash01(int a, int b)
+    {
+        unchecked
+        {
+            uint h = (uint)(a * 73856093 ^ b * 19349663 ^ Seed * 83492791);
+            h = (h ^ (h >> 13)) * 1274126177; h ^= h >> 16;
+            return (h & 0xFFFF) / 65535.0;
         }
     }
     public int X(int edge) => Left ? edge : WorldWidth - 1 - edge;
@@ -135,8 +154,26 @@ public sealed class OceanExpeditionLayout
             depth = shelf + (open - shelf) * s * s * (3 - 2 * s);
         }
         else depth = open;
+        double relief;
+        if (IslandLayout >= 4)
+        {
+            // Coast after Spirit Mod's stepped ocean (idea, MIT): a first slope from the beach to a reef
+            // flat ~70-85 tiles deep, a 290-tile flat for kelp and coral, then a drop to the open sea.
+            double c = Width - edge, reef = 72 + 10 * Noise(edge / 90.0, 2.2, 47);
+            if (c < 140) depth = reef * Math.Pow(c / 140, 1.4);
+            else if (c < 430) depth = reef + 14 * (c - 140) / 290 + (Noise(edge / 35.0, 4.4, 49) - .5) * 6;
+            else if (c < 720)
+            {
+                double s = (c - 430) / 290; s = s * s * (3 - 2 * s);
+                depth = reef + 14 + (open - reef - 14) * s;
+            }
+            // Dunes and swells (smooth value noise, under 10 tiles of rise per 60), fading out on
+            // the shelf so the beach stays smooth.
+            double fade = t < .80 ? 1 : Math.Max(0, (.92 - t) / .12);
+            relief = ((Noise(edge / 420.0, 1.3, 41) - .5) * 12 + (Noise(edge / 1500.0, 7.9, 43) - .5) * 48) * fade + Math.Sin(edge * .21) * .6;
+        }
         // Broad, gentle swells: wrecks, ruins and gardens need stretches with under 4 tiles of rise.
-        double relief = Math.Sin(edge * .019) * 2;
+        else relief = Math.Sin(edge * .019) * 2;
         return Math.Clamp(SeaLevel + (int)(depth + relief), SeaLevel + 4, Bottom - CrustDepth - CaveSeal);
     }
 
@@ -308,6 +345,55 @@ public sealed class OceanExpeditionLayout
         double ledges = Math.Sin(depth * .021 + i.Edge * .37) * 6 + Math.Sin(depth * .0047 + i.Edge) * 16;
         return Math.Max(0, shelf + slope + apron + ledges * Math.Min(1, depth / 200));
     }
+    // Layout 4 flank: a reef flat in the first ~18 tiles, then a concave cone (steep near the
+    // surface, flaring towards the floor) to a bounded foot; one side is steeper, with terraces.
+    // Feet sized so the floor between islets keeps the flat beds of layout 3 (scratch model of the
+    // owner's seed: wrecks 5/5, ruins 3/3, gardens 12/15, kelp 8/10; the first, wider cones gave 2/5 ruins 1/3 in x10).
+    private double Foot(OceanIslet i) => (i.Harbor ? 110 : 65) + 30 * Hash01(i.Edge, 1);
+    private double FlankReach4(OceanIslet i, double depth, double floorDepth, int side)
+    {
+        double u = Math.Min(1, depth / Math.Max(1, floorDepth));
+        double lean = .80 + .40 * Hash01(i.Edge, 2), w = Foot(i) * (side > 0 ? lean : 2 - lean);
+        double terraces = Math.Sin(depth * .045 + i.Edge * .37) * 5 + Math.Sin(depth * .011 + i.Edge) * 8;
+        return Math.Max(0, Math.Min(depth, 18) * 1.4 + w * Math.Pow(u, 1.4) + terraces * Math.Min(1, depth / 120));
+    }
+    // Layout 4: a submerged knoll in every stretch of floor wide enough to keep flat bed on both
+    // sides of it (before the first islet, between islets, before the shelf).
+    private readonly record struct OceanKnoll(int Edge, double Share, int Radius, double W);
+    private List<OceanKnoll> knolls;
+    private List<OceanKnoll> Knolls()
+    {
+        if (knolls != null) return knolls;
+        var list = new List<OceanKnoll>();
+        int from = 300;
+        var spans = new List<(int A, int B)>();
+        foreach (var i in Islands.OrderBy(i => i.Edge))
+        {
+            int reach = (int)(i.Radius + 25 + Foot(i) * 1.2);
+            spans.Add((from, i.Edge - reach)); from = i.Edge + reach;
+        }
+        spans.Add((from, (int)(Width * .78)));
+        foreach (var (a, b) in spans)
+        {
+            double radius = 22 + 18 * Hash01(a, 5), w = 55 + 25 * Hash01(a, 6), extent = radius + w;
+            if (b - a < 2 * extent + 260) continue;
+            int edge = (int)((a + b) / 2 + (b - a - 2 * extent - 260) * (Hash01(a, 3) - .5));
+            list.Add(new(edge, .50 + .22 * Hash01(a, 4), (int)radius, w));
+        }
+        return knolls = list;
+    }
+    private int KnollTop(OceanKnoll n, int edge, int floor)
+    {
+        int span = floor - SeaLevel, top = (int)(span * n.Share), dist = Math.Abs(edge - n.Edge);
+        if (dist <= n.Radius) return SeaLevel + top + (int)Math.Round(Math.Sin(edge * .21) * 2);
+        int need = dist - n.Radius, rest = span - top;
+        for (int dd = 0; dd <= rest; dd += 4)
+        {
+            double u = Math.Min(1, dd / (double)Math.Max(1, rest));
+            if (n.W * Math.Pow(u, 1.2) + Math.Sin(dd * .05 + n.Edge) * 4 >= need) return SeaLevel + top + dd;
+        }
+        return int.MaxValue;
+    }
     private OceanIsletColumn SeamountColumn(int edge)
     {
         var best = new OceanIsletColumn(int.MaxValue, int.MinValue, 1, false);
@@ -325,25 +411,101 @@ public sealed class OceanExpeditionLayout
                 // Solve FlankReach(depth) = dist - radius (monotonic in depth).
                 // Shallowest depth whose reach covers the distance (the profile has ledges, so scan).
                 double need = dist - i.Radius; int span = floor - SeaLevel, found = -1;
-                for (int dd = 0; dd <= span; dd += 4) if (FlankReach(i, dd, span) >= need) { found = dd; break; }
+                int side = edge > i.Edge ? 1 : -1;
+                for (int dd = 0; dd <= span; dd += 4)
+                    if ((IslandLayout >= 4 ? FlankReach4(i, dd, span, side) : FlankReach(i, dd, span)) >= need) { found = dd; break; }
                 if (found < 0) continue;
                 top = SeaLevel + found + (int)Math.Round(Math.Sin(edge * .052 + i.Edge) * 3 + Math.Sin(edge * .013) * 5);
             }
             if (top >= floor) continue;
             if (top < best.Top) best = new(top, floor + 24, d, i.Harbor);
         }
+        if (IslandLayout >= 4)
+            foreach (var n in Knolls())
+            {
+                // Shore 1: the knoll is all flank (skinned rock), never beach or crown.
+                int top = KnollTop(n, edge, floor);
+                if (top < floor && top < best.Top) best = new(top, floor + 24, 1, false);
+            }
         return best;
     }
     private OceanIsletColumn[] seamountCache;
+    // Layout 4 solid islet: the crown and a shallow keel lens; submerged knolls stay solid floor hills.
+    private int Keel4(OceanIslet i) => (i.Harbor ? 70 : 48) + (int)(20 * Hash01(i.Edge, 11));
+    private OceanIsletColumn LensColumn(int edge)
+    {
+        var best = new OceanIsletColumn(int.MaxValue, int.MinValue, 1, false);
+        int floor = Floor(edge);
+        foreach (var i in Islands)
+        {
+            double d = Math.Abs(edge - i.Edge) / (double)i.Radius;
+            if (d >= 1) continue;
+            int top = SeaLevel - (int)(i.Crown * Math.Pow(1 - d * d, .65)) +
+                (int)Math.Round(Math.Sin(edge * .23 + (Seed & 63)) * 1.5 + Math.Sin(edge * .071 + i.Edge) * 2.5);
+            int bottom = Math.Min(floor - 1, SeaLevel + (int)(Keel4(i) * Math.Pow(1 - d * d, .55)) + (int)Math.Round(Math.Sin(edge * .09 + i.Edge) * 3));
+            if (top < best.Top) best = new(top, Math.Max(top, bottom), d, i.Harbor);
+        }
+        foreach (var n in Knolls())
+        {
+            int top = KnollTop(n, edge, floor);
+            if (top < floor && top < best.Top) best = new(top, floor + 24, 1, false);
+        }
+        return best;
+    }
+    // Layout 4: first row of the wall cone under the islets (int.MaxValue where there is none).
+    private int[] ghostTops;
+    public int GhostTop(int edge)
+    {
+        if (IslandLayout < 4) return int.MaxValue;
+        if (ghostTops == null)
+        {
+            var tops = new int[Width];
+            for (int e = 0; e < Width; e++) tops[e] = ComputeGhostTop(e);
+            ghostTops = tops;
+        }
+        return edge < 0 || edge >= Width ? int.MaxValue : ghostTops[edge];
+    }
+    private int ComputeGhostTop(int edge)
+    {
+        int floor = Floor(edge), span = floor - SeaLevel, best = int.MaxValue;
+        foreach (var i in Islands)
+        {
+            int dist = Math.Abs(edge - i.Edge), top;
+            if (dist < i.Radius)
+            {
+                double d = dist / (double)i.Radius;
+                top = SeaLevel + (int)(Keel4(i) * Math.Pow(1 - d * d, .55)) + (int)Math.Round(Math.Sin(edge * .09 + i.Edge) * 3) + 1;
+            }
+            else
+            {
+                int need = dist - i.Radius, side = edge > i.Edge ? 1 : -1, found = -1;
+                for (int dd = 0; dd <= span; dd += 2) if (FlankReach4(i, dd, span, side) >= need) { found = dd; break; }
+                if (found < 0) continue;
+                top = SeaLevel + found + (int)Math.Round(Math.Sin(edge * .052 + i.Edge) * 3);
+            }
+            best = Math.Min(best, Math.Max(SeaLevel, top));
+        }
+        return best < floor ? best : int.MaxValue;
+    }
+    /// <summary>Layout 4: open water backed by walls under an islet, down to the floor.</summary>
+    public bool InGhost(int edge, int y) => IslandLayout >= 4 && y >= GhostTop(edge) && y < Floor(edge) && !IslandSolid(edge, y);
+    /// <summary>Background of the wall cone: hardened sand near the surface, reef, then cave rock.</summary>
+    public ushort GhostWall(int edge, int y)
+    {
+        int depth = y - SeaLevel; double m = Fbm(edge / 45.0, y / 45.0, 61);
+        if (depth < 90 + m * 40) return Terraria.ID.WallID.HardenedSand;
+        if (depth < 330 + m * 60) return Terraria.ID.WallID.ReefWall;
+        return m < .5 ? Terraria.ID.WallID.RocksUnsafe1 : Terraria.ID.WallID.RocksUnsafe2;
+    }
     public OceanIsletColumn IslandColumn(int edge)
     {
         if (IslandLayout >= 3)
         {
             // Zone queries run at play time too; the profile is fixed per world, so cache it.
-            if (edge < 0 || edge >= Width) return SeamountColumn(edge);
+            if (edge < 0 || edge >= Width) return IslandLayout >= 4 ? LensColumn(edge) : SeamountColumn(edge);
             seamountCache ??= new OceanIsletColumn[Width];
             ref OceanIsletColumn cached = ref seamountCache[edge];
-            if (cached.Top == 0 && cached.Bottom == 0) cached = SeamountColumn(edge);
+            if (cached.Top == 0 && cached.Bottom == 0) cached = IslandLayout >= 4 ? LensColumn(edge) : SeamountColumn(edge);
             return cached;
         }
         foreach (var i in Islands)
