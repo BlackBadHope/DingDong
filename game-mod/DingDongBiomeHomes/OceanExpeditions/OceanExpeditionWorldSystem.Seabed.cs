@@ -114,7 +114,7 @@ public sealed partial class OceanExpeditionWorldSystem
                 vents += OceanModDecor.VentField(p.X(e), p.Floor(e), x => p.Floor(p.Edge(x)),
                     (x, y) => admission.Allows(x, y) && p.Owns(p.Edge(x), y) && !p.IslandSolid(p.Edge(x), y), random);
             }
-            for (int e = 60; e < p.Width - 30; e += 2 + random.Next(3))
+            for (int e = 60; e < p.Width - 30; e += 1 + random.Next(2))
             {
                 if (!Free(e)) continue;
                 int f = p.Floor(e);

@@ -38,9 +38,14 @@ internal sealed class NativeTerrainPalette
 	internal Color At(bool active, ushort type, ushort wall, byte liquid, int liquidType, int y)
 	{
 		if (active) return type < tiles.Length ? tiles[type] : Color.Magenta;
-		if (liquid > 0) return liquidType switch {
-			1 => new Color(245, 75, 20), 2 => new Color(195, 135, 25),
-			3 => new Color(165, 115, 220), _ => new Color(25, 75, 180) };
+		if (liquid > 0)
+		{
+			Color fluid = liquidType switch {
+				1 => new Color(245, 75, 20), 2 => new Color(195, 135, 25),
+				3 => new Color(165, 115, 220), _ => new Color(25, 75, 180) };
+			// S34: a background wall behind the liquid shows through, as it does in game.
+			return wall != Terraria.ID.WallID.None && wall < walls.Length ? Color.Lerp(fluid, walls[wall], 0.35f) : fluid;
+		}
 		if (wall != Terraria.ID.WallID.None) return wall < walls.Length ? walls[wall] * 0.45f : Color.Magenta;
 		return y < Main.worldSurface ? new Color(100, 150, 235) : new Color(18, 23, 27);
 	}

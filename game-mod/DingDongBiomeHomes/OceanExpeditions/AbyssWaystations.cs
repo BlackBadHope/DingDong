@@ -78,6 +78,7 @@ internal static class AbyssWaystations
         var fail = new int[(int)Reject.Chest + 1];
         var foreign = new ForeignChanges();
         var caverns = new AbyssCaverns.Receipt();
+        var tunnels = new AbyssTunnels.Receipt();
         bool isolated = IsolatedGenRand.Run(seed, () =>
         {
             var random = new Random(seed);
@@ -112,8 +113,10 @@ internal static class AbyssWaystations
             // V03 28.10: side caverns along the shafts (separate stream: the
             // station/debris sequence above stays independent of it).
             AbyssCaverns.Generate(left, top, routeBottom, crossings, new Random(seed ^ 0x0CA7E5), caverns);
+            // S34: Infernum-style tunnels, worms, a pit, crystal grottos and vents (separate stream).
+            AbyssTunnels.Generate(left, top, routeBottom, crossings, seed, new Random(seed ^ 0x7E117E), tunnels);
         });
-        mod.Logger.Info($"DINGDONG_ABYSS_WAYSTATIONS|side={(left ? "left" : "right")}|top={top}|bottom={bottom}|floors={totalFloors}|stations={stations}/{totalFloors * StationsPerFloor}|stationsOnSite={onSite}|lootChests={chests}|debris={rubble}|rejectedStations={rejected}|stationProbeFail=route:{fail[(int)Reject.Route]},shaft:{fail[(int)Reject.Shaft]},slope:{fail[(int)Reject.Slope]},bed:{fail[(int)Reject.Bed]},chest:{fail[(int)Reject.Chest]}|genRandIsolated={isolated}|foreignTilesChanged={foreign.Tiles}|foreignWallsChanged={foreign.Walls}|cellsWritten={foreign.Written}|wallsKept={foreign.WallsKept}|{caverns}");
+        mod.Logger.Info($"DINGDONG_ABYSS_WAYSTATIONS|side={(left ? "left" : "right")}|top={top}|bottom={bottom}|floors={totalFloors}|stations={stations}/{totalFloors * StationsPerFloor}|stationsOnSite={onSite}|lootChests={chests}|debris={rubble}|rejectedStations={rejected}|stationProbeFail=route:{fail[(int)Reject.Route]},shaft:{fail[(int)Reject.Shaft]},slope:{fail[(int)Reject.Slope]},bed:{fail[(int)Reject.Bed]},chest:{fail[(int)Reject.Chest]}|genRandIsolated={isolated}|foreignTilesChanged={foreign.Tiles}|foreignWallsChanged={foreign.Walls}|cellsWritten={foreign.Written}|wallsKept={foreign.WallsKept}|{caverns}|{tunnels}");
     }
 
     private static ushort Find(string name) =>

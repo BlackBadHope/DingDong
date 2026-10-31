@@ -28,6 +28,10 @@ internal static class NativeGeometryQualityProbe
 		int top = Math.Max(0, (int)Main.worldSurface - 800);
 		NativeTerrainRaster.ExportRegion(Path.Combine(directory, "coast-left.bmp"), new(0, top, 2400, 1800));
 		NativeTerrainRaster.ExportRegion(Path.Combine(directory, "coast-right.bmp"), new(Main.maxTilesX - 2400, top, 2400, 1800));
+		// S34: both seas from the surface to the Underworld, one tile per 4x4 block.
+		int deepTop = Math.Max(0, (int)Main.worldSurface - 600), deepHeight = Math.Max(1, Main.maxTilesY - 150 - deepTop);
+		NativeTerrainRaster.ExportRegion(Path.Combine(directory, "sea-left-full.bmp"), new(0, deepTop, 4800, deepHeight), 4);
+		NativeTerrainRaster.ExportRegion(Path.Combine(directory, "sea-right-full.bmp"), new(Main.maxTilesX - 4800, deepTop, 4800, deepHeight), 4);
 		NativeTerrainRaster.ExportRegion(Path.Combine(directory, "underworld.bmp"), new(Main.maxTilesX / 2 - 900, Main.maxTilesY - 1000, 1800, 1000));
 		NativeTerrainRaster.ExportRegion(Path.Combine(directory, "underworld-full-width.bmp"), new(0, Main.maxTilesY - 1000, Main.maxTilesX, 1000), 4);
 		var targets = new Dictionary<int, string>();
